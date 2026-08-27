@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ca6xso0mr3bqf"]
+
+[ext_resource type="Script" uid="uid://chd8h2cvm5pqg" path="res://core/scripts/red_button.gd" id="1_egecy"]
+[ext_resource type="Texture2D" uid="uid://b1rnykpteucrn" path="res://core/assets/sprites/set_objects/red_button.png" id="1_ka1ho"]
+[ext_resource type="Texture2D" uid="uid://cf8ybyj0bfqp0" path="res://core/assets/sprites/set_objects/red_button_base.png" id="3_v2i88"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
+size = Vector2(64, 32)
+
+[node name="red_button" type="Area2D" unique_id=513512432]
+collision_layer = 16
+collision_mask = 128
+script = ExtResource("1_egecy")
+metadata/_edit_group_ = true
+
+[node name="RedButton" type="Sprite2D" parent="." unique_id=2059014585]
+texture = ExtResource("1_ka1ho")
+
+[node name="RedButtonBase" type="Sprite2D" parent="." unique_id=1284456205]
+position = Vector2(0, -12)
+texture = ExtResource("3_v2i88")
+
+[node name="RedButtonShape" type="CollisionShape2D" parent="." unique_id=1919713858]
+shape = SubResource("RectangleShape2D_k6ly5")

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c6p7ipae3fmnf"]
+
+[ext_resource type="Texture2D" uid="uid://b8oqdbfof4qtc" path="res://core/assets/sprites/set_objects/floor.png" id="1_v5d4d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5d4d"]
+size = Vector2(718, 64)
+
+[node name="Floor" type="StaticBody2D" unique_id=1662461556]
+collision_layer = 51
+collision_mask = 4
+
+[node name="FloorSprite" type="Sprite2D" parent="." unique_id=811281911]
+texture = ExtResource("1_v5d4d")
+
+[node name="FloorShape" type="CollisionShape2D" parent="." unique_id=1049414457]
+shape = SubResource("RectangleShape2D_v5d4d")

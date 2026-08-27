@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://5m7ldlu1mtar"]
+
+[ext_resource type="Texture2D" uid="uid://cgvkqfem0j63v" path="res://core/assets/sprites/set_objects/press.png" id="1_0dhym"]
+[ext_resource type="Script" uid="uid://c3jkckqebx8nw" path="res://core/scripts/press.gd" id="1_ed25y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
+size = Vector2(720, 64)
+
+[node name="Press" type="CharacterBody2D" unique_id=287696895]
+collision_layer = 175
+collision_mask = 16
+script = ExtResource("1_ed25y")
+speed = 5.0
+
+[node name="PressSprite" type="Sprite2D" parent="." unique_id=708973215]
+position = Vector2(0, -608)
+texture = ExtResource("1_0dhym")
+
+[node name="PressShape" type="CollisionShape2D" parent="." unique_id=2102714880]
+shape = SubResource("RectangleShape2D_k6ly5")

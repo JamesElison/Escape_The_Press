@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://fqrebvpju1u5"]
+
+[ext_resource type="Script" uid="uid://cvyc37uxo524d" path="res://core/scripts/player.gd" id="1_m15x6"]
+[ext_resource type="Texture2D" uid="uid://cgh6bk4jxglyl" path="res://core/assets/sprites/characters/player.png" id="1_xvqjg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
+size = Vector2(24, 44)
+
+[node name="Player" type="CharacterBody2D" unique_id=1101960694]
+scale = Vector2(0.5, 0.5)
+collision_layer = 52
+script = ExtResource("1_m15x6")
+
+[node name="PlayerSprite" type="Sprite2D" parent="." unique_id=1451931167]
+texture = ExtResource("1_xvqjg")
+
+[node name="PlayerShape" type="CollisionPolygon2D" parent="." unique_id=853550979]
+polygon = PackedVector2Array(-3, -31, 14, -22, 29, -5, 33, 15, 64, 15, 64, 74, -64, 74, -64, 12, -57, -9, -40, -26, -28, -31)
+
+[node name="PlayerMarker" type="Marker2D" parent="." unique_id=1818940908]
+position = Vector2(-16, -82)
+
+[node name="PlayerHealthArea" type="Area2D" parent="." unique_id=697782315]
+collision_layer = 48
+
+[node name="PlayerHealthShape" type="CollisionShape2D" parent="PlayerHealthArea" unique_id=388947496]
+position = Vector2(-16, -52)
+shape = SubResource("RectangleShape2D_k6ly5")
+
+[connection signal="body_entered" from="PlayerHealthArea" to="." method="_on_player_health_area_body_entered"]

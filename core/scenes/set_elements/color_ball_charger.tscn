@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bc76vs8biuqa4"]
+
+[ext_resource type="Texture2D" uid="uid://dxtaex4h2mfn0" path="res://core/assets/sprites/set_objects/black_ball.png" id="1_q15lb"]
+[ext_resource type="Script" uid="uid://bflucxi1kyu32" path="res://core/scripts/color_ball_charger.gd" id="1_ri57j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
+radius = 8.0
+
+[node name="ColorBallCharger" type="Node2D" unique_id=1770069668]
+script = ExtResource("1_ri57j")
+
+[node name="ColorBallSprite" type="Sprite2D" parent="." unique_id=1517358473]
+texture = ExtResource("1_q15lb")
+
+[node name="ColorBallChargerArea" type="Area2D" parent="." unique_id=1729678833]
+collision_layer = 256
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="ColorBallChargerArea" unique_id=1301424837]
+shape = SubResource("CircleShape2D_k6ly5")

@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://ndoyc0hgjig1"]
+
+[ext_resource type="Texture2D" uid="uid://dxtaex4h2mfn0" path="res://core/assets/sprites/set_objects/black_ball.png" id="1_egykk"]
+[ext_resource type="Script" uid="uid://edkdof13b2ot" path="res://core/scripts/color_ball.gd" id="1_f3e34"]
+[ext_resource type="Texture2D" uid="uid://dg4drtlwq1kqw" path="res://core/assets/sprites/set_objects/explosionSmoke1.png" id="3_vdjw8"]
+[ext_resource type="Texture2D" uid="uid://brgm4eqpapnic" path="res://core/assets/sprites/set_objects/explosionSmoke2.png" id="4_sxua6"]
+[ext_resource type="Texture2D" uid="uid://hck4kj5ui2f5" path="res://core/assets/sprites/set_objects/explosionSmoke3.png" id="5_0wy4r"]
+[ext_resource type="Texture2D" uid="uid://baqkj4cxlqm7l" path="res://core/assets/sprites/set_objects/explosionSmoke4.png" id="6_0ifyx"]
+[ext_resource type="Texture2D" uid="uid://1rfot4ekol78" path="res://core/assets/sprites/set_objects/explosionSmoke5.png" id="7_1ttvv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_7qhql"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorBallSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_egykk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorBallSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorBallSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6y4yw"]
+resource_name = "explode"
+length = 0.42
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorBallSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_vdjw8"), ExtResource("4_sxua6"), ExtResource("5_0wy4r"), ExtResource("6_0ifyx"), ExtResource("7_1ttvv")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorBallSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorBallSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.36666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3oili"]
+_data = {
+&"RESET": SubResource("Animation_7qhql"),
+&"explode": SubResource("Animation_6y4yw")
+}
+
+[node name="ColorBall" type="CharacterBody2D" unique_id=548306013]
+collision_layer = 55
+collision_mask = 2
+script = ExtResource("1_f3e34")
+
+[node name="ColorBallSprite" type="Sprite2D" parent="." unique_id=321671957]
+texture = ExtResource("1_egykk")
+
+[node name="ColorBallShape" type="CollisionShape2D" parent="." unique_id=1545348906]
+visible = false
+shape = SubResource("CircleShape2D_k6ly5")
+
+[node name="ColorBallAnim" type="AnimationPlayer" parent="." unique_id=1091631391]
+libraries/ = SubResource("AnimationLibrary_3oili")
