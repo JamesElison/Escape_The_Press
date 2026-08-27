@@ -6,6 +6,7 @@ const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 var affected_block: bool = false: set = set_affected_block
 var droped_block: bool = false: set = set_droped_block
 var block_color = 0: set = set_block_color
+var has_landed: bool = false # Impede que o impacto no chão rode múltiplas vezes
 
 # Variável para guardar a posição do bloco logo antes de ele cair
 var spawn_position: Vector2
@@ -28,6 +29,23 @@ var block_colors = [
 func _ready() -> void:
 	var random_index = randi() % block_colors.size()
 	self.block_color = random_index
+	
+	# Configura o RigidBody2D para monitorar colisões físicas
+	contact_monitor = true
+	max_contacts_reported = 4
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body: Node) -> void:
+	# Só processa o impacto no chão se o bloco já tiver sido solto (droped_block) e ainda não tiver pousado
+	if droped_block and not has_landed and body.name == "Floor":
+		has_landed = true
+		
+		# Aplica o impacto desejado
+		affected_block = true
+		
+		# Opcional: destrói o bloco logo após o impacto no chão
+		# destroy_with_delay()
+
 
 func play_impact_animation() -> void:
 	if block_anim:
@@ -97,9 +115,3 @@ func set_block_color(val) -> void:
 
 func _on_block_timer_timeout() -> void:
 	queue_free()
-
-
-func _on_body_entered(body: Node) -> void:
-	if body.name == "Floor":
-		play_impact_animation()
-		EventBus.camera_shake_requested.emit(40.0, 0.2)

@@ -65,5 +65,4 @@ wait_time = 5.0
 root_node = NodePath("../BlockSprite")
 libraries/ = SubResource("AnimationLibrary_irl8d")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="BlockTimer" to="." method="_on_block_timer_timeout"]
