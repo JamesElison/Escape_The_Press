@@ -27,6 +27,12 @@ var block_colors = [
 	#"res://core/assets/sprites/set_objects/white_block.png"
 ]
 
+func set_block_color(val) -> void:
+	block_color = val
+	# Garante que só carrega a textura se o nó de sprite já tiver sido carregado pelo @onready
+	if is_node_ready() and block_sprite and val >= 0 and val < block_colors.size():
+		block_sprite.texture = load(block_colors[val])
+
 func _ready() -> void:
 	var random_index = randi() % block_colors.size()
 	self.block_color = random_index
@@ -145,11 +151,6 @@ func contaminate_neighbors() -> void:
 				if collider.block_color == self.block_color and not collider.get("is_being_destroyed"):
 					# Aplica um pequeno delay (ex: 0.1s) para dar o efeito visual em cadeia
 					get_tree().create_timer(0.1).timeout.connect(collider.destroy_with_delay)
-
-func set_block_color(val) -> void:
-	block_color = val
-	if block_sprite and val >= 0 and val < block_colors.size():
-		block_sprite.texture = load(block_colors[val])
 
 func _on_block_timer_timeout() -> void:
 	queue_free()
