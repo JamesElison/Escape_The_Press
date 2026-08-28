@@ -7,6 +7,7 @@ var affected_block: bool = false: set = set_affected_block
 var droped_block: bool = false: set = set_droped_block
 var block_color = 0: set = set_block_color
 var has_landed: bool = false # Impede que o impacto no chão rode múltiplas vezes
+var is_being_destroyed: bool = false
 
 # Variável para guardar a posição do bloco logo antes de ele cair
 var spawn_position: Vector2
@@ -104,9 +105,46 @@ func spawn_replacement_block() -> void:
 		parent_node.call_deferred("add_child", new_block)
 
 func destroy_with_delay() -> void:
+	if is_being_destroyed:
+		return
+	is_being_destroyed = true
+	
 	play_impact_animation()
+	
+	# Dispara a contaminação para os blocos vizinhos ANTES de sumir
+	contaminate_neighbors()
+	
 	await get_tree().create_timer(0.3).timeout
 	queue_free()
+
+# Função que procura blocos adjacentes da mesma cor
+func contaminate_neighbors() -> void:
+	var space_state = get_world_2d().direct_space_state
+	
+	# Checa nas 4 direções cardeais (Cima, Baixo, Esquerda, Direita)
+	# Ajuste o offset (32.0) conforme o tamanho dos seus sprites/collision shapes
+	var check_offsets = [
+		Vector2.UP * 64.0,
+		Vector2.DOWN * 64.0,
+		Vector2.LEFT * 64.0,
+		Vector2.RIGHT * 64.0
+	]
+	
+	for offset in check_offsets:
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = global_position + offset
+		query.collide_with_bodies = true
+		
+		var results = space_state.intersect_point(query)
+		for result in results:
+			var collider = result.collider
+			
+			# Se o objeto encontrado for outro bloco válido
+			if collider is RigidBody2D and collider != self and "block_color" in collider:
+				# Checa se tem a mesma cor e se ainda não está sendo destruído
+				if collider.block_color == self.block_color and not collider.get("is_being_destroyed"):
+					# Aplica um pequeno delay (ex: 0.1s) para dar o efeito visual em cadeia
+					get_tree().create_timer(0.1).timeout.connect(collider.destroy_with_delay)
 
 func set_block_color(val) -> void:
 	block_color = val
