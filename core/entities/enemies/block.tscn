@@ -43,13 +43,9 @@ _data = {
 &"affected": SubResource("Animation_204ll")
 }
 
-[node name="Block" type="RigidBody2D" unique_id=326738027]
+[node name="Block" type="AnimatableBody2D" unique_id=1007953375]
 collision_layer = 119
 collision_mask = 32
-mass = 0.001
-gravity_scale = 0.0
-can_sleep = false
-lock_rotation = true
 script = ExtResource("1_nenra")
 
 [node name="BlockSprite" type="Sprite2D" parent="." unique_id=6446511]
