@@ -54,7 +54,7 @@ func moving_charger_ball() -> void:
 	var new_ball = pre_charger_ball.instantiate()
 	
 	# Sorteia a cor para a nova bola que entra na fila
-	new_ball.color_ball = randi() % 8
+	new_ball.color_ball = randi() % 6
 	
 	get_parent().add_child(new_ball)
 	new_ball.global_position = markers[0].global_position

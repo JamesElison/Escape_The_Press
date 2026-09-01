@@ -12,4 +12,4 @@ func reset_game_data() -> void:
 # Incrementa a dificuldade para o próximo nível
 func advance_to_next_level() -> void:
 	current_level += 1
-	press_speed += 1.5
+	press_speed += 1.2

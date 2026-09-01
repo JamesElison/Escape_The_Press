@@ -22,13 +22,13 @@ var color_balls = [
 
 @export var color_ball = 0: set = set_color_ball
 
+func _ready() -> void:
+	set_color_ball(color_ball)
+
 func set_color_ball(val) -> void:
 	color_ball = val
 	if color_ball_sprite and val >= 0 and val < color_balls.size():
 		color_ball_sprite.texture = load(color_balls[val])
-
-func _ready() -> void:
-	set_color_ball(color_ball)
 
 func _physics_process(delta: float) -> void:
 	if is_exploding:
@@ -129,10 +129,12 @@ func spawn_block_on_press(press_node: Node2D, impact_position: Vector2) -> void:
 	# Garante que o novo bloco faça parte do grupo "blocks"
 	new_block.add_to_group("blocks")
 
+	# 1. Adiciona o nó na árvore primeiro (dispara o _ready do bloco)
+	container.add_child(new_block)
+
+	# 2. Atribui a cor da bola DEPOIS (sobrescrevendo o sorteio do _ready do bloco)
 	if "block_color" in new_block:
 		new_block.block_color = self.color_ball
-
-	container.add_child(new_block)
 
 	if press_node.has_method("add_collision_exception_with"):
 		press_node.add_collision_exception_with(new_block)
