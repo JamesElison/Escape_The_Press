@@ -11,16 +11,30 @@ extends Node2D
 var level_cleared: bool = false
 
 func _ready() -> void:
-	# Inicia o timer para ativar a prensa
+	level_cleared = false
+
+	# 1. Ajusta o speed da prensa
+	if press:
+		press.speed = GameManager.press_speed
+
+	# 2. Esconde o retângulo do menu e exibe a mensagem no HUD
+	if HUD and HUD.has_method("show_level_start"):
+		HUD.show_level_start(GameManager.current_level)
+
+	# 3. Inicia o timer da prensa
 	if level_start_timer:
 		level_start_timer.timeout.connect(_on_level_start_timer_timeout)
 		level_start_timer.start()
+
+	# 4. Toca a música da fase
+	if level_music:
+		level_music.play()
 
 func _process(_delta: float) -> void:
 	if level_cleared:
 		return
 
-	# Verifica se não restam blocos no grupo "blocks"
+	# Checa se todos os blocos foram destruídos
 	var remaining_blocks = get_tree().get_nodes_in_group("blocks")
 	if remaining_blocks.size() == 0 and press.press_active:
 		complete_level()
@@ -28,20 +42,19 @@ func _process(_delta: float) -> void:
 func complete_level() -> void:
 	level_cleared = true
 	
-	# 1. Para a prensa e a música do nível
 	press.press_active = false
-	level_music.stop()
+	if level_music:
+		level_music.stop()
 	
-	# 2. Toca a música de vitória (0.04s)
 	if level_victory_music:
 		level_victory_music.play()
 		await level_victory_music.finished
 	
-	# 3. Atualiza os dados no GameManager (level += 1 e speed += 2.0)
+	# Incrementa dados no GameManager
 	GameManager.advance_to_next_level()
 	
-	# 4. Recarrega a cena limpa
-	get_tree().reload_current_scene()
+	# Troca direto para a cena do nível
+	get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")
 
 func _on_level_start_timer_timeout() -> void:
 	press.press_active = true
@@ -51,8 +64,7 @@ func game_over() -> void:
 	if "press_active" in press:
 		press.press_active = false
 	HUD.show_game_over()
-	level_music.stop()
-	level_game_over_sound.play()
-	
-	# Opcional: Se quiser resetar a velocidade e o level quando der Game Over total:
-	 #GameManager.reset_game_data()
+	if level_music:
+		level_music.stop()
+	if level_game_over_sound:
+		level_game_over_sound.play()
