@@ -40,18 +40,16 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		var collider = collision.get_collider()
 		
-		if collider.name == "Floor" or (collider is CharacterBody2D and collider.name != "Press"):
-			queue_free()
-			return
-			
 		# Colisão com a Prensa -> Anexa o novo bloco à Prensa
 		if collider.name == "Press":
 			spawn_block_on_press(collider, collision.get_position())
 			destroy_with_anim()
+			if "press_hit" in collider:
+				collider.press_hit()
 			return
 
 		# Checa se o objeto colidido é um bloco (possui a propriedade block_color)
-		if "block_color" in collider:
+		if collider.is_in_group("blocks") and "block_color" in collider:
 			
 			if "affected_block" in collider:
 				collider.affected_block = false
@@ -87,6 +85,8 @@ func _physics_process(delta: float) -> void:
 				var new_color = mix_colors(color_ball, b_color)
 				if new_color != -1:
 					collider.block_color = new_color
+					if collider.has_method("play_color_change_sound"):
+						collider.play_color_change_sound()
 				elif new_color == -1:
 					if "droped_block" in collider:
 						collider.droped_block = true
@@ -102,7 +102,6 @@ func _physics_process(delta: float) -> void:
 		
 		dir = dir.bounce(collision.get_normal())
 
-# Spawna o bloco diretamente como filho da Prensa (alinhado à grade local do nó Block)
 func spawn_block_on_press(press_node: Node2D, impact_position: Vector2) -> void:
 	if not BLOCK_SCENE:
 		return
@@ -111,26 +110,24 @@ func spawn_block_on_press(press_node: Node2D, impact_position: Vector2) -> void:
 	if not container:
 		container = press_node
 
-	# 1. Ponto de referência para alinhamento da grade
 	var ref_offset := Vector2.ZERO
 	if container.get_child_count() > 0:
-		# Pega a posição local do primeiro bloco do container como base perfeita da grade
 		ref_offset = container.get_child(0).position
 
-	# 2. Converte a posição do impacto para o espaço local do container
-	# Adicionamos um pequeno avanço para baixo (+16px) para garantir que o ponto caia na linha logo abaixo da Prensa
 	var local_impact = container.to_local(impact_position + Vector2(0, 16.0)) - ref_offset
 
-	# 3. Arredonda exatamente para os múltiplos de GRID_SIZE (64px) mais próximos
 	var snapped_x = round(local_impact.x / GRID_SIZE) * GRID_SIZE
 	var snapped_y = round(local_impact.y / GRID_SIZE) * GRID_SIZE
 
-	# 4. Aplica o offset de referência de volta
 	var final_local_pos = Vector2(snapped_x, snapped_y) + ref_offset
 
-	# 5. Instancia o novo bloco diretamente na posição exata
 	var new_block = BLOCK_SCENE.instantiate()
+	
+	new_block.name = "Block_Spawned"
 	new_block.position = final_local_pos
+
+	# Garante que o novo bloco faça parte do grupo "blocks"
+	new_block.add_to_group("blocks")
 
 	if "block_color" in new_block:
 		new_block.block_color = self.color_ball

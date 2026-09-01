@@ -15,6 +15,10 @@ var is_being_destroyed: bool = false
 # Posição original do bloco no momento em que soltou da Prensa
 var spawn_position: Vector2
 
+@onready var block_color_change_sound = $BlockColorChangeSound
+@onready var block_explode_sound = $BlockExplodeSound
+@onready var block_explode_group_sound = $BlockExplodeGroupSound
+@onready var block_move_down_sound = $BlockMoveDownSound
 @onready var block_sprite = $BlockSprite
 @onready var block_timer = $BlockTimer
 @onready var block_anim = $BlockAnim
@@ -36,6 +40,8 @@ func set_block_color(val) -> void:
 func _ready() -> void:
 	var random_index = randi() % block_colors.size()
 	self.block_color = random_index
+	
+	add_to_group("blocks")
 	
 	# Desativa sync com física tradicional para poder mover livremente ao cair
 	sync_to_physics = false
@@ -110,18 +116,37 @@ func spawn_replacement_block() -> void:
 		if press_node.has_method("add_collision_exception_with"):
 			press_node.add_collision_exception_with(new_block)
 
+# Toca o som de troca de cor com um leve atraso de transição (80 milissegundos)
+func play_color_change_sound() -> void:
+	if block_color_change_sound:
+		await get_tree().create_timer(0.10).timeout
+		block_color_change_sound.play()
+
 func destroy_with_delay() -> void:
 	if is_being_destroyed:
 		return
 	is_being_destroyed = true
 	
-	# Desativa as colisões IMEDIATAMENTE para não empurrar a Prensa ou o bloco novo
-	set_deferred("process_mode", PROCESS_MODE_DISABLED)
+	# Oculta o sprite e desativa colisão para dar a sensação de destruição imediata
+	if block_sprite:
+		block_sprite.hide()
 	
+	set_deferred("collision_layer", 0)
+	set_deferred("collision_mask", 0)
+	
+	if block_explode_sound:
+		await get_tree().create_timer(0.10).timeout
+		block_explode_sound.play()
+		
 	play_impact_animation()
 	contaminate_neighbors()
 	
-	await get_tree().create_timer(0.3).timeout
+	# Aguarda tempo suficiente para o som de explosão terminar antes de dar queue_free()
+	if block_explode_sound and block_explode_sound.stream:
+		await get_tree().create_timer(block_explode_sound.stream.get_length()).timeout
+	else:
+		await get_tree().create_timer(0.5).timeout
+		
 	queue_free()
 
 # Contaminação por raio de aproximação nas 4 direções cardeais
@@ -134,6 +159,8 @@ func contaminate_neighbors() -> void:
 		Vector2.RIGHT * 64.0
 	]
 	
+	var group_sound_played: bool = false
+	
 	for offset in check_offsets:
 		var query = PhysicsPointQueryParameters2D.new()
 		query.position = global_position + offset
@@ -144,13 +171,19 @@ func contaminate_neighbors() -> void:
 			var collider = result.collider
 			if collider != self and "block_color" in collider:
 				if collider.block_color == self.block_color and not collider.get("is_being_destroyed"):
+					# Toca o som de destruição em grupo apenas UMA vez para a reação da vizinhança
+					if block_explode_group_sound and not group_sound_played:
+						block_explode_group_sound.play()
+						group_sound_played = true
+						
 					get_tree().create_timer(0.1).timeout.connect(collider.destroy_with_delay)
 
 # Move o bloco uma casa para baixo na grade local da Prensa
 func shift_down() -> void:
+	if block_move_down_sound:
+		await get_tree().create_timer(0.10).timeout
+		block_move_down_sound.play()
 	play_impact_animation()
-	
-	# Desloca 64px para baixo no eixo Y
 	position.y += 64.0
 
 func _on_block_timer_timeout() -> void:

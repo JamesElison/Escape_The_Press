@@ -2,6 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://e2fku2ona7dh" path="res://core/assets/sprites/set_objects/blue_block.png" id="1_jaeov"]
 [ext_resource type="Script" uid="uid://bcxkimdgv2pjv" path="res://core/scripts/block.gd" id="1_nenra"]
+[ext_resource type="AudioStream" uid="uid://cm7b8mq68n2hs" path="res://core/assets/sounds/fx/block_explode.wav" id="2_204ll"]
+[ext_resource type="AudioStream" uid="uid://don4opvfbilnj" path="res://core/assets/sounds/fx/block_color_change.wav" id="2_irl8d"]
+[ext_resource type="AudioStream" uid="uid://lmqso3hfapc1" path="res://core/assets/sounds/fx/block_explode_group.wav" id="4_76vvk"]
+[ext_resource type="AudioStream" uid="uid://c427hb413jkh2" path="res://core/assets/sounds/fx/block_move_down.wav" id="5_oqjew"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jaeov"]
 size = Vector2(64, 64)
@@ -47,6 +51,24 @@ _data = {
 collision_layer = 119
 collision_mask = 32
 script = ExtResource("1_nenra")
+
+[node name="BlockColorChangeSound" type="AudioStreamPlayer" parent="." unique_id=1410164662]
+stream = ExtResource("2_irl8d")
+bus = &"fx"
+
+[node name="BlockExplodeSound" type="AudioStreamPlayer" parent="." unique_id=1614725431]
+stream = ExtResource("2_204ll")
+volume_db = 5.0
+bus = &"fx"
+
+[node name="BlockExplodeGroupSound" type="AudioStreamPlayer" parent="." unique_id=1993703519]
+stream = ExtResource("4_76vvk")
+bus = &"fx"
+
+[node name="BlockMoveDownSound" type="AudioStreamPlayer" parent="." unique_id=1010659740]
+stream = ExtResource("5_oqjew")
+volume_db = 5.0
+bus = &"fx"
 
 [node name="BlockSprite" type="Sprite2D" parent="." unique_id=6446511]
 texture = ExtResource("1_jaeov")

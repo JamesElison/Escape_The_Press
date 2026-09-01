@@ -2,9 +2,11 @@ extends CharacterBody2D
 
 var screen_size
 var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
+var HUD
 
 const SPEED = 1000.0
 
+@onready var player_ball_shoot = $PlayerBallShoot
 @onready var player_marker = $PlayerMarker
 # Referência para o nó do carregador (ajuste o caminho se necessário)
 @export var charger: Node2D
@@ -21,6 +23,7 @@ var touch_drag_x: float = 0.0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	HUD = get_parent().get_node("HUD")
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Ignore eventos emulados de mouse gerados pelo toque para não dar duplo gatilho
@@ -75,6 +78,13 @@ func _physics_process(delta: float) -> void:
 			processing_shoot()
 
 func processing_shoot():
+	# Toca o som de disparo da bola
+	if player_ball_shoot:
+		player_ball_shoot.play()
+
+	# Chacoalha a câmera ao disparar (força: 15.0, duração: 0.15s)
+	EventBus.camera_shake_requested.emit(15.0, 0.15)
+
 	# 1. Pega o número da cor que está no topo do carregador (Marker 6)
 	var current_color = 0
 	if charger and charger.has_method("get_top_ball_color"):
@@ -94,12 +104,13 @@ func processing_shoot():
 	ball_shot.emit(current_color)
 
 func die() -> void:
-	print("GAME OVER - O jogador foi esmagado!")
+	if "show_game_over" in HUD:
+		HUD.show_game_over()
 	game_over.emit()
 	queue_free()
 
 func _on_player_health_area_body_entered(body: Node2D) -> void:
-	if body is RigidBody2D and body.name.begins_with("Block"):
+	if body.is_in_group("blocks") or body.name.begins_with("Block"):
 		print(body)
 		die()
 	elif body.name == "Press":

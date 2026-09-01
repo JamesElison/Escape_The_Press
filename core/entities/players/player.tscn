@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvyc37uxo524d" path="res://core/scripts/player.gd" id="1_m15x6"]
 [ext_resource type="Texture2D" uid="uid://cgh6bk4jxglyl" path="res://core/assets/sprites/characters/player.png" id="1_xvqjg"]
+[ext_resource type="AudioStream" uid="uid://tok6cewto0sf" path="res://core/assets/sounds/fx/ball_shoot.wav" id="2_hk3lc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(24, 44)
@@ -10,6 +11,11 @@ size = Vector2(24, 44)
 scale = Vector2(0.5, 0.5)
 collision_layer = 52
 script = ExtResource("1_m15x6")
+
+[node name="PlayerBallShoot" type="AudioStreamPlayer" parent="." unique_id=1795428948]
+stream = ExtResource("2_hk3lc")
+volume_db = 5.0
+bus = &"fx"
 
 [node name="PlayerSprite" type="Sprite2D" parent="." unique_id=1451931167]
 texture = ExtResource("1_xvqjg")

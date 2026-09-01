@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cgvkqfem0j63v" path="res://core/assets/sprites/set_objects/press.png" id="1_0dhym"]
 [ext_resource type="Script" uid="uid://c3jkckqebx8nw" path="res://core/scripts/press.gd" id="1_ed25y"]
+[ext_resource type="AudioStream" uid="uid://b5sdc04lfd4js" path="res://core/assets/sounds/fx/press_collide.wav" id="2_asvvl"]
 [ext_resource type="PackedScene" uid="uid://bik42hpsbliq6" path="res://core/entities/enemies/block.tscn" id="3_27j4w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
@@ -11,7 +12,11 @@ size = Vector2(720, 64)
 collision_layer = 175
 collision_mask = 16
 script = ExtResource("1_ed25y")
-speed = 5.0
+
+[node name="PressHitSound" type="AudioStreamPlayer" parent="." unique_id=2011385824]
+stream = ExtResource("2_asvvl")
+volume_db = 5.0
+bus = &"fx"
 
 [node name="PressSprite" type="Sprite2D" parent="." unique_id=708973215]
 position = Vector2(0, -608)

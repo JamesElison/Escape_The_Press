@@ -5,7 +5,11 @@
 [ext_resource type="Script" uid="uid://dqb10raqrdmmm" path="res://core/scripts/level_camera.gd" id="2_01iaf"]
 [ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="2_ovmqw"]
 [ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="3_ovmqw"]
+[ext_resource type="AudioStream" uid="uid://bibiwkah2mjds" path="res://core/assets/sounds/level_music/House In a Forest Loop.ogg" id="3_y1bkx"]
+[ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
+[ext_resource type="AudioStream" uid="uid://dn085gkcnei50" path="res://core/assets/sounds/level_music/Victory.ogg" id="5_f6opj"]
 [ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="6_3c2jl"]
+[ext_resource type="PackedScene" uid="uid://by3lvy4ieoswm" path="res://core/scenes/set_elements/hud.tscn" id="7_01iaf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(40, 1280)
@@ -19,6 +23,17 @@ limit_top = 0
 limit_right = 720
 limit_bottom = 1280
 script = ExtResource("2_01iaf")
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="." unique_id=21811574]
+stream = ExtResource("3_y1bkx")
+
+[node name="LevelGameOverSound" type="AudioStreamPlayer" parent="." unique_id=1745005861]
+stream = ExtResource("4_f6opj")
+
+[node name="LevelVictoryMusic" type="AudioStreamPlayer" parent="." unique_id=1897559]
+stream = ExtResource("5_f6opj")
+
+[node name="LevelStartTimer" type="Timer" parent="." unique_id=2008060520]
 
 [node name="Press" parent="." unique_id=287696895 instance=ExtResource("1_b72cg")]
 position = Vector2(360, 47)
@@ -45,5 +60,8 @@ shape = SubResource("RectangleShape2D_k6ly5")
 [node name="Charger" parent="." unique_id=1260939654 instance=ExtResource("6_3c2jl")]
 position = Vector2(28, 1140)
 
+[node name="HUD" parent="." unique_id=931431950 instance=ExtResource("7_01iaf")]
+
+[connection signal="timeout" from="LevelStartTimer" to="." method="_on_level_start_timer_timeout"]
 [connection signal="ball_shot" from="Player" to="Charger" method="_on_player_ball_shot"]
 [connection signal="game_over" from="Player" to="." method="game_over"]

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cxw1n1qnststx"]
+
+[ext_resource type="PackedScene" uid="uid://by3lvy4ieoswm" path="res://core/scenes/set_elements/hud.tscn" id="1_jsm2u"]
+
+[node name="MainMenu" type="Node2D" unique_id=773711802]
+
+[node name="HUD" parent="." unique_id=931431950 instance=ExtResource("1_jsm2u")]
