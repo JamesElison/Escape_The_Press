@@ -9,7 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
 [ext_resource type="AudioStream" uid="uid://dn085gkcnei50" path="res://core/assets/sounds/level_music/Victory.ogg" id="5_f6opj"]
 [ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="6_3c2jl"]
-[ext_resource type="PackedScene" uid="uid://by3lvy4ieoswm" path="res://core/scenes/set_elements/hud.tscn" id="7_01iaf"]
+[ext_resource type="PackedScene" uid="uid://ca6xso0mr3bqf" path="res://core/scenes/set_elements/pause_button.tscn" id="11_2xyph"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="11_nqyh5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(40, 1280)
@@ -38,12 +39,12 @@ stream = ExtResource("5_f6opj")
 [node name="Press" parent="." unique_id=287696895 instance=ExtResource("1_b72cg")]
 position = Vector2(360, 47)
 
-[node name="Player" parent="." unique_id=1101960694 node_paths=PackedStringArray("charger") instance=ExtResource("2_ovmqw")]
-position = Vector2(355, 1182)
-charger = NodePath("../Charger")
-
 [node name="Floor" parent="." unique_id=1662461556 instance=ExtResource("3_ovmqw")]
 position = Vector2(360, 1252)
+
+[node name="Player" parent="." unique_id=1101960694 node_paths=PackedStringArray("charger") instance=ExtResource("2_ovmqw")]
+position = Vector2(355, 1220)
+charger = NodePath("../Charger")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1558915970]
 collision_layer = 35
@@ -58,10 +59,42 @@ position = Vector2(740, 640)
 shape = SubResource("RectangleShape2D_k6ly5")
 
 [node name="Charger" parent="." unique_id=1260939654 instance=ExtResource("6_3c2jl")]
-position = Vector2(28, 1140)
+position = Vector2(616, 46)
+rotation = 4.712389
 
-[node name="HUD" parent="." unique_id=931431950 instance=ExtResource("7_01iaf")]
+[node name="LevelCanvasLayer" type="CanvasLayer" parent="." unique_id=1652093017]
+
+[node name="MessageLabel" type="Label" parent="LevelCanvasLayer" unique_id=599910191]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -311.0
+offset_top = 60.0
+offset_right = 318.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_nqyh5")
+theme_override_font_sizes/font_size = 64
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseButton" parent="LevelCanvasLayer" unique_id=126329662 instance=ExtResource("11_2xyph")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 40.0
+offset_right = 150.0
+offset_bottom = 140.0
+grow_horizontal = 2
+
+[node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]
 
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_level_start_timer_timeout"]
 [connection signal="ball_shot" from="Player" to="Charger" method="_on_player_ball_shot"]
 [connection signal="game_over" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

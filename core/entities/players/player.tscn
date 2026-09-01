@@ -4,10 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cgh6bk4jxglyl" path="res://core/assets/sprites/characters/player.png" id="1_xvqjg"]
 [ext_resource type="AudioStream" uid="uid://tok6cewto0sf" path="res://core/assets/sounds/fx/ball_shoot.wav" id="2_hk3lc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
-size = Vector2(24, 44)
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
+radius = 48.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1101960694]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
+size = Vector2(24, 52.66667)
+
+[node name="Player" type="CharacterBody2D" unique_id=1101960694 groups=["player"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 52
 script = ExtResource("1_m15x6")
@@ -18,19 +21,27 @@ volume_db = 5.0
 bus = &"fx"
 
 [node name="PlayerSprite" type="Sprite2D" parent="." unique_id=1451931167]
+position = Vector2(0, -46)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_xvqjg")
 
-[node name="PlayerShape" type="CollisionPolygon2D" parent="." unique_id=853550979]
-polygon = PackedVector2Array(-3, -31, 14, -22, 29, -5, 33, 15, 64, 15, 64, 74, -64, 74, -64, 12, -57, -9, -40, -26, -28, -31)
+[node name="PlayerShape" type="CollisionShape2D" parent="." unique_id=510213879]
+position = Vector2(0, -78)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_k6ly5")
 
 [node name="PlayerMarker" type="Marker2D" parent="." unique_id=1818940908]
-position = Vector2(-16, -82)
+position = Vector2(0, -218)
 
 [node name="PlayerHealthArea" type="Area2D" parent="." unique_id=697782315]
 collision_layer = 48
 
 [node name="PlayerHealthShape" type="CollisionShape2D" parent="PlayerHealthArea" unique_id=388947496]
-position = Vector2(-16, -52)
+position = Vector2(0, -189.5)
+scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_k6ly5")
+
+[node name="PlayerHealthShape2" type="CollisionPolygon2D" parent="PlayerHealthArea" unique_id=1982398027]
+polygon = PackedVector2Array(-194, -150, -120, -6, 118, -4, 192, -150)
 
 [connection signal="body_entered" from="PlayerHealthArea" to="." method="_on_player_health_area_body_entered"]

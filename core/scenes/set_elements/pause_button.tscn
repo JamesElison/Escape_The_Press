@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ca6xso0mr3bqf"]
+
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_cll7k"]
+[ext_resource type="Script" uid="uid://chd8h2cvm5pqg" path="res://core/scripts/pause_button.gd" id="1_egecy"]
+
+[node name="PauseButton" type="Button" unique_id=126329662]
+process_mode = 3
+offset_right = 300.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("1_cll7k")
+theme_override_font_sizes/font_size = 64
+text = "Pause"
+script = ExtResource("1_egecy")
+metadata/_edit_group_ = true
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

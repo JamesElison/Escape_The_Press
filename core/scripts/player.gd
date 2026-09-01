@@ -2,31 +2,27 @@ extends CharacterBody2D
 
 var screen_size
 var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
-var HUD
 
 const SPEED = 1000.0
 
 @onready var player_ball_shoot = $PlayerBallShoot
+@onready var player_sprite = $PlayerSprite
 @onready var player_marker = $PlayerMarker
-# Referência para o nó do carregador (ajuste o caminho se necessário)
+
 @export var charger: Node2D
 
-# Atualização da declaração para enviar o número/índice da cor
 signal ball_shot(color_index: int)
 signal game_over
 
 # --- Variáveis de Controle por Toque (Android) ---
 var is_touching: bool = false
-var touch_start_x: float = 0.0
-var player_start_x: float = 0.0
-var touch_drag_x: float = 0.0
+var touch_target_x: float = 0.0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	HUD = get_parent().get_node("HUD")
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Ignore eventos emulados de mouse gerados pelo toque para não dar duplo gatilho
+	# Ignora eventos emulados para evitar gatilho duplo
 	if event is InputEventMouseButton or event is InputEventMouseMotion:
 		if event.is_echo():
 			return
@@ -34,83 +30,72 @@ func _unhandled_input(event: InputEvent) -> void:
 	# 1. Quando o jogador TOCA ou SOLTA a tela no Android
 	if event is InputEventScreenTouch:
 		if event.pressed:
-			# DEDO ENCOSTOU: Apenas marca o início do arrasto (NÃO ATIRA AQUI)
+			# DEDO ENCOSTOU: Ativa o toque e define o destino X imediato
 			is_touching = true
-			touch_start_x = event.position.x
-			player_start_x = global_position.x
-			touch_drag_x = event.position.x
+			touch_target_x = event.position.x
 		else:
-			# DEDO SOLTOU: Dispara o tiro e reseta o controle do toque
+			# DEDO SOLTOU: Dispara o tiro e encerra o movimento do toque
 			if is_touching:
 				is_touching = false
 				processing_shoot()
 
-	# 2. Quando o jogador DESLIZA o dedo na tela
+	# 2. Quando o jogador DESLIZA o dedo pela tela
 	elif event is InputEventScreenDrag and is_touching:
-		touch_drag_x = event.position.x
+		# Atualiza a posição X de destino continuamente conforme o dedo move
+		touch_target_x = event.position.x
 
 func _physics_process(delta: float) -> void:
-	# Aplica a gravidade se necessário
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	# Movimentação via Toque no Android
 	if is_touching:
-		var swipe_offset = touch_drag_x - touch_start_x
-		var target_x = player_start_x + swipe_offset
-		global_position.x = lerp(global_position.x, target_x, 25.0 * delta)
+		# Calcula a velocidade necessária para o move_and_slide alcançar o toque suavemente
+		var target_position_x = lerp(global_position.x, touch_target_x, 25.0 * delta)
+		velocity.x = (target_position_x - global_position.x) / delta
 	else:
-		# Movimentação via Teclado/Gamepad (Para testes no PC)
+		# Movimentação via Teclado/Gamepad (PC)
 		var direction := Input.get_axis("left", "right")
-		if direction:
+		if direction != 0.0:
 			velocity.x = direction * SPEED
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.x = move_toward(velocity.x, 0.0, SPEED)
 
-	position = position.clamp(Vector2.ZERO, screen_size)
-
+	# Aplica o movimento da física no Godot 4
 	move_and_slide()
-	
-	# Disparo no PC/Teclado apenas se não estiver jogando por toque no Android
+
+	# Trava o Player apenas nos limites X da tela (sem afetar o eixo Y)
+	global_position.x = clamp(global_position.x, 0.0, screen_size.x)
+
+	# Disparo no PC/Teclado
 	if not is_touching and Input.is_action_just_pressed("shoot"):
-		# Garante que não foi um clique vindo de toque
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			processing_shoot()
 
 func processing_shoot():
-	# Toca o som de disparo da bola
 	if player_ball_shoot:
 		player_ball_shoot.play()
 
-	# Chacoalha a câmera ao disparar (força: 15.0, duração: 0.15s)
 	EventBus.camera_shake_requested.emit(15.0, 0.15)
 
-	# 1. Pega o número da cor que está no topo do carregador (Marker 6)
 	var current_color = 0
 	if charger and charger.has_method("get_top_ball_color"):
 		current_color = charger.get_top_ball_color()
 	
-	# 2. Instancia a nova bola
 	var ball = pre_ball.instantiate()
-	
-	# 3. Aplica a cor do topo na bola ANTES de colocar no mundo
 	ball.color_ball = current_color
 	
-	# 4. Adiciona à cena e posiciona no canhão
 	get_parent().add_child(ball)
 	ball.global_position = player_marker.global_position
 	
-	# 5. Notifica o carregador passando a cor disparada
 	ball_shot.emit(current_color)
 
 func die() -> void:
-	if "show_game_over" in HUD:
-		HUD.show_game_over()
 	game_over.emit()
-	queue_free()
+	player_sprite.hide()
 
 func _on_player_health_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("blocks") or body.name.begins_with("Block"):
+	if body.is_in_group("blocks"):
 		print(body)
 		die()
 	elif body.name == "Press":

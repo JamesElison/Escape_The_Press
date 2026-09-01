@@ -9,10 +9,7 @@ var balls: Array = []
 @onready var markers: Array = [
 	$ChargerMarker1,
 	$ChargerMarker2,
-	$ChargerMarker3,
-	$ChargerMarker4,
-	$ChargerMarker5,
-	$ChargerMarker6
+	$ChargerMarker3
 ]
 
 
@@ -26,7 +23,7 @@ func initialize_charger() -> void:
 		var new_ball = pre_charger_ball.instantiate()
 		
 		# Define uma cor aleatória para a bola do carregador
-		new_ball.color_ball = randi() % 8
+		new_ball.color_ball = randi() % 6
 		
 		get_parent().add_child(new_ball)
 		new_ball.global_position = marker.global_position

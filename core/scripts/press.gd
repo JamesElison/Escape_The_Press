@@ -9,6 +9,8 @@ var speed: float = 3.0
 
 func set_press_active(val: bool) -> void:
 	press_active = val
+	if not press_active:
+		velocity = Vector2.ZERO # Zera qualquer impulso de física remanescente
 
 func _ready() -> void:
 	# Aplica a velocidade salva no GameManager

@@ -10,6 +10,7 @@ radius = 8.0
 script = ExtResource("1_ri57j")
 
 [node name="ColorBallSprite" type="Sprite2D" parent="." unique_id=1517358473]
+scale = Vector2(2, 2)
 texture = ExtResource("1_q15lb")
 
 [node name="ColorBallChargerArea" type="Area2D" parent="." unique_id=1729678833]
@@ -17,4 +18,5 @@ collision_layer = 256
 collision_mask = 2
 
 [node name="Shape" type="CollisionShape2D" parent="ColorBallChargerArea" unique_id=1301424837]
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_k6ly5")

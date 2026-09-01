@@ -1,16 +1,28 @@
 [gd_scene format=3 uid="uid://c6p7ipae3fmnf"]
 
+[ext_resource type="Script" uid="uid://dndbx7dr4ynld" path="res://core/scripts/floor.gd" id="1_sm5d2"]
 [ext_resource type="Texture2D" uid="uid://b8oqdbfof4qtc" path="res://core/assets/sprites/set_objects/floor.png" id="1_v5d4d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5d4d"]
 size = Vector2(718, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
+size = Vector2(720, 64)
+
 [node name="Floor" type="StaticBody2D" unique_id=1662461556]
 collision_layer = 51
 collision_mask = 4
+script = ExtResource("1_sm5d2")
 
 [node name="FloorSprite" type="Sprite2D" parent="." unique_id=811281911]
 texture = ExtResource("1_v5d4d")
 
 [node name="FloorShape" type="CollisionShape2D" parent="." unique_id=1049414457]
 shape = SubResource("RectangleShape2D_v5d4d")
+
+[node name="FloorHealthArea" type="Area2D" parent="." unique_id=659112019]
+
+[node name="FloorHealthAreaShape" type="CollisionShape2D" parent="FloorHealthArea" unique_id=1932154174]
+shape = SubResource("RectangleShape2D_k6ly5")
+
+[connection signal="body_entered" from="FloorHealthArea" to="." method="_on_floor_health_area_body_entered"]
