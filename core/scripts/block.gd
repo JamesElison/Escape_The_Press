@@ -2,10 +2,14 @@ extends AnimatableBody2D
 
 # Precarrega a própria cena do bloco via código
 const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
+const GRID_SIZE: float = 64.0
 
 var affected_block: bool = false: set = set_affected_block
 var droped_block: bool = false: set = set_droped_block
-var block_color = 0: set = set_block_color
+
+# Inicia em -1 para saber se já recebeu cor antes do _ready()
+var block_color: int = -1: set = set_block_color
+
 var has_landed: bool = false
 var is_being_destroyed: bool = false
 
@@ -32,14 +36,18 @@ var block_colors = [
 	"res://core/assets/sprites/set_objects/yellow_block.png"
 ]
 
-func set_block_color(val) -> void:
+func set_block_color(val: int) -> void:
 	block_color = val
 	if is_node_ready() and block_sprite and val >= 0 and val < block_colors.size():
 		block_sprite.texture = load(block_colors[val])
 
 func _ready() -> void:
-	var random_index = randi() % block_colors.size()
-	self.block_color = random_index
+	# Se a cor ainda for -1, sorteia uma cor aleatória.
+	# Se a bola já definiu a cor antes, mantém a cor definida.
+	if block_color == -1:
+		block_color = randi() % block_colors.size()
+	else:
+		set_block_color(block_color)
 	
 	add_to_group("blocks")
 	
@@ -60,7 +68,7 @@ func _physics_process(delta: float) -> void:
 				affected_block = true
 
 func play_impact_animation() -> void:
-	if block_anim:
+	if block_anim and block_anim.has_animation("affected"):
 		block_anim.play("affected")
 
 func set_affected_block(val: bool) -> void:
@@ -139,6 +147,10 @@ func destroy_with_delay() -> void:
 		block_explode_sound.play()
 		
 	play_impact_animation()
+	
+	# Salva a posição antes de deletar para ordenar a subida da coluna
+	var destroyed_position = global_position
+	
 	contaminate_neighbors()
 	
 	# Aguarda tempo suficiente para o som de explosão terminar antes de dar queue_free()
@@ -147,16 +159,18 @@ func destroy_with_delay() -> void:
 	else:
 		await get_tree().create_timer(0.5).timeout
 		
+	# Puxa o bloco que ficou pendurado imediatamente abaixo antes de apagar o nó
+	trigger_column_rise(destroyed_position)
 	queue_free()
 
 # Contaminação por raio de aproximação nas 4 direções cardeais
 func contaminate_neighbors() -> void:
 	var space_state = get_world_2d().direct_space_state
 	var check_offsets = [
-		Vector2.UP * 64.0,
-		Vector2.DOWN * 64.0,
-		Vector2.LEFT * 64.0,
-		Vector2.RIGHT * 64.0
+		Vector2.UP * GRID_SIZE,
+		Vector2.DOWN * GRID_SIZE,
+		Vector2.LEFT * GRID_SIZE,
+		Vector2.RIGHT * GRID_SIZE
 	]
 	
 	var group_sound_played: bool = false
@@ -178,13 +192,82 @@ func contaminate_neighbors() -> void:
 						
 					get_tree().create_timer(0.1).timeout.connect(collider.destroy_with_delay)
 
+# --- MECÂNICA DE SUBIDA E ANIKILAÇÃO EM CASCATA ---
+
+# Notifica o primeiro bloco ativo que estiver abaixo da vaga para subir
+func trigger_column_rise(from_position: Vector2) -> void:
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsPointQueryParameters2D.new()
+	query.position = from_position + Vector2.DOWN * GRID_SIZE
+	query.collide_with_bodies = true
+	
+	var results = space_state.intersect_point(query)
+	for result in results:
+		var collider = result.collider
+		if collider is AnimatableBody2D and "block_color" in collider and not collider.get("is_being_destroyed"):
+			if collider.has_method("apply_upward_gravity"):
+				collider.apply_upward_gravity()
+
+# Faz o bloco subir continuamente até encostar no bloco do topo
+func apply_upward_gravity() -> void:
+	if is_being_destroyed or droped_block:
+		return
+		
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsPointQueryParameters2D.new()
+	query.position = global_position + Vector2.UP * GRID_SIZE
+	query.collide_with_bodies = true
+	
+	var results = space_state.intersect_point(query)
+	var space_above_free = true
+	
+	for result in results:
+		var collider = result.collider
+		if collider != self and not collider.get("is_being_destroyed"):
+			space_above_free = false
+			break
+			
+	if space_above_free:
+		var tween = create_tween()
+		tween.tween_property(self, "position:y", position.y - GRID_SIZE, 0.12)
+		await tween.finished
+		
+		# Puxa o bloco de baixo para continuar a subida da coluna
+		trigger_column_rise(global_position + Vector2.DOWN * GRID_SIZE)
+		
+		# Repete se ainda houver espaço acima
+		apply_upward_gravity()
+	else:
+		# Quando encostar no topo/outro bloco, checa fusão
+		check_top_match()
+
+# Verifica se o bloco encostado acima tem a mesma cor para gerar a destruição em cascata
+func check_top_match() -> void:
+	if is_being_destroyed:
+		return
+		
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsPointQueryParameters2D.new()
+	query.position = global_position + Vector2.UP * GRID_SIZE
+	query.collide_with_bodies = true
+	
+	var results = space_state.intersect_point(query)
+	for result in results:
+		var collider = result.collider
+		if collider != self and "block_color" in collider and not collider.get("is_being_destroyed"):
+			if collider.block_color == self.block_color:
+				destroy_with_delay()
+				if collider.has_method("destroy_with_delay"):
+					collider.destroy_with_delay()
+				break
+
 # Move o bloco uma casa para baixo na grade local da Prensa
 func shift_down() -> void:
 	if block_move_down_sound:
 		await get_tree().create_timer(0.10).timeout
 		block_move_down_sound.play()
 	play_impact_animation()
-	position.y += 64.0
+	position.y += GRID_SIZE
 
 func _on_block_timer_timeout() -> void:
 	queue_free()
