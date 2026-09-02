@@ -250,6 +250,11 @@ func apply_upward_gravity() -> void:
 		tween.tween_property(self, "position:y", position.y - GRID_SIZE, 0.12)
 		await tween.finished
 		
+		# Toca o som de movimento a cada deslocamento
+		if block_move_down_sound:
+			await get_tree().create_timer(0.10).timeout
+			block_move_down_sound.play()
+		
 		# Puxa o bloco de baixo para continuar a subida da coluna
 		trigger_column_rise(global_position + Vector2.DOWN * GRID_SIZE)
 		
