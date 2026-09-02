@@ -3,6 +3,7 @@ extends AnimatableBody2D
 # Precarrega a própria cena do bloco via código
 const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 const GRID_SIZE: float = 64.0
+const PARTICLES_SCENE = preload("res://core/entities/effects/block_explosion_particles.tscn")
 
 var affected_block: bool = false: set = set_affected_block
 var droped_block: bool = false: set = set_droped_block
@@ -135,6 +136,9 @@ func destroy_with_delay() -> void:
 		return
 	is_being_destroyed = true
 	
+	# 1. Instancia o efeito de partículas na cor do bloco atual
+	spawn_particles()
+	
 	# Oculta o sprite e desativa colisão para dar a sensação de destruição imediata
 	if block_sprite:
 		block_sprite.hide()
@@ -162,6 +166,20 @@ func destroy_with_delay() -> void:
 	# Puxa o bloco que ficou pendurado imediatamente abaixo antes de apagar o nó
 	trigger_column_rise(destroyed_position)
 	queue_free()
+
+# Função auxiliar para instanciar o efeito de partículas na cena principal
+func spawn_particles() -> void:
+	if not PARTICLES_SCENE or block_color < 0 or block_color >= block_colors.size():
+		return
+		
+	var particle_instance = PARTICLES_SCENE.instantiate()
+	# Adiciona à cena principal para que as partículas continuem caindo mesmo após o bloco dar queue_free()
+	get_tree().current_scene.add_child(particle_instance)
+	particle_instance.global_position = global_position
+	
+	# Passa o caminho da textura da cor atual para o script do efeito
+	if particle_instance.has_method("setup"):
+		particle_instance.setup(block_colors[block_color])
 
 # Contaminação por raio de aproximação nas 4 direções cardeais
 func contaminate_neighbors() -> void:
@@ -271,3 +289,30 @@ func shift_down() -> void:
 
 func _on_block_timer_timeout() -> void:
 	queue_free()
+
+# Transição suave entre a cor antiga e a nova cor misturada
+func fade_to_color(new_color_index: int) -> void:
+	if not block_sprite or new_color_index < 0 or new_color_index >= block_colors.size():
+		block_color = new_color_index
+		return
+
+	# 1. Cria um Sprite2D temporário para segurar a textura antiga por cima
+	var temp_sprite = Sprite2D.new()
+	temp_sprite.texture = block_sprite.texture
+	temp_sprite.position = block_sprite.position
+	temp_sprite.scale = block_sprite.scale
+	temp_sprite.centered = block_sprite.centered
+	
+	# Adiciona como filho do bloco para acompanhar qualquer movimento/animação
+	add_child(temp_sprite)
+
+	# 2. Atualiza a cor real do bloco (que fica visível por baixo do sprite temporário)
+	block_color = new_color_index
+
+	# 3. Anima o alfa do sprite antigo de 1.0 (255) até 0.0 (0)
+	var tween = create_tween()
+	tween.tween_property(temp_sprite, "modulate:a", 0.0, 1.0)
+	
+	# 4. Remove o sprite temporário ao finalizar a transição
+	await tween.finished
+	temp_sprite.queue_free()

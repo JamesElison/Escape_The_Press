@@ -84,7 +84,12 @@ func _physics_process(delta: float) -> void:
 			if (ball_is_rgb and block_is_rgb) or (ball_is_cmy and block_is_cmy) or (ball_is_kw and block_is_kw):
 				var new_color = mix_colors(color_ball, b_color)
 				if new_color != -1:
-					collider.block_color = new_color
+					# --- ALTERAÇÃO AQUI ---
+					if collider.has_method("fade_to_color"):
+						collider.fade_to_color(new_color)
+					else:
+						collider.block_color = new_color
+						
 					if collider.has_method("play_color_change_sound"):
 						collider.play_color_change_sound()
 				elif new_color == -1:

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://kvgoqqw6quas"]
+
+[ext_resource type="Texture2D" uid="uid://e2fku2ona7dh" path="res://core/assets/sprites/set_objects/blue_block.png" id="1_5kaer"]
+[ext_resource type="Script" uid="uid://bmpuu5408q6su" path="res://core/scripts/block_explosion_particles.gd" id="2_j4tvy"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5kaer"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(32, 32, 1)
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 600.0
+initial_velocity_max = 900.0
+gravity = Vector3(0, 980, 0)
+scale_min = 0.25
+scale_max = 0.25
+
+[node name="BlockExplosionParticles" type="GPUParticles2D" unique_id=1514924720]
+emitting = false
+amount = 64
+texture = ExtResource("1_5kaer")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_5kaer")
+script = ExtResource("2_j4tvy")
