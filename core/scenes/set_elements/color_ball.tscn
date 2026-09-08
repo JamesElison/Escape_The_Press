@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ndoyc0hgjig1"]
 
-[ext_resource type="Texture2D" uid="uid://dxtaex4h2mfn0" path="res://core/assets/sprites/set_objects/black_ball.png" id="1_egykk"]
 [ext_resource type="Script" uid="uid://edkdof13b2ot" path="res://core/scripts/color_ball.gd" id="1_f3e34"]
+[ext_resource type="Texture2D" uid="uid://cm23vdg5smhpy" path="res://core/assets/sprites/set_objects/red_ball.png" id="2_vdjw8"]
 [ext_resource type="Texture2D" uid="uid://dg4drtlwq1kqw" path="res://core/assets/sprites/set_objects/explosionSmoke1.png" id="3_vdjw8"]
 [ext_resource type="Texture2D" uid="uid://brgm4eqpapnic" path="res://core/assets/sprites/set_objects/explosionSmoke2.png" id="4_sxua6"]
 [ext_resource type="Texture2D" uid="uid://hck4kj5ui2f5" path="res://core/assets/sprites/set_objects/explosionSmoke3.png" id="5_0wy4r"]
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_egykk")]
+"values": [ExtResource("2_vdjw8")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -35,7 +35,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0.5, 0.5)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -48,6 +48,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorBallShape:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
 }
 
 [sub_resource type="Animation" id="Animation_6y4yw"]
@@ -102,10 +114,11 @@ collision_mask = 2
 script = ExtResource("1_f3e34")
 
 [node name="ColorBallSprite" type="Sprite2D" parent="." unique_id=321671957]
-texture = ExtResource("1_egykk")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vdjw8")
 
 [node name="ColorBallShape" type="CollisionShape2D" parent="." unique_id=1545348906]
-visible = false
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_k6ly5")
 
 [node name="ColorBallAnim" type="AnimationPlayer" parent="." unique_id=1091631391]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://wd6lm566prvc"]
+
+[ext_resource type="Script" uid="uid://bwfyuqggfpljq" path="res://core/scripts/singletons/in_app_manager.gd" id="1_c16m3"]
+
+[node name="InAppManager" type="Node" unique_id=32523690]
+script = ExtResource("1_c16m3")

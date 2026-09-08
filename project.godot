@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://ci75srqjrb00"
 
 EventBus="*uid://bkvgbda4meyi7"
 GameManager="*uid://b0fbqwgf6kpvk"
+InAppManager="*uid://bwfyuqggfpljq"
 
 [display]
 
@@ -68,6 +69,8 @@ pointing/emulate_mouse_from_touch=false
 2d_physics/layer_7="red_line"
 2d_physics/layer_8="red_button"
 2d_physics/layer_9="charger_exit"
+2d_physics/layer_10="set_limits"
+2d_physics/layer_11="set_limiteds"
 
 [physics]
 

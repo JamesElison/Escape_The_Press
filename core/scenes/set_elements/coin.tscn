@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dgsyuoff3ndoy"]
+
+[ext_resource type="Script" uid="uid://mlcuo5wvf58j" path="res://core/scripts/coin.gd" id="1_iqrgv"]
+[ext_resource type="Texture2D" uid="uid://draxc0sunayel" path="res://core/assets/sprites/set_objects/gold_1.png" id="1_t7jcp"]
+[ext_resource type="Texture2D" uid="uid://bydahq5d3te6x" path="res://core/assets/sprites/set_objects/gold_2.png" id="2_dbal0"]
+[ext_resource type="Texture2D" uid="uid://cj5m3nl6rk2sg" path="res://core/assets/sprites/set_objects/gold_3.png" id="3_iqrgv"]
+[ext_resource type="Texture2D" uid="uid://cfd5ti8wf5hya" path="res://core/assets/sprites/set_objects/gold_4.png" id="4_r34q0"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="5_dbal0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k6ly5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_t7jcp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dbal0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_iqrgv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r34q0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_iqrgv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dbal0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Coin" type="Control" unique_id=1411328589]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_iqrgv")
+
+[node name="CoinSprite" type="AnimatedSprite2D" parent="." unique_id=346230577]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_k6ly5")
+autoplay = "default"
+frame_progress = 0.65202105
+
+[node name="CoinLabel" type="Label" parent="." unique_id=1833884042]
+layout_mode = 0
+offset_left = 25.0
+offset_top = -40.0
+offset_right = 235.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.8980392, 0.7176471, 0, 1)
+theme_override_fonts/font = ExtResource("5_dbal0")
+theme_override_font_sizes/font_size = 32
+text = "0"
+vertical_alignment = 1

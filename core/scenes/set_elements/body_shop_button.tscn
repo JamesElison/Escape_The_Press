@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://7aa4wwaqc1dy"]
+
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_t33e7"]
+[ext_resource type="Script" uid="uid://dcpof4hhju170" path="res://core/scripts/body_shop_button.gd" id="1_xdgk7"]
+
+[node name="BodyShopButton" type="Button" unique_id=575916918]
+offset_right = 183.0
+offset_bottom = 164.0
+theme_override_fonts/font = ExtResource("1_t33e7")
+theme_override_font_sizes/font_size = 64
+text = "BS
+"
+script = ExtResource("1_xdgk7")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

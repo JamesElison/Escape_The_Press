@@ -11,6 +11,5 @@ theme_override_fonts/font = ExtResource("1_cll7k")
 theme_override_font_sizes/font_size = 64
 text = "Pause"
 script = ExtResource("1_egecy")
-metadata/_edit_group_ = true
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
