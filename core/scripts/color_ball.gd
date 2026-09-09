@@ -4,7 +4,7 @@ const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 const GRID_SIZE: float = 64.0
 
 var dir = Vector2.UP
-var speed = 1500.0
+var speed: float = 1500.0 # Valor base/fallback
 var is_exploding: bool = false
 
 @onready var color_ball_sprite = $ColorBallSprite
@@ -23,12 +23,50 @@ var color_balls = [
 @export var color_ball = 0: set = set_color_ball
 
 func _ready() -> void:
+	apply_launcher_speed()
 	set_color_ball(color_ball)
+
+# Configura a velocidade com base no lançador equipado no GameManager
+func apply_launcher_speed() -> void:
+	var equipped = GameManager.equipped_launcher
+	match equipped:
+		"120mm":
+			speed = 2500.0
+		"piercing":
+			speed = 4000.0
+		"mini_plasma":
+			speed = 3000.0
+		_:
+			speed = 1500.0 # Velocidade padrão caso não seja nenhum dos três
 
 func set_color_ball(val) -> void:
 	color_ball = val
-	if color_ball_sprite and val >= 0 and val < color_balls.size():
-		color_ball_sprite.texture = load(color_balls[val])
+	if color_ball_sprite and val >= 0:
+		var tex_path = get_projectile_texture_path(val)
+		if ResourceLoader.exists(tex_path):
+			color_ball_sprite.texture = load(tex_path)
+
+func get_projectile_texture_path(color_idx: int) -> String:
+	var color_names = ["red.png", "green.png", "blue.png", "cyan.png", "magenta.png", "yellow.png"]
+	var color_file = color_names[clamp(color_idx, 0, 5)]
+	
+	var equipped = GameManager.equipped_launcher
+	var base_folder = ""
+	
+	match equipped:
+		"120mm":
+			base_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
+		"piercing":
+			base_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
+		"mini_plasma":
+			base_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
+		_:
+			# Caso padrão (se usar as bolas padrão do jogo)
+			if color_idx < color_balls.size():
+				return color_balls[color_idx]
+			return ""
+
+	return base_folder + color_file
 
 func _physics_process(delta: float) -> void:
 	if is_exploding:
@@ -84,7 +122,6 @@ func _physics_process(delta: float) -> void:
 			if (ball_is_rgb and block_is_rgb) or (ball_is_cmy and block_is_cmy) or (ball_is_kw and block_is_kw):
 				var new_color = mix_colors(color_ball, b_color)
 				if new_color != -1:
-					# --- ALTERAÇÃO AQUI ---
 					if collider.has_method("fade_to_color"):
 						collider.fade_to_color(new_color)
 					else:
@@ -137,7 +174,7 @@ func spawn_block_on_press(press_node: Node2D, impact_position: Vector2) -> void:
 	# 1. Adiciona o nó na árvore primeiro (dispara o _ready do bloco)
 	container.add_child(new_block)
 
-	# 2. Atribui a cor da bola DEPOIS (sobrescrevendo o sorteio do _ready do bloco)
+	# 2. Atribui a cor da bola DEPOIS
 	if "block_color" in new_block:
 		new_block.block_color = self.color_ball
 

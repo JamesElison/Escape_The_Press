@@ -1,95 +1,52 @@
 [gd_scene format=3 uid="uid://b58llws2xmu6b"]
 
 [ext_resource type="Script" uid="uid://60ry5x7ebcls" path="res://core/scripts/body_shop.gd" id="1_n6bip"]
-[ext_resource type="Texture2D" uid="uid://ctjm3vydjhl3y" path="res://core/assets/sprites/set_objects/magenta_block.png" id="2_2h8a0"]
-[ext_resource type="Texture2D" uid="uid://bbgh5ox2vchcj" path="res://core/assets/sprites/set_objects/red_block.png" id="3_qc7q7"]
-[ext_resource type="Texture2D" uid="uid://5fclxneyy0o6" path="res://core/assets/sprites/set_objects/green_block.png" id="4_fgi18"]
-[ext_resource type="Texture2D" uid="uid://b3rrajoqcghja" path="res://core/assets/sprites/set_objects/ciano_block.png" id="5_xa0pr"]
-[ext_resource type="Texture2D" uid="uid://bwo6ikfur3chw" path="res://core/assets/sprites/set_objects/white_block.png" id="6_xa0pr"]
-[ext_resource type="Texture2D" uid="uid://bfiha26onjnl5" path="res://core/assets/sprites/set_objects/yellow_block.png" id="7_7e07l"]
-[ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="8_7e07l"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
-size = Vector2(40, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2h8a0"]
-size = Vector2(800, 40)
+[ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="2_2h8a0"]
 
 [node name="BodyShop" type="Control" unique_id=1610804757]
 process_mode = 3
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_n6bip")
-min_y = -2000.0
-
-[node name="BodyShopLimits" type="StaticBody2D" parent="." unique_id=736772479]
-collision_layer = 1024
-collision_mask = 512
-
-[node name="Shape1" type="CollisionShape2D" parent="BodyShopLimits" unique_id=2094794129]
-position = Vector2(-20, 20)
-shape = SubResource("RectangleShape2D_k6ly5")
-
-[node name="Shape2" type="CollisionShape2D" parent="BodyShopLimits" unique_id=1231345573]
-position = Vector2(740, 20)
-shape = SubResource("RectangleShape2D_k6ly5")
-
-[node name="Shape3" type="CollisionShape2D" parent="BodyShopLimits" unique_id=696849620]
-position = Vector2(740, 1300)
-shape = SubResource("RectangleShape2D_k6ly5")
-
-[node name="Shape4" type="CollisionShape2D" parent="BodyShopLimits" unique_id=472536236]
-position = Vector2(-20, 1300)
-shape = SubResource("RectangleShape2D_k6ly5")
 
 [node name="BodyShopRect" type="ColorRect" parent="." unique_id=790614684]
-layout_mode = 0
-offset_top = -40.0
-offset_right = 720.0
-offset_bottom = 2600.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.38431373, 0.4117647, 1, 1)
 
-[node name="BodyShopLimiteds" type="StaticBody2D" parent="BodyShopRect" unique_id=234908588]
-collision_layer = 512
-collision_mask = 1024
+[node name="BodyShopScroll" type="ScrollContainer" parent="." unique_id=859382942]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
 
-[node name="Shape1" type="CollisionShape2D" parent="BodyShopRect/BodyShopLimiteds" unique_id=626334806]
-position = Vector2(360, 20)
-shape = SubResource("RectangleShape2D_2h8a0")
+[node name="BodyShopVBox" type="VBoxContainer" parent="BodyShopScroll" unique_id=1322112875]
+custom_minimum_size = Vector2(0, 3000)
+layout_mode = 2
 
-[node name="Shape2" type="CollisionShape2D" parent="BodyShopRect/BodyShopLimiteds" unique_id=379160959]
-position = Vector2(360, 2620)
-shape = SubResource("RectangleShape2D_2h8a0")
+[node name="ItemCard" parent="BodyShopScroll/BodyShopVBox" unique_id=1651953612 instance=ExtResource("2_2h8a0")]
+layout_mode = 2
 
-[node name="MagentaBlock" type="Sprite2D" parent="BodyShopRect" unique_id=94299579]
-position = Vector2(64, 96)
-texture = ExtResource("2_2h8a0")
+[node name="ItemCard2" parent="BodyShopScroll/BodyShopVBox" unique_id=1897976037 instance=ExtResource("2_2h8a0")]
+layout_mode = 2
 
-[node name="RedBlock" type="Sprite2D" parent="BodyShopRect" unique_id=2016464296]
-position = Vector2(656, 96)
-texture = ExtResource("3_qc7q7")
+[node name="ItemCard3" parent="BodyShopScroll/BodyShopVBox" unique_id=1686923604 instance=ExtResource("2_2h8a0")]
+layout_mode = 2
 
-[node name="GreenBlock" type="Sprite2D" parent="BodyShopRect" unique_id=1671203222]
-position = Vector2(64, 1280)
-texture = ExtResource("4_fgi18")
-
-[node name="CianoBlock" type="Sprite2D" parent="BodyShopRect" unique_id=1788348942]
-position = Vector2(656, 1280)
-texture = ExtResource("5_xa0pr")
-
-[node name="WhiteBlock" type="Sprite2D" parent="BodyShopRect" unique_id=198289232]
-position = Vector2(64, 2560)
-texture = ExtResource("6_xa0pr")
-
-[node name="YellowBlock" type="Sprite2D" parent="BodyShopRect" unique_id=137276234]
-position = Vector2(656, 2560)
-texture = ExtResource("7_7e07l")
-
-[node name="BodyShopButton" parent="." unique_id=575916918 instance=ExtResource("8_7e07l")]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 24.0
-offset_right = 235.0
-offset_bottom = 110.0
+[node name="ItemCard4" parent="BodyShopScroll/BodyShopVBox" unique_id=566244747 instance=ExtResource("2_2h8a0")]
+layout_mode = 2

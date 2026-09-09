@@ -1,66 +1,98 @@
 extends Control
 
-@onready var body_shop_rect: ColorRect = $BodyShopRect
+signal opened
+signal closed
 
-# Variáveis para controle do Scroll / Drag
-var is_dragging: bool = false
-var last_touch_pos: Vector2 = Vector2.ZERO
+const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 
-# Limites exatos baseados na altura de 2640px e posição inicial -40.0
-@export var max_y: float = -40.0
-@export var min_y: float = -1400.0  # Altere para -1680.0 se sua tela tiver 1000px de altura
+@onready var vbox_container = $BodyShopScroll/BodyShopVBox
+
+# Definição do catálogo de lançadores disponíveis
+var items_catalog: Array[Dictionary] = [
+	{
+		"id": "Standart",
+		"title": "Color Balls",
+		"price": 0,
+		"texture_path": "res://core/assets/sprites/characters/player.png",
+		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/"
+	},
+	{
+		"id": "120mm",
+		"title": "120mm Type",
+		"price": 1000,
+		"texture_path": "res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png",
+		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
+	},
+	{
+		"id": "piercing",
+		"title": "Piercing Type",
+		"price": 3000,
+		"texture_path": "res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png",
+		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
+	},
+	{
+		"id": "mini_plasma",
+		"title": "Mini Plasma Type",
+		"price": 5000,
+		"texture_path": "res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png",
+		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
+	}
+]
 
 func _ready() -> void:
-	InAppManager.item_purchased.connect(_on_item_purchased)
-	update_shop_ui()
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	hide()
+	populate_shop()
 
-func _gui_input(event: InputEvent) -> void:
-	# 1. Detecta o toque/clique na tela
-	if event is InputEventScreenTouch:
-		if event.pressed:
-			is_dragging = true
-			last_touch_pos = event.position
-		else:
-			is_dragging = false
-			
-	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			is_dragging = true
-			last_touch_pos = event.position
-		else:
-			is_dragging = false
-
-	# 2. Arrasta o ColorRect verticalmente
-	if is_dragging:
-		if event is InputEventScreenDrag:
-			var delta_y = event.position.y - last_touch_pos.y
-			move_shop(delta_y)
-			last_touch_pos = event.position
-			
-		elif event is InputEventMouseMotion:
-			var delta_y = event.position.y - last_touch_pos.y
-			move_shop(delta_y)
-			last_touch_pos = event.position
-
-func move_shop(delta_y: float) -> void:
-	if not body_shop_rect:
-		return
+func populate_shop() -> void:
+	# Limpa itens antigos para re-gerar a lista limpa
+	for child in vbox_container.get_children():
+		child.queue_free()
 		
-	var new_y = body_shop_rect.position.y + delta_y
-	# Trava a rolagem entre a posição inicial (-40) e o fim do ColorRect
-	body_shop_rect.position.y = clamp(new_y, min_y, max_y)
+	for item_data in items_catalog:
+		var item_node = SHOP_ITEM_SCENE.instantiate()
+		vbox_container.add_child(item_node)
+		item_node.setup(item_data)
+		
+		item_node.buy_requested.connect(_on_item_buy_requested)
+		item_node.equip_requested.connect(_on_item_equip_requested)
 
-func _on_launcher_pressed(launcher_key: String) -> void:
-	if launcher_key in InAppManager.purchased_launchers:
-		equip_launcher(launcher_key)
+func refresh_all_items() -> void:
+	for child in vbox_container.get_children():
+		if child.has_method("update_state"):
+			child.update_state()
+
+func _on_item_buy_requested(item_data: Dictionary) -> void:
+	var price = item_data.get("price", 0)
+	var item_id = item_data.get("id", "")
+	
+	if GameManager.remove_coins(price):
+		GameManager.unlocked_launchers.append(item_id)
+		GameManager.equipped_launcher = item_id
+		GameManager.save_game_data()
+		refresh_all_items()
+		EventBus.launcher_changed.emit(item_id)
+
+func _on_item_equip_requested(item_data: Dictionary) -> void:
+	var item_id = item_data.get("id", "")
+	GameManager.equipped_launcher = item_id
+	GameManager.save_game_data()
+	refresh_all_items()
+	EventBus.launcher_changed.emit(item_id)
+
+func toggle_shop() -> void:
+	if visible:
+		close()
 	else:
-		InAppManager.buy_launcher(launcher_key)
+		open()
 
-func _on_item_purchased(launcher_key: String) -> void:
-	update_shop_ui()
+func open() -> void:
+	refresh_all_items()
+	show()
+	get_tree().paused = true
+	opened.emit()
 
-func update_shop_ui() -> void:
-	pass
-
-func equip_launcher(launcher_key: String) -> void:
-	pass
+func close() -> void:
+	hide()
+	get_tree().paused = false
+	closed.emit()

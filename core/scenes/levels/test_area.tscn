@@ -13,6 +13,7 @@
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="11_nqyh5"]
 [ext_resource type="PackedScene" uid="uid://dgsyuoff3ndoy" path="res://core/scenes/set_elements/coin.tscn" id="12_2xyph"]
 [ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="13_jyd58"]
+[ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/body_shop.tscn" id="14_skvvx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(40, 1280)
@@ -66,16 +67,26 @@ rotation = 4.712389
 
 [node name="LevelCanvasLayer" type="CanvasLayer" parent="." unique_id=1652093017]
 
-[node name="MessageLabel" type="Label" parent="LevelCanvasLayer" unique_id=599910191]
+[node name="BodyShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("14_skvvx")]
+visible = false
+
+[node name="HUD" type="Control" parent="LevelCanvasLayer" unique_id=1947921536]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MessageLabel" type="Label" parent="LevelCanvasLayer/HUD" unique_id=599910191]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -311.0
-offset_top = 60.0
-offset_right = 318.0
-offset_bottom = 300.0
+offset_left = 29.0
+offset_top = 680.0
+offset_right = 658.0
+offset_bottom = 920.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("11_nqyh5")
@@ -84,29 +95,35 @@ text = " "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BodyShopButton" parent="LevelCanvasLayer" unique_id=575916918 instance=ExtResource("13_jyd58")]
+[node name="BodyShopButton" parent="LevelCanvasLayer/HUD" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button") instance=ExtResource("13_jyd58")]
 process_mode = 3
+layout_mode = 0
 offset_right = 107.0
 offset_bottom = 100.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+body_shop_ui = NodePath("../../BodyShop")
+pause_button = NodePath("../PauseButton")
 metadata/_edit_use_anchors_ = true
 
-[node name="PauseButton" parent="LevelCanvasLayer" unique_id=126329662 instance=ExtResource("11_2xyph")]
+[node name="PauseButton" parent="LevelCanvasLayer/HUD" unique_id=126329662 instance=ExtResource("11_2xyph")]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -150.0
+offset_left = 190.0
 offset_top = 40.0
-offset_right = 150.0
+offset_right = 490.0
 offset_bottom = 140.0
 grow_horizontal = 2
 
-[node name="Coin" parent="LevelCanvasLayer" unique_id=780510659 instance=ExtResource("12_2xyph")]
+[node name="Coin" parent="LevelCanvasLayer/HUD" unique_id=780510659 instance=ExtResource("12_2xyph")]
+layout_mode = 0
 offset_left = 31.0
 offset_top = 1253.0
 offset_right = 31.0
 offset_bottom = 1253.0
+mouse_filter = 2
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]
 

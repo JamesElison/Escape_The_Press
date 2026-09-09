@@ -6,15 +6,19 @@ extends Node2D
 @onready var level_start_timer = $LevelStartTimer
 @onready var press = $Press
 @onready var player = $Player
-@onready var level_color_rect = $LevelColorRect
-@onready var message_label = $LevelCanvasLayer/MessageLabel
-@onready var pause_button = $LevelCanvasLayer/PauseButton
+#@onready var level_color_rect = $LevelColorRect
+@onready var message_label = $LevelCanvasLayer/HUD/MessageLabel
+@onready var body_shop_button = $LevelCanvasLayer/HUD/BodyShopButton
+@onready var pause_button = $LevelCanvasLayer/HUD/PauseButton
 @onready var message_timer = $MessageTimer
 
 var level_cleared: bool = false
 var is_game_over: bool = false
 
 func _ready() -> void:
+	# Carrega os dados salvos mais recentes (garante o nível correto)
+	GameManager.load_game_data()
+	
 	# Aguarda a árvore estabilizar a montagem de todos os nós filhos
 	await get_tree().process_frame
 	
@@ -30,7 +34,7 @@ func _ready() -> void:
 		press.speed = GameManager.press_speed
 		press.press_active = true
 
-	# 2. Exibe mensagem de início
+	# 2. Exibe mensagem de início com o nível atual carregado do GameManager
 	show_level_start(GameManager.current_level)
 
 	# 3. Timer
@@ -63,7 +67,7 @@ func complete_level() -> void:
 		level_victory_music.play()
 		await level_victory_music.finished
 	
-	# Incrementa dados no GameManager
+	# Incrementa dados no GameManager e SALVA o novo nível
 	GameManager.advance_to_next_level()
 	
 	# Troca direto para a cena do nível
@@ -94,20 +98,18 @@ func _on_message_timer_timeout() -> void:
 
 func game_over() -> void:
 	level_cleared = true
-	
-	# Para a prensa imediatamente
 	if is_instance_valid(press):
 		press.press_active = false
-	
-	# Dispara a animação/fluxo de Game Over no HUD
 	show_game_over()
-	
+
+	# Reseta apenas o nível, mantendo moedas e itens
+	#GameManager.reset_level_progress()
+
 	if is_instance_valid(level_music):
 		level_music.stop()
-		
 	if is_instance_valid(level_game_over_sound):
 		level_game_over_sound.play()
-	
+
 	await get_tree().create_timer(2).timeout
 	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")
 	

@@ -136,6 +136,9 @@ func destroy_with_delay() -> void:
 		return
 	is_being_destroyed = true
 	
+	# +10 coins por bloco destruído (incluindo destruições por efeito cascata)
+	GameManager.add_coins(10)
+	
 	# 1. Instancia o efeito de partículas na cor do bloco atual
 	spawn_particles()
 	
@@ -286,6 +289,11 @@ func check_top_match() -> void:
 
 # Move o bloco uma casa para baixo na grade local da Prensa
 func shift_down() -> void:
+	# Penalidade por erro de combinação
+	GameManager.coins -= 10
+	EventBus.coins_updated.emit(GameManager.coins)
+	GameManager.save_game_data()
+
 	if block_move_down_sound:
 		await get_tree().create_timer(0.10).timeout
 		block_move_down_sound.play()

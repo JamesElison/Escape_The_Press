@@ -20,6 +20,35 @@ var touch_target_x: float = 0.0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	EventBus.launcher_changed.connect(update_launcher_sprite)
+	update_launcher_sprite(GameManager.equipped_launcher)
+	# Conecta ao sinal global do EventBus para atualizar em tempo real quando mudar na loja
+	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
+		EventBus.launcher_changed.connect(_on_launcher_changed)
+	
+	# Atualiza o sprite inicial de acordo com o item equipado no GameManager
+	update_launcher_sprite(GameManager.equipped_launcher)
+
+func update_launcher_sprite(launcher_id: String) -> void:
+	var texture_path = ""
+	
+	# Mapeia cada ID para o sprite correspondente do lançador (canhão/corpo)
+	match launcher_id:
+		"Standart":
+			texture_path = "res://core/assets/sprites/characters/player.png"
+		"120mm":
+			texture_path = "res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png"
+		"piercing":
+			texture_path = "res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png"
+		"mini_plasma":
+			texture_path = "res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png"
+		_:
+			texture_path = "res://core/assets/sprites/characters/default_launcher.png" # Sprite padrão
+
+	# Se a textura existir, aplica no nó de Sprite do lançador
+	if ResourceLoader.exists(texture_path):
+		player_sprite.texture = load(texture_path) # Substitua $Sprite2D pelo nome exato do seu nó de sprite
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Ignora eventos emulados para evitar gatilho duplo
@@ -101,3 +130,6 @@ func _on_player_health_area_body_entered(body: Node2D) -> void:
 	elif body.name == "Press":
 		print(body)
 		die()
+
+func _on_launcher_changed(launcher_id: String) -> void:
+	update_launcher_sprite(launcher_id)
