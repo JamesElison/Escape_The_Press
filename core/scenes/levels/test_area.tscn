@@ -98,8 +98,10 @@ vertical_alignment = 1
 [node name="BodyShopButton" parent="LevelCanvasLayer/HUD" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button") instance=ExtResource("13_jyd58")]
 process_mode = 3
 layout_mode = 1
-offset_right = 107.0
-offset_bottom = 100.0
+offset_left = 19.0
+offset_top = 40.0
+offset_right = 126.0
+offset_bottom = 140.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 body_shop_ui = NodePath("../../BodyShop")
@@ -110,18 +112,18 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 190.0
-offset_top = 40.0
-offset_right = 490.0
-offset_bottom = 140.0
+offset_left = 203.0
+offset_top = 39.0
+offset_right = 503.0
+offset_bottom = 139.0
 grow_horizontal = 2
 
 [node name="Coin" parent="LevelCanvasLayer/HUD" unique_id=780510659 instance=ExtResource("12_2xyph")]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 47.0
-offset_right = 1.0
-offset_bottom = 47.0
+offset_left = 40.0
+offset_top = 185.0
+offset_right = 40.0
+offset_bottom = 185.0
 mouse_filter = 2
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]

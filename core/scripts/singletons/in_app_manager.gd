@@ -52,3 +52,12 @@ func load_local_purchases() -> void:
 		var file = FileAccess.open("user://purchases.dat", FileAccess.READ)
 		if file:
 			purchased_launchers = file.get_var()
+
+# --- RESET LOCAL DE COMPRAS IN-APP ---
+func reset_local_purchases() -> void:
+	if FileAccess.file_exists("user://purchases.dat"):
+		var dir = DirAccess.open("user://")
+		if dir:
+			dir.remove("purchases.dat")
+	
+	purchased_launchers = ["player1"]

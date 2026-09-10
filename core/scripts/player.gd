@@ -5,6 +5,16 @@ var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
 
 const SPEED = 1000.0
 
+# Cores equivalentes às bolas do jogo [Red, Green, Blue, Cyan, Magenta, Yellow]
+const BALL_COLORS: Array[Color] = [
+	Color(0.95, 0.2, 0.2),   # 0: Red
+	Color(0.2, 0.9, 0.3),   # 1: Green
+	Color(0.2, 0.4, 0.95),  # 2: Blue
+	Color(0.1, 0.85, 0.95), # 3: Cyan
+	Color(0.9, 0.25, 0.85), # 4: Magenta
+	Color(0.95, 0.85, 0.1)  # 5: Yellow
+]
+
 @onready var player_ball_shoot = $PlayerBallShoot
 @onready var player_sprite = $PlayerSprite
 @onready var player_marker = $PlayerMarker
@@ -22,12 +32,24 @@ signal game_over
 var is_touching: bool = false
 var touch_target_x: float = 0.0
 
+var color_tween: Tween
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	
 	# Conecta ao sinal global do EventBus para atualizar em tempo real quando mudar na loja
 	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
 		EventBus.launcher_changed.connect(_on_launcher_changed)
+	
+	# Conecta ao sinal de mudança de cor do carregador
+	if is_instance_valid(charger):
+		if charger.has_signal("top_color_changed"):
+			if not charger.top_color_changed.is_connected(_on_top_color_changed):
+				charger.top_color_changed.connect(_on_top_color_changed)
+		
+		# Sincroniza a cor inicial se o carregador já tiver uma bola
+		if charger.has_method("get_top_ball_color"):
+			_on_top_color_changed(charger.get_top_ball_color())
 	
 	# Atualiza o sprite inicial de acordo com o item equipado no GameManager
 	update_launcher_sprite(GameManager.equipped_launcher)
@@ -60,6 +82,29 @@ func update_laser() -> void:
 	laser_line.clear_points()
 	laser_line.add_point(origin_point)
 	laser_line.add_point(target_point)
+
+func _on_top_color_changed(color_idx: int) -> void:
+	if not is_instance_valid(laser_line):
+		return
+
+	var valid_idx = clamp(color_idx, 0, BALL_COLORS.size() - 1)
+	var target_color = BALL_COLORS[valid_idx]
+
+	# Anima a transição de cor do laser de forma suave
+	if color_tween and color_tween.is_running():
+		color_tween.kill()
+
+	color_tween = create_tween()
+
+	if laser_line.gradient:
+		color_tween.tween_method(
+			func(c: Color): laser_line.gradient.set_color(0, c),
+			laser_line.gradient.get_color(0),
+			target_color,
+			0.15
+		)
+	else:
+		color_tween.tween_property(laser_line, "default_color", target_color, 0.15)
 
 func update_launcher_sprite(launcher_id: String) -> void:
 	var texture_path = ""

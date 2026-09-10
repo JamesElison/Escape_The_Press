@@ -2,7 +2,7 @@ extends Node
 
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
-var press_speed: float = 3.0
+var press_speed: float = 1.0
 var coins: int = 0
 
 var unlocked_launchers: Array[String] = ["launcher_default"]
@@ -41,7 +41,7 @@ func reset_level_progress() -> void:
 
 func advance_to_next_level() -> void:
 	current_level += 1
-	press_speed += 0.2
+	press_speed += 0.1
 	add_coins(500) # Recompensa por passar de nível
 	save_game_data()
 
@@ -77,3 +77,22 @@ func load_game_data() -> void:
 					unlocked_launchers.append(str(l))
 					
 				equipped_launcher = save_dict.get("equipped_launcher", "launcher_default")
+
+# --- RESET COMPLETO DE SAVE ---
+func reset_all_save_data() -> void:
+	# 1. Apaga o arquivo físico do computador/dispositivo
+	if FileAccess.file_exists(SAVE_PATH):
+		var dir = DirAccess.open("user://")
+		if dir:
+			dir.remove("game_save.dat")
+
+	# 2. Reseta as variáveis em memória para o estado inicial
+	current_level = 1
+	press_speed = 1.0
+	coins = 0
+	unlocked_launchers = ["launcher_default"]
+	equipped_launcher = "launcher_default"
+
+	# 3. Notifica a UI e o sistema de eventos sobre a mudança
+	EventBus.coins_updated.emit(coins)
+	EventBus.launcher_changed.emit(equipped_launcher)
