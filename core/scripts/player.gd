@@ -9,6 +9,10 @@ const SPEED = 1000.0
 @onready var player_sprite = $PlayerSprite
 @onready var player_marker = $PlayerMarker
 
+# Nós para o Laser
+@onready var laser_ray_cast: RayCast2D = $LaserRayCast
+@onready var laser_line: Line2D = $LaserLine
+
 @export var charger: Node2D
 
 signal ball_shot(color_index: int)
@@ -20,14 +24,42 @@ var touch_target_x: float = 0.0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	EventBus.launcher_changed.connect(update_launcher_sprite)
-	update_launcher_sprite(GameManager.equipped_launcher)
+	
 	# Conecta ao sinal global do EventBus para atualizar em tempo real quando mudar na loja
 	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
 		EventBus.launcher_changed.connect(_on_launcher_changed)
 	
 	# Atualiza o sprite inicial de acordo com o item equipado no GameManager
 	update_launcher_sprite(GameManager.equipped_launcher)
+
+func _process(_delta: float) -> void:
+	update_laser()
+
+# --- LÓGICA DO LASER ---
+func update_laser() -> void:
+	if not is_instance_valid(laser_ray_cast) or not is_instance_valid(laser_line):
+		return
+
+	# Ponto inicial do laser em coordenadas locais do Line2D
+	var origin_point = laser_line.to_local(laser_ray_cast.global_position)
+	var target_point: Vector2
+
+	# Força a atualização da colisão a cada quadro
+	laser_ray_cast.force_raycast_update()
+
+	if laser_ray_cast.is_colliding():
+		# Se colidiu com algo (Bloco ou Prensa), obtém o ponto exato de colisão no mundo
+		var collision_point = laser_ray_cast.get_collision_point()
+		# Converte o ponto do mundo para o sistema de coordenadas local do Line2D
+		target_point = laser_line.to_local(collision_point)
+	else:
+		# Se não houver obstáculo, desenha até o limite do Target Position
+		target_point = laser_line.to_local(laser_ray_cast.to_global(laser_ray_cast.target_position))
+
+	# Desenha a linha da origem até o ponto de impacto
+	laser_line.clear_points()
+	laser_line.add_point(origin_point)
+	laser_line.add_point(target_point)
 
 func update_launcher_sprite(launcher_id: String) -> void:
 	var texture_path = ""
@@ -47,8 +79,7 @@ func update_launcher_sprite(launcher_id: String) -> void:
 
 	# Se a textura existir, aplica no nó de Sprite do lançador
 	if ResourceLoader.exists(texture_path):
-		player_sprite.texture = load(texture_path) # Substitua $Sprite2D pelo nome exato do seu nó de sprite
-
+		player_sprite.texture = load(texture_path)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Ignora eventos emulados para evitar gatilho duplo
@@ -107,8 +138,11 @@ func processing_shoot():
 
 	EventBus.camera_shake_requested.emit(15.0, 0.15)
 
+	# Consome e pega a cor do topo de forma atômica e instantânea
 	var current_color = 0
-	if charger and charger.has_method("get_top_ball_color"):
+	if is_instance_valid(charger) and charger.has_method("pop_top_ball_color"):
+		current_color = charger.pop_top_ball_color()
+	elif charger and charger.has_method("get_top_ball_color"):
 		current_color = charger.get_top_ball_color()
 	
 	var ball = pre_ball.instantiate()
@@ -122,6 +156,8 @@ func processing_shoot():
 func die() -> void:
 	game_over.emit()
 	player_sprite.hide()
+	if is_instance_valid(laser_line):
+		laser_line.hide()
 
 func _on_player_health_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("blocks"):

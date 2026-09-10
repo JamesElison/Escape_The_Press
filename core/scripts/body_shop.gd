@@ -11,10 +11,10 @@ const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 var items_catalog: Array[Dictionary] = [
 	{
 		"id": "Standart",
-		"title": "Color Balls",
-		"price": 0,
+		"title": "Ball launcher",
+		"price": "N/A",
 		"texture_path": "res://core/assets/sprites/characters/player.png",
-		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/"
+		"projectile_dir": "res://core/assets/sprites/set_objects/"
 	},
 	{
 		"id": "120mm",
@@ -25,7 +25,7 @@ var items_catalog: Array[Dictionary] = [
 	},
 	{
 		"id": "piercing",
-		"title": "Piercing Type",
+		"title": "Hig Piercing Type",
 		"price": 3000,
 		"texture_path": "res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
@@ -42,6 +42,11 @@ var items_catalog: Array[Dictionary] = [
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
+	
+	# Garantia: O lançador padrão sempre deve estar liberado nos salvamentos
+	if not "Standart" in GameManager.unlocked_launchers:
+		GameManager.unlocked_launchers.append("Standart")
+		
 	populate_shop()
 
 func populate_shop() -> void:
@@ -72,6 +77,7 @@ func _on_item_buy_requested(item_data: Dictionary) -> void:
 		GameManager.save_game_data()
 		refresh_all_items()
 		EventBus.launcher_changed.emit(item_id)
+		close() # Retorna ao jogo imediatamente após a compra
 
 func _on_item_equip_requested(item_data: Dictionary) -> void:
 	var item_id = item_data.get("id", "")
@@ -79,6 +85,7 @@ func _on_item_equip_requested(item_data: Dictionary) -> void:
 	GameManager.save_game_data()
 	refresh_all_items()
 	EventBus.launcher_changed.emit(item_id)
+	close() # Retorna ao jogo imediatamente após equipar
 
 func toggle_shop() -> void:
 	if visible:

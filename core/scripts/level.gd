@@ -6,7 +6,6 @@ extends Node2D
 @onready var level_start_timer = $LevelStartTimer
 @onready var press = $Press
 @onready var player = $Player
-#@onready var level_color_rect = $LevelColorRect
 @onready var message_label = $LevelCanvasLayer/HUD/MessageLabel
 @onready var body_shop_button = $LevelCanvasLayer/HUD/BodyShopButton
 @onready var pause_button = $LevelCanvasLayer/HUD/PauseButton
@@ -29,7 +28,7 @@ func _ready() -> void:
 		if not player.game_over.is_connected(game_over):
 			player.game_over.connect(game_over)
 
-	# 1. Ajusta o speed da prensa
+	# 1. Ajusta a velocidade da prensa
 	if is_instance_valid(press):
 		press.speed = GameManager.press_speed
 		press.press_active = true
@@ -53,17 +52,18 @@ func _process(_delta: float) -> void:
 
 	# Checa se todos os blocos foram destruídos
 	var remaining_blocks = get_tree().get_nodes_in_group("blocks")
-	if remaining_blocks.size() == 0 and press.press_active:
+	if remaining_blocks.size() == 0 and press and press.press_active:
 		complete_level()
 
 func complete_level() -> void:
 	level_cleared = true
 	
-	press.press_active = false
-	if level_music:
+	if is_instance_valid(press):
+		press.press_active = false
+	if is_instance_valid(level_music):
 		level_music.stop()
 	
-	if level_victory_music:
+	if is_instance_valid(level_victory_music):
 		level_victory_music.play()
 		await level_victory_music.finished
 	
@@ -81,19 +81,22 @@ func setup_for_level() -> void:
 	is_game_over = false
 
 func show_message(text: String) -> void:
-	message_label.text = text
-	message_label.show()
-	message_timer.start()
+	if is_instance_valid(message_label):
+		message_label.text = text
+		message_label.show()
+	if is_instance_valid(message_timer):
+		message_timer.start()
 
 func show_game_over() -> void:
 	is_game_over = true
 	show_message("Game Over")
 
 func _on_level_start_timer_timeout() -> void:
-	press.press_active = true
+	if is_instance_valid(press):
+		press.press_active = true
 
 func _on_message_timer_timeout() -> void:
-	if not is_game_over:
+	if not is_game_over and is_instance_valid(message_label):
 		message_label.hide()
 
 func game_over() -> void:
@@ -102,14 +105,10 @@ func game_over() -> void:
 		press.press_active = false
 	show_game_over()
 
-	# Reseta apenas o nível, mantendo moedas e itens
-	#GameManager.reset_level_progress()
-
 	if is_instance_valid(level_music):
 		level_music.stop()
 	if is_instance_valid(level_game_over_sound):
 		level_game_over_sound.play()
 
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(2.0).timeout
 	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")
-	

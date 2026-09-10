@@ -39,4 +39,13 @@ visible = false
 position = Vector2(0, -125)
 shape = SubResource("RectangleShape2D_k6ly5")
 
+[node name="LaserRayCast" type="RayCast2D" parent="." unique_id=1527978726]
+position = Vector2(0, -133)
+target_position = Vector2(0, -1000)
+collision_mask = 48
+
+[node name="LaserLine" type="Line2D" parent="." unique_id=541704108]
+width = 2.0
+default_color = Color(1, 0, 0, 0.7372549)
+
 [connection signal="body_entered" from="PlayerHealthArea" to="." method="_on_player_health_area_body_entered"]

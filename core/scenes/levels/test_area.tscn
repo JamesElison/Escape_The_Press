@@ -50,8 +50,8 @@ position = Vector2(355, 1220)
 charger = NodePath("../Charger")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1558915970]
-collision_layer = 35
-collision_mask = 4
+collision_layer = 3
+collision_mask = 2048
 
 [node name="Limitshape_l" type="CollisionShape2D" parent="Limits" unique_id=290407902]
 position = Vector2(-20, 640)
@@ -62,7 +62,7 @@ position = Vector2(740, 640)
 shape = SubResource("RectangleShape2D_k6ly5")
 
 [node name="Charger" parent="." unique_id=1260939654 instance=ExtResource("6_3c2jl")]
-position = Vector2(616, 46)
+position = Vector2(689, 47)
 rotation = 4.712389
 
 [node name="LevelCanvasLayer" type="CanvasLayer" parent="." unique_id=1652093017]
@@ -97,14 +97,13 @@ vertical_alignment = 1
 
 [node name="BodyShopButton" parent="LevelCanvasLayer/HUD" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button") instance=ExtResource("13_jyd58")]
 process_mode = 3
-layout_mode = 0
+layout_mode = 1
 offset_right = 107.0
 offset_bottom = 100.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 body_shop_ui = NodePath("../../BodyShop")
 pause_button = NodePath("../PauseButton")
-metadata/_edit_use_anchors_ = true
 
 [node name="PauseButton" parent="LevelCanvasLayer/HUD" unique_id=126329662 instance=ExtResource("11_2xyph")]
 layout_mode = 1
@@ -119,10 +118,10 @@ grow_horizontal = 2
 
 [node name="Coin" parent="LevelCanvasLayer/HUD" unique_id=780510659 instance=ExtResource("12_2xyph")]
 layout_mode = 0
-offset_left = 31.0
-offset_top = 1253.0
-offset_right = 31.0
-offset_bottom = 1253.0
+offset_left = 1.0
+offset_top = 47.0
+offset_right = 1.0
+offset_bottom = 47.0
 mouse_filter = 2
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]

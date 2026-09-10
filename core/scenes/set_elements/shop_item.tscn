@@ -25,17 +25,18 @@ size_flags_horizontal = 3
 [node name="TitleLabel" type="Label" parent="HBoxContainer/InfoContainer" unique_id=198549266]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_0417t")
-theme_override_font_sizes/font_size = 32
-text = "Hig Piercing"
+theme_override_font_sizes/font_size = 24
+text = "Hig Piercing Type"
 
 [node name="PriceLabel" type="Label" parent="HBoxContainer/InfoContainer" unique_id=1979994642]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_0417t")
 theme_override_font_sizes/font_size = 32
-text = "10.000 Coins"
+text = "10.000"
 
 [node name="BuyButton" type="Button" parent="HBoxContainer" unique_id=1664746317]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("2_0417t")
 theme_override_font_sizes/font_size = 32

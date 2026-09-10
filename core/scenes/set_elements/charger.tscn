@@ -10,6 +10,7 @@ size = Vector2(16, 16)
 script = ExtResource("1_3gdcb")
 
 [node name="ChargerSprite" type="Sprite2D" parent="." unique_id=1032307856]
+visible = false
 scale = Vector2(2, 2)
 texture = ExtResource("1_y8x7j")
 

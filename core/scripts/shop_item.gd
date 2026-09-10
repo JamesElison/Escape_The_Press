@@ -27,16 +27,16 @@ func update_state() -> void:
 	var is_equipped = (GameManager.equipped_launcher == item_id)
 	
 	if is_equipped:
-		price_label.text = "EQUIPADO"
-		action_button.text = "Em Uso"
+		price_label.text = "EQUIPPED"
+		action_button.text = "In Use"
 		action_button.disabled = true
 	elif is_unlocked:
-		price_label.text = "ADQUIRIDO"
-		action_button.text = "Equipar"
+		price_label.text = "ACQUIRED"
+		action_button.text = "Equip"
 		action_button.disabled = false
 	else:
-		price_label.text = "Preço: " + str(price) # + " Coins"
-		action_button.text = "Comprar"
+		price_label.text = "PRICE: " + str(price) # + " Coins"
+		action_button.text = "Buy"
 		action_button.disabled = false
 
 func _on_action_button_pressed() -> void:

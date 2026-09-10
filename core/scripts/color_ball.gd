@@ -4,7 +4,7 @@ const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 const GRID_SIZE: float = 64.0
 
 var dir = Vector2.UP
-var speed: float = 1500.0 # Valor base/fallback
+var speed: float = 2000.0 # Valor base/fallback
 var is_exploding: bool = false
 
 @onready var color_ball_sprite = $ColorBallSprite

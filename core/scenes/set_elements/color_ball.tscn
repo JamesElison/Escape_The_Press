@@ -109,7 +109,7 @@ _data = {
 }
 
 [node name="ColorBall" type="CharacterBody2D" unique_id=548306013]
-collision_layer = 55
+collision_layer = 2103
 collision_mask = 2
 script = ExtResource("1_f3e34")
 

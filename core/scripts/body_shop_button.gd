@@ -11,13 +11,25 @@ func _ready() -> void:
 	pressed.connect(_on_pressed)
 	self_modulate.a = ALPHA_MUTED
 
+	if body_shop_ui:
+		if not body_shop_ui.opened.is_connected(_on_shop_opened):
+			body_shop_ui.opened.connect(_on_shop_opened)
+		if not body_shop_ui.closed.is_connected(_on_shop_closed):
+			body_shop_ui.closed.connect(_on_shop_closed)
+
 func _on_pressed() -> void:
 	if body_shop_ui:
 		body_shop_ui.toggle_shop()
-		
-		var is_open = body_shop_ui.visible
-		self_modulate.a = ALPHA_FULL if is_open else ALPHA_MUTED
-		
-		# Oculta/Exibe o PauseButton com base no estado da loja
-		if pause_button:
-			pause_button.visible = not is_open
+
+func _on_shop_opened() -> void:
+	self_modulate.a = ALPHA_FULL
+	if pause_button:
+		pause_button.visible = false
+
+func _on_shop_closed() -> void:
+	self_modulate.a = ALPHA_MUTED
+	if pause_button:
+		pause_button.visible = true
+		# Sincroniza o texto e opacidade do PauseButton com a árvore de cena
+		if pause_button.has_method("sync_state"):
+			pause_button.sync_state()
