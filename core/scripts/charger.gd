@@ -13,7 +13,16 @@ var balls: Array = []
 ]
 
 func _ready() -> void:
+	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
+		EventBus.launcher_changed.connect(_on_launcher_changed)
+		
 	call_deferred("initialize_charger")
+
+func _on_launcher_changed(_launcher_id: String) -> void:
+	# Atualiza o sprite de todas as bolas ativas no carregador ao equipar outro lançador
+	for ball in balls:
+		if is_instance_valid(ball) and ball.has_method("set_color_ball"):
+			ball.set_color_ball(ball.color_ball)
 
 func initialize_charger() -> void:
 	for ball in balls:

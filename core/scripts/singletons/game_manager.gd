@@ -3,7 +3,7 @@ extends Node
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
 var press_speed: float = 1.0
-var coins: int = 0
+var coins: int = 10000 # Valor padrão alterado para 10.000
 
 var unlocked_launchers: Array[String] = ["launcher_default"]
 var equipped_launcher: String = "launcher_default"
@@ -12,6 +12,9 @@ const SAVE_PATH: String = "user://game_save.dat"
 
 func _ready() -> void:
 	load_game_data()
+	# Garante que, ao iniciar, caso queira forçar as 10.000 coins no teste atual:
+	# coins = 10000
+	# EventBus.coins_updated.emit(coins)
 
 # Detecta quando o jogador fecha a janela (PC) ou minimiza/fecha o app (Android)
 func _notification(what: int) -> void:
@@ -69,7 +72,7 @@ func load_game_data() -> void:
 				# Recalcula a velocidade da prensa com base no nível salvo
 				press_speed = 3.0 + ((current_level - 1) * 0.2)
 				
-				coins = save_dict.get("coins", 0)
+				coins = save_dict.get("coins", 10000) # Fallback para 10.000 se não existir a chave
 				
 				var raw_launchers = save_dict.get("unlocked_launchers", ["launcher_default"])
 				unlocked_launchers.clear()
@@ -86,10 +89,10 @@ func reset_all_save_data() -> void:
 		if dir:
 			dir.remove("game_save.dat")
 
-	# 2. Reseta as variáveis em memória para o estado inicial
+	# 2. Reseta as variáveis em memória para o estado inicial (10.000 moedas)
 	current_level = 1
 	press_speed = 1.0
-	coins = 0
+	coins = 10000
 	unlocked_launchers = ["launcher_default"]
 	equipped_launcher = "launcher_default"
 
