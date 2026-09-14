@@ -5,6 +5,10 @@ var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
 
 const SPEED = 1000.0
 
+# Configurações de Rotação do Lançador
+@export var rotation_speed: float = 0.1 # Velocidade suave de rotação (rad/s)
+@export var max_rotation_degrees: float = 75.0 # Limite máximo de rotação para esquerda/direita
+
 # Cores equivalentes às bolas do jogo [Red, Green, Blue, Cyan, Magenta, Yellow]
 const BALL_COLORS: Array[Color] = [
 	Color(0.95, 0.2, 0.2),   # 0: Red
@@ -18,70 +22,97 @@ const BALL_COLORS: Array[Color] = [
 @onready var player_ball_shoot = $PlayerBallShoot
 @onready var player_sprite = $PlayerSprite
 @onready var player_marker = $PlayerMarker
-
 # Nós para o Laser
 @onready var laser_ray_cast: RayCast2D = $LaserRayCast
 @onready var laser_line: Line2D = $LaserLine
-
 @export var charger: Node2D
 
 signal ball_shot(color_index: int)
 signal game_over
 
-# --- Variáveis de Controle por Toque (Android) ---
+# --- Variáveis de Controle por Toque / Drag ---
 var is_touching: bool = false
 var touch_target_x: float = 0.0
-
 var color_tween: Tween
 
 func _ready() -> void:
+	add_to_group("player") # Garante o pertencimento ao grupo do player
 	screen_size = get_viewport_rect().size
+	touch_target_x = global_position.x
 	
-	# Conecta ao sinal global do EventBus para atualizar em tempo real quando mudar na loja
 	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
 		EventBus.launcher_changed.connect(_on_launcher_changed)
 	
-	# Conecta ao sinal de mudança de cor do carregador
 	if is_instance_valid(charger):
 		if charger.has_signal("top_color_changed"):
 			if not charger.top_color_changed.is_connected(_on_top_color_changed):
 				charger.top_color_changed.connect(_on_top_color_changed)
 		
-		# Sincroniza a cor inicial se o carregador já tiver uma bola
 		if charger.has_method("get_top_ball_color"):
 			_on_top_color_changed(charger.get_top_ball_color())
 	
-	# Atualiza o sprite inicial de acordo com o item equipado no GameManager
 	update_launcher_sprite(GameManager.equipped_launcher)
 
-func _process(_delta: float) -> void:
-	update_laser()
+# --- MÉTODOS DE ROTAÇÃO SUAVE ---
+func rotate_left(delta: float) -> void:
+	var max_rad = deg_to_rad(max_rotation_degrees)
+	rotation = clamp(rotation - rotation_speed * delta, -max_rad, max_rad)
 
-# --- LÓGICA DO LASER ---
+func rotate_right(delta: float) -> void:
+	var max_rad = deg_to_rad(max_rotation_degrees)
+	rotation = clamp(rotation + rotation_speed * delta, -max_rad, max_rad)
+
+func reset_rotation() -> void:
+	rotation = 0.0
+
+# --- LÓGICA DO LASER COM REFLEXÃO EM ESPELHO (SEM JITTER) ---
 func update_laser() -> void:
-	if not is_instance_valid(laser_ray_cast) or not is_instance_valid(laser_line):
+	if not is_instance_valid(laser_line):
 		return
 
-	# Ponto inicial do laser em coordenadas locais do Line2D
-	var origin_point = laser_line.to_local(laser_ray_cast.global_position)
-	var target_point: Vector2
-
-	# Força a atualização da colisão a cada quadro
-	laser_ray_cast.force_raycast_update()
-
-	if laser_ray_cast.is_colliding():
-		# Se colidiu com algo (Bloco ou Prensa), obtém o ponto exato de colisão no mundo
-		var collision_point = laser_ray_cast.get_collision_point()
-		# Converte o ponto do mundo para o sistema de coordenadas local do Line2D
-		target_point = laser_line.to_local(collision_point)
-	else:
-		# Se não houver obstáculo, desenha até o limite do Target Position
-		target_point = laser_line.to_local(laser_ray_cast.to_global(laser_ray_cast.target_position))
-
-	# Desenha a linha da origem até o ponto de impacto
 	laser_line.clear_points()
-	laser_line.add_point(origin_point)
-	laser_line.add_point(target_point)
+	
+	# Ponto inicial do laser em coordenadas globais
+	var current_origin = player_marker.global_position if is_instance_valid(player_marker) else global_position
+	var current_dir = Vector2.UP.rotated(global_rotation)
+	
+	# O primeiro ponto é a origem do próprio Line2D/Marker (no espaço local)
+	if is_instance_valid(player_marker) and laser_line.get_parent() == player_marker:
+		laser_line.add_point(Vector2.ZERO)
+	else:
+		laser_line.add_point(laser_line.to_local(current_origin))
+
+	var max_reflections = 5
+	var space_state = get_world_2d().direct_space_state
+
+	for i in range(max_reflections):
+		var ray_target = current_origin + current_dir * 2000.0
+		
+		var query = PhysicsRayQueryParameters2D.create(current_origin, ray_target)
+		query.exclude = [self.get_rid()]
+		query.collide_with_bodies = true
+		query.collide_with_areas = true
+		
+		if is_instance_valid(laser_ray_cast):
+			query.collision_mask = laser_ray_cast.collision_mask
+		
+		var result = space_state.intersect_ray(query)
+		
+		if result:
+			var hit_point: Vector2 = result.position
+			var hit_normal: Vector2 = result.normal
+			
+			laser_line.add_point(laser_line.to_local(hit_point))
+			
+			current_dir = current_dir.bounce(hit_normal).normalized()
+			current_origin = hit_point + current_dir * 1.5
+			
+			var collider = result.collider
+			if collider.is_in_group("blocks") or collider.name == "Press":
+				break
+		else:
+			laser_line.add_point(laser_line.to_local(ray_target))
+			break
 
 func _on_top_color_changed(color_idx: int) -> void:
 	if not is_instance_valid(laser_line):
@@ -90,7 +121,6 @@ func _on_top_color_changed(color_idx: int) -> void:
 	var valid_idx = clamp(color_idx, 0, BALL_COLORS.size() - 1)
 	var target_color = BALL_COLORS[valid_idx]
 
-	# Anima a transição de cor do laser de forma suave
 	if color_tween and color_tween.is_running():
 		color_tween.kill()
 
@@ -109,7 +139,6 @@ func _on_top_color_changed(color_idx: int) -> void:
 func update_launcher_sprite(launcher_id: String) -> void:
 	var texture_path = ""
 	
-	# Mapeia cada ID para o sprite correspondente do lançador (canhão/corpo)
 	match launcher_id:
 		"Standart":
 			texture_path = "res://core/assets/sprites/characters/player.png"
@@ -120,59 +149,80 @@ func update_launcher_sprite(launcher_id: String) -> void:
 		"mini_plasma":
 			texture_path = "res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png"
 		_:
-			texture_path = "res://core/assets/sprites/characters/default_launcher.png" # Sprite padrão
+			texture_path = "res://core/assets/sprites/characters/default_launcher.png"
 
-	# Se a textura existir, aplica no nó de Sprite do lançador
 	if ResourceLoader.exists(texture_path):
 		player_sprite.texture = load(texture_path)
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Ignora eventos emulados para evitar gatilho duplo
-	if event is InputEventMouseButton or event is InputEventMouseMotion:
-		if event.is_echo():
-			return
+	# Mouse / Touch - Arrastar para mover no X e Soltar para Disparar
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				is_touching = true
+				touch_target_x = event.position.x
+			else:
+				if is_touching:
+					is_touching = false
+					processing_shoot()
 
-	# 1. Quando o jogador TOCA ou SOLTA a tela no Android
-	if event is InputEventScreenTouch:
+	elif event is InputEventMouseMotion and is_touching:
+		touch_target_x = event.position.x
+
+	elif event is InputEventScreenTouch:
 		if event.pressed:
-			# DEDO ENCOSTOU: Ativa o toque e define o destino X imediato
 			is_touching = true
 			touch_target_x = event.position.x
 		else:
-			# DEDO SOLTOU: Dispara o tiro e encerra o movimento do toque
 			if is_touching:
 				is_touching = false
 				processing_shoot()
 
-	# 2. Quando o jogador DESLIZA o dedo pela tela
 	elif event is InputEventScreenDrag and is_touching:
-		# Atualiza a posição X de destino continuamente conforme o dedo move
 		touch_target_x = event.position.x
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Movimentação via Toque no Android
-	if is_touching:
-		# Calcula a velocidade necessária para o move_and_slide alcançar o toque suavemente
-		var target_position_x = lerp(global_position.x, touch_target_x, 25.0 * delta)
-		velocity.x = (target_position_x - global_position.x) / delta
-	else:
-		# Movimentação via Teclado/Gamepad (PC)
-		var direction := Input.get_axis("left", "right")
-		if direction != 0.0:
-			velocity.x = direction * SPEED
+	# Movimentação Teclado (PC) ou Toque (Android)
+	var keyboard_dir := Input.get_axis("left", "right")
+	
+	if keyboard_dir != 0.0:
+		velocity.x = keyboard_dir * SPEED
+		touch_target_x = global_position.x
+	elif is_touching:
+		# Move em direção à posição X onde o dedo está tocando com uma zona morta de 10px
+		# para evitar micros-tremores de precisão do touch na mesma posição
+		var diff = touch_target_x - global_position.x
+		if abs(diff) > 10.0:
+			velocity.x = sign(diff) * SPEED
 		else:
-			velocity.x = move_toward(velocity.x, 0.0, SPEED)
+			velocity.x = 0.0
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 
-	# Aplica o movimento da física no Godot 4
+	# Atalhos de rotação por teclado (Q/E ou Botões Turn)
+	var turn_dir = Input.get_axis("turn_left", "turn_right")
+	if turn_dir != 0.0:
+		if turn_dir < 0:
+			rotate_left(delta)
+		else:
+			rotate_right(delta)
+	elif Input.is_action_pressed("ui_left_rotate") or Input.is_key_pressed(KEY_Q):
+		rotate_left(delta)
+	elif Input.is_action_pressed("ui_right_rotate") or Input.is_key_pressed(KEY_E):
+		rotate_right(delta)
+
 	move_and_slide()
 
-	# Trava o Player apenas nos limites X da tela (sem afetar o eixo Y)
+	# Garante que o player fique dentro dos limites da tela
 	global_position.x = clamp(global_position.x, 0.0, screen_size.x)
 
-	# Disparo no PC/Teclado
+	# Atualiza o feixe de laser de forma síncrona
+	update_laser()
+
+	# Disparo por Teclado / Espaço (PC)
 	if not is_touching and Input.is_action_just_pressed("shoot"):
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			processing_shoot()
@@ -183,7 +233,6 @@ func processing_shoot():
 
 	EventBus.camera_shake_requested.emit(15.0, 0.15)
 
-	# Consome e pega a cor do topo de forma atômica e instantânea
 	var current_color = 0
 	if is_instance_valid(charger) and charger.has_method("pop_top_ball_color"):
 		current_color = charger.pop_top_ball_color()
@@ -196,7 +245,14 @@ func processing_shoot():
 	get_parent().add_child(ball)
 	ball.global_position = player_marker.global_position
 	
+	# Passa a direção do tiro e a rotação alinhada com o lançador
+	ball.dir = Vector2.UP.rotated(global_rotation)
+	ball.rotation = global_rotation
+	
 	ball_shot.emit(current_color)
+	
+	# Reseta o canhão de volta para a posição apontando para cima (0 rad) ao disparar
+	reset_rotation()
 
 func die() -> void:
 	game_over.emit()
@@ -206,10 +262,8 @@ func die() -> void:
 
 func _on_player_health_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("blocks"):
-		print(body)
 		die()
 	elif body.name == "Press":
-		print(body)
 		die()
 
 func _on_launcher_changed(launcher_id: String) -> void:

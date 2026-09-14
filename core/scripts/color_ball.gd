@@ -25,8 +25,9 @@ var color_balls = [
 func _ready() -> void:
 	apply_launcher_speed()
 	set_color_ball(color_ball)
+	# Garante a orientação visual com base na direção inicial recebida
+	update_rotation_from_dir()
 
-# Configura a velocidade com base no lançador equipado no GameManager
 func apply_launcher_speed() -> void:
 	var equipped = GameManager.equipped_launcher
 	match equipped:
@@ -37,7 +38,11 @@ func apply_launcher_speed() -> void:
 		"mini_plasma":
 			speed = 3000.0
 		_:
-			speed = 1500.0 # Velocidade padrão caso não seja nenhum dos três
+			speed = 1500.0
+
+func update_rotation_from_dir() -> void:
+	# Alinha o nó da bola com o vetor de movimento (assumindo que a sprite aponta para CIMA/UP)
+	rotation = dir.angle() + (PI / 2.0)
 
 func set_color_ball(val) -> void:
 	color_ball = val
@@ -61,7 +66,6 @@ func get_projectile_texture_path(color_idx: int) -> String:
 		"mini_plasma":
 			base_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 		_:
-			# Caso padrão (se usar as bolas padrão do jogo)
 			if color_idx < color_balls.size():
 				return color_balls[color_idx]
 			return ""
@@ -86,7 +90,7 @@ func _physics_process(delta: float) -> void:
 				collider.press_hit()
 			return
 
-		# Checa se o objeto colidido é um bloco (possui a propriedade block_color)
+		# Colisão com Bloco
 		if collider.is_in_group("blocks") and "block_color" in collider:
 			
 			if "affected_block" in collider:
@@ -142,7 +146,9 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 		
-		dir = dir.bounce(collision.get_normal())
+		# Ricochete de Parede (Limits) ou outros corpos rígidos:
+		dir = dir.bounce(collision.get_normal()).normalized()
+		update_rotation_from_dir()
 
 func spawn_block_on_press(press_node: Node2D, impact_position: Vector2) -> void:
 	if not BLOCK_SCENE:
@@ -168,13 +174,10 @@ func spawn_block_on_press(press_node: Node2D, impact_position: Vector2) -> void:
 	new_block.name = "Block_Spawned"
 	new_block.position = final_local_pos
 
-	# Garante que o novo bloco faça parte do grupo "blocks"
 	new_block.add_to_group("blocks")
 
-	# 1. Adiciona o nó na árvore primeiro (dispara o _ready do bloco)
 	container.add_child(new_block)
 
-	# 2. Atribui a cor da bola DEPOIS
 	if "block_color" in new_block:
 		new_block.block_color = self.color_ball
 

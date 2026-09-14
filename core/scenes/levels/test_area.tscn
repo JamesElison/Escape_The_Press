@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://dgsyuoff3ndoy" path="res://core/scenes/set_elements/coin.tscn" id="12_2xyph"]
 [ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="13_jyd58"]
 [ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/body_shop.tscn" id="14_skvvx"]
+[ext_resource type="PackedScene" uid="uid://bt5kw3nc328a3" path="res://core/scenes/set_elements/turn_left_button.tscn" id="15_52uox"]
+[ext_resource type="PackedScene" uid="uid://ky17wl2bj1f1" path="res://core/scenes/set_elements/turn_right_button.tscn" id="16_ypx8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(40, 1280)
@@ -22,10 +24,12 @@ size = Vector2(40, 1280)
 script = ExtResource("1_3c2jl")
 
 [node name="LevelCamera" type="Camera2D" parent="." unique_id=1925875187]
+process_callback = 0
 limit_left = 0
 limit_top = 0
 limit_right = 720
 limit_bottom = 1280
+position_smoothing_enabled = true
 script = ExtResource("2_01iaf")
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="." unique_id=21811574]
@@ -50,7 +54,7 @@ position = Vector2(355, 1220)
 charger = NodePath("../Charger")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1558915970]
-collision_layer = 3
+collision_layer = 4099
 collision_mask = 2048
 
 [node name="Limitshape_l" type="CollisionShape2D" parent="Limits" unique_id=290407902]
@@ -95,6 +99,18 @@ text = " "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="VersionLabel" type="Label" parent="LevelCanvasLayer/HUD" unique_id=1082328299]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 14.825
+anchor_top = 31.5
+anchor_right = 17.75
+anchor_bottom = 32.075
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("11_nqyh5")
+text = "Version: 0.2.0"
+
 [node name="BodyShopButton" parent="LevelCanvasLayer/HUD" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button") instance=ExtResource("13_jyd58")]
 process_mode = 3
 layout_mode = 1
@@ -126,9 +142,25 @@ offset_right = 40.0
 offset_bottom = 185.0
 mouse_filter = 2
 
+[node name="TurnLeftButton" parent="LevelCanvasLayer/HUD" unique_id=1662244709 instance=ExtResource("15_52uox")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 1027.0
+offset_right = 105.0
+offset_bottom = 1113.0
+grow_vertical = 0
+
+[node name="TurnRightButton" parent="LevelCanvasLayer/HUD" unique_id=532990282 instance=ExtResource("16_ypx8k")]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 971.0
+offset_right = 106.0
+offset_bottom = 1057.0
+
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]
 
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_level_start_timer_timeout"]
-[connection signal="ball_shot" from="Player" to="Charger" method="_on_player_ball_shot"]
-[connection signal="game_over" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

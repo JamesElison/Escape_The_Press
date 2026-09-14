@@ -4,6 +4,8 @@ var tween: Tween
 
 func _ready() -> void:
 	add_to_group("camera")
+	# No Godot 4: 0 = CAMERA_2D_PROCESS_PHYSICS / 1 = CAMERA_2D_PROCESS_IDLE
+	process_callback = 0
 	EventBus.camera_shake_requested.connect(_on_camera_shake_requested)
 
 func _on_camera_shake_requested(p_intensity: float, p_duration: float) -> void:

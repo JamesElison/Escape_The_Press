@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bt5kw3nc328a3"]
+
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_ldikx"]
+[ext_resource type="Script" uid="uid://ccu6yms54tonk" path="res://core/scripts/turn_left_button.gd" id="2_de8ga"]
+
+[node name="TurnLeftButton" type="Button" unique_id=1662244709]
+offset_right = 86.0
+offset_bottom = 86.0
+theme_override_fonts/font = ExtResource("1_ldikx")
+theme_override_font_sizes/font_size = 64
+text = "←"
+script = ExtResource("2_de8ga")

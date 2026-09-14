@@ -72,10 +72,12 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_10="set_limits"
 2d_physics/layer_11="set_limiteds"
 2d_physics/layer_12="lateral_limits"
+2d_physics/layer_13="mira_laser"
 
 [physics]
 
 3d/physics_engine="Jolt Physics"
+common/physics_interpolation=true
 
 [rendering]
 

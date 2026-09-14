@@ -42,7 +42,7 @@ shape = SubResource("RectangleShape2D_k6ly5")
 [node name="LaserRayCast" type="RayCast2D" parent="." unique_id=1527978726]
 position = Vector2(0, -133)
 target_position = Vector2(0, -1000)
-collision_mask = 48
+collision_mask = 4096
 
 [node name="LaserLine" type="Line2D" parent="." unique_id=541704108]
 width = 2.0

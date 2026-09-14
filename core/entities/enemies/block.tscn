@@ -48,7 +48,7 @@ _data = {
 }
 
 [node name="Block" type="AnimatableBody2D" unique_id=1007953375]
-collision_layer = 119
+collision_layer = 4215
 collision_mask = 32
 script = ExtResource("1_nenra")
 
