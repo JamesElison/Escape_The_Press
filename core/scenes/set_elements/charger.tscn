@@ -19,14 +19,14 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="Shape" type="CollisionShape2D" parent="ChargerExitArea" unique_id=459929056]
-position = Vector2(0, -80)
+position = Vector2(0, -100)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_k6ly5")
 
 [node name="ChargerMarker1" type="Marker2D" parent="." unique_id=741308728]
 
 [node name="ChargerMarker2" type="Marker2D" parent="." unique_id=346315255]
-position = Vector2(0, -40)
+position = Vector2(0, -50)
 
 [node name="ChargerMarker3" type="Marker2D" parent="." unique_id=1862478483]
-position = Vector2(0, -80)
+position = Vector2(0, -100)

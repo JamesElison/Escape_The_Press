@@ -1,7 +1,21 @@
 [gd_scene format=3 uid="uid://cxw1n1qnststx"]
 
 [ext_resource type="PackedScene" uid="uid://by3lvy4ieoswm" path="res://core/scenes/set_elements/hud.tscn" id="1_jsm2u"]
+[ext_resource type="Texture2D" uid="uid://c07vflll64lb5" path="res://core/assets/background/main_menu_background.jpeg" id="1_y7ek6"]
 
 [node name="MainMenu" type="Node2D" unique_id=773711802]
+
+[node name="MainMenuBackGround" type="CanvasLayer" parent="." unique_id=1304510968]
+layer = -100
+
+[node name="BackGround" type="TextureRect" parent="MainMenuBackGround" unique_id=244594244]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_y7ek6")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="HUD" parent="." unique_id=931431950 instance=ExtResource("1_jsm2u")]

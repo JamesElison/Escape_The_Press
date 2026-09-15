@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://5m7ldlu1mtar" path="res://core/entities/enemies/press.tscn" id="1_b72cg"]
 [ext_resource type="Script" uid="uid://dqb10raqrdmmm" path="res://core/scripts/level_camera.gd" id="2_01iaf"]
 [ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="2_ovmqw"]
+[ext_resource type="Texture2D" uid="uid://101l40aty4i2" path="res://core/assets/background/crystal_palace.jpeg" id="2_ypx8k"]
 [ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="3_ovmqw"]
 [ext_resource type="AudioStream" uid="uid://bibiwkah2mjds" path="res://core/assets/sounds/level_music/House In a Forest Loop.ogg" id="3_y1bkx"]
 [ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
@@ -22,6 +23,19 @@ size = Vector2(40, 1280)
 
 [node name="TestArea" type="Node2D" unique_id=792366202]
 script = ExtResource("1_3c2jl")
+
+[node name="LevelBackground" type="CanvasLayer" parent="." unique_id=1276224861]
+layer = -100
+
+[node name="BackGround" type="TextureRect" parent="LevelBackground" unique_id=479453263]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ypx8k")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="LevelCamera" type="Camera2D" parent="." unique_id=1925875187]
 process_callback = 0
@@ -69,6 +83,21 @@ shape = SubResource("RectangleShape2D_k6ly5")
 position = Vector2(689, 47)
 rotation = 4.712389
 
+[node name="VersionLabel" type="Label" parent="." unique_id=1082328299]
+anchors_preset = -1
+anchor_left = 14.825
+anchor_top = 31.5
+anchor_right = 17.75
+anchor_bottom = 32.075
+offset_left = 584.0
+offset_top = 1220.0
+offset_right = 701.0
+offset_bottom = 1240.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("11_nqyh5")
+text = "Version: 0.3.0"
+
 [node name="LevelCanvasLayer" type="CanvasLayer" parent="." unique_id=1652093017]
 
 [node name="BodyShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("14_skvvx")]
@@ -98,18 +127,6 @@ theme_override_font_sizes/font_size = 64
 text = " "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VersionLabel" type="Label" parent="LevelCanvasLayer/HUD" unique_id=1082328299]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 14.825
-anchor_top = 31.5
-anchor_right = 17.75
-anchor_bottom = 32.075
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("11_nqyh5")
-text = "Version: 0.2.0"
 
 [node name="BodyShopButton" parent="LevelCanvasLayer/HUD" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button") instance=ExtResource("13_jyd58")]
 process_mode = 3

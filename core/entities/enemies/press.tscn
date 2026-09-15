@@ -19,7 +19,7 @@ volume_db = 5.0
 bus = &"fx"
 
 [node name="PressSprite" type="Sprite2D" parent="." unique_id=708973215]
-position = Vector2(0, -608)
+position = Vector2(0, -575)
 texture = ExtResource("1_0dhym")
 
 [node name="PressShape" type="CollisionShape2D" parent="." unique_id=2102714880]

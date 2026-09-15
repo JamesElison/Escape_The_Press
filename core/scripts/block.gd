@@ -26,6 +26,7 @@ var spawn_position: Vector2
 @onready var block_move_down_sound = $BlockMoveDownSound
 @onready var block_sprite = $BlockSprite
 @onready var block_timer = $BlockTimer
+@onready var shine_timer = $ShineTimer
 @onready var block_anim = $BlockAnim
 
 var block_colors = [
@@ -37,6 +38,16 @@ var block_colors = [
 	"res://core/assets/sprites/set_objects/yellow_block.png"
 ]
 
+# Mapeamento dos sprites brilhantes com base no índice da cor
+var bright_block_colors = [
+	"res://core/assets/sprites/set_objects/red_block_bright.png",
+	"res://core/assets/sprites/set_objects/green_block_bright.png",
+	"res://core/assets/sprites/set_objects/blue_block_bright.png",
+	"res://core/assets/sprites/set_objects/ciano_block_bright.png",
+	"res://core/assets/sprites/set_objects/magenta_block_bright.png",
+	"res://core/assets/sprites/set_objects/yellow_block_bright.png"
+]
+
 func set_block_color(val: int) -> void:
 	block_color = val
 	if is_node_ready() and block_sprite and val >= 0 and val < block_colors.size():
@@ -44,7 +55,7 @@ func set_block_color(val: int) -> void:
 
 func _ready() -> void:
 	# Se a cor ainda for -1, sorteia uma cor aleatória.
-	# Se a bola já definiu a cor antes, mantém a cor definida.
+	# Se a bola já definir a cor antes, mantém a cor definida.
 	if block_color == -1:
 		block_color = randi() % block_colors.size()
 	else:
@@ -54,6 +65,9 @@ func _ready() -> void:
 	
 	# Desativa sync com física tradicional para poder mover livremente ao cair
 	sync_to_physics = false
+	
+	if shine_timer:
+		shine_timer.start()
 
 func _physics_process(delta: float) -> void:
 	# Quando o bloco soltar da Prensa, fazemos ele cair até atingir o chão
@@ -302,6 +316,24 @@ func shift_down() -> void:
 
 func _on_block_timer_timeout() -> void:
 	queue_free()
+
+# Executa o efeito de brilho dinâmico usando o sprite correspondente à cor atual
+func _on_shine_timer_timeout() -> void:
+	if is_being_destroyed or not block_sprite:
+		return
+		
+	if block_color >= 0 and block_color < bright_block_colors.size():
+		var original_texture_path = block_colors[block_color]
+		var bright_texture_path = bright_block_colors[block_color]
+		
+		if ResourceLoader.exists(bright_texture_path):
+			block_sprite.texture = load(bright_texture_path)
+			
+			# Aguarda os 0.14s do brilho e retorna para a textura normal
+			await get_tree().create_timer(0.14).timeout
+			
+			if is_instance_valid(self) and not is_being_destroyed and block_sprite:
+				block_sprite.texture = load(original_texture_path)
 
 # Transição suave entre a cor antiga e a nova cor misturada
 func fade_to_color(new_color_index: int) -> void:
