@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://5m7ldlu1mtar" path="res://core/entities/enemies/press.tscn" id="1_b72cg"]
 [ext_resource type="Script" uid="uid://dqb10raqrdmmm" path="res://core/scripts/level_camera.gd" id="2_01iaf"]
 [ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="2_ovmqw"]
-[ext_resource type="Texture2D" uid="uid://101l40aty4i2" path="res://core/assets/background/crystal_palace.jpeg" id="2_ypx8k"]
+[ext_resource type="Texture2D" uid="uid://1b0llko1kau4" path="res://core/assets/background/crystal_palace.jpg" id="2_ypx8k"]
 [ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="3_ovmqw"]
 [ext_resource type="AudioStream" uid="uid://bibiwkah2mjds" path="res://core/assets/sounds/level_music/House In a Forest Loop.ogg" id="3_y1bkx"]
 [ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
@@ -43,7 +43,6 @@ limit_left = 0
 limit_top = 0
 limit_right = 720
 limit_bottom = 1280
-position_smoothing_enabled = true
 script = ExtResource("2_01iaf")
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="." unique_id=21811574]
@@ -61,10 +60,10 @@ stream = ExtResource("5_f6opj")
 position = Vector2(360, 47)
 
 [node name="Floor" parent="." unique_id=1662461556 instance=ExtResource("3_ovmqw")]
-position = Vector2(360, 1252)
+position = Vector2(360, 1271)
 
 [node name="Player" parent="." unique_id=1101960694 node_paths=PackedStringArray("charger") instance=ExtResource("2_ovmqw")]
-position = Vector2(355, 1220)
+position = Vector2(355, 1239)
 charger = NodePath("../Charger")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1558915970]
@@ -83,34 +82,12 @@ shape = SubResource("RectangleShape2D_k6ly5")
 position = Vector2(689, 47)
 rotation = 4.712389
 
-[node name="VersionLabel" type="Label" parent="." unique_id=1082328299]
-anchors_preset = -1
-anchor_left = 14.825
-anchor_top = 31.5
-anchor_right = 17.75
-anchor_bottom = 32.075
-offset_left = 584.0
-offset_top = 1220.0
-offset_right = 701.0
-offset_bottom = 1240.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("11_nqyh5")
-text = "Version: 0.3.0"
-
 [node name="LevelCanvasLayer" type="CanvasLayer" parent="." unique_id=1652093017]
 
 [node name="BodyShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("14_skvvx")]
 visible = false
 
-[node name="HUD" type="Control" parent="LevelCanvasLayer" unique_id=1947921536]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MessageLabel" type="Label" parent="LevelCanvasLayer/HUD" unique_id=599910191]
-layout_mode = 1
+[node name="MessageLabel" type="Label" parent="LevelCanvasLayer" unique_id=599910191]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -128,54 +105,61 @@ text = " "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BodyShopButton" parent="LevelCanvasLayer/HUD" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button") instance=ExtResource("13_jyd58")]
+[node name="BodyShopButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button") instance=ExtResource("13_jyd58")]
 process_mode = 3
-layout_mode = 1
 offset_left = 19.0
-offset_top = 40.0
 offset_right = 126.0
-offset_bottom = 140.0
+offset_bottom = 100.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-body_shop_ui = NodePath("../../BodyShop")
+body_shop_ui = NodePath("../BodyShop")
 pause_button = NodePath("../PauseButton")
 
-[node name="PauseButton" parent="LevelCanvasLayer/HUD" unique_id=126329662 instance=ExtResource("11_2xyph")]
-layout_mode = 1
+[node name="PauseButton" parent="LevelCanvasLayer" unique_id=126329662 instance=ExtResource("11_2xyph")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 203.0
-offset_top = 39.0
-offset_right = 503.0
-offset_bottom = 139.0
+offset_left = -150.0
+offset_right = 150.0
 grow_horizontal = 2
 
-[node name="Coin" parent="LevelCanvasLayer/HUD" unique_id=780510659 instance=ExtResource("12_2xyph")]
-layout_mode = 0
+[node name="Coin" parent="LevelCanvasLayer" unique_id=780510659 instance=ExtResource("12_2xyph")]
+visible = false
 offset_left = 40.0
 offset_top = 185.0
 offset_right = 40.0
 offset_bottom = 185.0
 mouse_filter = 2
 
-[node name="TurnLeftButton" parent="LevelCanvasLayer/HUD" unique_id=1662244709 instance=ExtResource("15_52uox")]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 19.0
-offset_top = 1027.0
-offset_right = 105.0
-offset_bottom = 1113.0
-grow_vertical = 0
+[node name="TurnLeftButton" parent="LevelCanvasLayer" unique_id=1662244709 instance=ExtResource("15_52uox")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 260.0
+offset_bottom = 346.0
+grow_vertical = 2
 
-[node name="TurnRightButton" parent="LevelCanvasLayer/HUD" unique_id=532990282 instance=ExtResource("16_ypx8k")]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 971.0
-offset_right = 106.0
-offset_bottom = 1057.0
+[node name="TurnRightButton" parent="LevelCanvasLayer" unique_id=532990282 instance=ExtResource("16_ypx8k")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 360.0
+offset_bottom = 446.0
+grow_vertical = 2
+
+[node name="VersionLabel" type="Label" parent="LevelCanvasLayer" unique_id=1082328299]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -117.0
+offset_top = -40.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("11_nqyh5")
+text = "Version: 0.4.0"
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]
 

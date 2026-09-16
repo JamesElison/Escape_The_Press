@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://101l40aty4i2"
-path="res://.godot/imported/crystal_palace.jpeg-01fa2c4208cad86a462ccb442f7931a0.ctex"
+uid="uid://mpd2aavwsqqv"
+path="res://.godot/imported/green_block.png-56915f5d492fd39540121e05b69752e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/background/crystal_palace.jpeg"
-dest_files=["res://.godot/imported/crystal_palace.jpeg-01fa2c4208cad86a462ccb442f7931a0.ctex"]
+source_file="res://core/assets/sprites/set_objects/specific_blocks/2_ice/green_block.png"
+dest_files=["res://.godot/imported/green_block.png-56915f5d492fd39540121e05b69752e4.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3rrajoqcghja"
-path="res://.godot/imported/ciano_block.png-0df6467440e49069c6dd83c1653beba3.ctex"
+uid="uid://dti80wrrtowb6"
+path="res://.godot/imported/white_block.png-04c9cc4d9f000b236fad08498b339c29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/sprites/set_objects/ciano_block.png"
-dest_files=["res://.godot/imported/ciano_block.png-0df6467440e49069c6dd83c1653beba3.ctex"]
+source_file="res://core/assets/sprites/set_objects/specific_blocks/1_concrete/white_block.png"
+dest_files=["res://.godot/imported/white_block.png-04c9cc4d9f000b236fad08498b339c29.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

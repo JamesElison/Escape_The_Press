@@ -6,9 +6,9 @@ extends Node2D
 @onready var level_start_timer = $LevelStartTimer
 @onready var press = $Press
 @onready var player = $Player
-@onready var message_label = $LevelCanvasLayer/HUD/MessageLabel
-@onready var body_shop_button = $LevelCanvasLayer/HUD/BodyShopButton
-@onready var pause_button = $LevelCanvasLayer/HUD/PauseButton
+@onready var message_label = $LevelCanvasLayer/MessageLabel
+@onready var body_shop_button = $LevelCanvasLayer/BodyShopButton
+@onready var pause_button = $LevelCanvasLayer/PauseButton
 @onready var message_timer = $MessageTimer
 
 var level_cleared: bool = false

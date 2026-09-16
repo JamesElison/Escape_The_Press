@@ -20,11 +20,10 @@ volume_db = 5.0
 bus = &"fx"
 
 [node name="PlayerSprite" type="Sprite2D" parent="." unique_id=1451931167]
-position = Vector2(0, -27)
+position = Vector2(0, -63)
 texture = ExtResource("1_xvqjg")
 
 [node name="PlayerShape" type="CollisionShape2D" parent="." unique_id=510213879]
-visible = false
 position = Vector2(0, -49)
 shape = SubResource("CircleShape2D_k6ly5")
 

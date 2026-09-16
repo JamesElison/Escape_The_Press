@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c07vflll64lb5"
-path="res://.godot/imported/main_menu_background.jpeg-34fcd09b0c2951dbc1f5e59fb2009ea7.ctex"
+uid="uid://dd8raddvs2xc"
+path="res://.godot/imported/red_block.png-84484b597c1838773af7a9f2a647139d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/background/main_menu_background.jpeg"
-dest_files=["res://.godot/imported/main_menu_background.jpeg-34fcd09b0c2951dbc1f5e59fb2009ea7.ctex"]
+source_file="res://core/assets/sprites/set_objects/specific_blocks/2_ice/red_block.png"
+dest_files=["res://.godot/imported/red_block.png-84484b597c1838773af7a9f2a647139d.ctex"]
 
 [params]
 

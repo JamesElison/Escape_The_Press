@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfi6hhjnpghc1"
-path="res://.godot/imported/roof.png-b2a6bf6fa0d728d4a04cd094018a3f1b.ctex"
+uid="uid://jbg4s50sbjv7"
+path="res://.godot/imported/red_block.png-6498c94e64fb8c4946cba0eb90a5a994.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/sprites/set_objects/roof.png"
-dest_files=["res://.godot/imported/roof.png-b2a6bf6fa0d728d4a04cd094018a3f1b.ctex"]
+source_file="res://core/assets/sprites/set_objects/specific_blocks/1_concrete/red_block.png"
+dest_files=["res://.godot/imported/red_block.png-6498c94e64fb8c4946cba0eb90a5a994.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

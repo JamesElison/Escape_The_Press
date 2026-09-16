@@ -2,44 +2,39 @@
 
 [ext_resource type="Script" uid="uid://cdo1mk5htu1tp" path="res://core/scripts/hud.gd" id="1_sg3qs"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_w0588"]
+[ext_resource type="Texture2D" uid="uid://bb564w0rl0pib" path="res://core/assets/HUD/start_button_1.png" id="3_flne0"]
 
 [node name="HUD" type="CanvasLayer" unique_id=931431950]
 script = ExtResource("1_sg3qs")
 
-[node name="MessageLabel" type="Label" parent="." unique_id=144190612]
-anchors_preset = 8
+[node name="MessageLabel2" type="Label" parent="." unique_id=501870911]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -143.0
-offset_right = 329.0
-offset_bottom = 16.0
+offset_left = -314.0
+offset_top = 50.0
+offset_right = 315.0
+offset_bottom = 150.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_w0588")
-theme_override_font_sizes/font_size = 64
-text = "Escape The Press!
+theme_override_font_sizes/font_size = 32
+text = "Prototype Version
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MessageLabel2" type="Label" parent="." unique_id=501870911]
-anchors_preset = 7
+[node name="MessageLabel" type="Label" parent="." unique_id=144190612]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -392.0
-offset_right = 329.0
-offset_bottom = -292.0
+offset_left = -314.0
+offset_top = 100.0
+offset_right = 315.0
+offset_bottom = 259.0
 grow_horizontal = 2
-grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_w0588")
-theme_override_font_sizes/font_size = 32
-text = "Prototype Version
+theme_override_font_sizes/font_size = 64
+text = "Escape The Press!
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -50,15 +45,18 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -280.0
-offset_right = 150.0
-offset_bottom = -180.0
+offset_left = -154.0
+offset_top = -288.0
+offset_right = 154.0
+offset_bottom = -178.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_w0588")
 theme_override_font_sizes/font_size = 64
 text = "Play"
+icon = ExtResource("3_flne0")
+flat = true
+icon_alignment = 1
 
 [node name="ResetButton" type="Button" parent="." unique_id=1207356961]
 anchors_preset = 7

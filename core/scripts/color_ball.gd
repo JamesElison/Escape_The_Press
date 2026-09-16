@@ -15,7 +15,7 @@ var color_balls = [
 	"res://core/assets/sprites/set_objects/red_ball.png",
 	"res://core/assets/sprites/set_objects/green_ball.png",
 	"res://core/assets/sprites/set_objects/blue_ball.png",
-	"res://core/assets/sprites/set_objects/ciano_ball.png",
+	"res://core/assets/sprites/set_objects/cyan_ball.png",
 	"res://core/assets/sprites/set_objects/magenta_ball.png",
 	"res://core/assets/sprites/set_objects/yellow_ball.png"
 ]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cxw1n1qnststx"]
 
 [ext_resource type="PackedScene" uid="uid://by3lvy4ieoswm" path="res://core/scenes/set_elements/hud.tscn" id="1_jsm2u"]
-[ext_resource type="Texture2D" uid="uid://c07vflll64lb5" path="res://core/assets/background/main_menu_background.jpeg" id="1_y7ek6"]
+[ext_resource type="Texture2D" uid="uid://cuyulpxg23d10" path="res://core/assets/background/main_menu_background.jpg" id="1_y7ek6"]
 
 [node name="MainMenu" type="Node2D" unique_id=773711802]
 

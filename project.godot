@@ -13,7 +13,7 @@ config_version=5
 config/name="escape_the_press"
 run/main_scene="uid://cxw1n1qnststx"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://buciu0b4gawp3"
 
 [audio]
 
@@ -29,8 +29,8 @@ InAppManager="*uid://bwfyuqggfpljq"
 
 window/size/viewport_width=720
 window/size/viewport_height=1280
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_width"
 window/handheld/orientation=1
 
 [input]

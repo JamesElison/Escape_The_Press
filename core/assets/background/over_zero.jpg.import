@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dog2vxf2jmffa"
-path="res://.godot/imported/ciano_block_bright.png-5519582cd5872b5750c5aebec36bf55e.ctex"
+uid="uid://b3dxos571ye7a"
+path="res://.godot/imported/over_zero.jpg-002f0197efba4e80379286a5163961a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/sprites/set_objects/ciano_block_bright.png"
-dest_files=["res://.godot/imported/ciano_block_bright.png-5519582cd5872b5750c5aebec36bf55e.ctex"]
+source_file="res://core/assets/background/over_zero.jpg"
+dest_files=["res://.godot/imported/over_zero.jpg-002f0197efba4e80379286a5163961a1.ctex"]
 
 [params]
 
