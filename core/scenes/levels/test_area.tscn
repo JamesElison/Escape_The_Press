@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://5m7ldlu1mtar" path="res://core/entities/enemies/press.tscn" id="1_b72cg"]
 [ext_resource type="Script" uid="uid://dqb10raqrdmmm" path="res://core/scripts/level_camera.gd" id="2_01iaf"]
 [ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="2_ovmqw"]
-[ext_resource type="Texture2D" uid="uid://1b0llko1kau4" path="res://core/assets/background/crystal_palace.jpg" id="2_ypx8k"]
+[ext_resource type="Texture2D" uid="uid://cju1bsskns43r" path="res://core/assets/background/0_crystal_palace.jpg" id="2_ypx8k"]
 [ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="3_ovmqw"]
 [ext_resource type="AudioStream" uid="uid://bibiwkah2mjds" path="res://core/assets/sounds/level_music/House In a Forest Loop.ogg" id="3_y1bkx"]
 [ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
@@ -93,10 +93,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 29.0
-offset_top = 680.0
-offset_right = 658.0
-offset_bottom = 920.0
+offset_left = -320.0
+offset_right = 309.0
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("11_nqyh5")
@@ -153,13 +152,14 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -117.0
-offset_top = -40.0
-offset_bottom = -20.0
+offset_left = -132.0
+offset_top = -61.0
+offset_right = -15.0
+offset_bottom = -41.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("11_nqyh5")
-text = "Version: 0.4.0"
+text = "Version: 0.4.2"
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]
 

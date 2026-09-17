@@ -4,28 +4,20 @@ const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 const GRID_SIZE: float = 64.0
 
 var dir = Vector2.UP
-var speed: float = 2000.0 # Valor base/fallback
+var speed: float = 2000.0
 var is_exploding: bool = false
 
 @onready var color_ball_sprite = $ColorBallSprite
 @onready var color_ball_shape = $ColorBallShape
 @onready var color_ball_anim = $ColorBallAnim
 
-var color_balls = [
-	"res://core/assets/sprites/set_objects/red_ball.png",
-	"res://core/assets/sprites/set_objects/green_ball.png",
-	"res://core/assets/sprites/set_objects/blue_ball.png",
-	"res://core/assets/sprites/set_objects/cyan_ball.png",
-	"res://core/assets/sprites/set_objects/magenta_ball.png",
-	"res://core/assets/sprites/set_objects/yellow_ball.png"
-]
+const COLOR_FILENAMES = ["red.png", "green.png", "blue.png", "cyan.png", "magenta.png", "yellow.png"]
 
 @export var color_ball = 0: set = set_color_ball
 
 func _ready() -> void:
 	apply_launcher_speed()
 	set_color_ball(color_ball)
-	# Garante a orientação visual com base na direção inicial recebida
 	update_rotation_from_dir()
 
 func apply_launcher_speed() -> void:
@@ -41,7 +33,6 @@ func apply_launcher_speed() -> void:
 			speed = 1500.0
 
 func update_rotation_from_dir() -> void:
-	# Alinha o nó da bola com o vetor de movimento (assumindo que a sprite aponta para CIMA/UP)
 	rotation = dir.angle() + (PI / 2.0)
 
 func set_color_ball(val) -> void:
@@ -52,25 +43,13 @@ func set_color_ball(val) -> void:
 			color_ball_sprite.texture = load(tex_path)
 
 func get_projectile_texture_path(color_idx: int) -> String:
-	var color_names = ["red.png", "green.png", "blue.png", "cyan.png", "magenta.png", "yellow.png"]
-	var color_file = color_names[clamp(color_idx, 0, 5)]
+	var theme = GameManager.get_current_theme()
+	var filename = COLOR_FILENAMES[clamp(color_idx, 0, 5)]
+	var full_path = theme.projectile_folder + filename
 	
-	var equipped = GameManager.equipped_launcher
-	var base_folder = ""
-	
-	match equipped:
-		"120mm":
-			base_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
-		"piercing":
-			base_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
-		"mini_plasma":
-			base_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
-		_:
-			if color_idx < color_balls.size():
-				return color_balls[color_idx]
-			return ""
-
-	return base_folder + color_file
+	if ResourceLoader.exists(full_path):
+		return full_path
+	return "res://core/assets/sprites/set_objects/" + COLOR_FILENAMES[clamp(color_idx, 0, 5)].replace(".png", "_ball.png")
 
 func _physics_process(delta: float) -> void:
 	if is_exploding:
@@ -82,7 +61,6 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		var collider = collision.get_collider()
 		
-		# Colisão com a Prensa -> Anexa o novo bloco à Prensa
 		if collider.name == "Press":
 			spawn_block_on_press(collider, collision.get_position())
 			destroy_with_anim()
@@ -90,7 +68,6 @@ func _physics_process(delta: float) -> void:
 				collider.press_hit()
 			return
 
-		# Colisão com Bloco
 		if collider.is_in_group("blocks") and "block_color" in collider:
 			
 			if "affected_block" in collider:
@@ -106,7 +83,6 @@ func _physics_process(delta: float) -> void:
 			
 			var b_color = collider.block_color
 			
-			# Regra 1: Mesma cor -> Destrói
 			if b_color == color_ball:
 				if collider.has_method("destroy_with_delay"):
 					collider.destroy_with_delay()
@@ -122,7 +98,6 @@ func _physics_process(delta: float) -> void:
 			var ball_is_kw = color_ball in [6, 7]
 			var block_is_kw = b_color in [6, 7]
 			
-			# Regra 3: Mesmo padrão -> MISTURA
 			if (ball_is_rgb and block_is_rgb) or (ball_is_cmy and block_is_cmy) or (ball_is_kw and block_is_kw):
 				var new_color = mix_colors(color_ball, b_color)
 				if new_color != -1:
@@ -139,14 +114,12 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 			
-			# Regra 2: Padrões opostos -> Desce uma posição na grade
 			if (ball_is_rgb and block_is_cmy) or (ball_is_cmy and block_is_rgb) or (ball_is_rgb and block_is_kw) or (ball_is_cmy and block_is_kw) or (ball_is_kw and block_is_rgb) or (ball_is_kw and block_is_cmy):
 				if collider.has_method("shift_down"):
 					collider.shift_down()
 				destroy_with_anim()
 				return
 		
-		# Ricochete de Parede (Limits) ou outros corpos rígidos:
 		dir = dir.bounce(collision.get_normal()).normalized()
 		update_rotation_from_dir()
 
@@ -175,7 +148,6 @@ func spawn_block_on_press(press_node: Node2D, impact_position: Vector2) -> void:
 	new_block.position = final_local_pos
 
 	new_block.add_to_group("blocks")
-
 	container.add_child(new_block)
 
 	if "block_color" in new_block:

@@ -3,6 +3,7 @@ extends CharacterBody2D
 var press_active = false: set = set_press_active
 
 @onready var press_hit_sound = $PressHitSound
+@onready var press_sprite = $PressSprite
 
 # Lê a velocidade direto do GameManager
 var speed: float = 3.0
@@ -16,9 +17,23 @@ func _ready() -> void:
 	# Aplica a velocidade salva no GameManager
 	speed = GameManager.press_speed
 
+	# Atualiza a textura da prensa conforme o ThemeData ativo
+	update_press_texture()
+
+	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
+		EventBus.launcher_changed.connect(_on_launcher_changed)
+
 	# Ignora colisões com todos os blocos filhos já existentes
 	for child in find_children("*", "AnimatableBody2D", true, false):
 		add_collision_exception_with(child)
+
+func update_press_texture() -> void:
+	var theme = GameManager.get_current_theme()
+	if press_sprite and theme and theme.press_texture:
+		press_sprite.texture = theme.press_texture
+
+func _on_launcher_changed(_launcher_id: String) -> void:
+	update_press_texture()
 
 func _physics_process(delta: float) -> void:
 	if not press_active:

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ThemeData" format=3 uid="uid://dqlid1hh53mjj"]
+
+[ext_resource type="Texture2D" uid="uid://cy7b70pi17m8y" path="res://core/assets/background/3_sub_zero.jpg" id="1_2sjfs"]
+[ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_l8j3o"]
+[ext_resource type="Texture2D" uid="uid://dspxa5kwngvum" path="res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png" id="2_20pit"]
+[ext_resource type="Texture2D" uid="uid://tkhcjss7q3bm" path="res://core/assets/sprites/set_objects/specific_press/3_orange_press.png" id="3_7avoh"]
+
+[resource]
+script = ExtResource("1_l8j3o")
+theme_id = "mini_plasma"
+theme_name = "Sub Zero"
+background_texture = ExtResource("1_2sjfs")
+press_texture = ExtResource("3_7avoh")
+launcher_texture = ExtResource("2_20pit")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/3_ice/"
+metadata/_custom_type_script = "uid://0ul35sqx5i5c"

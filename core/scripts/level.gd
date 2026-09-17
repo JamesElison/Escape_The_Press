@@ -10,47 +10,65 @@ extends Node2D
 @onready var body_shop_button = $LevelCanvasLayer/BodyShopButton
 @onready var pause_button = $LevelCanvasLayer/PauseButton
 @onready var message_timer = $MessageTimer
+@onready var background_sprite = $LevelBackground/BackGround # Adicione um nó Sprite2D no fundo do cenário
 
 var level_cleared: bool = false
 var is_game_over: bool = false
 
 func _ready() -> void:
-	# Carrega os dados salvos mais recentes (garante o nível correto)
 	GameManager.load_game_data()
-	
-	# Aguarda a árvore estabilizar a montagem de todos os nós filhos
 	await get_tree().process_frame
 	
 	level_cleared = false
 
-	# Conecta o sinal game_over do Player dinamicamente
+	# Aplica visual do tema do cenário atual
+	_apply_current_theme_visuals()
+
 	if is_instance_valid(player):
 		if not player.game_over.is_connected(game_over):
 			player.game_over.connect(game_over)
 
-	# 1. Ajusta a velocidade da prensa
 	if is_instance_valid(press):
 		press.speed = GameManager.press_speed
 		press.press_active = true
 
-	# 2. Exibe mensagem de início com o nível atual carregado do GameManager
 	show_level_start(GameManager.current_level)
 
-	# 3. Timer
 	if is_instance_valid(level_start_timer):
 		if not level_start_timer.timeout.is_connected(_on_level_start_timer_timeout):
 			level_start_timer.timeout.connect(_on_level_start_timer_timeout)
 			level_start_timer.start()
 
-	# 4. Música
 	if is_instance_valid(level_music):
 		level_music.play()
+
+func _apply_current_theme_visuals() -> void:
+	var theme = GameManager.get_current_theme()
+	
+	# Background
+	if background_sprite and theme.background_texture:
+		background_sprite.texture = theme.background_texture
+		
+	# Prensa
+	if is_instance_valid(press) and theme.press_texture:
+		var press_sprite = press.find_child("PressSprite", true, false)
+		if press_sprite:
+			press_sprite.texture = theme.press_texture
+			
+	# Lançador (Player)
+	if is_instance_valid(player) and theme.launcher_texture:
+		var player_sprite = player.find_child("PlayerSprite", true, false)
+		if player_sprite:
+			player_sprite.texture = theme.launcher_texture
+			
+	# Música de Fundo
+	if is_instance_valid(level_music) and theme.bgm_music:
+		level_music.stream = theme.bgm_music
 
 func _process(_delta: float) -> void:
 	if level_cleared:
 		return
 
-	# Checa se todos os blocos foram destruídos
 	var remaining_blocks = get_tree().get_nodes_in_group("blocks")
 	if remaining_blocks.size() == 0 and press and press.press_active:
 		complete_level()
@@ -67,10 +85,7 @@ func complete_level() -> void:
 		level_victory_music.play()
 		await level_victory_music.finished
 	
-	# Incrementa dados no GameManager e SALVA o novo nível
 	GameManager.advance_to_next_level()
-	
-	# Troca direto para a cena do nível
 	get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")
 
 func show_level_start(level_number: int) -> void:

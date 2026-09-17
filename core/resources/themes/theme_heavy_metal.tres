@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ThemeData" format=3 uid="uid://bbhycoowsrjh2"]
+
+[ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_8ui5x"]
+[ext_resource type="Texture2D" uid="uid://cy0112yu4v81h" path="res://core/assets/background/2_heavy_metal.jpg" id="1_sriwl"]
+[ext_resource type="Texture2D" uid="uid://bar3eu6712fht" path="res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png" id="2_xda3t"]
+[ext_resource type="Texture2D" uid="uid://df2dnxmarjmjh" path="res://core/assets/sprites/set_objects/specific_press/2_back_press.png" id="3_sriwl"]
+
+[resource]
+script = ExtResource("1_8ui5x")
+theme_id = "piercing"
+theme_name = "Heavy Metal"
+background_texture = ExtResource("1_sriwl")
+press_texture = ExtResource("3_sriwl")
+launcher_texture = ExtResource("2_xda3t")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/2_steel/"
+metadata/_custom_type_script = "uid://0ul35sqx5i5c"

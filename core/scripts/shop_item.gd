@@ -35,7 +35,7 @@ func update_state() -> void:
 		action_button.text = "Equip"
 		action_button.disabled = false
 	else:
-		price_label.text = "PRICE: " + str(price) # + " Coins"
+		price_label.text = "PRICE: " + str(price)
 		action_button.text = "Buy"
 		action_button.disabled = false
 

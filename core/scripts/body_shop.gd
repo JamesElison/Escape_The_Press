@@ -7,7 +7,6 @@ const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 
 @onready var vbox_container = $BodyShopScroll/BodyShopVBox
 
-# Definição do catálogo de lançadores disponíveis
 var items_catalog: Array[Dictionary] = [
 	{
 		"id": "Standart",
@@ -43,14 +42,12 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	
-	# Garantia: O lançador padrão sempre deve estar liberado nos salvamentos
 	if not "Standart" in GameManager.unlocked_launchers:
 		GameManager.unlocked_launchers.append("Standart")
 		
 	populate_shop()
 
 func populate_shop() -> void:
-	# Limpa itens antigos para re-gerar a lista limpa
 	for child in vbox_container.get_children():
 		child.queue_free()
 		
@@ -73,19 +70,24 @@ func _on_item_buy_requested(item_data: Dictionary) -> void:
 	
 	if GameManager.remove_coins(price):
 		GameManager.unlocked_launchers.append(item_id)
-		GameManager.equipped_launcher = item_id
-		GameManager.save_game_data()
+		GameManager.equip_launcher_scenario(item_id)
 		refresh_all_items()
 		EventBus.launcher_changed.emit(item_id)
-		close() # Retorna ao jogo imediatamente após a compra
+		close()
+		_reload_test_area()
 
 func _on_item_equip_requested(item_data: Dictionary) -> void:
 	var item_id = item_data.get("id", "")
-	GameManager.equipped_launcher = item_id
-	GameManager.save_game_data()
+	GameManager.equip_launcher_scenario(item_id)
 	refresh_all_items()
 	EventBus.launcher_changed.emit(item_id)
-	close() # Retorna ao jogo imediatamente após equipar
+	close()
+	_reload_test_area()
+
+func _reload_test_area() -> void:
+	# Recarrega a cena atual para aplicar as alterações de visual e velocidade do novo cenário
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 func toggle_shop() -> void:
 	if visible:

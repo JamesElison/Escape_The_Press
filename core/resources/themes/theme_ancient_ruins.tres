@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ThemeData" format=3 uid="uid://bb7sucr81go0k"]
+
+[ext_resource type="Texture2D" uid="uid://da2xmamoyc8pl" path="res://core/assets/background/1_ancient_ruins.jpg" id="1_2i5li"]
+[ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_eh8qf"]
+[ext_resource type="Texture2D" uid="uid://8co6jnn31b7h" path="res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png" id="2_uba4c"]
+[ext_resource type="Texture2D" uid="uid://dx36j44rwdrp7" path="res://core/assets/sprites/set_objects/specific_press/1_blue_press.png" id="3_jr6jt"]
+
+[resource]
+script = ExtResource("1_eh8qf")
+theme_id = "\"120mm\""
+theme_name = "Ancient Ruins"
+background_texture = ExtResource("1_2i5li")
+press_texture = ExtResource("3_jr6jt")
+launcher_texture = ExtResource("2_uba4c")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/1_concrete/"
+metadata/_custom_type_script = "uid://0ul35sqx5i5c"

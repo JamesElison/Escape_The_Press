@@ -51,7 +51,7 @@ func _ready() -> void:
 		if charger.has_method("get_top_ball_color"):
 			_on_top_color_changed(charger.get_top_ball_color())
 	
-	update_launcher_sprite(GameManager.equipped_launcher)
+	update_launcher_sprite()
 
 # --- MÉTODOS DE ROTAÇÃO SUAVE ---
 func rotate_left(delta: float) -> void:
@@ -136,23 +136,10 @@ func _on_top_color_changed(color_idx: int) -> void:
 	else:
 		color_tween.tween_property(laser_line, "default_color", target_color, 0.15)
 
-func update_launcher_sprite(launcher_id: String) -> void:
-	var texture_path = ""
-	
-	match launcher_id:
-		"Standart":
-			texture_path = "res://core/assets/sprites/characters/player.png"
-		"120mm":
-			texture_path = "res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png"
-		"piercing":
-			texture_path = "res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png"
-		"mini_plasma":
-			texture_path = "res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png"
-		_:
-			texture_path = "res://core/assets/sprites/characters/default_launcher.png"
-
-	if ResourceLoader.exists(texture_path):
-		player_sprite.texture = load(texture_path)
+func update_launcher_sprite(_launcher_id: String = "") -> void:
+	var theme = GameManager.get_current_theme()
+	if theme and theme.launcher_texture:
+		player_sprite.texture = theme.launcher_texture
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse / Touch - Arrastar para mover no X e Soltar para Disparar
@@ -192,8 +179,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = keyboard_dir * SPEED
 		touch_target_x = global_position.x
 	elif is_touching:
-		# Move em direção à posição X onde o dedo está tocando com uma zona morta de 10px
-		# para evitar micros-tremores de precisão do touch na mesma posição
 		var diff = touch_target_x - global_position.x
 		if abs(diff) > 10.0:
 			velocity.x = sign(diff) * SPEED
