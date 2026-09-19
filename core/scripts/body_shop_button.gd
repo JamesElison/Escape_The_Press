@@ -1,7 +1,10 @@
-extends Button
+extends TextureButton
 
 @export var body_shop_ui: Control
 @export var pause_button: Control
+@export var turn_left_button: Control
+@export var turn_right_button: Control
+@export var level_label: Control
 
 const ALPHA_MUTED: float = 70.0 / 255.0
 const ALPHA_FULL: float = 1.0
@@ -25,6 +28,12 @@ func _on_shop_opened() -> void:
 	self_modulate.a = ALPHA_FULL
 	if pause_button:
 		pause_button.visible = false
+	if turn_left_button:
+		turn_left_button.visible = false
+	if turn_right_button:
+		turn_right_button.visible = false
+	if level_label:
+		level_label.visible = false
 
 func _on_shop_closed() -> void:
 	self_modulate.a = ALPHA_MUTED
@@ -33,3 +42,9 @@ func _on_shop_closed() -> void:
 		# Sincroniza o texto e opacidade do PauseButton com a árvore de cena
 		if pause_button.has_method("sync_state"):
 			pause_button.sync_state()
+	if turn_left_button:
+		turn_left_button.visible = true
+	if turn_right_button:
+		turn_right_button.visible = true
+	if level_label:
+		level_label.visible = true

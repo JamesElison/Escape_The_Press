@@ -2,12 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://10sd8us8wiqm" path="res://core/assets/HUD/right_button.png" id="1_nbwrb"]
 [ext_resource type="Script" uid="uid://c65wtc8cdn484" path="res://core/scripts/turn_right_button.gd" id="2_nbwrb"]
+[ext_resource type="Texture2D" uid="uid://chxfe7pf2i371" path="res://core/assets/HUD/right_button2.png" id="2_t2s82"]
 [ext_resource type="AudioStream" uid="uid://cac3b31gll0kf" path="res://core/assets/sounds/fx/mechanicalclamp_spin.wav" id="3_16rdf"]
 
 [node name="TurnRightButton" type="TextureButton" unique_id=305350989]
 offset_right = 86.0
 offset_bottom = 86.0
 texture_normal = ExtResource("1_nbwrb")
+texture_pressed = ExtResource("2_t2s82")
 script = ExtResource("2_nbwrb")
 
 [node name="SpinSound" type="AudioStreamPlayer" parent="." unique_id=417376036]

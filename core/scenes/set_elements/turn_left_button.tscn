@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bt5kw3nc328a3"]
 
 [ext_resource type="Texture2D" uid="uid://cg44bnl3q5777" path="res://core/assets/HUD/left_button.png" id="1_de8ga"]
+[ext_resource type="Texture2D" uid="uid://0am01y34y1vn" path="res://core/assets/HUD/left_buton2.png" id="2_6pvlo"]
 [ext_resource type="Script" uid="uid://ccu6yms54tonk" path="res://core/scripts/turn_left_button.gd" id="2_de8ga"]
 [ext_resource type="AudioStream" uid="uid://cac3b31gll0kf" path="res://core/assets/sounds/fx/mechanicalclamp_spin.wav" id="3_no2t1"]
 
@@ -8,6 +9,7 @@
 offset_right = 86.0
 offset_bottom = 86.0
 texture_normal = ExtResource("1_de8ga")
+texture_pressed = ExtResource("2_6pvlo")
 script = ExtResource("2_de8ga")
 
 [node name="SpinSound" type="AudioStreamPlayer" parent="." unique_id=1550673459]

@@ -30,6 +30,7 @@ func _on_start_button_pressed() -> void:
 
 	# 3. Dá tempo do motor renderizar o frame com a textura trocada antes de trocar a cena
 	await get_tree().process_frame
+	await get_tree().process_frame
 
 	GameManager.load_game_data()
 	get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")

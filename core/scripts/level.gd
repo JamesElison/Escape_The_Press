@@ -1,19 +1,21 @@
 extends Node2D
 
+@onready var background_sprite = $LevelBackground/BackGround # Adicione um nó Sprite2D no fundo do cenário
 @onready var level_music = $LevelMusic
 @onready var level_game_over_sound = $LevelGameOverSound
 @onready var level_victory_music = $LevelVictoryMusic
 @onready var level_start_timer = $LevelStartTimer
 @onready var press = $Press
 @onready var player = $Player
-@onready var fx1 = $FxCrystalPalace
+#@onready var fx1 = $FxCrystalPalace
 @onready var fx2 = $FxAncientRuins
 @onready var message_label = $LevelCanvasLayer/MessageLabel
 @onready var level_label = $LevelCanvasLayer/LevelLabel # Referência ao Label que exibe o número do nível
 @onready var body_shop_button = $LevelCanvasLayer/BodyShopButton
 @onready var pause_button = $LevelCanvasLayer/PauseButton
 @onready var message_timer = $MessageTimer
-@onready var background_sprite = $LevelBackground/BackGround # Adicione um nó Sprite2D no fundo do cenário
+@onready var snow_fx = $SnowFX
+
 
 var level_cleared: bool = false
 var is_game_over: bool = false
@@ -77,19 +79,25 @@ func _apply_current_theme_visuals() -> void:
 		var active_theme_id = theme.theme_id
 
 		# 1. Efeitos do Tema Crystal Palace ("Standart")
-		if is_instance_valid(fx1):
-			var is_standart = (active_theme_id == "Standart" or active_theme_id == "piercing")
-			fx1.visible = is_standart
-			_toggle_particles(fx1, is_standart)
+		#if is_instance_valid(fx1):
+			#var is_standart = (active_theme_id == "Standart" or active_theme_id == "piercing")
+			#fx1.visible = is_standart
+			#_toggle_particles(fx1, is_standart)
 
 		# 2. Efeitos do Tema Ancient Ruins ("120mm")
-		if is_instance_valid(fx2):
-			var is_ancient = (active_theme_id == "120mm" or active_theme_id == "ancient_ruins")
-			fx2.visible = is_ancient
-			_toggle_particles(fx2, is_ancient)
+		#if is_instance_valid(fx2):
+			#var is_ancient = (active_theme_id == "120mm" or active_theme_id == "ancient_ruins")
+			#fx2.visible = is_ancient
+			#_toggle_particles(fx2, is_ancient)
 
-		# Nota: Se criar nós $FxHeavyMetal (piercing) ou $FxSubZero (mini_plasma) na cena, 
-		# basta adicionar a mesma verificação apontando para o id correto.
+		# 3. Efeitos do Tema Sub Zero / Gelo ("mini_plasma")
+		if is_instance_valid(snow_fx):
+			var is_sub_zero = (active_theme_id == "mini_plasma")
+			snow_fx.visible = is_sub_zero
+			if snow_fx is GPUParticles2D or snow_fx is CPUParticles2D:
+				snow_fx.emitting = is_sub_zero
+			else:
+				_toggle_particles(snow_fx, is_sub_zero)
 
 func _toggle_particles(parent_node: Node, enable: bool) -> void:
 	for child in parent_node.get_children():
