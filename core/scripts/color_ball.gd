@@ -160,6 +160,11 @@ func destroy_with_anim() -> void:
 	is_exploding = true
 	speed = 0.0
 	
+	# Reproduz o som de impacto do tema atual através do GameManager
+	var theme = GameManager.get_current_theme()
+	if theme and theme.hit_sound:
+		GameManager.play_sfx_persistent(theme.hit_sound)
+	
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	if color_ball_shape:

@@ -45,6 +45,7 @@ func set_block_color(val: int) -> void:
 			block_sprite.texture = load(tex_path)
 
 func _ready() -> void:
+	update_theme_sounds()
 	if block_color == -1:
 		block_color = randi() % COLOR_FILENAMES.size()
 	else:
@@ -52,6 +53,16 @@ func _ready() -> void:
 	
 	add_to_group("blocks")
 	sync_to_physics = false
+
+func update_theme_sounds() -> void:
+	var theme = GameManager.get_current_theme()
+	if theme:
+		# Atualiza o som de explosão do bloco para o som de explosão definido no ThemeData
+		if theme.explode_sound:
+			if block_explode_sound:
+				block_explode_sound.stream = theme.explode_sound
+			if block_explode_group_sound:
+				block_explode_group_sound.stream = theme.explode_sound
 
 func _physics_process(delta: float) -> void:
 	if droped_block and not has_landed:

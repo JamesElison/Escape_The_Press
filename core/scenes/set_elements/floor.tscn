@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://c6p7ipae3fmnf"]
 
 [ext_resource type="Script" uid="uid://dndbx7dr4ynld" path="res://core/scripts/floor.gd" id="1_sm5d2"]
-[ext_resource type="Texture2D" uid="uid://b8oqdbfof4qtc" path="res://core/assets/sprites/set_objects/floor.png" id="1_v5d4d"]
+[ext_resource type="Texture2D" uid="uid://dw6hce2hexuxd" path="res://core/assets/sprites/set_objects/specific_floor/1_floor_stone.png" id="2_sm5d2"]
+[ext_resource type="PackedScene" uid="uid://cfixxn52t2t6i" path="res://core/entities/effects/ancient_fire.tscn" id="3_4lpyl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5d4d"]
-size = Vector2(718, 64)
+size = Vector2(718, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
-size = Vector2(720, 64)
+size = Vector2(720, 80)
 
 [node name="Floor" type="StaticBody2D" unique_id=1662461556]
 collision_layer = 51
@@ -15,7 +16,7 @@ collision_mask = 4
 script = ExtResource("1_sm5d2")
 
 [node name="FloorSprite" type="Sprite2D" parent="." unique_id=811281911]
-texture = ExtResource("1_v5d4d")
+texture = ExtResource("2_sm5d2")
 
 [node name="FloorShape" type="CollisionShape2D" parent="." unique_id=1049414457]
 shape = SubResource("RectangleShape2D_v5d4d")
@@ -24,5 +25,11 @@ shape = SubResource("RectangleShape2D_v5d4d")
 
 [node name="FloorHealthAreaShape" type="CollisionShape2D" parent="FloorHealthArea" unique_id=1932154174]
 shape = SubResource("RectangleShape2D_k6ly5")
+
+[node name="AncientFire" parent="." unique_id=1267859165 instance=ExtResource("3_4lpyl")]
+position = Vector2(-245, -100)
+
+[node name="AncientFire2" parent="." unique_id=669189748 instance=ExtResource("3_4lpyl")]
+position = Vector2(265, -100)
 
 [connection signal="body_entered" from="FloorHealthArea" to="." method="_on_floor_health_area_body_entered"]

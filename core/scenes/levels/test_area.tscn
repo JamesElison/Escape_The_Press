@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="2_ovmqw"]
 [ext_resource type="Texture2D" uid="uid://cju1bsskns43r" path="res://core/assets/background/0_crystal_palace.jpg" id="2_ypx8k"]
 [ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="3_ovmqw"]
-[ext_resource type="AudioStream" uid="uid://bibiwkah2mjds" path="res://core/assets/sounds/level_music/House In a Forest Loop.ogg" id="3_y1bkx"]
 [ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
 [ext_resource type="AudioStream" uid="uid://dn085gkcnei50" path="res://core/assets/sounds/level_music/Victory.ogg" id="5_f6opj"]
 [ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="6_3c2jl"]
+[ext_resource type="PackedScene" uid="uid://cfixxn52t2t6i" path="res://core/entities/effects/ancient_fire.tscn" id="10_61cah"]
 [ext_resource type="PackedScene" uid="uid://ca6xso0mr3bqf" path="res://core/scenes/set_elements/pause_button.tscn" id="11_2xyph"]
+[ext_resource type="PackedScene" uid="uid://blqa0ul40bdoy" path="res://core/entities/effects/mini_fire.tscn" id="11_61cah"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="11_nqyh5"]
 [ext_resource type="PackedScene" uid="uid://dgsyuoff3ndoy" path="res://core/scenes/set_elements/coin.tscn" id="12_2xyph"]
 [ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="13_jyd58"]
@@ -19,7 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://ky17wl2bj1f1" path="res://core/scenes/set_elements/turn_right_button.tscn" id="16_ypx8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
-size = Vector2(40, 1280)
+size = Vector2(40, 1110)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52uox"]
+size = Vector2(40, 1110)
 
 [node name="TestArea" type="Node2D" unique_id=792366202]
 script = ExtResource("1_3c2jl")
@@ -46,7 +50,6 @@ limit_bottom = 1280
 script = ExtResource("2_01iaf")
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="." unique_id=21811574]
-stream = ExtResource("3_y1bkx")
 
 [node name="LevelGameOverSound" type="AudioStreamPlayer" parent="." unique_id=1745005861]
 stream = ExtResource("4_f6opj")
@@ -60,10 +63,10 @@ stream = ExtResource("5_f6opj")
 position = Vector2(360, 47)
 
 [node name="Floor" parent="." unique_id=1662461556 instance=ExtResource("3_ovmqw")]
-position = Vector2(360, 1271)
+position = Vector2(355, 1238)
 
 [node name="Player" parent="." unique_id=1101960694 node_paths=PackedStringArray("charger") instance=ExtResource("2_ovmqw")]
-position = Vector2(355, 1239)
+position = Vector2(355, 1157)
 charger = NodePath("../Charger")
 
 [node name="Limits" type="StaticBody2D" parent="." unique_id=1558915970]
@@ -71,21 +74,59 @@ collision_layer = 4099
 collision_mask = 2048
 
 [node name="Limitshape_l" type="CollisionShape2D" parent="Limits" unique_id=290407902]
-position = Vector2(-20, 640)
+position = Vector2(-30, 554)
 shape = SubResource("RectangleShape2D_k6ly5")
 
 [node name="Limitshape_r" type="CollisionShape2D" parent="Limits" unique_id=1498912609]
-position = Vector2(740, 640)
-shape = SubResource("RectangleShape2D_k6ly5")
+position = Vector2(750, 554)
+shape = SubResource("RectangleShape2D_52uox")
 
 [node name="Charger" parent="." unique_id=1260939654 instance=ExtResource("6_3c2jl")]
 position = Vector2(689, 47)
 rotation = 4.712389
 
+[node name="FxCrystalPalace" type="Node2D" parent="." unique_id=1335308552]
+
+[node name="MiniFire" parent="FxCrystalPalace" unique_id=1267859165 instance=ExtResource("11_61cah")]
+position = Vector2(580, 1078)
+
+[node name="MiniFire2" parent="FxCrystalPalace" unique_id=550964648 instance=ExtResource("11_61cah")]
+position = Vector2(646, 1104)
+
+[node name="MiniFire3" parent="FxCrystalPalace" unique_id=923202381 instance=ExtResource("11_61cah")]
+position = Vector2(77, 1067)
+
+[node name="FxAncientRuins" type="Node2D" parent="." unique_id=1733441824]
+
+[node name="AncientFire" parent="FxAncientRuins" unique_id=1379302115 instance=ExtResource("10_61cah")]
+position = Vector2(98, 900)
+
+[node name="AncientFire2" parent="FxAncientRuins" unique_id=331888981 instance=ExtResource("10_61cah")]
+position = Vector2(658, 915)
+
+[node name="MiniFire" parent="FxAncientRuins" unique_id=720910771 instance=ExtResource("11_61cah")]
+position = Vector2(650, 1083)
+
+[node name="MiniFire2" parent="FxAncientRuins" unique_id=635118482 instance=ExtResource("11_61cah")]
+position = Vector2(513, 1038)
+
 [node name="LevelCanvasLayer" type="CanvasLayer" parent="." unique_id=1652093017]
 
 [node name="BodyShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("14_skvvx")]
 visible = false
+
+[node name="LevelLabel" type="Label" parent="LevelCanvasLayer" unique_id=1026099173]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.5
+offset_right = 45.5
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("11_nqyh5")
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MessageLabel" type="Label" parent="LevelCanvasLayer" unique_id=599910191]
 anchors_preset = 8
@@ -115,12 +156,17 @@ body_shop_ui = NodePath("../BodyShop")
 pause_button = NodePath("../PauseButton")
 
 [node name="PauseButton" parent="LevelCanvasLayer" unique_id=126329662 instance=ExtResource("11_2xyph")]
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
+anchor_bottom = 1.0
 offset_left = -150.0
+offset_top = -100.0
 offset_right = 150.0
+offset_bottom = 0.0
 grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Coin" parent="LevelCanvasLayer" unique_id=780510659 instance=ExtResource("12_2xyph")]
 visible = false
@@ -145,21 +191,6 @@ anchor_bottom = 0.5
 offset_top = 360.0
 offset_bottom = 446.0
 grow_vertical = 2
-
-[node name="VersionLabel" type="Label" parent="LevelCanvasLayer" unique_id=1082328299]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -132.0
-offset_top = -61.0
-offset_right = -15.0
-offset_bottom = -41.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("11_nqyh5")
-text = "Version: 0.4.2"
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]
 

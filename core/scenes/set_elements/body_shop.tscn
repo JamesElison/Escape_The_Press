@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://60ry5x7ebcls" path="res://core/scripts/body_shop.gd" id="1_n6bip"]
 [ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="2_2h8a0"]
+[ext_resource type="AudioStream" uid="uid://ej1pnvoxtpnd" path="res://core/assets/sounds/level_music/body_shop_music.wav" id="2_n0aky"]
 
 [node name="BodyShop" type="Control" unique_id=1610804757]
 process_mode = 3
@@ -14,6 +15,9 @@ offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n6bip")
+
+[node name="BodyShopMusic" type="AudioStreamPlayer" parent="." unique_id=1188301649]
+stream = ExtResource("2_n0aky")
 
 [node name="BodyShopRect" type="ColorRect" parent="." unique_id=790614684]
 layout_mode = 1

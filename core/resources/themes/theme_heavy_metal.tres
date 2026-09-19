@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_8ui5x"]
 [ext_resource type="Texture2D" uid="uid://cy0112yu4v81h" path="res://core/assets/background/2_heavy_metal.jpg" id="1_sriwl"]
+[ext_resource type="AudioStream" uid="uid://bewj8m6ilusrm" path="res://core/assets/sounds/level_music/2_heavy_metal_music.wav" id="2_6s551"]
 [ext_resource type="Texture2D" uid="uid://bar3eu6712fht" path="res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png" id="2_xda3t"]
 [ext_resource type="Texture2D" uid="uid://df2dnxmarjmjh" path="res://core/assets/sprites/set_objects/specific_press/2_back_press.png" id="3_sriwl"]
+[ext_resource type="AudioStream" uid="uid://8qco0v1a1r0" path="res://core/assets/sounds/fx/specific_projectiles_sounds/2_piercing_type/block_explode.wav" id="3_ubw6s"]
+[ext_resource type="AudioStream" uid="uid://ikv0ex268xk7" path="res://core/assets/sounds/fx/specific_projectiles_sounds/2_piercing_type/ball_shoot.wav" id="4_drawu"]
+[ext_resource type="Texture2D" uid="uid://ce05q3nmg86hl" path="res://core/assets/sprites/set_objects/specific_floor/2_floor_metal_rusted.png" id="4_ubw6s"]
 
 [resource]
 script = ExtResource("1_8ui5x")
@@ -12,6 +16,10 @@ theme_name = "Heavy Metal"
 background_texture = ExtResource("1_sriwl")
 press_texture = ExtResource("3_sriwl")
 launcher_texture = ExtResource("2_xda3t")
+floor_texture = ExtResource("4_ubw6s")
+bgm_music = ExtResource("2_6s551")
+hit_sound = ExtResource("4_drawu")
+explode_sound = ExtResource("3_ubw6s")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 block_folder = "res://core/assets/sprites/set_objects/specific_blocks/2_steel/"

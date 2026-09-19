@@ -3,6 +3,9 @@ extends CharacterBody2D
 var screen_size
 var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
 
+@onready var player_jet_right = $PlayerJetRight
+@onready var player_jet_left = $PlayerJetLeft
+
 const SPEED = 1000.0
 
 # Configurações de Rotação do Lançador
@@ -52,6 +55,7 @@ func _ready() -> void:
 			_on_top_color_changed(charger.get_top_ball_color())
 	
 	update_launcher_sprite()
+	update_jets_visibility()
 
 # --- MÉTODOS DE ROTAÇÃO SUAVE ---
 func rotate_left(delta: float) -> void:
@@ -201,6 +205,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+	# Atualiza a visibilidade dos jatos propulsores baseando-se no movimento real
+	update_jets_visibility()
+
 	# Garante que o player fique dentro dos limites da tela
 	global_position.x = clamp(global_position.x, 0.0, screen_size.x)
 
@@ -211,6 +218,13 @@ func _physics_process(delta: float) -> void:
 	if not is_touching and Input.is_action_just_pressed("shoot"):
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			processing_shoot()
+
+func update_jets_visibility() -> void:
+	if is_instance_valid(player_jet_right):
+		player_jet_right.visible = (velocity.x > 5.0)
+
+	if is_instance_valid(player_jet_left):
+		player_jet_left.visible = (velocity.x < -5.0)
 
 func processing_shoot():
 	if player_ball_shoot:
@@ -242,6 +256,10 @@ func processing_shoot():
 func die() -> void:
 	game_over.emit()
 	player_sprite.hide()
+	if is_instance_valid(player_jet_right):
+		player_jet_right.hide()
+	if is_instance_valid(player_jet_left):
+		player_jet_left.hide()
 	if is_instance_valid(laser_line):
 		laser_line.hide()
 

@@ -146,3 +146,17 @@ func reset_all_save_data() -> void:
 
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)
+	
+func play_sfx_persistent(stream: AudioStream) -> void:
+	if not stream:
+		return
+		
+	var temp_player = AudioStreamPlayer.new()
+	temp_player.stream = stream
+	# Adiciona o player na raiz do jogo (fora da cena atual)
+	get_tree().root.add_child(temp_player)
+	temp_player.play()
+	
+	# Remove o nó da memória automaticamente assim que o som terminar
+	temp_player.finished.connect(temp_player.queue_free)
+	

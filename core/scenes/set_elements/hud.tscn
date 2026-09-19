@@ -2,10 +2,19 @@
 
 [ext_resource type="Script" uid="uid://cdo1mk5htu1tp" path="res://core/scripts/hud.gd" id="1_sg3qs"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_w0588"]
+[ext_resource type="AudioStream" uid="uid://b73igg8wd6yah" path="res://core/assets/sounds/level_music/main_menu_music.wav" id="2_kwdly"]
 [ext_resource type="Texture2D" uid="uid://bb564w0rl0pib" path="res://core/assets/HUD/start_button_1.png" id="3_flne0"]
+[ext_resource type="AudioStream" uid="uid://jdcpcq0x4lxr" path="res://core/assets/sounds/fx/JamesEllisonEffect.wav" id="3_pqsck"]
+[ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="5_ur5tw"]
 
 [node name="HUD" type="CanvasLayer" unique_id=931431950]
 script = ExtResource("1_sg3qs")
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="." unique_id=1069566499]
+stream = ExtResource("2_kwdly")
+
+[node name="StartButtonSound" type="AudioStreamPlayer" parent="." unique_id=2040363580]
+stream = ExtResource("3_pqsck")
 
 [node name="MessageLabel2" type="Label" parent="." unique_id=501870911]
 anchors_preset = 5
@@ -39,7 +48,7 @@ text = "Escape The Press!
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartButton" type="Button" parent="." unique_id=1469681356]
+[node name="StartButton" type="TextureButton" parent="." unique_id=1801364419]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -51,12 +60,29 @@ offset_right = 154.0
 offset_bottom = -178.0
 grow_horizontal = 2
 grow_vertical = 0
+texture_normal = ExtResource("3_flne0")
+texture_pressed = ExtResource("5_ur5tw")
+texture_disabled = ExtResource("5_ur5tw")
+
+[node name="StartButtonLabel" type="Label" parent="StartButton" unique_id=1658406349]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49512988
+anchor_top = 0.43636364
+anchor_right = 0.49512988
+anchor_bottom = 0.43636364
+offset_left = -54.5
+offset_top = -29.0
+offset_right = 54.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_w0588")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "Play"
-icon = ExtResource("3_flne0")
-flat = true
-icon_alignment = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="ResetButton" type="Button" parent="." unique_id=1207356961]
 anchors_preset = 7
@@ -73,5 +99,20 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_w0588")
 theme_override_font_sizes/font_size = 48
 text = "Reset Game"
+
+[node name="VersionLabel" type="Label" parent="." unique_id=511045813]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -149.0
+offset_top = -46.0
+offset_right = -32.0
+offset_bottom = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_w0588")
+text = "Version: 0.5.0"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

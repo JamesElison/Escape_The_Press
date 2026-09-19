@@ -3,7 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://cy7b70pi17m8y" path="res://core/assets/background/3_sub_zero.jpg" id="1_2sjfs"]
 [ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_l8j3o"]
 [ext_resource type="Texture2D" uid="uid://dspxa5kwngvum" path="res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png" id="2_20pit"]
-[ext_resource type="Texture2D" uid="uid://tkhcjss7q3bm" path="res://core/assets/sprites/set_objects/specific_press/3_orange_press.png" id="3_7avoh"]
+[ext_resource type="AudioStream" uid="uid://d3m5jw32fkca0" path="res://core/assets/sounds/level_music/3_sub_zero_music.wav" id="2_qpwj3"]
+[ext_resource type="Texture2D" uid="uid://mt4t2wlgk7wk" path="res://core/assets/sprites/set_objects/specific_press/3_orange_press.png" id="3_7avoh"]
+[ext_resource type="AudioStream" uid="uid://df1ityo8bx10b" path="res://core/assets/sounds/fx/specific_projectiles_sounds/3_mini_plasma_type/block_explode.wav" id="3_k5fh6"]
+[ext_resource type="AudioStream" uid="uid://cxrncuwg6vm8q" path="res://core/assets/sounds/fx/specific_projectiles_sounds/3_mini_plasma_type/ball_shoot.wav" id="4_d4ds3"]
+[ext_resource type="Texture2D" uid="uid://db8wkkmqqj1rg" path="res://core/assets/sprites/set_objects/specific_floor/3_floor_ice.png" id="4_k5fh6"]
 
 [resource]
 script = ExtResource("1_l8j3o")
@@ -12,6 +16,10 @@ theme_name = "Sub Zero"
 background_texture = ExtResource("1_2sjfs")
 press_texture = ExtResource("3_7avoh")
 launcher_texture = ExtResource("2_20pit")
+floor_texture = ExtResource("4_k5fh6")
+bgm_music = ExtResource("2_qpwj3")
+hit_sound = ExtResource("4_d4ds3")
+explode_sound = ExtResource("3_k5fh6")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 block_folder = "res://core/assets/sprites/set_objects/specific_blocks/3_ice/"

@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://bt5kw3nc328a3"]
 
-[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_ldikx"]
+[ext_resource type="Texture2D" uid="uid://cg44bnl3q5777" path="res://core/assets/HUD/left_button.png" id="1_de8ga"]
 [ext_resource type="Script" uid="uid://ccu6yms54tonk" path="res://core/scripts/turn_left_button.gd" id="2_de8ga"]
+[ext_resource type="AudioStream" uid="uid://cac3b31gll0kf" path="res://core/assets/sounds/fx/mechanicalclamp_spin.wav" id="3_no2t1"]
 
-[node name="TurnLeftButton" type="Button" unique_id=1662244709]
+[node name="TurnLeftButton" type="TextureButton" unique_id=1814440629]
 offset_right = 86.0
 offset_bottom = 86.0
-theme_override_fonts/font = ExtResource("1_ldikx")
-theme_override_font_sizes/font_size = 64
-text = "←"
+texture_normal = ExtResource("1_de8ga")
 script = ExtResource("2_de8ga")
+
+[node name="SpinSound" type="AudioStreamPlayer" parent="." unique_id=1550673459]
+stream = ExtResource("3_no2t1")
+bus = &"fx"

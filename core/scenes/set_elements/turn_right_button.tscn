@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://ky17wl2bj1f1"]
 
-[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_qj1hu"]
+[ext_resource type="Texture2D" uid="uid://10sd8us8wiqm" path="res://core/assets/HUD/right_button.png" id="1_nbwrb"]
 [ext_resource type="Script" uid="uid://c65wtc8cdn484" path="res://core/scripts/turn_right_button.gd" id="2_nbwrb"]
+[ext_resource type="AudioStream" uid="uid://cac3b31gll0kf" path="res://core/assets/sounds/fx/mechanicalclamp_spin.wav" id="3_16rdf"]
 
-[node name="TurnRightButton" type="Button" unique_id=532990282]
+[node name="TurnRightButton" type="TextureButton" unique_id=305350989]
 offset_right = 86.0
 offset_bottom = 86.0
-theme_override_fonts/font = ExtResource("1_qj1hu")
-theme_override_font_sizes/font_size = 64
-text = "→"
+texture_normal = ExtResource("1_nbwrb")
 script = ExtResource("2_nbwrb")
+
+[node name="SpinSound" type="AudioStreamPlayer" parent="." unique_id=417376036]
+stream = ExtResource("3_16rdf")
+bus = &"fx"

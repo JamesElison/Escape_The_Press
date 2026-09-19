@@ -5,6 +5,7 @@ signal closed
 
 const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 
+@onready var body_shop_music = $BodyShopMusic
 @onready var vbox_container = $BodyShopScroll/BodyShopVBox
 
 var items_catalog: Array[Dictionary] = [
@@ -96,12 +97,16 @@ func toggle_shop() -> void:
 		open()
 
 func open() -> void:
+	if body_shop_music:
+		body_shop_music.play()
 	refresh_all_items()
 	show()
 	get_tree().paused = true
 	opened.emit()
 
 func close() -> void:
+	if body_shop_music:
+		body_shop_music.stop()
 	hide()
 	get_tree().paused = false
 	closed.emit()

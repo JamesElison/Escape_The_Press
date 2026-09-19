@@ -2,8 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cju1bsskns43r" path="res://core/assets/background/0_crystal_palace.jpg" id="1_p7dvm"]
 [ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_sy4ww"]
-[ext_resource type="AudioStream" uid="uid://bibiwkah2mjds" path="res://core/assets/sounds/level_music/House In a Forest Loop.ogg" id="2_4tqud"]
+[ext_resource type="AudioStream" uid="uid://vbfd7s6x6nyq" path="res://core/assets/sounds/level_music/0_crystal_palace_music.wav" id="2_p7dvm"]
 [ext_resource type="AudioStream" uid="uid://cm7b8mq68n2hs" path="res://core/assets/sounds/fx/block_explode.wav" id="3_8m6gh"]
+[ext_resource type="Texture2D" uid="uid://wxp8rdju2jgr" path="res://core/assets/sprites/set_objects/specific_floor/0_floor_glass.png" id="4_4tqud"]
 [ext_resource type="AudioStream" uid="uid://tok6cewto0sf" path="res://core/assets/sounds/fx/ball_shoot.wav" id="4_vncj1"]
 [ext_resource type="Texture2D" uid="uid://cgh6bk4jxglyl" path="res://core/assets/sprites/characters/player.png" id="5_w1gjc"]
 [ext_resource type="Texture2D" uid="uid://cgvkqfem0j63v" path="res://core/assets/sprites/set_objects/press.png" id="6_i6uw0"]
@@ -14,7 +15,8 @@ theme_id = "Standart"
 background_texture = ExtResource("1_p7dvm")
 press_texture = ExtResource("6_i6uw0")
 launcher_texture = ExtResource("5_w1gjc")
-bgm_music = ExtResource("2_4tqud")
+floor_texture = ExtResource("4_4tqud")
+bgm_music = ExtResource("2_p7dvm")
 hit_sound = ExtResource("4_vncj1")
 explode_sound = ExtResource("3_8m6gh")
 metadata/_custom_type_script = "uid://0ul35sqx5i5c"

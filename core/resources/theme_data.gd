@@ -10,6 +10,7 @@ extends Resource
 @export var background_texture: Texture2D
 @export var press_texture: Texture2D
 @export var launcher_texture: Texture2D
+@export var floor_texture: Texture2D
 
 @export_category("Músicas e Sons")
 @export var bgm_music: AudioStream

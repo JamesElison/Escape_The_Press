@@ -6,7 +6,10 @@ extends Node2D
 @onready var level_start_timer = $LevelStartTimer
 @onready var press = $Press
 @onready var player = $Player
+@onready var fx1 = $FxCrystalPalace
+@onready var fx2 = $FxAncientRuins
 @onready var message_label = $LevelCanvasLayer/MessageLabel
+@onready var level_label = $LevelCanvasLayer/LevelLabel # Referência ao Label que exibe o número do nível
 @onready var body_shop_button = $LevelCanvasLayer/BodyShopButton
 @onready var pause_button = $LevelCanvasLayer/PauseButton
 @onready var message_timer = $MessageTimer
@@ -20,6 +23,10 @@ func _ready() -> void:
 	await get_tree().process_frame
 	
 	level_cleared = false
+
+	# Exibe apenas o número do nível atual no LevelLabel
+	if is_instance_valid(level_label):
+		level_label.text = str(GameManager.current_level)
 
 	# Aplica visual do tema do cenário atual
 	_apply_current_theme_visuals()
@@ -45,25 +52,51 @@ func _ready() -> void:
 func _apply_current_theme_visuals() -> void:
 	var theme = GameManager.get_current_theme()
 	
-	# Background
-	if background_sprite and theme.background_texture:
-		background_sprite.texture = theme.background_texture
-		
-	# Prensa
-	if is_instance_valid(press) and theme.press_texture:
-		var press_sprite = press.find_child("PressSprite", true, false)
-		if press_sprite:
-			press_sprite.texture = theme.press_texture
+	if theme:
+		# Background
+		if background_sprite and theme.background_texture:
+			background_sprite.texture = theme.background_texture
 			
-	# Lançador (Player)
-	if is_instance_valid(player) and theme.launcher_texture:
-		var player_sprite = player.find_child("PlayerSprite", true, false)
-		if player_sprite:
-			player_sprite.texture = theme.launcher_texture
-			
-	# Música de Fundo
-	if is_instance_valid(level_music) and theme.bgm_music:
-		level_music.stream = theme.bgm_music
+		# Prensa
+		if is_instance_valid(press) and theme.press_texture:
+			var press_sprite = press.find_child("PressSprite", true, false)
+			if press_sprite:
+				press_sprite.texture = theme.press_texture
+				
+		# Lançador (Player)
+		if is_instance_valid(player) and theme.launcher_texture:
+			var player_sprite = player.find_child("PlayerSprite", true, false)
+			if player_sprite:
+				player_sprite.texture = theme.launcher_texture
+				
+		# Música de Fundo
+		if is_instance_valid(level_music) and theme.bgm_music:
+			level_music.stream = theme.bgm_music
+
+		# --- GERENCIAMENTO DE EFEITOS VISUAIS (FX) POR ID DO TEMA ---
+		var active_theme_id = theme.theme_id
+
+		# 1. Efeitos do Tema Crystal Palace ("Standart")
+		if is_instance_valid(fx1):
+			var is_standart = (active_theme_id == "Standart" or active_theme_id == "piercing")
+			fx1.visible = is_standart
+			_toggle_particles(fx1, is_standart)
+
+		# 2. Efeitos do Tema Ancient Ruins ("120mm")
+		if is_instance_valid(fx2):
+			var is_ancient = (active_theme_id == "120mm" or active_theme_id == "ancient_ruins")
+			fx2.visible = is_ancient
+			_toggle_particles(fx2, is_ancient)
+
+		# Nota: Se criar nós $FxHeavyMetal (piercing) ou $FxSubZero (mini_plasma) na cena, 
+		# basta adicionar a mesma verificação apontando para o id correto.
+
+func _toggle_particles(parent_node: Node, enable: bool) -> void:
+	for child in parent_node.get_children():
+		if child is GPUParticles2D or child is CPUParticles2D:
+			child.emitting = enable
+		elif child.get_child_count() > 0:
+			_toggle_particles(child, enable)
 
 func _process(_delta: float) -> void:
 	if level_cleared:
