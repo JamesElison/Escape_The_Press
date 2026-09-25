@@ -6,7 +6,7 @@ extends TextureButton
 @export var turn_right_button: Control
 @export var level_label: Control
 
-const ALPHA_MUTED: float = 70.0 / 255.0
+const ALPHA_MUTED: float = 130.0 / 255.0
 const ALPHA_FULL: float = 1.0
 
 func _ready() -> void:

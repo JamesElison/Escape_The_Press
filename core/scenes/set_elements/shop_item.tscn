@@ -6,6 +6,8 @@
 
 [node name="ShopItem" type="PanelContainer" unique_id=1651953612]
 custom_minimum_size = Vector2(0, 300)
+offset_right = 720.0
+offset_bottom = 300.0
 script = ExtResource("1_0417t")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2114345936]
@@ -26,20 +28,20 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_0417t")
 theme_override_font_sizes/font_size = 24
-text = "Hig Piercing Type"
+text = "Crystal Palace"
 
 [node name="PriceLabel" type="Label" parent="HBoxContainer/InfoContainer" unique_id=1979994642]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_0417t")
 theme_override_font_sizes/font_size = 32
-text = "10.000"
+text = "Unconquered"
 
-[node name="BuyButton" type="Button" parent="HBoxContainer" unique_id=1664746317]
+[node name="BuyButton" type="Button" parent="HBoxContainer/InfoContainer" unique_id=1664746317]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_0417t")
 theme_override_font_sizes/font_size = 32
 text = "Buy"
 
-[connection signal="pressed" from="HBoxContainer/BuyButton" to="." method="_on_action_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/InfoContainer/BuyButton" to="." method="_on_action_button_pressed"]

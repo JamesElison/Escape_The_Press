@@ -11,28 +11,28 @@ const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 var items_catalog: Array[Dictionary] = [
 	{
 		"id": "Standart",
-		"title": "Ball launcher",
+		"title": "Crystal Palace",
 		"price": "N/A",
 		"texture_path": "res://core/assets/sprites/characters/player.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/"
 	},
 	{
 		"id": "120mm",
-		"title": "120mm Type",
+		"title": "Ancient Ruins",
 		"price": 1000,
 		"texture_path": "res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
 		"id": "piercing",
-		"title": "Hig Piercing Type",
+		"title": "Heavy Metal",
 		"price": 3000,
 		"texture_path": "res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
 		"id": "mini_plasma",
-		"title": "Mini Plasma Type",
+		"title": "Sub Zero",
 		"price": 5000,
 		"texture_path": "res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"

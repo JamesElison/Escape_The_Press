@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://lmqso3hfapc1" path="res://core/assets/sounds/fx/block_explode_group.wav" id="4_76vvk"]
 [ext_resource type="AudioStream" uid="uid://c427hb413jkh2" path="res://core/assets/sounds/fx/block_move_down.wav" id="5_oqjew"]
 [ext_resource type="Texture2D" uid="uid://bbgh5ox2vchcj" path="res://core/assets/sprites/set_objects/red_block.png" id="6_oqjew"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="7_v2egs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jaeov"]
 size = Vector2(64, 64)
@@ -36,6 +37,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["res://.godot/imported/red_block.png-ecf3758f8a3e15b75726c0f64afb0323.ctex"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../MysteryLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
 
 [sub_resource type="Animation" id="Animation_204ll"]
 resource_name = "affected"
@@ -51,6 +64,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, -20), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v2egs"]
+resource_name = "mystery"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../MysteryLabel:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03333333, 0.16666667, 0.3, 0.43333334, 0.56666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [null, Color(1, 1, 1, 1), Color(1, 1, 0, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_oqjew"]
@@ -73,10 +103,11 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_nenra"),
 &"affected": SubResource("Animation_204ll"),
+&"mystery": SubResource("Animation_v2egs"),
 &"shine": SubResource("Animation_oqjew")
 }
 
-[node name="Block" type="AnimatableBody2D" unique_id=1007953375]
+[node name="Block" type="AnimatableBody2D" unique_id=1007953375 groups=["warning_entities"]]
 collision_layer = 4215
 collision_mask = 32
 script = ExtResource("1_nenra")
@@ -114,6 +145,17 @@ wait_time = 2.0
 [node name="BlockAnim" type="AnimationPlayer" parent="." unique_id=1189937736]
 root_node = NodePath("../BlockSprite")
 libraries/ = SubResource("AnimationLibrary_irl8d")
+
+[node name="MysteryLabel" type="Label" parent="." unique_id=271762144]
+offset_left = -20.0
+offset_top = -39.0
+offset_right = 24.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("7_v2egs")
+theme_override_font_sizes/font_size = 64
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="BlockTimer" to="." method="_on_block_timer_timeout"]
 [connection signal="timeout" from="ShineTimer" to="." method="_on_shine_timer_timeout"]

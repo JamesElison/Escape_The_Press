@@ -8,13 +8,16 @@ var coins: int = 10000
 var unlocked_launchers: Array[String] = ["Standart"]
 var equipped_launcher: String = "Standart"
 
-# Armazena o nível individual em que o jogador parou em cada lançador/cenário
+# Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
 var launcher_level_progress: Dictionary = {
 	"Standart": 1,
 	"120mm": 1,
 	"piercing": 1,
 	"mini_plasma": 1
 }
+
+# --- ORDEM DOS LANÇADORES/CENÁRIOS ---
+const LAUNCHER_ORDER: Array[String] = ["Standart", "120mm", "piercing", "mini_plasma"]
 
 const SAVE_PATH: String = "user://game_save.dat"
 
@@ -65,12 +68,13 @@ func equip_launcher_scenario(launcher_id: String) -> void:
 	# 3. Restaura o nível salvo do novo lançador
 	current_level = launcher_level_progress.get(launcher_id, 1)
 	
-	# 4. Recalcula a velocidade da prensa com base no ciclo de 45 levels (2.0 a 6.4 px/s)
+	# 4. Recalcula a velocidade da prensa para o nível do cenário (1 a 45)
 	_recalculate_press_speed()
 	save_game_data()
 
 func _recalculate_press_speed() -> void:
-	var level_in_cycle = ((current_level - 1) % 45) + 1
+	# A velocidade escala diretamente do nível 1 ao 45 (2.0 a 6.4 px/s)
+	var level_in_cycle = clamp(current_level, 1, 45)
 	press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
 
 # --- PROGRESSÃO DE NÍVEL ---
@@ -81,12 +85,41 @@ func reset_level_progress() -> void:
 	save_game_data()
 
 func advance_to_next_level() -> void:
-	current_level += 1
-	launcher_level_progress[equipped_launcher] = current_level
-	
+	# Se o jogador venceu o nível 45 do cenário atual
+	if current_level >= 45:
+		_check_and_advance_scenario()
+	else:
+		current_level += 1
+		launcher_level_progress[equipped_launcher] = current_level
+
 	_recalculate_press_speed()
 	add_coins(500)
 	save_game_data()
+
+# --- TROCA AUTOMÁTICA DE CENÁRIO/LANÇADOR NA VIRADA DE CICLO ---
+func _check_and_advance_scenario() -> void:
+	# Reseta o progresso do cenário que acabou de ser concluído de volta para 1
+	launcher_level_progress[equipped_launcher] = 1
+
+	var current_index = LAUNCHER_ORDER.find(equipped_launcher)
+	if current_index != -1:
+		# Pega o próximo lançador na lista (ciclando de volta pro início caso vença o último)
+		var next_index = (current_index + 1) % LAUNCHER_ORDER.size()
+		var next_launcher = LAUNCHER_ORDER[next_index]
+		
+		# Desbloqueia o próximo lançador caso ainda não esteja liberado
+		if not unlocked_launchers.has(next_launcher):
+			unlocked_launchers.append(next_launcher)
+			
+		# Equipa o novo lançador/cenário
+		equipped_launcher = next_launcher
+		
+		# O novo cenário sempre inicia no Nível 1
+		current_level = 1
+		launcher_level_progress[equipped_launcher] = 1
+
+		# Emite o sinal para atualizar os temas e visual na tela
+		EventBus.launcher_changed.emit(equipped_launcher)
 
 # --- SISTEMA DE SAVE E LOAD ---
 func save_game_data() -> void:
@@ -146,7 +179,8 @@ func reset_all_save_data() -> void:
 
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)
-	
+
+# --- REPRODUÇÃO PERSISTENTE DE ÁUDIO ---
 func play_sfx_persistent(stream: AudioStream) -> void:
 	if not stream:
 		return
@@ -159,4 +193,3 @@ func play_sfx_persistent(stream: AudioStream) -> void:
 	
 	# Remove o nó da memória automaticamente assim que o som terminar
 	temp_player.finished.connect(temp_player.queue_free)
-	

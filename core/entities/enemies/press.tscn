@@ -8,8 +8,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(720, 64)
 
-[node name="Press" type="CharacterBody2D" unique_id=287696895]
-collision_layer = 4271
+[node name="Press" type="CharacterBody2D" unique_id=287696895 groups=["warning_entities"]]
+collision_layer = 4335
 collision_mask = 16
 script = ExtResource("1_ed25y")
 

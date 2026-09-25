@@ -3,7 +3,7 @@ extends TextureButton
 @export var pause_texture: Texture2D
 @export var play_texture: Texture2D
 
-const ALPHA_MUTED: float = 70.0 / 255.0  # ~0.27 (despausado)
+const ALPHA_MUTED: float = 130.0 / 255.0  # ~0.27 (despausado)
 const ALPHA_FULL: float = 1.0            # 1.0 (pausado)
 
 func _ready() -> void:

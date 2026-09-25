@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://1rfot4ekol78" path="res://core/assets/sprites/set_objects/explosionSmoke5.png" id="7_1ttvv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
-radius = 8.0
+radius = 5.0
 
 [sub_resource type="Animation" id="Animation_7qhql"]
 length = 0.001

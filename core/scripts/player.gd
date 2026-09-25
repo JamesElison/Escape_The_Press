@@ -8,24 +8,23 @@ var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
 
 const SPEED = 1000.0
 
-# Configurações de Rotação do Lançador
-@export var rotation_speed: float = 0.1 # Velocidade suave de rotação (rad/s)
-@export var max_rotation_degrees: float = 75.0 # Limite máximo de rotação para esquerda/direita
+@export var rotation_speed: float = 0.1
+@export var max_rotation_degrees: float = 75.0
 
-# Cores equivalentes às bolas do jogo [Red, Green, Blue, Cyan, Magenta, Yellow]
 const BALL_COLORS: Array[Color] = [
 	Color(0.95, 0.2, 0.2),   # 0: Red
 	Color(0.2, 0.9, 0.3),   # 1: Green
 	Color(0.2, 0.4, 0.95),  # 2: Blue
 	Color(0.1, 0.85, 0.95), # 3: Cyan
 	Color(0.9, 0.25, 0.85), # 4: Magenta
-	Color(0.95, 0.85, 0.1)  # 5: Yellow
+	Color(0.95, 0.85, 0.1), # 5: Yellow
+	Color(0.15, 0.15, 0.15),# 6: Black
+	Color(0.95, 0.95, 0.95) # 7: White
 ]
 
 @onready var player_ball_shoot = $PlayerBallShoot
 @onready var player_sprite = $PlayerSprite
 @onready var player_marker = $PlayerMarker
-# Nós para o Laser
 @onready var laser_ray_cast: RayCast2D = $LaserRayCast
 @onready var laser_line: Line2D = $LaserLine
 @export var charger: Node2D
@@ -33,15 +32,17 @@ const BALL_COLORS: Array[Color] = [
 signal ball_shot(color_index: int)
 signal game_over
 
-# --- Variáveis de Controle por Toque / Drag ---
 var is_touching: bool = false
 var touch_target_x: float = 0.0
 var color_tween: Tween
 
+var is_control_enabled: bool = true
+
 func _ready() -> void:
-	add_to_group("player") # Garante o pertencimento ao grupo do player
+	add_to_group("player")
 	screen_size = get_viewport_rect().size
 	touch_target_x = global_position.x
+	is_control_enabled = true
 	
 	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
 		EventBus.launcher_changed.connect(_on_launcher_changed)
@@ -55,9 +56,16 @@ func _ready() -> void:
 			_on_top_color_changed(charger.get_top_ball_color())
 	
 	update_launcher_sprite()
-	#update_jets_visibility()
 
-# --- MÉTODOS DE ROTAÇÃO SUAVE ---
+func set_controls_enabled(enabled: bool) -> void:
+	is_control_enabled = enabled
+	
+	if not enabled:
+		velocity = Vector2.ZERO
+		is_touching = false
+		if is_instance_valid(laser_line):
+			laser_line.clear_points()
+
 func rotate_left(delta: float) -> void:
 	var max_rad = deg_to_rad(max_rotation_degrees)
 	rotation = clamp(rotation - rotation_speed * delta, -max_rad, max_rad)
@@ -69,18 +77,15 @@ func rotate_right(delta: float) -> void:
 func reset_rotation() -> void:
 	rotation = 0.0
 
-# --- LÓGICA DO LASER COM REFLEXÃO EM ESPELHO (SEM JITTER) ---
 func update_laser() -> void:
 	if not is_instance_valid(laser_line):
 		return
 
 	laser_line.clear_points()
 	
-	# Ponto inicial do laser em coordenadas globais
 	var current_origin = player_marker.global_position if is_instance_valid(player_marker) else global_position
 	var current_dir = Vector2.UP.rotated(global_rotation)
 	
-	# O primeiro ponto é a origem do próprio Line2D/Marker (no espaço local)
 	if is_instance_valid(player_marker) and laser_line.get_parent() == player_marker:
 		laser_line.add_point(Vector2.ZERO)
 	else:
@@ -146,7 +151,9 @@ func update_launcher_sprite(_launcher_id: String = "") -> void:
 		player_sprite.texture = theme.launcher_texture
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Mouse / Touch - Arrastar para mover no X e Soltar para Disparar
+	if not is_control_enabled:
+		return
+
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
@@ -173,10 +180,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		touch_target_x = event.position.x
 
 func _physics_process(delta: float) -> void:
+	if not is_control_enabled:
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+		move_and_slide()
+		return
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Movimentação Teclado (PC) ou Toque (Android)
 	var keyboard_dir := Input.get_axis("left", "right")
 	
 	if keyboard_dir != 0.0:
@@ -191,7 +203,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 
-	# Atalhos de rotação por teclado (Q/E ou Botões Turn)
 	var turn_dir = Input.get_axis("turn_left", "turn_right")
 	if turn_dir != 0.0:
 		if turn_dir < 0:
@@ -205,26 +216,13 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# Atualiza a visibilidade dos jatos propulsores baseando-se no movimento real
-	#update_jets_visibility()
-
-	# Garante que o player fique dentro dos limites da tela
 	global_position.x = clamp(global_position.x, 0.0, screen_size.x)
 
-	# Atualiza o feixe de laser de forma síncrona
 	update_laser()
 
-	# Disparo por Teclado / Espaço (PC)
 	if not is_touching and Input.is_action_just_pressed("shoot"):
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			processing_shoot()
-
-#func update_jets_visibility() -> void:
-	#if is_instance_valid(player_jet_right):
-		#player_jet_right.visible = (velocity.x > 5.0)
-#
-	#if is_instance_valid(player_jet_left):
-		#player_jet_left.visible = (velocity.x < -5.0)
 
 func processing_shoot():
 	if player_ball_shoot:
@@ -244,13 +242,11 @@ func processing_shoot():
 	get_parent().add_child(ball)
 	ball.global_position = player_marker.global_position
 	
-	# Passa a direção do tiro e a rotação alinhada com o lançador
 	ball.dir = Vector2.UP.rotated(global_rotation)
 	ball.rotation = global_rotation
 	
 	ball_shot.emit(current_color)
 	
-	# Reseta o canhão de volta para a posição apontando para cima (0 rad) ao disparar
 	reset_rotation()
 
 func die() -> void:

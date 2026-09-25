@@ -73,6 +73,8 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_11="set_limiteds"
 2d_physics/layer_12="lateral_limits"
 2d_physics/layer_13="mira_laser"
+2d_physics/layer_14="especial_itens-limits"
+2d_physics/layer_15="especial_itens"
 
 [physics]
 

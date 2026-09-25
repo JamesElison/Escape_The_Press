@@ -19,7 +19,6 @@ func _ready() -> void:
 	call_deferred("initialize_charger")
 
 func _on_launcher_changed(_launcher_id: String) -> void:
-	# Atualiza o sprite de todas as bolas ativas no carregador ao equipar outro lançador
 	for ball in balls:
 		if is_instance_valid(ball) and ball.has_method("set_color_ball"):
 			ball.set_color_ball(ball.color_ball)
@@ -37,14 +36,12 @@ func initialize_charger() -> void:
 		new_ball.color_ball = get_targeted_bottom_color()
 		balls.append(new_ball)
 
-	# Notifica o player sobre a cor da primeira bola no topo
 	top_color_changed.emit(get_top_ball_color())
 
 func pop_top_ball_color() -> int:
 	if balls.is_empty():
 		return 0
 
-	# 1. Remove a bola do topo
 	var fired_ball = balls.pop_front()
 	var shot_color = 0
 	
@@ -52,24 +49,28 @@ func pop_top_ball_color() -> int:
 		shot_color = fired_ball.color_ball
 		fired_ball.queue_free()
 
-	# 2. Anima a subida das bolas restantes
 	for i in range(balls.size()):
 		if is_instance_valid(balls[i]):
 			var target_marker = markers[i]
 			var tween = create_tween()
 			tween.tween_property(balls[i], "global_position", target_marker.global_position, 0.12)
 
-	# 3. Cria uma nova bola na base com a cor direcionada
 	var new_ball = pre_charger_ball.instantiate()
 	get_parent().add_child(new_ball)
 	new_ball.global_position = markers[2].global_position
 	new_ball.color_ball = get_targeted_bottom_color()
 	balls.append(new_ball)
 
-	# 4. Notifica a nova cor do topo após a reorganização
 	top_color_changed.emit(get_top_ball_color())
 
 	return shot_color
+
+func inject_special_balls(color_idx: int, count: int) -> void:
+	var replace_count = min(count, balls.size())
+	for i in range(replace_count):
+		if is_instance_valid(balls[i]):
+			balls[i].set_color_ball(color_idx)
+	top_color_changed.emit(get_top_ball_color())
 
 func get_top_ball_color() -> int:
 	if not balls.is_empty() and is_instance_valid(balls[0]):
