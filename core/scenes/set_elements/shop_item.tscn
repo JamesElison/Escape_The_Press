@@ -1,47 +1,53 @@
 [gd_scene format=3 uid="uid://48fi5ikc2tna"]
 
 [ext_resource type="Script" uid="uid://1aabeqijllhq" path="res://core/scripts/shop_item.gd" id="1_0417t"]
-[ext_resource type="Texture2D" uid="uid://bar3eu6712fht" path="res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png" id="1_gh4rs"]
+[ext_resource type="Texture2D" uid="uid://djgpmgpu5ta0f" path="res://core/assets/HUD/crystal_palace_720x256_v2.png" id="2_4lnli"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="2_0417t"]
+[ext_resource type="Texture2D" uid="uid://bb564w0rl0pib" path="res://core/assets/HUD/start_button_1.png" id="4_31e62"]
+[ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="5_ogsw0"]
 
 [node name="ShopItem" type="PanelContainer" unique_id=1651953612]
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 256)
 offset_right = 720.0
-offset_bottom = 300.0
+offset_bottom = 256.0
 script = ExtResource("1_0417t")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2114345936]
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="HBoxContainer" unique_id=706539396]
+[node name="Icon" type="TextureRect" parent="." unique_id=706539396]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-texture = ExtResource("1_gh4rs")
-expand_mode = 3
+texture = ExtResource("2_4lnli")
 stretch_mode = 3
 
-[node name="InfoContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=475846912]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="TitleLabel" type="Label" parent="HBoxContainer/InfoContainer" unique_id=198549266]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_0417t")
-theme_override_font_sizes/font_size = 24
-text = "Crystal Palace"
-
-[node name="PriceLabel" type="Label" parent="HBoxContainer/InfoContainer" unique_id=1979994642]
+[node name="PriceLabel" type="Label" parent="." unique_id=1979994642]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_0417t")
 theme_override_font_sizes/font_size = 32
 text = "Unconquered"
+horizontal_alignment = 1
 
-[node name="BuyButton" type="Button" parent="HBoxContainer/InfoContainer" unique_id=1664746317]
+[node name="BuyButton" type="TextureButton" parent="." unique_id=1715098971]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_0417t")
-theme_override_font_sizes/font_size = 32
-text = "Buy"
+texture_normal = ExtResource("4_31e62")
+texture_pressed = ExtResource("5_ogsw0")
+texture_disabled = ExtResource("4_31e62")
 
-[connection signal="pressed" from="HBoxContainer/InfoContainer/BuyButton" to="." method="_on_action_button_pressed"]
+[node name="BuyButtonLabel" type="Label" parent="BuyButton" unique_id=51326014]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_0417t")
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[connection signal="pressed" from="BuyButton" to="." method="_on_action_button_pressed"]

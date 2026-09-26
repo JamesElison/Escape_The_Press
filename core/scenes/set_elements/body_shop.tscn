@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://60ry5x7ebcls" path="res://core/scripts/body_shop.gd" id="1_n6bip"]
 [ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="2_2h8a0"]
 [ext_resource type="AudioStream" uid="uid://ej1pnvoxtpnd" path="res://core/assets/sounds/level_music/body_shop_music.wav" id="2_n0aky"]
+[ext_resource type="Texture2D" uid="uid://q78qpwkehunk" path="res://core/assets/HUD/menu_background.png" id="3_ekqpd"]
 
 [node name="BodyShop" type="Control" unique_id=1610804757]
 process_mode = 3
@@ -19,16 +20,19 @@ script = ExtResource("1_n6bip")
 [node name="BodyShopMusic" type="AudioStreamPlayer" parent="." unique_id=1188301649]
 stream = ExtResource("2_n0aky")
 
-[node name="BodyShopRect" type="ColorRect" parent="." unique_id=790614684]
+[node name="BodyShopRect" type="TextureRect" parent="." unique_id=24330661]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1.0
-offset_bottom = -1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = 1620.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.38431373, 0.4117647, 1, 1)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("3_ekqpd")
 
 [node name="BodyShopScroll" type="ScrollContainer" parent="." unique_id=859382942]
 layout_mode = 1

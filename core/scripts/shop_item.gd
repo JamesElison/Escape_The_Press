@@ -3,16 +3,15 @@ extends PanelContainer
 signal buy_requested(item_data: Dictionary)
 signal equip_requested(item_data: Dictionary)
 
-@onready var icon_texture = $HBoxContainer/Icon
-@onready var title_label = $HBoxContainer/InfoContainer/TitleLabel
-@onready var price_label = $HBoxContainer/InfoContainer/PriceLabel
-@onready var action_button = $HBoxContainer/InfoContainer/BuyButton
+@onready var icon_texture = $Icon
+@onready var price_label = $PriceLabel
+@onready var action_button = $BuyButton
+@onready var action_button_label = $BuyButton/BuyButtonLabel
 
 var current_item_data: Dictionary = {}
 
 func setup(data: Dictionary) -> void:
 	current_item_data = data
-	title_label.text = data.get("title", "Item")
 	
 	if data.get("texture_path") != "":
 		icon_texture.texture = load(data.get("texture_path"))
@@ -27,16 +26,16 @@ func update_state() -> void:
 	var is_equipped = (GameManager.equipped_launcher == item_id)
 	
 	if is_equipped:
-		price_label.text = "In Use"
-		action_button.text = "In Use"
+		price_label.text = ""
+		action_button_label.text = "Playing"
 		action_button.disabled = true
 	elif is_unlocked:
 		price_label.text = "Achieved"
-		action_button.text = "To Use"
+		action_button_label.text = "Play"
 		action_button.disabled = false
 	else:
 		price_label.text = "Unconquered"
-		action_button.text = "Buy"
+		action_button_label.text = "Buy"
 		action_button.disabled = false
 
 func _on_action_button_pressed() -> void:

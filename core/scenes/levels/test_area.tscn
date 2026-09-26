@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/body_shop.tscn" id="14_skvvx"]
 [ext_resource type="PackedScene" uid="uid://bt5kw3nc328a3" path="res://core/scenes/set_elements/turn_left_button.tscn" id="15_52uox"]
 [ext_resource type="PackedScene" uid="uid://ky17wl2bj1f1" path="res://core/scenes/set_elements/turn_right_button.tscn" id="16_ypx8k"]
+[ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="19_05vlo"]
 [ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="19_qs8fi"]
 [ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="24_05vlo"]
 
@@ -221,17 +222,22 @@ theme_override_font_sizes/font_size = 48
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Menu" parent="LevelCanvasLayer" unique_id=1506258400 node_paths=PackedStringArray("theme_shop_ui") instance=ExtResource("19_05vlo")]
+visible = false
+theme_shop_ui = NodePath("../BodyShop")
+
 [node name="BodyShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("14_skvvx")]
 visible = false
 
 [node name="BodyShopButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") instance=ExtResource("13_jyd58")]
 process_mode = 3
-offset_left = 19.0
-offset_right = 126.0
-offset_bottom = 100.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 152.0
+offset_bottom = 152.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-body_shop_ui = NodePath("../BodyShop")
+body_shop_ui = NodePath("../Menu")
 pause_button = NodePath("../PauseButton")
 turn_left_button = NodePath("../TurnLeftButton")
 turn_right_button = NodePath("../TurnRightButton")
