@@ -5,13 +5,19 @@ signal closed
 
 @onready var body_shop_music = $BodyShopMusic
 @onready var vbox_container = $BodyShopScroll/BodyShopVBox
+
+# Botões de controle de som e navegação
+@onready var bgm_button = $BodyShopScroll/BodyShopVBox/Panel1/BGM
+@onready var sfx_button = $BodyShopScroll/BodyShopVBox/Panel2/SFX
+@onready var theme_button = $BodyShopScroll/BodyShopVBox/Panel3/ThemeButton
+@onready var sound_track_button = $BodyShopScroll/BodyShopVBox/Panel4/SoundtrackButton
 @onready var reset_button = $BodyShopScroll/BodyShopVBox/Panel5/ResetButton
 @onready var reset_label = $BodyShopScroll/BodyShopVBox/Panel5/ResetLabel
+@onready var back_button = $BodyShopScroll/BodyShopVBox/Panel6/BackButton
+@onready var buy_button = $BodyShopScroll/BodyShopVBox/Panel7/BuyButton
+@onready var buy_button_label = $BodyShopScroll/BodyShopVBox/Panel7/BuyButton/Label
+@onready var exit_button = $BodyShopScroll/BodyShopVBox/Panel8/ExitButton
 
-# Referência ao botão de Temas dentro do Panel3
-@onready var theme_button = $BodyShopScroll/BodyShopVBox/Panel3/ThemeButton
-
-# Referência opcional exportada para a interface do BodyShop antigo
 @export var theme_shop_ui: Control
 
 func _ready() -> void:
@@ -21,18 +27,66 @@ func _ready() -> void:
 	if not "Standart" in GameManager.unlocked_launchers:
 		GameManager.unlocked_launchers.append("Standart")
 	
-	if is_instance_valid(reset_button):
-		if not reset_button.pressed.is_connected(_on_reset_button_pressed):
-			reset_button.pressed.connect(_on_reset_button_pressed)
+	# Configura os botões BGM e SFX como botões alternáveis (toggle)
+	if is_instance_valid(bgm_button):
+		bgm_button.toggle_mode = true
+		if not bgm_button.toggled.is_connected(_on_bgm_button_toggled):
+			bgm_button.toggled.connect(_on_bgm_button_toggled)
+
+	if is_instance_valid(sfx_button):
+		sfx_button.toggle_mode = true
+		if not sfx_button.toggled.is_connected(_on_sfx_button_toggled):
+			sfx_button.toggled.connect(_on_sfx_button_toggled)
 
 	if is_instance_valid(theme_button):
 		if not theme_button.pressed.is_connected(_on_theme_button_pressed):
 			theme_button.pressed.connect(_on_theme_button_pressed)
 
+	if is_instance_valid(reset_button):
+		if not reset_button.pressed.is_connected(_on_reset_button_pressed):
+			reset_button.pressed.connect(_on_reset_button_pressed)
+
+	if is_instance_valid(back_button):
+		if not back_button.pressed.is_connected(_on_back_button_pressed):
+			back_button.pressed.connect(_on_back_button_pressed)
+
+	if is_instance_valid(exit_button):
+		if not exit_button.pressed.is_connected(_on_exit_button_pressed):
+			exit_button.pressed.connect(_on_exit_button_pressed)
+
+	_update_audio_buttons_visual_state()
+
 func refresh_all_items() -> void:
+	_update_audio_buttons_visual_state()
 	for child in vbox_container.get_children():
 		if child.has_method("update_state"):
 			child.update_state()
+
+func _update_audio_buttons_visual_state() -> void:
+	# Atualiza o estado pressionado (toggle) sem desativar a interatividade do botão
+	if is_instance_valid(bgm_button):
+		bgm_button.button_pressed = GameManager.is_bgm_muted
+
+	if is_instance_valid(sfx_button):
+		sfx_button.button_pressed = GameManager.is_sfx_muted
+
+func _on_bgm_button_toggled(toggled_on: bool) -> void:
+	GameManager.is_bgm_muted = toggled_on
+	GameManager.apply_audio_settings()
+	GameManager.save_game_data()
+
+	# Se for mutado, interrompe a música do menu; se desmutado, retoma se estiver visível
+	if GameManager.is_bgm_muted:
+		if body_shop_music and body_shop_music.playing:
+			body_shop_music.stop()
+	else:
+		if visible and body_shop_music and not body_shop_music.playing:
+			body_shop_music.play()
+
+func _on_sfx_button_toggled(toggled_on: bool) -> void:
+	GameManager.is_sfx_muted = toggled_on
+	GameManager.apply_audio_settings()
+	GameManager.save_game_data()
 
 func _reload_test_area() -> void:
 	get_tree().paused = false
@@ -45,7 +99,7 @@ func toggle_shop() -> void:
 		open()
 
 func open() -> void:
-	if body_shop_music and not body_shop_music.playing:
+	if not GameManager.is_bgm_muted and body_shop_music and not body_shop_music.playing:
 		body_shop_music.play()
 	refresh_all_items()
 	show()
@@ -60,12 +114,10 @@ func close() -> void:
 	closed.emit()
 
 func _on_theme_button_pressed() -> void:
-	# 1. Para a música do Menu e oculta a tela
 	if body_shop_music and body_shop_music.playing:
 		body_shop_music.stop()
 	hide()
 		
-	# 2. Localiza e abre a Loja de Temas (BodyShop)
 	var target_shop: Node = theme_shop_ui
 	
 	if not is_instance_valid(target_shop):
@@ -77,10 +129,10 @@ func _on_theme_button_pressed() -> void:
 	if is_instance_valid(target_shop):
 		target_shop.show()
 		
-		# Toca a música própria da loja de temas caso ela tenha um nó dedicado
-		var shop_music = target_shop.find_child("*Music*", true, false)
-		if shop_music and shop_music is AudioStreamPlayer and not shop_music.playing:
-			shop_music.play()
+		if not GameManager.is_bgm_muted:
+			var shop_music = target_shop.find_child("*Music*", true, false)
+			if shop_music and shop_music is AudioStreamPlayer and not shop_music.playing:
+				shop_music.play()
 
 		if target_shop.has_method("open"):
 			target_shop.open()
@@ -96,4 +148,14 @@ func _on_reset_button_pressed() -> void:
 	reset_label.text = str("Save successfully cleared!")
 	await get_tree().create_timer(2).timeout
 	reset_label.text = ""
-	print("Save successfully cleared!")
+	_update_audio_buttons_visual_state()
+
+func _on_back_button_pressed() -> void:
+	get_tree().paused = false
+	if body_shop_music and body_shop_music.playing:
+		body_shop_music.stop()
+	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")
+
+func _on_exit_button_pressed() -> void:
+	GameManager.save_game_data()
+	get_tree().quit()

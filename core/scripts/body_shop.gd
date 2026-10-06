@@ -26,14 +26,14 @@ var items_catalog: Array[Dictionary] = [
 	{
 		"id": "piercing",
 		"title": "Heavy Metal",
-		"price": 3000,
+		"price": 1000,
 		"texture_path": "res://core/assets/HUD/heavy_metal_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
 		"id": "mini_plasma",
 		"title": "Sub Zero",
-		"price": 5000,
+		"price": 1000,
 		"texture_path": "res://core/assets/HUD/subzero_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 	}

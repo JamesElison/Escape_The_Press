@@ -3,6 +3,8 @@ extends PanelContainer
 signal buy_requested(item_data: Dictionary)
 signal equip_requested(item_data: Dictionary)
 
+@onready var item_accepted_sound = $ItemAccepted
+@onready var item_not_accepted_sound = $ItemNotAccepted
 @onready var icon_texture = $Icon
 @onready var price_label = $PriceLabel
 @onready var action_button = $BuyButton
@@ -35,7 +37,7 @@ func update_state() -> void:
 		action_button.disabled = false
 	else:
 		price_label.text = "Unconquered"
-		action_button_label.text = "Buy"
+		action_button_label.text = "Conquer"
 		action_button.disabled = false
 
 func _on_action_button_pressed() -> void:

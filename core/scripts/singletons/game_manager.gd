@@ -8,6 +8,10 @@ var coins: int = 10000
 var unlocked_launchers: Array[String] = ["Standart"]
 var equipped_launcher: String = "Standart"
 
+# Armazena as configurações de áudio do jogador
+var is_bgm_muted: bool = false
+var is_sfx_muted: bool = false
+
 # Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
 var launcher_level_progress: Dictionary = {
 	"Standart": 1,
@@ -59,21 +63,13 @@ func remove_coins(amount: int) -> bool:
 
 # --- TROCA DE LANÇADOR (MODO TESTE E BODYSHOP) ---
 func equip_launcher_scenario(launcher_id: String) -> void:
-	# 1. Salva o nível alcançado no lançador atual
 	launcher_level_progress[equipped_launcher] = current_level
-	
-	# 2. Equipa o novo lançador
 	equipped_launcher = launcher_id
-	
-	# 3. Restaura o nível salvo do novo lançador
 	current_level = launcher_level_progress.get(launcher_id, 1)
-	
-	# 4. Recalcula a velocidade da prensa para o nível do cenário (1 a 45)
 	_recalculate_press_speed()
 	save_game_data()
 
 func _recalculate_press_speed() -> void:
-	# A velocidade escala diretamente do nível 1 ao 45 (2.0 a 6.4 px/s)
 	var level_in_cycle = clamp(current_level, 1, 45)
 	press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
 
@@ -85,7 +81,6 @@ func reset_level_progress() -> void:
 	save_game_data()
 
 func advance_to_next_level() -> void:
-	# Se o jogador venceu o nível 45 do cenário atual
 	if current_level >= 45:
 		_check_and_advance_scenario()
 	else:
@@ -98,28 +93,39 @@ func advance_to_next_level() -> void:
 
 # --- TROCA AUTOMÁTICA DE CENÁRIO/LANÇADOR NA VIRADA DE CICLO ---
 func _check_and_advance_scenario() -> void:
-	# Reseta o progresso do cenário que acabou de ser concluído de volta para 1
 	launcher_level_progress[equipped_launcher] = 1
 
 	var current_index = LAUNCHER_ORDER.find(equipped_launcher)
 	if current_index != -1:
-		# Pega o próximo lançador na lista (ciclando de volta pro início caso vença o último)
 		var next_index = (current_index + 1) % LAUNCHER_ORDER.size()
 		var next_launcher = LAUNCHER_ORDER[next_index]
 		
-		# Desbloqueia o próximo lançador caso ainda não esteja liberado
 		if not unlocked_launchers.has(next_launcher):
 			unlocked_launchers.append(next_launcher)
 			
-		# Equipa o novo lançador/cenário
 		equipped_launcher = next_launcher
-		
-		# O novo cenário sempre inicia no Nível 1
 		current_level = 1
 		launcher_level_progress[equipped_launcher] = 1
 
-		# Emite o sinal para atualizar os temas e visual na tela
 		EventBus.launcher_changed.emit(equipped_launcher)
+
+# --- CONTROLE DE ÁUDIO GLOBAL ---
+func apply_audio_settings() -> void:
+	# Muta/Desmuta o barramento BGM (se não existir, usa Master)
+	var bgm_bus = AudioServer.get_bus_index("BGM")
+	if bgm_bus == -1:
+		bgm_bus = AudioServer.get_bus_index("Music")
+	if bgm_bus != -1:
+		AudioServer.set_bus_mute(bgm_bus, is_bgm_muted)
+
+	# Muta/Desmuta o barramento FX / SFX
+	var fx_bus = AudioServer.get_bus_index("fx")
+	if fx_bus == -1:
+		fx_bus = AudioServer.get_bus_index("FX")
+	if fx_bus == -1:
+		fx_bus = AudioServer.get_bus_index("SFX")
+	if fx_bus != -1:
+		AudioServer.set_bus_mute(fx_bus, is_sfx_muted)
 
 # --- SISTEMA DE SAVE E LOAD ---
 func save_game_data() -> void:
@@ -131,7 +137,9 @@ func save_game_data() -> void:
 			"coins": coins,
 			"unlocked_launchers": unlocked_launchers,
 			"equipped_launcher": equipped_launcher,
-			"launcher_level_progress": launcher_level_progress
+			"launcher_level_progress": launcher_level_progress,
+			"is_bgm_muted": is_bgm_muted,
+			"is_sfx_muted": is_sfx_muted
 		}
 		file.store_var(save_dict)
 
@@ -156,8 +164,12 @@ func load_game_data() -> void:
 					"mini_plasma": 1
 				})
 				
+				is_bgm_muted = save_dict.get("is_bgm_muted", false)
+				is_sfx_muted = save_dict.get("is_sfx_muted", false)
+				
 				current_level = launcher_level_progress.get(equipped_launcher, 1)
 				_recalculate_press_speed()
+				apply_audio_settings()
 
 func reset_all_save_data() -> void:
 	if FileAccess.file_exists(SAVE_PATH):
@@ -170,6 +182,8 @@ func reset_all_save_data() -> void:
 	coins = 10000
 	unlocked_launchers = ["Standart"]
 	equipped_launcher = "Standart"
+	is_bgm_muted = false
+	is_sfx_muted = false
 	launcher_level_progress = {
 		"Standart": 1,
 		"120mm": 1,
@@ -177,19 +191,28 @@ func reset_all_save_data() -> void:
 		"mini_plasma": 1
 	}
 
+	apply_audio_settings()
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)
 
 # --- REPRODUÇÃO PERSISTENTE DE ÁUDIO ---
 func play_sfx_persistent(stream: AudioStream) -> void:
-	if not stream:
+	if not stream or is_sfx_muted:
 		return
 		
 	var temp_player = AudioStreamPlayer.new()
 	temp_player.stream = stream
-	# Adiciona o player na raiz do jogo (fora da cena atual)
+	
+	var fx_bus = AudioServer.get_bus_index("fx")
+	if fx_bus == -1:
+		fx_bus = AudioServer.get_bus_index("FX")
+	if fx_bus == -1:
+		fx_bus = AudioServer.get_bus_index("SFX")
+		
+	if fx_bus != -1:
+		temp_player.bus = AudioServer.get_bus_name(fx_bus)
+		
 	get_tree().root.add_child(temp_player)
 	temp_player.play()
 	
-	# Remove o nó da memória automaticamente assim que o som terminar
 	temp_player.finished.connect(temp_player.queue_free)

@@ -9,10 +9,10 @@
 [ext_resource type="AudioStream" uid="uid://cdcbumlt21tiu" path="res://core/assets/sounds/fx/black_spawn.wav" id="4_6obsd"]
 [ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
 [ext_resource type="AudioStream" uid="uid://bl2wopveer2kn" path="res://core/assets/sounds/fx/warning_sound.wav" id="4_t4y2j"]
-[ext_resource type="AudioStream" uid="uid://b2dq50i6b4kre" path="res://core/assets/sounds/fx/warning_piep.wav" id="5_04jyy"]
 [ext_resource type="AudioStream" uid="uid://b3d8ult005tcc" path="res://core/assets/sounds/fx/white_spawn.wav" id="5_05vlo"]
 [ext_resource type="AudioStream" uid="uid://dn085gkcnei50" path="res://core/assets/sounds/level_music/Victory.ogg" id="5_f6opj"]
 [ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="6_3c2jl"]
+[ext_resource type="AudioStream" uid="uid://cdlfo78wrwyoy" path="res://core/assets/sounds/fx/piep_warning.wav" id="7_c4e2t"]
 [ext_resource type="AudioStream" uid="uid://dgcvu1lrd73fi" path="res://core/assets/sounds/fx/victory_fx.wav" id="7_q3bu8"]
 [ext_resource type="PackedScene" uid="uid://cfixxn52t2t6i" path="res://core/entities/effects/ancient_fire.tscn" id="10_61cah"]
 [ext_resource type="PackedScene" uid="uid://ca6xso0mr3bqf" path="res://core/scenes/set_elements/pause_button.tscn" id="11_2xyph"]
@@ -73,6 +73,7 @@ limit_bottom = 1280
 script = ExtResource("2_01iaf")
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="." unique_id=21811574]
+bus = &"BGM"
 
 [node name="BlackSpawn" type="AudioStreamPlayer" parent="." unique_id=1700399737]
 stream = ExtResource("4_6obsd")
@@ -87,7 +88,7 @@ stream = ExtResource("4_t4y2j")
 bus = &"fx"
 
 [node name="WarningPiep" type="AudioStreamPlayer" parent="." unique_id=898659123]
-stream = ExtResource("5_04jyy")
+stream = ExtResource("7_c4e2t")
 bus = &"fx"
 
 [node name="LevelGameOverSound" type="AudioStreamPlayer" parent="." unique_id=1745005861]
@@ -100,6 +101,7 @@ bus = &"fx"
 
 [node name="LevelVictoryMusic" type="AudioStreamPlayer" parent="." unique_id=1897559]
 stream = ExtResource("5_f6opj")
+bus = &"BGM"
 
 [node name="LevelStartTimer" type="Timer" parent="." unique_id=2008060520]
 
@@ -222,9 +224,19 @@ theme_override_font_sizes/font_size = 48
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Menu" parent="LevelCanvasLayer" unique_id=1506258400 node_paths=PackedStringArray("theme_shop_ui") instance=ExtResource("19_05vlo")]
+[node name="Coin" parent="LevelCanvasLayer" unique_id=780510659 instance=ExtResource("12_2xyph")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -128.0
+offset_right = 64.0
+offset_bottom = -128.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Menu" parent="LevelCanvasLayer" unique_id=1506258400 instance=ExtResource("19_05vlo")]
 visible = false
-theme_shop_ui = NodePath("../BodyShop")
 
 [node name="BodyShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("14_skvvx")]
 visible = false
@@ -255,14 +267,6 @@ offset_right = 64.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="Coin" parent="LevelCanvasLayer" unique_id=780510659 instance=ExtResource("12_2xyph")]
-visible = false
-offset_left = 40.0
-offset_top = 185.0
-offset_right = 40.0
-offset_bottom = 185.0
-mouse_filter = 2
 
 [node name="TurnLeftButton" parent="LevelCanvasLayer" unique_id=1662244709 instance=ExtResource("15_52uox")]
 anchors_preset = 4

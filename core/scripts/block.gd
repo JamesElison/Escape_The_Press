@@ -25,6 +25,7 @@ var spawn_position: Vector2
 @onready var shine_timer = $ShineTimer
 @onready var block_anim = $BlockAnim
 @onready var mystery_label = $MysteryLabel
+@onready var fluid_fx = $Fluid_Tube_Right
 
 const COLOR_FILENAMES = [
 	"red_block.png", "green_block.png", "blue_block.png", 
@@ -162,6 +163,8 @@ func destroy_with_delay() -> void:
 	if is_being_destroyed:
 		return
 	is_being_destroyed = true
+	
+	fluid_fx.hide()
 	
 	GameManager.add_coins(10)
 	spawn_particles()

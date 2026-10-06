@@ -40,7 +40,7 @@ position = Vector2(0, -16)
 polygon = PackedVector2Array(-27, -58, -48, -41, -52, -10, -50, -1, -37, 16, -67, 34, -45, 55, -17, 61, 12, 61, 40, 55, 67, 37, 36, 13, 49, 1, 51, -9, 45, -44, 25, -58)
 
 [node name="PlayerMarker" type="Marker2D" parent="." unique_id=1818940908]
-position = Vector2(0, -173)
+position = Vector2(0, -180)
 
 [node name="PlayerHealthArea" type="Area2D" parent="." unique_id=697782315]
 collision_layer = 48

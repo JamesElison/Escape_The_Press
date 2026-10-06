@@ -28,11 +28,11 @@ func apply_launcher_speed() -> void:
 	var equipped = GameManager.equipped_launcher
 	match equipped:
 		"120mm":
-			speed = 2500.0
+			speed = 1500.0
 		"piercing":
-			speed = 4000.0
+			speed = 1500.0
 		"mini_plasma":
-			speed = 3000.0
+			speed = 1500.0
 		_:
 			speed = 1500.0
 

@@ -30,7 +30,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"default",
-"speed": 12.0
+"speed": 6.0
 }]
 
 [node name="Coin" type="Control" unique_id=1411328589]
@@ -42,7 +42,6 @@ script = ExtResource("1_iqrgv")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_k6ly5")
 autoplay = "default"
-frame_progress = 0.65202105
 
 [node name="CoinLabel" type="Label" parent="." unique_id=1833884042]
 layout_mode = 0
@@ -50,7 +49,8 @@ offset_left = 25.0
 offset_top = -40.0
 offset_right = 235.0
 offset_bottom = 40.0
-theme_override_colors/font_color = Color(0.8980392, 0.7176471, 0, 1)
+theme_override_colors/font_color = Color(0.29411766, 0.6431373, 0.85882354, 1)
+theme_override_colors/font_shadow_color = Color(0.21960784, 0.4627451, 0.6901961, 0.5529412)
 theme_override_fonts/font = ExtResource("5_dbal0")
 theme_override_font_sizes/font_size = 32
 text = "0"

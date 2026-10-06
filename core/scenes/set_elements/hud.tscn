@@ -12,9 +12,11 @@ script = ExtResource("1_sg3qs")
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="." unique_id=1069566499]
 stream = ExtResource("2_kwdly")
+bus = &"BGM"
 
 [node name="StartButtonSound" type="AudioStreamPlayer" parent="." unique_id=2040363580]
 stream = ExtResource("3_pqsck")
+bus = &"fx"
 
 [node name="MessageLabel2" type="Label" parent="." unique_id=501870911]
 anchors_preset = 5
