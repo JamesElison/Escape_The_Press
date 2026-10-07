@@ -2,6 +2,7 @@ extends TextureButton
 
 @export var body_shop_ui: Control  # Aponta para a tela de Menu
 @export var theme_shop_ui: Control # Aponta para a loja de temas (BodyShop)
+@export var play_game_button: Control
 @export var pause_button: Control
 @export var turn_left_button: Control
 @export var turn_right_button: Control
@@ -53,6 +54,8 @@ func _on_pressed() -> void:
 
 func _on_shop_opened() -> void:
 	self_modulate.a = ALPHA_FULL
+	if play_game_button:
+		play_game_button.visible = false
 	if pause_button:
 		pause_button.visible = false
 	if turn_left_button:

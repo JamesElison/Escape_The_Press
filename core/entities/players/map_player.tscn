@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ckptqhwom11g"]
+
+[ext_resource type="Texture2D" uid="uid://djhh2xqffivhm" path="res://core/assets/sprites/characters/player/player_top_down.png" id="1_woepo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
+radius = 50.0
+
+[node name="MapPlayer" type="Area2D" unique_id=112971002]
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=2108670292]
+position = Vector2(35, 0)
+rotation = 1.5707964
+texture = ExtResource("1_woepo")
+
+[node name="Shape" type="CollisionShape2D" parent="." unique_id=362123131]
+shape = SubResource("CircleShape2D_k6ly5")

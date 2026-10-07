@@ -4,8 +4,57 @@
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_w0588"]
 [ext_resource type="AudioStream" uid="uid://b73igg8wd6yah" path="res://core/assets/sounds/level_music/main_menu_music.wav" id="2_kwdly"]
 [ext_resource type="Texture2D" uid="uid://bb564w0rl0pib" path="res://core/assets/HUD/start_button_1.png" id="3_flne0"]
-[ext_resource type="AudioStream" uid="uid://jdcpcq0x4lxr" path="res://core/assets/sounds/fx/JamesEllisonEffect.wav" id="3_pqsck"]
+[ext_resource type="AudioStream" uid="uid://da6h721wmnfn1" path="res://core/assets/sounds/fx/start_button_sound.wav" id="3_qy31s"]
+[ext_resource type="AudioStream" uid="uid://brxmnqktum4un" path="res://core/assets/sounds/fx/menu_button_sound.wav" id="4_qy31s"]
 [ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="5_ur5tw"]
+
+[sub_resource type="Animation" id="Animation_fhvbq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUDFadeFX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardBackground:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_38dcn"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUDFadeFX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qy31s"]
+_data = {
+&"RESET": SubResource("Animation_fhvbq"),
+&"fade_out": SubResource("Animation_38dcn")
+}
 
 [node name="HUD" type="CanvasLayer" unique_id=931431950]
 script = ExtResource("1_sg3qs")
@@ -15,7 +64,11 @@ stream = ExtResource("2_kwdly")
 bus = &"BGM"
 
 [node name="StartButtonSound" type="AudioStreamPlayer" parent="." unique_id=2040363580]
-stream = ExtResource("3_pqsck")
+stream = ExtResource("3_qy31s")
+bus = &"fx"
+
+[node name="MenuButtonSound" type="AudioStreamPlayer" parent="." unique_id=1525892280]
+stream = ExtResource("4_qy31s")
 bus = &"fx"
 
 [node name="MessageLabel2" type="Label" parent="." unique_id=501870911]
@@ -43,6 +96,9 @@ offset_top = 100.0
 offset_right = 315.0
 offset_bottom = 259.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("1_w0588")
 theme_override_font_sizes/font_size = 64
 text = "Escape The Press!
@@ -51,16 +107,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StartButton" type="TextureButton" parent="." unique_id=1801364419]
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -154.0
-offset_top = -288.0
-offset_right = 154.0
-offset_bottom = -178.0
-grow_horizontal = 2
+offset_top = -280.0
+offset_right = 308.0
+offset_bottom = -170.0
 grow_vertical = 0
 texture_normal = ExtResource("3_flne0")
 texture_pressed = ExtResource("5_ur5tw")
@@ -79,29 +131,53 @@ offset_right = 54.5
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2509804, 0.7019608, 0.93333334, 1)
+theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("1_w0588")
 theme_override_font_sizes/font_size = 48
-text = "Play"
+text = "Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ResetButton" type="Button" parent="." unique_id=1207356961]
-visible = false
-anchors_preset = 7
-anchor_left = 0.5
+[node name="MenuButton" type="TextureButton" parent="." unique_id=669413417]
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -208.5
-offset_top = -150.0
-offset_right = 208.5
-offset_bottom = -64.0
-grow_horizontal = 2
+offset_left = -308.0
+offset_top = -280.0
+offset_bottom = -170.0
+grow_horizontal = 0
 grow_vertical = 0
+texture_normal = ExtResource("3_flne0")
+texture_pressed = ExtResource("5_ur5tw")
+texture_disabled = ExtResource("5_ur5tw")
+
+[node name="MenuButtonLabel" type="Label" parent="MenuButton" unique_id=1189454814]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49512988
+anchor_top = 0.43636364
+anchor_right = 0.49512988
+anchor_bottom = 0.43636364
+offset_left = -54.5
+offset_top = -29.0
+offset_right = 54.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2509804, 0.7019608, 0.93333334, 1)
+theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("1_w0588")
 theme_override_font_sizes/font_size = 48
-text = "Reset Game"
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="VersionLabel" type="Label" parent="." unique_id=511045813]
 anchors_preset = 3
@@ -118,4 +194,15 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_w0588")
 text = "Version: 0.8.0"
 
+[node name="HUDFadeFX" type="ColorRect" parent="." unique_id=62624017]
+modulate = Color(1, 1, 1, 0)
+offset_right = 720.0
+offset_bottom = 1280.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HUDFadeAnim" type="AnimationPlayer" parent="." unique_id=368756014]
+libraries/ = SubResource("AnimationLibrary_qy31s")
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]

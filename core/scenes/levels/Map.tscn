@@ -8,8 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://wtum7eebhboq" path="res://core/assets/background/maps/0_crystal_palace/energy_stop.png" id="5_2e5nk"]
 [ext_resource type="Script" uid="uid://sgcx0oq41l6o" path="res://core/scripts/energy_stop.gd" id="6_wuo5h"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="7_7sxvw"]
-[ext_resource type="Texture2D" uid="uid://djhh2xqffivhm" path="res://core/assets/sprites/characters/player/player_top_down.png" id="7_efgaw"]
 [ext_resource type="AudioStream" uid="uid://c1jqxpv4d0ewr" path="res://core/assets/sounds/fx/stop_deactivation.wav" id="8_t3iat"]
+[ext_resource type="PackedScene" uid="uid://ckptqhwom11g" path="res://core/entities/players/map_player.tscn" id="10_7kyno"]
+[ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="11_wuo5h"]
+[ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="12_7kyno"]
+[ext_resource type="PackedScene" uid="uid://dbwav3lnryhm5" path="res://core/scenes/set_elements/play_game_button.tscn" id="13_7kyno"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_portal"]
 shader = ExtResource("4_t3iat")
@@ -143,6 +146,57 @@ radius = 50.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_w4o7b"]
 radius = 50.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40k83"]
+load_path = "res://.godot/imported/menu_button.png-1f1a085ee7473a443b4bb8cfb2b497d0.ctex"
+
+[sub_resource type="Animation" id="Animation_fhvbq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUDFadeFX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardBackground:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_38dcn"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUDFadeFX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7kyno"]
+_data = {
+&"RESET": SubResource("Animation_fhvbq"),
+&"fade_out": SubResource("Animation_38dcn")
+}
+
 [node name="Map" type="Control" unique_id=993807449]
 layout_mode = 3
 anchors_preset = 15
@@ -158,6 +212,8 @@ script = ExtResource("1_efgaw")
 stream = ExtResource("2_vyo3s")
 bus = &"BGM"
 
+[node name="EndMapBGM" type="AudioStreamPlayer" parent="." unique_id=493814939]
+
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1920748384]
 layout_mode = 1
 anchors_preset = 15
@@ -167,1751 +223,126 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
-[node name="MapBackground" type="TextureRect" parent="ScrollContainer" unique_id=432138412]
+[node name="MapBackground" type="TextureRect" parent="." unique_id=432138412]
 custom_minimum_size = Vector2(720, 9000)
-layout_mode = 2
+layout_mode = 0
+offset_left = -4.0
+offset_right = 716.0
+offset_bottom = 9000.0
 texture = ExtResource("2_7sxvw")
 expand_mode = 1
 stretch_mode = 1
 metadata/_edit_group_ = true
 
-[node name="PortalSprite" type="Sprite2D" parent="ScrollContainer/MapBackground" unique_id=1551328629]
+[node name="PortalSprite" type="Sprite2D" parent="MapBackground" unique_id=1551328629]
 position = Vector2(366, 215)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_vyo3s")
 
-[node name="PortalVortex" type="ColorRect" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=1680774221]
+[node name="PortalVortex" type="ColorRect" parent="MapBackground/PortalSprite" unique_id=1680774221]
 material = SubResource("ShaderMaterial_portal")
 offset_left = -177.0
 offset_top = -177.0
 offset_right = 183.0
 offset_bottom = 183.0
 
-[node name="PortalEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=2011808982]
+[node name="PortalEnergyStop" type="AnimatedSprite2D" parent="MapBackground/PortalSprite" unique_id=2011808982]
+visible = false
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_w4o7b")
 frame_progress = 0.7359125
 script = ExtResource("6_wuo5h")
 
-[node name="PortalArea" type="Area2D" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=911751676]
+[node name="PortalArea" type="Area2D" parent="MapBackground/PortalSprite" unique_id=911751676]
 visible = false
 
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/PortalSprite/PortalArea" unique_id=1367125212]
+[node name="Shape" type="CollisionShape2D" parent="MapBackground/PortalSprite/PortalArea" unique_id=1367125212]
 shape = SubResource("CircleShape2D_k6ly5")
 
-[node name="StopContainer" type="Node2D" parent="ScrollContainer/MapBackground" unique_id=207773579]
+[node name="StopContainer" type="Node2D" parent="MapBackground" unique_id=207773579]
 
-[node name="StopSprite_1" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=708093749]
+[node name="StopSprite_1" type="Sprite2D" parent="MapBackground/StopContainer" unique_id=708093749]
 position = Vector2(366, 8708)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_vyo3s")
 
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_1" unique_id=977769447]
+[node name="StopDeactivation" type="AudioStreamPlayer" parent="MapBackground/StopContainer/StopSprite_1" unique_id=977769447]
 stream = ExtResource("8_t3iat")
 bus = &"fx"
 
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_1" unique_id=915024073]
+[node name="StopVortex" type="ColorRect" parent="MapBackground/StopContainer/StopSprite_1" unique_id=915024073]
 material = SubResource("ShaderMaterial_portal")
 offset_left = -180.0
 offset_top = -180.0
 offset_right = 180.0
 offset_bottom = 180.0
 
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_1" unique_id=370017877]
+[node name="StopEnergyStop" type="AnimatedSprite2D" parent="MapBackground/StopContainer/StopSprite_1" unique_id=370017877]
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
+frame_progress = 0.8131325
 script = ExtResource("6_wuo5h")
 
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_1" unique_id=487909787]
+[node name="StopArea" type="Area2D" parent="MapBackground/StopContainer/StopSprite_1" unique_id=487909787]
 
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_1/StopArea" unique_id=1852162985]
+[node name="Shape" type="CollisionShape2D" parent="MapBackground/StopContainer/StopSprite_1/StopArea" unique_id=1852162985]
 shape = SubResource("CircleShape2D_w4o7b")
 
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_1" unique_id=1427239813]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+[node name="StopLabel" type="Label" parent="MapBackground/StopContainer/StopSprite_1" unique_id=1427239813]
+offset_left = 250.0
+offset_top = -100.0
+offset_right = 450.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 28
 theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 128
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StopSprite_2" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=654363978]
-position = Vector2(489, 8535)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_2" unique_id=862425965]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_2" unique_id=633431208]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_2" unique_id=42782287]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_2" unique_id=1162874140]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_2/StopArea" unique_id=1910667789]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_2" unique_id=1228722137]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_3" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=2133895522]
-position = Vector2(535, 8318)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_3" unique_id=2091495629]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_3" unique_id=2013727847]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_3" unique_id=1965444140]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_3" unique_id=508178462]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_3/StopArea" unique_id=1455412676]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_3" unique_id=1510340542]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_4" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=465279210]
-position = Vector2(243, 8395)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_4" unique_id=1233281133]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_4" unique_id=1283084027]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_4" unique_id=1271941033]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_4" unique_id=1043116279]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_4/StopArea" unique_id=1487804800]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_4" unique_id=2052299240]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_5" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=280170780]
-position = Vector2(297, 8172)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_5" unique_id=2140787962]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_5" unique_id=1277705013]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_5" unique_id=510851407]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_5" unique_id=176082558]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_5/StopArea" unique_id=1806794301]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_5" unique_id=1188738802]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_6" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=47524085]
-position = Vector2(535, 8095.0005)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_6" unique_id=389959617]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_6" unique_id=1629616952]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_6" unique_id=684396317]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_6" unique_id=868018757]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_6/StopArea" unique_id=1338299313]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_6" unique_id=608597077]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_7" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1014749323]
-position = Vector2(481, 7929)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_7" unique_id=2046481481]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_7" unique_id=565968595]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_7" unique_id=233743408]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_7" unique_id=901221854]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_7/StopArea" unique_id=522895410]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_7" unique_id=1212966139]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_8" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=547446451]
-position = Vector2(258, 7800.0005)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_8" unique_id=601140951]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_8" unique_id=1490721974]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_8" unique_id=1912463331]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_8" unique_id=2074604790]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_8/StopArea" unique_id=919704272]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_8" unique_id=1015826082]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_9" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1984641426]
-position = Vector2(312, 7656.0005)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_9" unique_id=901942166]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_9" unique_id=1408251908]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_9" unique_id=1036739808]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_9" unique_id=1712525953]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_9/StopArea" unique_id=659718380]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_9" unique_id=1166451396]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_10" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=579904591]
-position = Vector2(228, 7428.0005)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_10" unique_id=2051005478]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_10" unique_id=1759066518]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_10" unique_id=118477432]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_10" unique_id=1023124658]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_10/StopArea" unique_id=1791321042]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_10" unique_id=118797680]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_11" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=173586052]
-position = Vector2(496, 7610.0005)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_11" unique_id=343041534]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_11" unique_id=2076605632]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_11" unique_id=403241877]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_11" unique_id=1982355272]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_11/StopArea" unique_id=1107777126]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_11" unique_id=840502873]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_12" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=46136889]
-position = Vector2(535, 7295)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_12" unique_id=1364806477]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_12" unique_id=1022206445]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_12" unique_id=1597781970]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_12" unique_id=1275586341]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_12/StopArea" unique_id=160093627]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_12" unique_id=1719612597]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_13" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1137817577]
-position = Vector2(389, 7474)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_13" unique_id=281170538]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_13" unique_id=1120276016]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_13" unique_id=935101098]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_13" unique_id=1373878215]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_13/StopArea" unique_id=1589265626]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_13" unique_id=1361015974]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_14" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1952032180]
-position = Vector2(389, 7166)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_14" unique_id=1804629225]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_14" unique_id=2104854086]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_14" unique_id=1035917195]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_14" unique_id=368667621]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_14/StopArea" unique_id=2023936231]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_14" unique_id=237787457]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_15" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=467333045]
-position = Vector2(197, 7089)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_15" unique_id=1650662817]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_15" unique_id=476682568]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_15" unique_id=1852675336]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_15" unique_id=1521414919]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_15/StopArea" unique_id=689614862]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_15" unique_id=1275890164]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_16" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=2020603879]
-position = Vector2(358, 6956.0005)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_16" unique_id=1375181532]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_16" unique_id=1471230287]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_16" unique_id=1952316741]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_16" unique_id=1529604958]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_16/StopArea" unique_id=971286478]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_16" unique_id=965099968]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_17" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1085840083]
-position = Vector2(481, 6800)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_17" unique_id=1312693634]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_17" unique_id=455470975]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_17" unique_id=411739205]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_17" unique_id=1690892193]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_17/StopArea" unique_id=1112395291]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_17" unique_id=888100076]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_18" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=433643853]
-position = Vector2(243, 6577)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_18" unique_id=547082287]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_18" unique_id=1946858233]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_18" unique_id=142139268]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_18" unique_id=275692050]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_18/StopArea" unique_id=1052426314]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_18" unique_id=210780041]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_19" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1833925849]
-position = Vector2(204.00002, 6244)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_19" unique_id=190294371]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_19" unique_id=230728828]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_19" unique_id=536978089]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_19" unique_id=788320789]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_19/StopArea" unique_id=953200067]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_19" unique_id=538185807]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_20" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1211503008]
-position = Vector2(373, 6376)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_20" unique_id=841815762]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_20" unique_id=326980497]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_20" unique_id=997872505]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_20" unique_id=1745350467]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_20/StopArea" unique_id=1055543288]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_20" unique_id=1093308195]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_21" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=755878985]
-position = Vector2(489, 6565)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_21" unique_id=2002956019]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_21" unique_id=114858601]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_21" unique_id=897942718]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_21" unique_id=568776640]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_21/StopArea" unique_id=396988334]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_21" unique_id=986970074]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_22" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1923632356]
-position = Vector2(543, 6038)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_22" unique_id=821710458]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_22" unique_id=985142998]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_22" unique_id=1040688014]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_22" unique_id=1450680202]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_22/StopArea" unique_id=485456884]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_22" unique_id=172721939]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_23" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1722456921]
-position = Vector2(204, 6049)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_23" unique_id=1883137229]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_23" unique_id=1825479034]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_23" unique_id=436039888]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_23" unique_id=1541447030]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_23/StopArea" unique_id=1326365278]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_23" unique_id=107395179]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_24" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=342804070]
-position = Vector2(312, 5853)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_24" unique_id=1288108410]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_24" unique_id=1368125472]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_24" unique_id=279417056]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_24" unique_id=1317105177]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_24/StopArea" unique_id=1044095005]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_24" unique_id=811013194]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_25" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=35465638]
-position = Vector2(404, 5468)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_25" unique_id=130075307]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_25" unique_id=1389267446]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_25" unique_id=5737347]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_25" unique_id=2081537457]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_25/StopArea" unique_id=847985338]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_25" unique_id=1423002756]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_26" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=159236527]
-position = Vector2(512, 5651)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_26" unique_id=1834719544]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_26" unique_id=1350559417]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_26" unique_id=1759620831]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_26" unique_id=1854203273]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_26/StopArea" unique_id=400369112]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_26" unique_id=1813307753]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_27" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=562834179]
-position = Vector2(512, 5246)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_27" unique_id=690861010]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_27" unique_id=1581940747]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_27" unique_id=1472201388]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_27" unique_id=993686182]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_27/StopArea" unique_id=1507110122]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_27" unique_id=1945357297]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_28" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1729195386]
-position = Vector2(204, 5200)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_28" unique_id=357890170]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_28" unique_id=1712952859]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_28" unique_id=1057718563]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_28" unique_id=445859476]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_28/StopArea" unique_id=555987504]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_28" unique_id=1223710865]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_29" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=920064195]
-position = Vector2(258, 5597)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_29" unique_id=81401475]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_29" unique_id=83858605]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_29" unique_id=1250985660]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_29" unique_id=1469373475]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_29/StopArea" unique_id=1272780870]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_29" unique_id=1637157659]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_30" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1768144559]
-position = Vector2(373, 5019)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_30" unique_id=32759424]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_30" unique_id=68926916]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_30" unique_id=1990454750]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_30" unique_id=799586184]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_30/StopArea" unique_id=1070926161]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_30" unique_id=1622144983]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_31" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1650314224]
-position = Vector2(258, 4635)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_31" unique_id=1556421163]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_31" unique_id=1203148218]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_31" unique_id=2058338556]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_31" unique_id=2141677434]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_31/StopArea" unique_id=1728982567]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_31" unique_id=1647947398]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_32" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1588747031]
-position = Vector2(511, 4809)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_32" unique_id=337150723]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_32" unique_id=1450742026]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_32" unique_id=57707214]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_32" unique_id=1765837386]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_32/StopArea" unique_id=44999445]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_32" unique_id=1383935490]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_33" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1089852001]
-position = Vector2(258, 4389)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_33" unique_id=397694009]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_33" unique_id=43119241]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_33" unique_id=702672425]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_33" unique_id=426601064]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_33/StopArea" unique_id=1276994744]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_33" unique_id=421604466]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_34" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=2110598656]
-position = Vector2(474, 4158)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_34" unique_id=1666733451]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_34" unique_id=723854391]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_34" unique_id=395296175]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_34" unique_id=1394297188]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_34/StopArea" unique_id=3042272]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_34" unique_id=1809746324]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_35" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1582350425]
-position = Vector2(289, 3796.0002)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_35" unique_id=1366382084]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_35" unique_id=589356025]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_35" unique_id=1177471419]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_35" unique_id=938513482]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_35/StopArea" unique_id=1384173611]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_35" unique_id=416915605]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_36" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=446764157]
-position = Vector2(435, 3445.0002)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_36" unique_id=360697910]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_36" unique_id=1300912058]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_36" unique_id=1942541060]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_36" unique_id=1945795438]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_36/StopArea" unique_id=1341014618]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_36" unique_id=2116042349]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_37" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1094704381]
-position = Vector2(228, 2976)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_37" unique_id=1676832231]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_37" unique_id=751720715]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_37" unique_id=1300579324]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_37" unique_id=1766129937]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_37/StopArea" unique_id=988619927]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_37" unique_id=2123226990]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_38" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1443789812]
-position = Vector2(474.00003, 2605)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_38" unique_id=726557812]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_38" unique_id=2048167335]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_38" unique_id=1192108261]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_38" unique_id=1899189657]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_38/StopArea" unique_id=1339270971]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_38" unique_id=1338436912]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_39" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=688626058]
-position = Vector2(497, 2217)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_39" unique_id=182553598]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_39" unique_id=1518084521]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_39" unique_id=642014707]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_39" unique_id=355605390]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_39/StopArea" unique_id=1838808927]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_39" unique_id=1924008834]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_40" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1144591906]
-position = Vector2(250, 1957)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_40" unique_id=330360169]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_40" unique_id=966168885]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_40" unique_id=437416878]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_40" unique_id=269202203]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_40/StopArea" unique_id=2114793204]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_40" unique_id=133657108]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_41" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=690901102]
-position = Vector2(405, 1594)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_41" unique_id=597822633]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_41" unique_id=476560630]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_41" unique_id=97898731]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_41" unique_id=2097628679]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_41/StopArea" unique_id=127372527]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_41" unique_id=1330442026]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_42" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1315396346]
-position = Vector2(497, 1159)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_42" unique_id=199019930]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_42" unique_id=7422152]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_42" unique_id=18081837]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_42" unique_id=1571014110]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_42/StopArea" unique_id=924111260]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_42" unique_id=2099207756]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_43" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=790720185]
-position = Vector2(189, 925)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_43" unique_id=191532105]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_43" unique_id=650746141]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_43" unique_id=1624247018]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_43" unique_id=372474479]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_43/StopArea" unique_id=794882826]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_43" unique_id=279522247]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_44" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1730050785]
-position = Vector2(520, 848)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_44" unique_id=57881978]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_44" unique_id=84376727]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_44" unique_id=1985012914]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_44" unique_id=243410843]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_44/StopArea" unique_id=1432426663]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_44" unique_id=1073517747]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StopSprite_45" type="Sprite2D" parent="ScrollContainer/MapBackground/StopContainer" unique_id=160549804]
-position = Vector2(351, 516)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
-
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_45" unique_id=2060346215]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
-
-[node name="StopVortex" type="ColorRect" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_45" unique_id=820497346]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
-
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_45" unique_id=480450779]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.579303
-script = ExtResource("6_wuo5h")
-
-[node name="StopArea" type="Area2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_45" unique_id=1282316813]
-
-[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_45/StopArea" unique_id=305729822]
-shape = SubResource("CircleShape2D_w4o7b")
-
-[node name="StopLabel" type="Label" parent="ScrollContainer/MapBackground/StopContainer/StopSprite_45" unique_id=263796549]
-offset_left = -50.0
-offset_top = -40.0
-offset_right = 50.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Player" type="Sprite2D" parent="ScrollContainer/MapBackground" unique_id=548295250]
-position = Vector2(365.9991, 8917)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_efgaw")
+[node name="MapPlayer" parent="MapBackground/StopContainer" unique_id=1507648628 instance=ExtResource("10_7kyno")]
+position = Vector2(364, 8860)
+
+[node name="MapHUD" type="CanvasLayer" parent="." unique_id=1352260203]
+
+[node name="Menu" parent="MapHUD" unique_id=1506258400 instance=ExtResource("12_7kyno")]
+visible = false
+
+[node name="BodyShopButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("body_shop_ui") instance=ExtResource("11_wuo5h")]
+process_mode = 3
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 152.0
+offset_bottom = 152.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("CompressedTexture2D_40k83")
+body_shop_ui = NodePath("../Menu")
+
+[node name="PlayGameButton" parent="MapHUD" unique_id=1552214462 instance=ExtResource("13_7kyno")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="HUDFadeFX" type="ColorRect" parent="MapHUD" unique_id=1926389460]
+modulate = Color(1, 1, 1, 0)
+offset_right = 720.0
+offset_bottom = 1280.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HUDFadeAnim" type="AnimationPlayer" parent="MapHUD" unique_id=1520261709]
+libraries/ = SubResource("AnimationLibrary_7kyno")
+
+[connection signal="pressed" from="MapHUD/BodyShopButton" to="." method="_on_body_shop_button_pressed"]
+[connection signal="pressed" from="MapHUD/PlayGameButton" to="." method="_on_play_game_button_pressed"]

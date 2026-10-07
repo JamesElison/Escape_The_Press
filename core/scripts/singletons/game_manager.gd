@@ -20,6 +20,9 @@ var launcher_level_progress: Dictionary = {
 	"mini_plasma": 1
 }
 
+var called_from_the_start_menu = false
+
+
 # --- ORDEM DOS LANÇADORES/CENÁRIOS ---
 const LAUNCHER_ORDER: Array[String] = ["Standart", "120mm", "piercing", "mini_plasma"]
 

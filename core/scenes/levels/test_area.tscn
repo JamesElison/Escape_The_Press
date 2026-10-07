@@ -202,6 +202,9 @@ offset_top = 50.0
 offset_right = 45.5
 offset_bottom = 128.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("11_nqyh5")
 theme_override_font_sizes/font_size = 64
 horizontal_alignment = 1
@@ -219,6 +222,9 @@ offset_right = 309.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("11_nqyh5")
 theme_override_font_sizes/font_size = 48
 horizontal_alignment = 1
@@ -312,7 +318,7 @@ mouse_filter = 2
 color = Color(1, 0, 0, 0.47058824)
 
 [node name="WinnerMessageMarker" type="Marker2D" parent="." unique_id=1087818131]
-position = Vector2(360, 760)
+position = Vector2(360, 516)
 
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_level_start_timer_timeout"]
 [connection signal="timeout" from="WarningPiepTimer" to="." method="_on_warning_piep_timer_timeout"]

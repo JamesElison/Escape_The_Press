@@ -22,7 +22,10 @@ signal closed
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	hide()
+	if GameManager.called_from_the_start_menu:
+		show()
+	else:
+		hide()
 	
 	if not "Standart" in GameManager.unlocked_launchers:
 		GameManager.unlocked_launchers.append("Standart")
@@ -107,6 +110,9 @@ func open() -> void:
 	opened.emit()
 
 func close() -> void:
+	if GameManager.called_from_the_start_menu:
+		GameManager.called_from_the_start_menu = false
+	
 	if body_shop_music and body_shop_music.playing:
 		body_shop_music.stop()
 	hide()

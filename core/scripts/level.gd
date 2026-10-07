@@ -330,7 +330,7 @@ func spawn_winner_particles() -> void:
 
 func show_level_start(level_number: int) -> void:
 	setup_for_level()
-	show_message("Press Speed " + str(level_number) + "! Ready Go!")
+	show_message("Challenge " + str(level_number) + "! Ready Go!")
 
 func setup_for_level() -> void:
 	is_game_over = false
