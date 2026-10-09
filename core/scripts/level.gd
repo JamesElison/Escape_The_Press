@@ -349,7 +349,7 @@ func show_message(text: String) -> void:
 
 func show_game_over() -> void:
 	is_game_over = true
-	show_message("Game Over")
+	show_message("You Lose")
 
 func _on_level_start_timer_timeout() -> void:
 	if is_instance_valid(press) and not is_press_frozen:
@@ -378,7 +378,7 @@ func game_over() -> void:
 		level_game_over_sound.play()
 
 	await get_tree().create_timer(2.0).timeout
-	get_tree().change_scene_to_file("res://core/scenes/map/map.tscn")
+	get_tree().change_scene_to_file("res://core/scenes/levels/Map.tscn")
 
 func _on_warning_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("warning_entities"):

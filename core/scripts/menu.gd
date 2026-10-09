@@ -4,6 +4,7 @@ signal opened
 signal closed
 
 @onready var body_shop_music = $BodyShopMusic
+@onready var menu_button_sound = $MenuButtonSound
 @onready var vbox_container = $BodyShopScroll/BodyShopVBox
 
 # Botões de controle de som e navegação
@@ -74,6 +75,7 @@ func _update_audio_buttons_visual_state() -> void:
 		sfx_button.button_pressed = GameManager.is_sfx_muted
 
 func _on_bgm_button_toggled(toggled_on: bool) -> void:
+	menu_button_sound.play()
 	GameManager.is_bgm_muted = toggled_on
 	GameManager.apply_audio_settings()
 	GameManager.save_game_data()
@@ -87,6 +89,7 @@ func _on_bgm_button_toggled(toggled_on: bool) -> void:
 			body_shop_music.play()
 
 func _on_sfx_button_toggled(toggled_on: bool) -> void:
+	menu_button_sound.play()
 	GameManager.is_sfx_muted = toggled_on
 	GameManager.apply_audio_settings()
 	GameManager.save_game_data()
@@ -157,15 +160,19 @@ func _on_reset_button_pressed() -> void:
 	_update_audio_buttons_visual_state()
 
 func _on_back_button_pressed() -> void:
+	menu_button_sound.play()
 	GameManager.called_from_the_start_menu = false
 	get_tree().paused = false
 	if body_shop_music and body_shop_music.playing:
 		AudioManager.stop_with_fade_out(body_shop_music, 1.0)
+	await menu_button_sound.finished
 	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")
 
 func _on_exit_button_pressed() -> void:
+	menu_button_sound.play()
 	GameManager.called_from_the_start_menu = false
 	GameManager.save_game_data()
 	if body_shop_music and body_shop_music.playing:
 		AudioManager.stop_with_fade_out(body_shop_music, 1.0)
+	await menu_button_sound.finished
 	get_tree().quit()

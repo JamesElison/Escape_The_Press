@@ -1,10 +1,34 @@
 [gd_resource type="Resource" script_class="ThemeData" format=3 uid="uid://bb7sucr81go0k"]
 
+[ext_resource type="Texture2D" uid="uid://da2xmamoyc8pl" path="res://core/assets/background/1_ancient_ruins.jpg" id="1_ad7j6"]
 [ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_eh8qf"]
+[ext_resource type="AudioStream" uid="uid://bm86xfm7wmuo7" path="res://core/assets/sounds/level_music/1_ancient_ruins.wav" id="2_dr4nr"]
+[ext_resource type="Texture2D" uid="uid://beirohdqi8bk" path="res://core/assets/background/cards/ancient_ruins.jpg" id="3_hluqb"]
+[ext_resource type="AudioStream" uid="uid://k5v04075bxf7" path="res://core/assets/sounds/level_music/1_ancient_ruins_card_view_bgm.wav" id="4_b4ffe"]
+[ext_resource type="AudioStream" uid="uid://ujm0cxgs5rp4" path="res://core/assets/sounds/fx/specific_projectiles_sounds/1_120mm_type/block_explode.wav" id="5_nn2me"]
+[ext_resource type="Texture2D" uid="uid://dw6hce2hexuxd" path="res://core/assets/sprites/set_objects/specific_floor/1_floor_stone.png" id="6_d6wfh"]
+[ext_resource type="AudioStream" uid="uid://bki801oehx447" path="res://core/assets/sounds/fx/specific_projectiles_sounds/1_120mm_type/ball_shoot.wav" id="7_7f4h2"]
+[ext_resource type="Texture2D" uid="uid://dspxa5kwngvum" path="res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type.png" id="8_lqtef"]
+[ext_resource type="Texture2D" uid="uid://taujwcjqgch5" path="res://core/assets/background/maps/1_anciente_ruins/map_anciente_ruins.jpg" id="9_cu3ad"]
+[ext_resource type="AudioStream" uid="uid://dmwrbagf1eqkk" path="res://core/assets/sounds/level_music/map_2_bgm.wav" id="10_n5x34"]
+[ext_resource type="Texture2D" uid="uid://mt4t2wlgk7wk" path="res://core/assets/sprites/set_objects/specific_press/3_orange_press.png" id="11_ahdb5"]
 
 [resource]
 script = ExtResource("1_eh8qf")
 theme_id = "ancient_ruins"
 theme_name = "Ancient Ruins"
+card_background = ExtResource("3_hluqb")
+map_background = ExtResource("9_cu3ad")
+background_texture = ExtResource("1_ad7j6")
+floor_texture = ExtResource("6_d6wfh")
+press_texture = ExtResource("11_ahdb5")
+launcher_texture = ExtResource("8_lqtef")
+card_bgm = ExtResource("4_b4ffe")
+map_bgm = ExtResource("10_n5x34")
+bgm_music = ExtResource("2_dr4nr")
+hit_sound = ExtResource("7_7f4h2")
+explode_sound = ExtResource("5_nn2me")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 block_folder = "res://core/assets/sprites/set_objects/specific_blocks/1_concrete/"
 metadata/_custom_type_script = "uid://0ul35sqx5i5c"

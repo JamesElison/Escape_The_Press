@@ -166,6 +166,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Fluid_Tube_Right" type="ColorRect" parent="." unique_id=1681619247]
+visible = false
 material = SubResource("ShaderMaterial_4rfdn")
 offset_left = -33.0
 offset_top = -32.0

@@ -4,15 +4,31 @@
 [ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_l8j3o"]
 [ext_resource type="AudioStream" uid="uid://d3m5jw32fkca0" path="res://core/assets/sounds/level_music/3_sub_zero_music.wav" id="2_qpwj3"]
 [ext_resource type="AudioStream" uid="uid://df1ityo8bx10b" path="res://core/assets/sounds/fx/specific_projectiles_sounds/3_mini_plasma_type/block_explode.wav" id="3_k5fh6"]
+[ext_resource type="Texture2D" uid="uid://5105wbclkbj5" path="res://core/assets/background/cards/sub_zero.jpg" id="3_xvtle"]
 [ext_resource type="Texture2D" uid="uid://db8wkkmqqj1rg" path="res://core/assets/sprites/set_objects/specific_floor/3_floor_ice.png" id="4_k5fh6"]
+[ext_resource type="AudioStream" uid="uid://dh5salu3vumus" path="res://core/assets/sounds/level_music/3_sub_zero_card_view_bgm.wav" id="4_ojpx4"]
+[ext_resource type="AudioStream" uid="uid://cxrncuwg6vm8q" path="res://core/assets/sounds/fx/specific_projectiles_sounds/3_mini_plasma_type/ball_shoot.wav" id="7_2qsto"]
+[ext_resource type="Texture2D" uid="uid://8co6jnn31b7h" path="res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png" id="8_1ppek"]
+[ext_resource type="Texture2D" uid="uid://ba8b15bcookb3" path="res://core/assets/background/maps/3_sub_zero/map_sub_zero.jpg" id="9_7u26j"]
+[ext_resource type="AudioStream" uid="uid://4xgs4ifv06um" path="res://core/assets/sounds/level_music/map_4_bgm.wav" id="10_1rj48"]
+[ext_resource type="Texture2D" uid="uid://dx36j44rwdrp7" path="res://core/assets/sprites/set_objects/specific_press/1_blue_press.png" id="11_rk2bi"]
 
 [resource]
 script = ExtResource("1_l8j3o")
 theme_id = "sub_zero"
 theme_name = "Sub Zero"
+card_background = ExtResource("3_xvtle")
+map_background = ExtResource("9_7u26j")
 background_texture = ExtResource("1_2sjfs")
 floor_texture = ExtResource("4_k5fh6")
+press_texture = ExtResource("11_rk2bi")
+launcher_texture = ExtResource("8_1ppek")
+card_bgm = ExtResource("4_ojpx4")
+map_bgm = ExtResource("10_1rj48")
 bgm_music = ExtResource("2_qpwj3")
+hit_sound = ExtResource("7_2qsto")
 explode_sound = ExtResource("3_k5fh6")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 block_folder = "res://core/assets/sprites/set_objects/specific_blocks/3_ice/"
 metadata/_custom_type_script = "uid://0ul35sqx5i5c"

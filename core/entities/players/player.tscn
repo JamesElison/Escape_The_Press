@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dk3bbxmwhu4nk" path="res://core/entities/effects/player_jet.tscn" id="3_xjycu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
-size = Vector2(24, 92)
+size = Vector2(24, 101)
 
 [node name="Player" type="CharacterBody2D" unique_id=1101960694 groups=["player"]]
 collision_layer = 52
@@ -47,7 +47,7 @@ collision_layer = 48
 
 [node name="PlayerHealthShape" type="CollisionShape2D" parent="PlayerHealthArea" unique_id=388947496]
 visible = false
-position = Vector2(0, -124)
+position = Vector2(0, -128.5)
 shape = SubResource("RectangleShape2D_k6ly5")
 
 [node name="LaserRayCast" type="RayCast2D" parent="." unique_id=1527978726]

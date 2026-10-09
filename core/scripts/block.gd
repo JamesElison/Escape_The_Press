@@ -57,6 +57,7 @@ func set_block_color(val: int) -> void:
 			block_sprite.texture = load(tex_path)
 
 func _ready() -> void:
+	especific_fx()
 	update_theme_sounds()
 	if is_instance_valid(mystery_label):
 		mystery_label.hide()
@@ -68,6 +69,12 @@ func _ready() -> void:
 	
 	add_to_group("blocks")
 	sync_to_physics = false
+
+func especific_fx() -> void:
+	if GameManager.themes_catalog["crystal_palace"]:
+		fluid_fx.show()
+	else:
+		fluid_fx.hide()
 
 func set_mystery(active: bool) -> void:
 	is_mystery_active = active

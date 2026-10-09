@@ -3,16 +3,32 @@
 [ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_8ui5x"]
 [ext_resource type="Texture2D" uid="uid://cy0112yu4v81h" path="res://core/assets/background/2_heavy_metal.jpg" id="1_sriwl"]
 [ext_resource type="AudioStream" uid="uid://bewj8m6ilusrm" path="res://core/assets/sounds/level_music/2_heavy_metal_music.wav" id="2_6s551"]
+[ext_resource type="Texture2D" uid="uid://bwqcaqny881to" path="res://core/assets/background/cards/heavy_metal.jpg" id="3_11qhv"]
 [ext_resource type="AudioStream" uid="uid://8qco0v1a1r0" path="res://core/assets/sounds/fx/specific_projectiles_sounds/2_piercing_type/block_explode.wav" id="3_ubw6s"]
+[ext_resource type="AudioStream" uid="uid://dncfevcopd1pi" path="res://core/assets/sounds/level_music/2_heavy_metal_card_view_bgm.wav" id="4_nmf2v"]
 [ext_resource type="Texture2D" uid="uid://ce05q3nmg86hl" path="res://core/assets/sprites/set_objects/specific_floor/2_floor_metal_rusted.png" id="4_ubw6s"]
+[ext_resource type="AudioStream" uid="uid://ikv0ex268xk7" path="res://core/assets/sounds/fx/specific_projectiles_sounds/2_piercing_type/ball_shoot.wav" id="7_kk0d2"]
+[ext_resource type="Texture2D" uid="uid://bar3eu6712fht" path="res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png" id="8_lj266"]
+[ext_resource type="Texture2D" uid="uid://dcyt8t7uktm2c" path="res://core/assets/background/maps/2_heavy_metal/map_heavy_metal.jpg" id="9_6fq7f"]
+[ext_resource type="AudioStream" uid="uid://cw666uxlg64i4" path="res://core/assets/sounds/level_music/map_3_bgm.wav" id="10_8xrnt"]
+[ext_resource type="Texture2D" uid="uid://df2dnxmarjmjh" path="res://core/assets/sprites/set_objects/specific_press/2_back_press.png" id="11_fo3nr"]
 
 [resource]
 script = ExtResource("1_8ui5x")
 theme_id = "heavy_metal"
 theme_name = "Heavy Metal"
+card_background = ExtResource("3_11qhv")
+map_background = ExtResource("9_6fq7f")
 background_texture = ExtResource("1_sriwl")
 floor_texture = ExtResource("4_ubw6s")
+press_texture = ExtResource("11_fo3nr")
+launcher_texture = ExtResource("8_lj266")
+card_bgm = ExtResource("4_nmf2v")
+map_bgm = ExtResource("10_8xrnt")
 bgm_music = ExtResource("2_6s551")
+hit_sound = ExtResource("7_kk0d2")
 explode_sound = ExtResource("3_ubw6s")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 block_folder = "res://core/assets/sprites/set_objects/specific_blocks/2_steel/"
 metadata/_custom_type_script = "uid://0ul35sqx5i5c"
