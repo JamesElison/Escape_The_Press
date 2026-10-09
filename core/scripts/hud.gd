@@ -15,31 +15,21 @@ var is_game_over: bool = false
 func _ready() -> void:
 	if main_menu_music:
 		main_menu_music.play()
-	
-	#if is_instance_valid(reset_button):
-		#if not reset_button.pressed.is_connected(_on_reset_button_pressed):
-			#reset_button.pressed.connect(_on_reset_button_pressed)
+
 
 func _on_start_button_pressed() -> void:
 	# 1. Desativa o botão (como start_button_2.png está no campo Disabled, ele vai manter o visual pressionado)
 	start_button.disabled = true
-
-	# 2. Áudio e transição
-	#if main_menu_music:
-		#main_menu_music.stop()
 	
 	if start_button_sound and start_button_sound.stream:
 		#GameManager.play_sfx_persistent(start_button_sound.stream)
 		start_button_sound.play()
 
 	# 3. Dá tempo do motor renderizar o frame com a textura trocada antes de trocar a cena
-	#await get_tree().process_frame
-	#await get_tree().process_frame
-	await start_button_sound.finished
 	AudioManager.stop_with_fade_out(main_menu_music, 3.0)
+	await start_button_sound.finished
 
 	GameManager.load_game_data()
-	#get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")
 	if hud_fade_anim:
 		hud_fade_anim.play("fade_out")
 	await hud_fade_anim.animation_finished
@@ -51,22 +41,16 @@ func _on_menu_button_pressed() -> void:
 	
 	# 1. Desativa o botão (como menu_button_2.png está no campo Disabled, ele vai manter o visual pressionado)
 	menu_button.disabled = true
-
-	# 2. Áudio e transição
-	#if main_menu_music:
-		#main_menu_music.stop()
 	
 	if menu_button_sound and menu_button_sound.stream:
 		#GameManager.play_sfx_persistent(menu_button_sound.stream)
 		menu_button_sound.play()
 
 	# 3. Dá tempo do motor renderizar o frame com a textura trocada antes de trocar a cena
-	#await get_tree().process_frame
-	#await get_tree().process_frame
-	await menu_button_sound.finished
 	AudioManager.stop_with_fade_out(main_menu_music, 3.0)
+	await menu_button_sound.finished
 
-	#GameManager.load_game_data()
+	GameManager.load_game_data()
 	if hud_fade_anim:
 		hud_fade_anim.play("fade_out")
 	await hud_fade_anim.animation_finished

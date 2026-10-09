@@ -3,27 +3,27 @@ extends Node
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
 var press_speed: float = 2.0
-var coins: int = 10000
+var coins: int = 0
 
-var unlocked_launchers: Array[String] = ["Standart"]
-var equipped_launcher: String = "Standart"
+var unlocked_launchers: Array[String] = ["crystal_palace"]
+var equipped_launcher: String = "crystal_palace"
 
 # Armazena as configurações de áudio do jogador
 var is_bgm_muted: bool = false
 var is_sfx_muted: bool = false
 
-# Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
+ #Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
 var launcher_level_progress: Dictionary = {
-	"Standart": 1,
-	"120mm": 1,
-	"piercing": 1,
-	"mini_plasma": 1
+	"crystal_palace": 1,
+	"ancient_ruins": 1,
+	"heavy_metal": 1,
+	"sub_zero": 1
 }
 
 var called_from_the_start_menu = false
 
 # --- ORDEM DOS LANÇADORES/CENÁRIOS ---
-const LAUNCHER_ORDER: Array[String] = ["Standart", "120mm", "piercing", "mini_plasma"]
+const LAUNCHER_ORDER: Array[String] = ["crystal_palace", "ancient_ruins", "heavy_metal", "sub_zero"]
 
 const SAVE_PATH: String = "user://game_save.dat"
 
@@ -35,15 +35,15 @@ func _ready() -> void:
 	load_game_data()
 
 func _load_themes() -> void:
-	themes_catalog["Standart"] = load("res://core/resources/themes/theme_crystal_palace.tres")
-	themes_catalog["120mm"] = load("res://core/resources/themes/theme_ancient_ruins.tres")
-	themes_catalog["piercing"] = load("res://core/resources/themes/theme_heavy_metal.tres")
-	themes_catalog["mini_plasma"] = load("res://core/resources/themes/theme_sub_zero.tres")
+	themes_catalog["crystal_palace"] = load("res://core/resources/themes/theme_crystal_palace.tres")
+	themes_catalog["ancient_ruins"] = load("res://core/resources/themes/theme_ancient_ruins.tres")
+	themes_catalog["heavy_metal"] = load("res://core/resources/themes/theme_haevy_metal.tres")
+	themes_catalog["sub_zero"] = load("res://core/resources/themes/theme_sub_zero.tres")
 
 func get_current_theme() -> ThemeData:
 	if themes_catalog.has(equipped_launcher):
 		return themes_catalog[equipped_launcher]
-	return themes_catalog["Standart"]
+	return themes_catalog["crystal_palace"]
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
@@ -159,19 +159,19 @@ func load_game_data() -> void:
 		if file:
 			var save_dict = file.get_var()
 			if save_dict is Dictionary:
-				coins = save_dict.get("coins", 10000)
+				coins = save_dict.get("coins", 0)
 				
-				var raw_launchers = save_dict.get("unlocked_launchers", ["Standart"])
+				var raw_launchers = save_dict.get("unlocked_launchers", ["crystal_palace"])
 				unlocked_launchers.clear()
 				for l in raw_launchers:
 					unlocked_launchers.append(str(l))
 					
-				equipped_launcher = save_dict.get("equipped_launcher", "Standart")
+				equipped_launcher = save_dict.get("equipped_launcher", "crystal_palace")
 				launcher_level_progress = save_dict.get("launcher_level_progress", {
-					"Standart": 1,
-					"120mm": 1,
-					"piercing": 1,
-					"mini_plasma": 1
+					"crystal_palace": 1,
+					"ancient_ruins": 1,
+					"heavy_metal": 1,
+					"sub_zero": 1
 				})
 				
 				is_bgm_muted = save_dict.get("is_bgm_muted", false)
@@ -189,16 +189,16 @@ func reset_all_save_data() -> void:
 
 	current_level = 1
 	press_speed = 2.0
-	coins = 10000
-	unlocked_launchers = ["Standart"]
-	equipped_launcher = "Standart"
+	coins = 0
+	unlocked_launchers = ["crystal_palace"]
+	equipped_launcher = "crystal_palace"
 	is_bgm_muted = false
 	is_sfx_muted = false
 	launcher_level_progress = {
-		"Standart": 1,
-		"120mm": 1,
-		"piercing": 1,
-		"mini_plasma": 1
+		"crystal_palace": 1,
+		"ancient_ruins": 1,
+		"heavy_metal": 1,
+		"sub_zero": 1
 	}
 
 	apply_audio_settings()

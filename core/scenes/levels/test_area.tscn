@@ -207,6 +207,7 @@ theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549
 theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("11_nqyh5")
 theme_override_font_sizes/font_size = 64
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 

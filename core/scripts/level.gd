@@ -250,7 +250,7 @@ func _apply_current_theme_visuals() -> void:
 			level_music.stream = theme.bgm_music
 
 		var active_theme_id = theme.theme_id
-		var is_sub_zero = (active_theme_id == "mini_plasma")
+		var is_sub_zero = (active_theme_id == "sub_zero")
 
 		# Partículas de Neve
 		if is_instance_valid(snow_fx):
@@ -309,7 +309,7 @@ func complete_level() -> void:
 		level_victory_music.play()
 		
 	# Aguarda 2.5 segundos para a animação/áudio de vitória terminar
-	await get_tree().create_timer(2.5).timeout
+	await level_victory_music.finished
 	
 	# Avança o nível no GameManager e salva
 	if GameManager:

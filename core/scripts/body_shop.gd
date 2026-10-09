@@ -11,28 +11,28 @@ const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 var items_catalog: Array[Dictionary] = [
 	{
 		"id": "Standart",
-		"title": "Crystal Palace",
+		"title": "Marbles",
 		"price": "N/A",
 		"texture_path": "res://core/assets/HUD/crystal_palace_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/"
 	},
 	{
 		"id": "120mm",
-		"title": "Ancient Ruins",
+		"title": "120mm",
 		"price": 1000,
 		"texture_path": "res://core/assets/HUD/ancient_ruins_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
 		"id": "piercing",
-		"title": "Heavy Metal",
+		"title": "Piercing",
 		"price": 1000,
 		"texture_path": "res://core/assets/HUD/heavy_metal_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
 		"id": "mini_plasma",
-		"title": "Sub Zero",
+		"title": "Mini Plasma",
 		"price": 1000,
 		"texture_path": "res://core/assets/HUD/subzero_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"

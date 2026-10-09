@@ -29,15 +29,15 @@ func update_state() -> void:
 	
 	if is_equipped:
 		price_label.text = ""
-		action_button_label.text = "Playing"
+		action_button_label.text = "Using"
 		action_button.disabled = true
 	elif is_unlocked:
-		price_label.text = "Achieved"
-		action_button_label.text = "Play"
+		price_label.text = "Acquired"
+		action_button_label.text = "To Use"
 		action_button.disabled = false
 	else:
-		price_label.text = "Unconquered"
-		action_button_label.text = "Conquer"
+		price_label.text = "For Sale"
+		action_button_label.text = "Buy"
 		action_button.disabled = false
 
 func _on_action_button_pressed() -> void:

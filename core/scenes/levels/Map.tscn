@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://brvloh14dynlk" path="res://core/scripts/map.gd" id="1_efgaw"]
 [ext_resource type="Texture2D" uid="uid://gggx07p3di3k" path="res://core/assets/background/maps/0_crystal_palace/map.png" id="2_7sxvw"]
 [ext_resource type="AudioStream" uid="uid://ce2eal857fr5a" path="res://core/assets/sounds/level_music/map_1_bgm.wav" id="2_vyo3s"]
+[ext_resource type="AudioStream" uid="uid://c1jqxpv4d0ewr" path="res://core/assets/sounds/fx/stop_deactivation.wav" id="3_7kyno"]
 [ext_resource type="Texture2D" uid="uid://dwem8qcxt3pxe" path="res://core/assets/background/maps/0_crystal_palace/stop.png" id="3_vyo3s"]
 [ext_resource type="Shader" uid="uid://dqx6lma6pgm05" path="res://core/entities/effects/CrystalMap/portal_swirl.gdshader" id="4_t3iat"]
 [ext_resource type="Texture2D" uid="uid://wtum7eebhboq" path="res://core/assets/background/maps/0_crystal_palace/energy_stop.png" id="5_2e5nk"]
@@ -209,6 +210,8 @@ stream = ExtResource("2_vyo3s")
 bus = &"BGM"
 
 [node name="EndMapBGM" type="AudioStreamPlayer" parent="." unique_id=493814939]
+stream = ExtResource("3_7kyno")
+bus = &"fx"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1920748384]
 layout_mode = 1
@@ -411,17 +414,15 @@ body_shop_ui = NodePath("../Menu")
 play_game_button = NodePath("../PlayGameButton")
 
 [node name="PlayGameButton" parent="MapHUD" unique_id=1552214462 instance=ExtResource("13_7kyno")]
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -128.0
-offset_top = -128.0
-offset_right = 0.0
-offset_bottom = 0.0
+offset_left = -152.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 152.0
 grow_horizontal = 0
-grow_vertical = 0
+texture_pressed = null
 
 [node name="HUDFadeFX" type="ColorRect" parent="MapHUD" unique_id=1926389460]
 modulate = Color(1, 1, 1, 0)

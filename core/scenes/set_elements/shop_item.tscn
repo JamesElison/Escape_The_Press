@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://48fi5ikc2tna"]
 
 [ext_resource type="Script" uid="uid://1aabeqijllhq" path="res://core/scripts/shop_item.gd" id="1_0417t"]
-[ext_resource type="Texture2D" uid="uid://djgpmgpu5ta0f" path="res://core/assets/HUD/crystal_palace_720x256_v2.png" id="2_4lnli"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="2_0417t"]
 [ext_resource type="AudioStream" uid="uid://dy3o0a7ybkjcp" path="res://core/assets/sounds/fx/set_up_sound.wav" id="2_xyte5"]
 [ext_resource type="AudioStream" uid="uid://dvfon8u2b1iuu" path="res://core/assets/sounds/fx/wrong_sound.wav" id="3_palgf"]
@@ -25,7 +24,6 @@ bus = &"fx"
 [node name="Icon" type="TextureRect" parent="." unique_id=706539396]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-texture = ExtResource("2_4lnli")
 stretch_mode = 3
 
 [node name="PriceLabel" type="Label" parent="." unique_id=1979994642]

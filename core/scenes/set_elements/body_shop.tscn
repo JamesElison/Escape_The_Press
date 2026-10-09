@@ -4,6 +4,47 @@
 [ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="2_2h8a0"]
 [ext_resource type="AudioStream" uid="uid://67ac0syai7r6" path="res://core/assets/sounds/level_music/theme_store_music.wav" id="2_ekqpd"]
 [ext_resource type="Texture2D" uid="uid://q78qpwkehunk" path="res://core/assets/HUD/menu_background.png" id="3_ekqpd"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="4_6h1mg"]
+[ext_resource type="Texture2D" uid="uid://dc2610d8pk4wo" path="res://core/assets/sprites/set_objects/specific_coin/gold_1.png" id="5_8qowo"]
+[ext_resource type="Texture2D" uid="uid://dcyr1ohwfdpft" path="res://core/assets/sprites/set_objects/specific_coin/gold_2.png" id="6_gcb81"]
+[ext_resource type="Texture2D" uid="uid://b0skovpluw3d" path="res://core/assets/sprites/set_objects/specific_coin/gold_3.png" id="7_w1doa"]
+[ext_resource type="Texture2D" uid="uid://ba74fg4aybb8r" path="res://core/assets/sprites/set_objects/specific_coin/gold_4.png" id="8_4l6ks"]
+[ext_resource type="Texture2D" uid="uid://6ym1d27v05" path="res://core/assets/sprites/set_objects/specific_coin/gold_5.png" id="9_lexxk"]
+[ext_resource type="Texture2D" uid="uid://d2ihsrssljp3c" path="res://core/assets/sprites/set_objects/specific_coin/gold_6.png" id="10_rms8m"]
+[ext_resource type="Script" uid="uid://4lqq8b4ctfgd" path="res://core/scripts/coin_menu.gd" id="11_cyd8s"]
+[ext_resource type="PackedScene" uid="uid://bewwj70m38a5o" path="res://core/scenes/set_elements/coin_menu.tscn" id="12_qc4fo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tb5gh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sg6pc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iuv48"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_8qowo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gcb81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w1doa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4l6ks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lexxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rms8m")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0tf7"]
 
 [node name="BodyShop" type="Control" unique_id=1610804757]
 process_mode = 3
@@ -47,6 +88,51 @@ horizontal_scroll_mode = 0
 [node name="BodyShopVBox" type="VBoxContainer" parent="BodyShopScroll" unique_id=1322112875]
 custom_minimum_size = Vector2(0, 3000)
 layout_mode = 2
+
+[node name="CoinPanel" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=613356429]
+custom_minimum_size = Vector2(0, 196)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tb5gh")
+
+[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/CoinPanel" unique_id=1952775305]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_6h1mg")
+theme_override_font_sizes/font_size = 32
+text = "You Coins:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BodyShopScroll/BodyShopVBox/CoinPanel" unique_id=1511146128]
+layout_mode = 2
+
+[node name="PanelCoin" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox/CoinPanel/HBoxContainer" unique_id=1015116519]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sg6pc")
+
+[node name="Coin" type="AnimatedSprite2D" parent="BodyShopScroll/BodyShopVBox/CoinPanel/HBoxContainer/PanelCoin" unique_id=112679204]
+position = Vector2(125, 98)
+sprite_frames = SubResource("SpriteFrames_iuv48")
+autoplay = "default"
+script = ExtResource("11_cyd8s")
+
+[node name="PanelValue" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox/CoinPanel/HBoxContainer" unique_id=239836341]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_o0tf7")
+
+[node name="Coin_menu" parent="BodyShopScroll/BodyShopVBox/CoinPanel/HBoxContainer/PanelValue" unique_id=1411328589 instance=ExtResource("12_qc4fo")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="ItemCard" parent="BodyShopScroll/BodyShopVBox" unique_id=1651953612 instance=ExtResource("2_2h8a0")]
 layout_mode = 2

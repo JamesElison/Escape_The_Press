@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bewwj70m38a5o"]
+
+[ext_resource type="Script" uid="uid://mlcuo5wvf58j" path="res://core/scripts/coin.gd" id="1_do8i3"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="6_nbqaq"]
+
+[node name="Coin_menu" type="Control" unique_id=1411328589]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_do8i3")
+
+[node name="CoinLabel" type="Label" parent="." unique_id=1833884042]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -40.0
+offset_right = 128.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.2327216, 0.23272163, 0.2327216, 1)
+theme_override_colors/font_shadow_color = Color(0.21960784, 0.4627451, 0.6901961, 0.5529412)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_nbqaq")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

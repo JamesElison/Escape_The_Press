@@ -14,7 +14,7 @@ const ALPHA_FULL: float = 1.0
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	pressed.connect(_on_pressed)
-	self_modulate.a = ALPHA_MUTED
+	set_alpha()
 
 	if not is_instance_valid(theme_shop_ui):
 		if get_parent() and get_parent().has_node("BodyShop"):
@@ -27,6 +27,13 @@ func _ready() -> void:
 			body_shop_ui.opened.connect(_on_shop_opened)
 		if not body_shop_ui.closed.is_connected(_on_shop_closed):
 			body_shop_ui.closed.connect(_on_shop_closed)
+
+func set_alpha():
+	var parent_name = get_parent()
+	if parent_name.name == "MapHUD":
+		self_modulate.a = ALPHA_FULL
+	else:
+		self_modulate.a = ALPHA_MUTED
 
 func _on_pressed() -> void:
 	# 1. Se a Loja de Temas (BodyShop) estiver aberta: fecha ela, para a música da loja e volta pro Menu
@@ -66,7 +73,7 @@ func _on_shop_opened() -> void:
 		level_label.visible = false
 
 func _on_shop_closed() -> void:
-	self_modulate.a = ALPHA_MUTED
+	set_alpha()
 	if play_game_button:
 		play_game_button.visible = true
 	if pause_button:

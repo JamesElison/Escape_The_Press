@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cj5m3nl6rk2sg" path="res://core/assets/sprites/set_objects/gold_3.png" id="3_iqrgv"]
 [ext_resource type="Texture2D" uid="uid://cfd5ti8wf5hya" path="res://core/assets/sprites/set_objects/gold_4.png" id="4_r34q0"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="5_dbal0"]
+[ext_resource type="Texture2D" uid="uid://c50rd3eaq47q6" path="res://core/assets/sprites/set_objects/gold_5.png" id="6_s5r2o"]
+[ext_resource type="Texture2D" uid="uid://cjvsmr7xsv5vt" path="res://core/assets/sprites/set_objects/gold_6.png" id="7_yddsb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k6ly5"]
 animations = [{
@@ -23,10 +25,10 @@ animations = [{
 "texture": ExtResource("4_r34q0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_iqrgv")
+"texture": ExtResource("6_s5r2o")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_dbal0")
+"texture": ExtResource("7_yddsb")
 }],
 "loop": 1,
 "name": &"default",
@@ -42,12 +44,13 @@ script = ExtResource("1_iqrgv")
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_k6ly5")
 autoplay = "default"
+frame_progress = 0.9043497
 
 [node name="CoinLabel" type="Label" parent="." unique_id=1833884042]
 layout_mode = 0
-offset_left = 25.0
+offset_left = 37.0
 offset_top = -40.0
-offset_right = 235.0
+offset_right = 247.0
 offset_bottom = 40.0
 theme_override_colors/font_color = Color(0.2327216, 0.23272163, 0.2327216, 1)
 theme_override_colors/font_shadow_color = Color(0.21960784, 0.4627451, 0.6901961, 0.5529412)

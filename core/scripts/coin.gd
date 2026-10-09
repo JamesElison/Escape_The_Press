@@ -10,4 +10,9 @@ func _ready() -> void:
 
 func update_coin_display(new_amount: int) -> void:
 	if coin_label:
-		coin_label.text = str(new_amount)
+		coin_label.text = format_number(new_amount)
+
+func format_number(value: int) -> String:
+	var texts := str(value)
+	var regex := RegEx.create_from_string("(\\d)(?=(\\d{3})+$)")
+	return regex.sub(texts, "$1.", true)
