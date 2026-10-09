@@ -36,7 +36,7 @@ func _on_start_button_pressed() -> void:
 	#await get_tree().process_frame
 	#await get_tree().process_frame
 	await start_button_sound.finished
-	start_button_sound.play()
+	AudioManager.stop_with_fade_out(main_menu_music, 3.0)
 
 	GameManager.load_game_data()
 	#get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")
@@ -64,10 +64,16 @@ func _on_menu_button_pressed() -> void:
 	#await get_tree().process_frame
 	#await get_tree().process_frame
 	await menu_button_sound.finished
-	main_menu_music.stop()
+	AudioManager.stop_with_fade_out(main_menu_music, 3.0)
 
 	#GameManager.load_game_data()
 	if hud_fade_anim:
 		hud_fade_anim.play("fade_out")
 	await hud_fade_anim.animation_finished
 	get_tree().change_scene_to_file("res://core/scenes/set_elements/menu.tscn")
+
+
+
+	
+	
+	

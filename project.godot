@@ -24,6 +24,7 @@ buses/default_bus_layout="uid://ci75srqjrb00"
 EventBus="*uid://bkvgbda4meyi7"
 GameManager="*uid://b0fbqwgf6kpvk"
 InAppManager="*uid://bwfyuqggfpljq"
+AudioManager="*uid://cnvlwa2gg6qiq"
 
 [display]
 
@@ -75,6 +76,8 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_13="mira_laser"
 2d_physics/layer_14="especial_itens-limits"
 2d_physics/layer_15="especial_itens"
+2d_physics/layer_16="map_player"
+2d_physics/layer_17="map_stop"
 
 [physics]
 

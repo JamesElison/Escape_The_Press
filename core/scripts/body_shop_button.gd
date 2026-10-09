@@ -67,6 +67,8 @@ func _on_shop_opened() -> void:
 
 func _on_shop_closed() -> void:
 	self_modulate.a = ALPHA_MUTED
+	if play_game_button:
+		play_game_button.visible = true
 	if pause_button:
 		pause_button.visible = true
 		if pause_button.has_method("sync_state"):

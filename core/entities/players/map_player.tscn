@@ -1,16 +1,24 @@
 [gd_scene format=3 uid="uid://ckptqhwom11g"]
 
 [ext_resource type="Texture2D" uid="uid://djhh2xqffivhm" path="res://core/assets/sprites/characters/player/player_top_down.png" id="1_woepo"]
+[ext_resource type="Script" uid="uid://bbrwoo20m16gs" path="res://core/scripts/map_player.gd" id="1_x8lxd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
-radius = 50.0
+radius = 20.0
 
 [node name="MapPlayer" type="Area2D" unique_id=112971002]
+collision_layer = 65536
+collision_mask = 32768
+script = ExtResource("1_x8lxd")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2108670292]
-position = Vector2(35, 0)
+position = Vector2(10, 2.842171e-14)
 rotation = 1.5707964
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_woepo")
 
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=362123131]
 shape = SubResource("CircleShape2D_k6ly5")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

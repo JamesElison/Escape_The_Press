@@ -23,9 +23,9 @@ signal closed
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if GameManager.called_from_the_start_menu:
-		show()
+		open()
 	else:
-		hide()
+		close()
 	
 	if not "Standart" in GameManager.unlocked_launchers:
 		GameManager.unlocked_launchers.append("Standart")
@@ -114,14 +114,14 @@ func close() -> void:
 		GameManager.called_from_the_start_menu = false
 	
 	if body_shop_music and body_shop_music.playing:
-		body_shop_music.stop()
+		AudioManager.stop_with_fade_out(body_shop_music, 1.0)
 	hide()
 	get_tree().paused = false
 	closed.emit()
 
 func _on_theme_button_pressed() -> void:
 	if body_shop_music and body_shop_music.playing:
-		body_shop_music.stop()
+		AudioManager.stop_with_fade_out(body_shop_music, 1.0)
 	hide()
 		
 	var target_shop: Node = theme_shop_ui
@@ -157,11 +157,15 @@ func _on_reset_button_pressed() -> void:
 	_update_audio_buttons_visual_state()
 
 func _on_back_button_pressed() -> void:
+	GameManager.called_from_the_start_menu = false
 	get_tree().paused = false
 	if body_shop_music and body_shop_music.playing:
-		body_shop_music.stop()
+		AudioManager.stop_with_fade_out(body_shop_music, 1.0)
 	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")
 
 func _on_exit_button_pressed() -> void:
+	GameManager.called_from_the_start_menu = false
 	GameManager.save_game_data()
+	if body_shop_music and body_shop_music.playing:
+		AudioManager.stop_with_fade_out(body_shop_music, 1.0)
 	get_tree().quit()

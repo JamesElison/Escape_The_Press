@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://btruxuxlswuaq"]
+
+[ext_resource type="Texture2D" uid="uid://dwem8qcxt3pxe" path="res://core/assets/background/maps/0_crystal_palace/stop.png" id="1_20mwa"]
+[ext_resource type="Script" uid="uid://dalaqf0p4s7d2" path="res://core/scripts/stop_sprite.gd" id="2_bp6sw"]
+[ext_resource type="AudioStream" uid="uid://c1jqxpv4d0ewr" path="res://core/assets/sounds/fx/stop_deactivation.wav" id="3_bb0bv"]
+[ext_resource type="Shader" uid="uid://dqx6lma6pgm05" path="res://core/entities/effects/CrystalMap/portal_swirl.gdshader" id="4_qottc"]
+[ext_resource type="Texture2D" uid="uid://wtum7eebhboq" path="res://core/assets/background/maps/0_crystal_palace/energy_stop.png" id="5_txq6x"]
+[ext_resource type="Script" uid="uid://sgcx0oq41l6o" path="res://core/scripts/energy_stop.gd" id="6_irr3v"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="7_8s7cx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_portal"]
+shader = ExtResource("4_qottc")
+shader_parameter/time_speed = 0.8
+shader_parameter/inner_color = Color(0.6, 0.2, 1, 1)
+shader_parameter/outer_color = Color(0.1, 0.5, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jja5p"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yku2b"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ork4"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpyjm"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lg3n1"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(0, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsd38"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(512, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bal1k"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1024, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr3ml"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1536, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcqal"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(0, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dno00"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(512, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdlmn"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1024, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hleb"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1536, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7eyk8"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(0, 1536, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axia8"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(512, 1536, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vs0fi"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1024, 1536, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7s07"]
+atlas = ExtResource("5_txq6x")
+region = Rect2(1536, 1536, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w4o7b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jja5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yku2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ork4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpyjm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lg3n1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsd38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bal1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mr3ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcqal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dno00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdlmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hleb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7eyk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axia8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vs0fi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7s07")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4o7b"]
+radius = 50.0
+
+[node name="StopSprite" type="Sprite2D" unique_id=389828205]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_20mwa")
+script = ExtResource("2_bp6sw")
+
+[node name="StopDeactivation" type="AudioStreamPlayer" parent="." unique_id=1611718070]
+stream = ExtResource("3_bb0bv")
+bus = &"fx"
+
+[node name="StopVortex" type="ColorRect" parent="." unique_id=919331003]
+material = SubResource("ShaderMaterial_portal")
+offset_left = -180.0
+offset_top = -180.0
+offset_right = 180.0
+offset_bottom = 180.0
+
+[node name="StopEnergyStop" type="AnimatedSprite2D" parent="." unique_id=2146334138]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_w4o7b")
+frame_progress = 0.8131325
+script = ExtResource("6_irr3v")
+
+[node name="StopArea" type="Area2D" parent="." unique_id=650352359]
+visible = false
+collision_layer = 32768
+collision_mask = 65536
+
+[node name="Shape" type="CollisionShape2D" parent="StopArea" unique_id=1614306794]
+shape = SubResource("CircleShape2D_w4o7b")
+
+[node name="StopLabel" type="Label" parent="." unique_id=1789970274]
+offset_left = 250.0
+offset_top = -100.0
+offset_right = 450.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 28
+theme_override_fonts/font = ExtResource("7_8s7cx")
+theme_override_font_sizes/font_size = 128
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="StopArea" to="." method="_on_stop_area_area_entered"]
+[connection signal="area_exited" from="StopArea" to="." method="_on_stop_area_area_exited"]

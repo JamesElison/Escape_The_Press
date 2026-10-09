@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cyp5dpcuyjo7" path="res://core/scripts/card.gd" id="1_fhvbq"]
 [ext_resource type="Texture2D" uid="uid://bvpdg2ndphmuf" path="res://core/assets/background/cards/crystal_palace.png" id="1_weqxh"]
-[ext_resource type="AudioStream" uid="uid://hrpyem4hauac" path="res://core/assets/sounds/level_music/card_view_bgm.wav" id="2_fhvbq"]
+[ext_resource type="AudioStream" uid="uid://cfpteh8qcgdoy" path="res://core/assets/sounds/level_music/0_crystal_palace_card_view_bgm.wav" id="2_fhvbq"]
 
 [sub_resource type="Animation" id="Animation_fhvbq"]
 length = 0.001

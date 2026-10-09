@@ -7,8 +7,7 @@
 [ext_resource type="Shader" uid="uid://dqx6lma6pgm05" path="res://core/entities/effects/CrystalMap/portal_swirl.gdshader" id="4_t3iat"]
 [ext_resource type="Texture2D" uid="uid://wtum7eebhboq" path="res://core/assets/background/maps/0_crystal_palace/energy_stop.png" id="5_2e5nk"]
 [ext_resource type="Script" uid="uid://sgcx0oq41l6o" path="res://core/scripts/energy_stop.gd" id="6_wuo5h"]
-[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="7_7sxvw"]
-[ext_resource type="AudioStream" uid="uid://c1jqxpv4d0ewr" path="res://core/assets/sounds/fx/stop_deactivation.wav" id="8_t3iat"]
+[ext_resource type="PackedScene" uid="uid://btruxuxlswuaq" path="res://core/scenes/levels/stop_sprite.tscn" id="8_wuo5h"]
 [ext_resource type="PackedScene" uid="uid://ckptqhwom11g" path="res://core/entities/players/map_player.tscn" id="10_7kyno"]
 [ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="11_wuo5h"]
 [ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="12_7kyno"]
@@ -143,9 +142,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
 radius = 50.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_w4o7b"]
-radius = 50.0
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40k83"]
 load_path = "res://.godot/imported/menu_button.png-1f1a085ee7473a443b4bb8cfb2b497d0.ctex"
 
@@ -223,94 +219,186 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
-[node name="MapBackground" type="TextureRect" parent="." unique_id=432138412]
+[node name="MapBackground" type="TextureRect" parent="ScrollContainer" unique_id=432138412]
 custom_minimum_size = Vector2(720, 9000)
-layout_mode = 0
-offset_left = -4.0
-offset_right = 716.0
-offset_bottom = 9000.0
+layout_mode = 2
 texture = ExtResource("2_7sxvw")
 expand_mode = 1
 stretch_mode = 1
 metadata/_edit_group_ = true
 
-[node name="PortalSprite" type="Sprite2D" parent="MapBackground" unique_id=1551328629]
+[node name="PortalSprite" type="Sprite2D" parent="ScrollContainer/MapBackground" unique_id=1551328629]
 position = Vector2(366, 215)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_vyo3s")
 
-[node name="PortalVortex" type="ColorRect" parent="MapBackground/PortalSprite" unique_id=1680774221]
+[node name="PortalVortex" type="ColorRect" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=1680774221]
 material = SubResource("ShaderMaterial_portal")
 offset_left = -177.0
 offset_top = -177.0
 offset_right = 183.0
 offset_bottom = 183.0
 
-[node name="PortalEnergyStop" type="AnimatedSprite2D" parent="MapBackground/PortalSprite" unique_id=2011808982]
+[node name="PortalEnergyStop" type="AnimatedSprite2D" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=2011808982]
 visible = false
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_w4o7b")
 frame_progress = 0.7359125
 script = ExtResource("6_wuo5h")
 
-[node name="PortalArea" type="Area2D" parent="MapBackground/PortalSprite" unique_id=911751676]
+[node name="PortalArea" type="Area2D" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=911751676]
 visible = false
 
-[node name="Shape" type="CollisionShape2D" parent="MapBackground/PortalSprite/PortalArea" unique_id=1367125212]
+[node name="Shape" type="CollisionShape2D" parent="ScrollContainer/MapBackground/PortalSprite/PortalArea" unique_id=1367125212]
 shape = SubResource("CircleShape2D_k6ly5")
 
-[node name="StopContainer" type="Node2D" parent="MapBackground" unique_id=207773579]
+[node name="StopContainer" type="Node2D" parent="ScrollContainer/MapBackground" unique_id=207773579]
 
-[node name="StopSprite_1" type="Sprite2D" parent="MapBackground/StopContainer" unique_id=708093749]
-position = Vector2(366, 8708)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_vyo3s")
+[node name="StopSprite_1" parent="ScrollContainer/MapBackground/StopContainer" unique_id=389828205 instance=ExtResource("8_wuo5h")]
+position = Vector2(470, 8760)
 
-[node name="StopDeactivation" type="AudioStreamPlayer" parent="MapBackground/StopContainer/StopSprite_1" unique_id=977769447]
-stream = ExtResource("8_t3iat")
-bus = &"fx"
+[node name="StopSprite_2" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1912578997 instance=ExtResource("8_wuo5h")]
+position = Vector2(470, 8560)
 
-[node name="StopVortex" type="ColorRect" parent="MapBackground/StopContainer/StopSprite_1" unique_id=915024073]
-material = SubResource("ShaderMaterial_portal")
-offset_left = -180.0
-offset_top = -180.0
-offset_right = 180.0
-offset_bottom = 180.0
+[node name="StopSprite_3" parent="ScrollContainer/MapBackground/StopContainer" unique_id=24074768 instance=ExtResource("8_wuo5h")]
+position = Vector2(430, 8360)
 
-[node name="StopEnergyStop" type="AnimatedSprite2D" parent="MapBackground/StopContainer/StopSprite_1" unique_id=370017877]
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_w4o7b")
-frame_progress = 0.8131325
-script = ExtResource("6_wuo5h")
+[node name="StopSprite_4" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1373713986 instance=ExtResource("8_wuo5h")]
+position = Vector2(250, 8130)
 
-[node name="StopArea" type="Area2D" parent="MapBackground/StopContainer/StopSprite_1" unique_id=487909787]
+[node name="StopSprite_5" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1497933151 instance=ExtResource("8_wuo5h")]
+position = Vector2(250, 7900)
 
-[node name="Shape" type="CollisionShape2D" parent="MapBackground/StopContainer/StopSprite_1/StopArea" unique_id=1852162985]
-shape = SubResource("CircleShape2D_w4o7b")
+[node name="StopSprite_6" parent="ScrollContainer/MapBackground/StopContainer" unique_id=190034179 instance=ExtResource("8_wuo5h")]
+position = Vector2(300, 7670)
 
-[node name="StopLabel" type="Label" parent="MapBackground/StopContainer/StopSprite_1" unique_id=1427239813]
-offset_left = 250.0
-offset_top = -100.0
-offset_right = 450.0
-offset_bottom = 100.0
-theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
-theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
-theme_override_constants/outline_size = 28
-theme_override_fonts/font = ExtResource("7_7sxvw")
-theme_override_font_sizes/font_size = 128
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="StopSprite_7" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1993926135 instance=ExtResource("8_wuo5h")]
+position = Vector2(350, 7470)
 
-[node name="MapPlayer" parent="MapBackground/StopContainer" unique_id=1507648628 instance=ExtResource("10_7kyno")]
-position = Vector2(364, 8860)
+[node name="StopSprite_8" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1813011877 instance=ExtResource("8_wuo5h")]
+position = Vector2(461, 7388)
+
+[node name="StopSprite_9" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1923840773 instance=ExtResource("8_wuo5h")]
+position = Vector2(501, 7249)
+
+[node name="StopSprite_10" parent="ScrollContainer/MapBackground/StopContainer" unique_id=143582007 instance=ExtResource("8_wuo5h")]
+position = Vector2(466, 7127)
+
+[node name="StopSprite_11" parent="ScrollContainer/MapBackground/StopContainer" unique_id=400797972 instance=ExtResource("8_wuo5h")]
+position = Vector2(351, 7033)
+
+[node name="StopSprite_12" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1217149007 instance=ExtResource("8_wuo5h")]
+position = Vector2(250, 6923)
+
+[node name="StopSprite_13" parent="ScrollContainer/MapBackground/StopContainer" unique_id=2101796838 instance=ExtResource("8_wuo5h")]
+position = Vector2(248, 6763)
+
+[node name="StopSprite_14" parent="ScrollContainer/MapBackground/StopContainer" unique_id=51545486 instance=ExtResource("8_wuo5h")]
+position = Vector2(340, 6647)
+
+[node name="StopSprite_15" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1603539700 instance=ExtResource("8_wuo5h")]
+position = Vector2(470, 6596)
+
+[node name="StopSprite_16" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1092609740 instance=ExtResource("8_wuo5h")]
+position = Vector2(520, 6471)
+
+[node name="StopSprite_17" parent="ScrollContainer/MapBackground/StopContainer" unique_id=157814667 instance=ExtResource("8_wuo5h")]
+position = Vector2(511, 6344)
+
+[node name="StopSprite_18" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1851626287 instance=ExtResource("8_wuo5h")]
+position = Vector2(419, 6232)
+
+[node name="StopSprite_19" parent="ScrollContainer/MapBackground/StopContainer" unique_id=7347666 instance=ExtResource("8_wuo5h")]
+position = Vector2(314, 6151)
+
+[node name="StopSprite_20" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1369148951 instance=ExtResource("8_wuo5h")]
+position = Vector2(224, 6051)
+
+[node name="StopSprite_21" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1205970297 instance=ExtResource("8_wuo5h")]
+position = Vector2(470, 5877)
+
+[node name="StopSprite_22" parent="ScrollContainer/MapBackground/StopContainer" unique_id=2142884751 instance=ExtResource("8_wuo5h")]
+position = Vector2(466, 5733)
+
+[node name="StopSprite_23" parent="ScrollContainer/MapBackground/StopContainer" unique_id=806576118 instance=ExtResource("8_wuo5h")]
+position = Vector2(243.00002, 5651)
+
+[node name="StopSprite_24" parent="ScrollContainer/MapBackground/StopContainer" unique_id=19068484 instance=ExtResource("8_wuo5h")]
+position = Vector2(243, 5535)
+
+[node name="StopSprite_25" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1673091589 instance=ExtResource("8_wuo5h")]
+position = Vector2(241, 5404)
+
+[node name="StopSprite_26" parent="ScrollContainer/MapBackground/StopContainer" unique_id=2057984581 instance=ExtResource("8_wuo5h")]
+position = Vector2(466, 5263)
+
+[node name="StopSprite_27" parent="ScrollContainer/MapBackground/StopContainer" unique_id=127918427 instance=ExtResource("8_wuo5h")]
+position = Vector2(333, 5152)
+
+[node name="StopSprite_28" parent="ScrollContainer/MapBackground/StopContainer" unique_id=548371553 instance=ExtResource("8_wuo5h")]
+position = Vector2(461, 5053)
+
+[node name="StopSprite_29" parent="ScrollContainer/MapBackground/StopContainer" unique_id=42227201 instance=ExtResource("8_wuo5h")]
+position = Vector2(338, 4933)
+
+[node name="StopSprite_30" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1516995294 instance=ExtResource("8_wuo5h")]
+position = Vector2(224, 4796)
+
+[node name="StopSprite_31" parent="ScrollContainer/MapBackground/StopContainer" unique_id=917152122 instance=ExtResource("8_wuo5h")]
+position = Vector2(336, 4652)
+
+[node name="StopSprite_32" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1593117032 instance=ExtResource("8_wuo5h")]
+position = Vector2(465, 4565)
+
+[node name="StopSprite_33" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1549371966 instance=ExtResource("8_wuo5h")]
+position = Vector2(465, 4357)
+
+[node name="StopSprite_34" parent="ScrollContainer/MapBackground/StopContainer" unique_id=358807432 instance=ExtResource("8_wuo5h")]
+position = Vector2(465, 4164)
+
+[node name="StopSprite_35" parent="ScrollContainer/MapBackground/StopContainer" unique_id=5577968 instance=ExtResource("8_wuo5h")]
+position = Vector2(199.00003, 4184)
+
+[node name="StopSprite_36" parent="ScrollContainer/MapBackground/StopContainer" unique_id=362493173 instance=ExtResource("8_wuo5h")]
+position = Vector2(314, 4357)
+
+[node name="StopSprite_37" parent="ScrollContainer/MapBackground/StopContainer" unique_id=117065175 instance=ExtResource("8_wuo5h")]
+position = Vector2(314, 3950)
+
+[node name="StopSprite_38" parent="ScrollContainer/MapBackground/StopContainer" unique_id=292523648 instance=ExtResource("8_wuo5h")]
+position = Vector2(532, 3950)
+
+[node name="StopSprite_39" parent="ScrollContainer/MapBackground/StopContainer" unique_id=840532092 instance=ExtResource("8_wuo5h")]
+position = Vector2(480, 3796)
+
+[node name="StopSprite_40" parent="ScrollContainer/MapBackground/StopContainer" unique_id=1225095772 instance=ExtResource("8_wuo5h")]
+position = Vector2(351, 2500)
+
+[node name="StopSprite_41" parent="ScrollContainer/MapBackground/StopContainer" unique_id=196593654 instance=ExtResource("8_wuo5h")]
+position = Vector2(243, 2000)
+
+[node name="StopSprite_42" parent="ScrollContainer/MapBackground/StopContainer" unique_id=98913068 instance=ExtResource("8_wuo5h")]
+position = Vector2(245, 1500)
+
+[node name="StopSprite_43" parent="ScrollContainer/MapBackground/StopContainer" unique_id=247040124 instance=ExtResource("8_wuo5h")]
+position = Vector2(372, 1152.0002)
+
+[node name="StopSprite_44" parent="ScrollContainer/MapBackground/StopContainer" unique_id=605062064 instance=ExtResource("8_wuo5h")]
+position = Vector2(491, 1001.0001)
+
+[node name="StopSprite_45" parent="ScrollContainer/MapBackground/StopContainer" unique_id=74771549 instance=ExtResource("8_wuo5h")]
+position = Vector2(367, 610.0001)
+
+[node name="MapPlayer" parent="ScrollContainer/MapBackground" unique_id=1507648628 instance=ExtResource("10_7kyno")]
+position = Vector2(366, 8941)
+rotation = -1.5707964
 
 [node name="MapHUD" type="CanvasLayer" parent="." unique_id=1352260203]
 
 [node name="Menu" parent="MapHUD" unique_id=1506258400 instance=ExtResource("12_7kyno")]
 visible = false
 
-[node name="BodyShopButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("body_shop_ui") instance=ExtResource("11_wuo5h")]
+[node name="BodyShopButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("body_shop_ui", "play_game_button") instance=ExtResource("11_wuo5h")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
@@ -320,6 +408,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = SubResource("CompressedTexture2D_40k83")
 body_shop_ui = NodePath("../Menu")
+play_game_button = NodePath("../PlayGameButton")
 
 [node name="PlayGameButton" parent="MapHUD" unique_id=1552214462 instance=ExtResource("13_7kyno")]
 anchors_preset = 3
@@ -343,6 +432,3 @@ color = Color(0, 0, 0, 1)
 
 [node name="HUDFadeAnim" type="AnimationPlayer" parent="MapHUD" unique_id=1520261709]
 libraries/ = SubResource("AnimationLibrary_7kyno")
-
-[connection signal="pressed" from="MapHUD/BodyShopButton" to="." method="_on_body_shop_button_pressed"]
-[connection signal="pressed" from="MapHUD/PlayGameButton" to="." method="_on_play_game_button_pressed"]
