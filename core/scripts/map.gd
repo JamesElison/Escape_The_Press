@@ -25,23 +25,31 @@ const START_Y: float = 8760.0
 const SPACING_Y: float = 180.0
 const TOTAL_STOPS: int = 45
 
-# Define qual fase o jogador deve jogar agora (Exemplo: 23)
+# O nível ativo é lido do GameManager
 var current_level: int = 1
 
 func _ready() -> void:
+	# Lê o nível salvo no GameManager
+	if GameManager:
+		current_level = GameManager.current_level
+		
 	setup_and_position_stops()
 	
+	# Aguarda a renderização dos frames para garantir o tamanho dos containers de UI
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
-	# Posiciona o jogador de início na parada alvo (ex: StopSprite_1)
-	place_player_at_stop(current_level)
+	# Inicia a câmera centralizada na posição original inicial do jogador
 	update_camera_to_player()
 	
 	if map_bgm:
 		map_bgm.play()
+		
+	# Pequeno intervalo antes de flutuar suavemente até a parada alvo
+	await get_tree().create_timer(0.3).timeout
+	move_player_to_stop(current_level, 2.5)
 
-# Posiciona as paradas e aplica as regras visuais para cada uma
+# Posiciona as paradas e aplica as regras visuais
 func setup_and_position_stops() -> void:
 	for i in range(1, TOTAL_STOPS + 1):
 		var node_name = "StopSprite_" + str(i)
@@ -52,20 +60,18 @@ func setup_and_position_stops() -> void:
 			var new_y = START_Y - ((i - 1) * SPACING_Y)
 			sprite.position.y = new_y
 			
-			# Configura o estado visual (Vortex/EnergyStop) se o script stop_sprite.gd estiver no nó
+			# Ajusta visibilidade do vortex/energy_stop
 			if sprite.has_method("setup_state"):
 				sprite.setup_state(current_level)
 
-# Posiciona o jogador instantaneamente em cima de uma parada
+# Posiciona o jogador instantaneamente
 func place_player_at_stop(stop_number: int) -> void:
 	var target_sprite = get_stop_by_number(stop_number)
 	if target_sprite:
-		# Como o target_sprite está dentro do StopContainer e o StopContainer está em (0,0) do MapBackground,
-		# podemos usar a posição local X e Y diretamente:
 		map_player.position = target_sprite.position
 
-# Move o jogador suavemente até uma parada específica e faz o ScrollContainer acompanhar
-func move_player_to_stop(stop_number: int, duration: float = 1.8) -> void:
+# Move o jogador com efeito de flutuação e faz o ScrollContainer acompanhar
+func move_player_to_stop(stop_number: int, duration: float = 2.0) -> void:
 	var target_sprite = get_stop_by_number(stop_number)
 	if not target_sprite:
 		return
@@ -74,17 +80,15 @@ func move_player_to_stop(stop_number: int, duration: float = 1.8) -> void:
 	var half_screen = scroll_container.size.y / 2.0
 	var target_scroll = int(target_pos.y - half_screen)
 	
-	# Cria uma animação suave em paralelo para o Player e para a Rolagem
 	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
-	# Movimenta o MapPlayer até a parada
+	# Move o MapPlayer até a parada
 	tween.tween_property(map_player, "position", target_pos, duration)
 	
-	# Rola a tela junto com o movimento do jogador
+	# Acompanha a rolagem vertical da tela
 	tween.tween_property(scroll_container, "scroll_vertical", target_scroll, duration)
 
-
-# Busca um nó de parada pelo número
+# Busca uma parada pelo número correspondente
 func get_stop_by_number(number: int) -> Node2D:
 	var node_name = "StopSprite_" + str(number)
 	return stop_container.get_node_or_null(node_name) as Node2D
@@ -93,6 +97,11 @@ func update_camera_to_player() -> void:
 	var target_y = map_player.position.y - (scroll_container.size.y / 2.0)
 	scroll_container.scroll_vertical = int(target_y)
 
+# Transição para a cena de gameplay ao clicar no botão
 func _on_play_game_button_pressed() -> void:
-	# Exemplo: Ao clicar no botão Jogar, você pode mover para a parada 1 ou a atual:
-	move_player_to_stop(current_level)
+	# Define o nível e recala a velocidade da prensa no GameManager
+	if GameManager:
+		GameManager.set_level_from_stop(current_level)
+		
+	# Troca para a cena de gameplay
+	get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")

@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://dbwav3lnryhm5"]
 
-[ext_resource type="Script" uid="uid://drvc5hgslpd1t" path="res://core/scripts/play_game_button.gd" id="1_md2an"]
 [ext_resource type="Texture2D" uid="uid://dih4lksjs2fcv" path="res://core/assets/HUD/play_button.png" id="2_es2kd"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0i2xg"]
@@ -12,7 +11,5 @@ offset_right = 128.0
 offset_bottom = 128.0
 texture_normal = ExtResource("2_es2kd")
 texture_pressed = SubResource("CompressedTexture2D_0i2xg")
-script = ExtResource("1_md2an")
-play_texture = ExtResource("2_es2kd")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -6,13 +6,12 @@ extends Sprite2D
 @onready var stop_area: Area2D = $StopArea
 @onready var stop_label: Label = $StopLabel
 
-# Armazena o número desta parada (ex: 1, 23, 45)
 var stop_number: int = 1
 
 func _ready() -> void:
 	_update_label_from_name()
 
-# Extrai o número do nome do nó ("StopSprite_23" -> 23) e escreve no Label
+# Extrai o número do nó ("StopSprite_23" -> 23) e atualiza o texto do Label
 func _update_label_from_name() -> void:
 	var name_string = String(name)
 	if name_string.begins_with("StopSprite_"):
@@ -22,18 +21,18 @@ func _update_label_from_name() -> void:
 			if stop_label:
 				stop_label.text = str(stop_number)
 
-# Atualiza a visibilidade dos elementos de acordo com a fase atual do jogador
+# Aplica as regras de visibilidade
 func setup_state(current_level: int) -> void:
 	if stop_number < current_level:
-		# FASES JÁ VENCIDAS (1 até current_level - 1): Escondem ambos
+		# Níveis passados (1 até current_level - 1): Escondem ambos
 		stop_vortex.visible = false
 		stop_energy_stop.visible = false
 	elif stop_number == current_level:
-		# FASE ATUAL A JOGAR: Mostra vortex e energy_stop
+		# Nível atual a ser jogado: Mostra ambos
 		stop_vortex.visible = true
 		stop_energy_stop.visible = true
 	else:
-		# FASES FUTURAS (current_level + 1 em diante): Mostra apenas o vortex
+		# Níveis futuros (current_level + 1 até 45): Mostra apenas o vortex
 		stop_vortex.visible = true
 		stop_energy_stop.visible = false
 

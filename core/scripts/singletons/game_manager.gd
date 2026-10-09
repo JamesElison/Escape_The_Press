@@ -22,7 +22,6 @@ var launcher_level_progress: Dictionary = {
 
 var called_from_the_start_menu = false
 
-
 # --- ORDEM DOS LANÇADORES/CENÁRIOS ---
 const LAUNCHER_ORDER: Array[String] = ["Standart", "120mm", "piercing", "mini_plasma"]
 
@@ -72,9 +71,20 @@ func equip_launcher_scenario(launcher_id: String) -> void:
 	_recalculate_press_speed()
 	save_game_data()
 
+# --- CÁLCULO DA VELOCIDADE DA PRENSA ---
+# StopSprite_1 -> 2.0
+# StopSprite_2 -> 2.1
+# StopSprite_3 -> 2.2 ... Incremento de 0.1 por nível.
 func _recalculate_press_speed() -> void:
 	var level_in_cycle = clamp(current_level, 1, 45)
 	press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
+
+# Define o nível e a velocidade baseado no nó da parada selecionada
+func set_level_from_stop(stop_number: int) -> void:
+	current_level = clamp(stop_number, 1, 45)
+	launcher_level_progress[equipped_launcher] = current_level
+	_recalculate_press_speed()
+	save_game_data()
 
 # --- PROGRESSÃO DE NÍVEL ---
 func reset_level_progress() -> void:
@@ -114,14 +124,12 @@ func _check_and_advance_scenario() -> void:
 
 # --- CONTROLE DE ÁUDIO GLOBAL ---
 func apply_audio_settings() -> void:
-	# Muta/Desmuta o barramento BGM (se não existir, usa Master)
 	var bgm_bus = AudioServer.get_bus_index("BGM")
 	if bgm_bus == -1:
 		bgm_bus = AudioServer.get_bus_index("Music")
 	if bgm_bus != -1:
 		AudioServer.set_bus_mute(bgm_bus, is_bgm_muted)
 
-	# Muta/Desmuta o barramento FX / SFX
 	var fx_bus = AudioServer.get_bus_index("fx")
 	if fx_bus == -1:
 		fx_bus = AudioServer.get_bus_index("FX")

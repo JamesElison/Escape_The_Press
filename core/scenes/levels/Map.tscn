@@ -432,3 +432,5 @@ color = Color(0, 0, 0, 1)
 
 [node name="HUDFadeAnim" type="AnimationPlayer" parent="MapHUD" unique_id=1520261709]
 libraries/ = SubResource("AnimationLibrary_7kyno")
+
+[connection signal="pressed" from="MapHUD/PlayGameButton" to="." method="_on_play_game_button_pressed"]
