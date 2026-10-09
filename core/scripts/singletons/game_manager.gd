@@ -72,14 +72,12 @@ func equip_launcher_scenario(launcher_id: String) -> void:
 	save_game_data()
 
 # --- CÁLCULO DA VELOCIDADE DA PRENSA ---
-# StopSprite_1 -> 2.0
-# StopSprite_2 -> 2.1
-# StopSprite_3 -> 2.2 ... Incremento de 0.1 por nível.
+# StopSprite_1 -> 2.0 | StopSprite_2 -> 2.1 | StopSprite_3 -> 2.2
 func _recalculate_press_speed() -> void:
 	var level_in_cycle = clamp(current_level, 1, 45)
 	press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
 
-# Define o nível e a velocidade baseado no nó da parada selecionada
+# A CENA MAP CHAMA ESTA FUNÇÃO: Define qual parada foi selecionada e salva
 func set_level_from_stop(stop_number: int) -> void:
 	current_level = clamp(stop_number, 1, 45)
 	launcher_level_progress[equipped_launcher] = current_level
@@ -93,6 +91,7 @@ func reset_level_progress() -> void:
 	_recalculate_press_speed()
 	save_game_data()
 
+# Chamado quando o jogador vence a gameplay
 func advance_to_next_level() -> void:
 	if current_level >= 45:
 		_check_and_advance_scenario()

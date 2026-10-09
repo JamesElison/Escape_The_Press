@@ -87,7 +87,6 @@ func _ready() -> void:
 
 	_setup_mystery_system()
 
-	# Conecta com os eventos de troca de lançador/cenário para garantir atualização limpa
 	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
 		EventBus.launcher_changed.connect(_on_launcher_changed)
 
@@ -308,10 +307,16 @@ func complete_level() -> void:
 	
 	if is_instance_valid(level_victory_music):
 		level_victory_music.play()
-		await level_victory_music.finished
+		
+	# Aguarda 2.5 segundos para a animação/áudio de vitória terminar
+	await get_tree().create_timer(2.5).timeout
 	
-	GameManager.advance_to_next_level()
-	get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")
+	# Avança o nível no GameManager e salva
+	if GameManager:
+		GameManager.advance_to_next_level()
+	
+	# Muda a cena de volta para o mapa
+	get_tree().change_scene_to_file("res://core/scenes/levels/Map.tscn")
 
 func spawn_winner_particles() -> void:
 	if not WINNER_PARTICLES_SCENE:
@@ -373,7 +378,7 @@ func game_over() -> void:
 		level_game_over_sound.play()
 
 	await get_tree().create_timer(2.0).timeout
-	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")
+	get_tree().change_scene_to_file("res://core/scenes/map/map.tscn")
 
 func _on_warning_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("warning_entities"):

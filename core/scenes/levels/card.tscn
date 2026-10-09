@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://j0dq8igvfq75"]
 
 [ext_resource type="Script" uid="uid://cyp5dpcuyjo7" path="res://core/scripts/card.gd" id="1_fhvbq"]
-[ext_resource type="Texture2D" uid="uid://bvpdg2ndphmuf" path="res://core/assets/background/cards/crystal_palace.png" id="1_weqxh"]
 [ext_resource type="AudioStream" uid="uid://cfpteh8qcgdoy" path="res://core/assets/sounds/level_music/0_crystal_palace_card_view_bgm.wav" id="2_fhvbq"]
+[ext_resource type="Texture2D" uid="uid://d2u3lyv86l3p2" path="res://core/assets/background/cards/crystal_palace.jpg" id="3_fhvbq"]
 
 [sub_resource type="Animation" id="Animation_fhvbq"]
 length = 0.001
@@ -86,7 +86,7 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 720.0
 offset_bottom = 1280.0
-texture = ExtResource("1_weqxh")
+texture = ExtResource("3_fhvbq")
 
 [node name="CardFadeFX" type="ColorRect" parent="." unique_id=1728822050]
 modulate = Color(1, 1, 1, 0)
