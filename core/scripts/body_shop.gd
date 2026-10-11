@@ -10,29 +10,29 @@ const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 
 var items_catalog: Array[Dictionary] = [
 	{
-		"id": "Standart",
-		"title": "Marbles",
+		"id": "crystal_palace",
+		"title": "Crystal Palace",
 		"price": "N/A",
 		"texture_path": "res://core/assets/HUD/crystal_palace_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/"
 	},
 	{
-		"id": "120mm",
-		"title": "120mm",
+		"id": "ancient_ruins",
+		"title": "Ancient Ruins",
 		"price": 1000,
 		"texture_path": "res://core/assets/HUD/ancient_ruins_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
-		"id": "piercing",
-		"title": "Piercing",
+		"id": "heavy_metal",
+		"title": "Heavy Metal",
 		"price": 1000,
 		"texture_path": "res://core/assets/HUD/heavy_metal_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
-		"id": "mini_plasma",
-		"title": "Mini Plasma",
+		"id": "sub_zero",
+		"title": "Sub Zero",
 		"price": 1000,
 		"texture_path": "res://core/assets/HUD/subzero_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
@@ -43,8 +43,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	
-	if not "Standart" in GameManager.unlocked_launchers:
-		GameManager.unlocked_launchers.append("Standart")
+	if not "crystal_palace" in GameManager.unlocked_launchers:
+		GameManager.unlocked_launchers.append("crystal_palace")
 		
 	populate_shop()
 

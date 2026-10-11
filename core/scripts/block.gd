@@ -71,7 +71,7 @@ func _ready() -> void:
 	sync_to_physics = false
 
 func especific_fx() -> void:
-	if GameManager.themes_catalog["crystal_palace"]:
+	if GameManager.equipped_launcher == "crystal_palace":
 		fluid_fx.show()
 	else:
 		fluid_fx.hide()

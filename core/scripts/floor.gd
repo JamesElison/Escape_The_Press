@@ -22,7 +22,7 @@ func update_floor_texture() -> void:
 			floor_sprite.texture = current_theme.floor_texture
 		
 		# 2. Verifica se o tema atual é o Ancient Ruins pelo theme_id
-		var is_ancient = (current_theme.theme_id == "120mm")
+		var is_ancient = (current_theme.theme_id == "ancient_ruins")
 		
 		# 3. Exibe/Esconde o fogo e ativa/desativa a emissão das partículas
 		if is_instance_valid(ancient_fire):
