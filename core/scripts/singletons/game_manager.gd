@@ -1,5 +1,7 @@
 extends Node
 
+var called_from_the_start_menu = false
+
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
 var press_speed: float = 2.0
@@ -12,15 +14,13 @@ var equipped_launcher: String = "crystal_palace"
 var is_bgm_muted: bool = false
 var is_sfx_muted: bool = false
 
- #Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
+# Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
 var launcher_level_progress: Dictionary = {
 	"crystal_palace": 1,
 	"ancient_ruins": 1,
 	"heavy_metal": 1,
 	"sub_zero": 1
 }
-
-var called_from_the_start_menu = false
 
 # --- ORDEM DOS LANÇADORES/CENÁRIOS ---
 const LAUNCHER_ORDER: Array[String] = ["crystal_palace", "ancient_ruins", "heavy_metal", "sub_zero"]
@@ -72,7 +72,6 @@ func equip_launcher_scenario(launcher_id: String) -> void:
 	save_game_data()
 
 # --- CÁLCULO DA VELOCIDADE DA PRENSA ---
-# StopSprite_1 -> 2.0 | StopSprite_2 -> 2.1 | StopSprite_3 -> 2.2
 func _recalculate_press_speed() -> void:
 	var level_in_cycle = clamp(current_level, 1, 45)
 	press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
@@ -205,7 +204,6 @@ func reset_all_save_data() -> void:
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)
 
-# --- REPRODUÇÃO PERSISTENTE DE ÁUDIO ---
 func play_sfx_persistent(stream: AudioStream) -> void:
 	if not stream or is_sfx_muted:
 		return
@@ -224,5 +222,4 @@ func play_sfx_persistent(stream: AudioStream) -> void:
 		
 	get_tree().root.add_child(temp_player)
 	temp_player.play()
-	
 	temp_player.finished.connect(temp_player.queue_free)

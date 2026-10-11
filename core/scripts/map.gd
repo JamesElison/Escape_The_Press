@@ -32,6 +32,9 @@ func _ready() -> void:
 	if GameManager:
 		current_level = GameManager.current_level
 		
+	# Aplica o tema visual e sonoro do bioma atual no Mapa
+	_apply_map_theme()
+	
 	setup_and_position_stops()
 	
 	await get_tree().process_frame
@@ -44,13 +47,22 @@ func _ready() -> void:
 	# Ajusta a tela no player na posição inicial
 	update_camera_to_player()
 	
-	if map_bgm:
+	if map_bgm and not GameManager.is_bgm_muted:
 		map_bgm.play()
 		
 	# Se acabou de desbloquear uma nova parada, faz a animação de deslocamento suave!
 	if current_level > 1 and previous_level != current_level:
 		await get_tree().create_timer(0.4).timeout
 		move_player_to_stop(current_level, 2.0)
+
+# Aplica as texturas e músicas específicas do ThemeData para o Mapa
+func _apply_map_theme() -> void:
+	var theme: ThemeData = GameManager.get_current_theme()
+	if theme:
+		if is_instance_valid(map_background) and theme.map_background:
+			map_background.texture = theme.map_background
+		if is_instance_valid(map_bgm) and theme.map_bgm:
+			map_bgm.stream = theme.map_bgm
 
 # Posiciona as paradas e aplica os estados visuais (Vortex / Energy Stop)
 func setup_and_position_stops() -> void:

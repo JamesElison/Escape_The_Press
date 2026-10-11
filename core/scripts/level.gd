@@ -233,7 +233,7 @@ func _apply_current_theme_visuals() -> void:
 	var theme = GameManager.get_current_theme()
 	
 	if theme:
-		if background_sprite and theme.background_texture:
+		if is_instance_valid(background_sprite) and theme.background_texture:
 			background_sprite.texture = theme.background_texture
 			
 		if is_instance_valid(press) and theme.press_texture:

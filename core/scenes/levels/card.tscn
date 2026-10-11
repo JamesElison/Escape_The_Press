@@ -83,16 +83,22 @@ bus = &"BGM"
 
 [node name="CardBackground" type="TextureRect" parent="." unique_id=2057311895]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_right = 720.0
-offset_bottom = 1280.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_fhvbq")
 
 [node name="CardFadeFX" type="ColorRect" parent="." unique_id=1728822050]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_right = 720.0
-offset_bottom = 1280.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="CardFadeAnim" type="AnimationPlayer" parent="." unique_id=1490339178]
