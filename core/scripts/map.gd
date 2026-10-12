@@ -166,6 +166,7 @@ func _trigger_portal_sequence() -> void:
 		
 	if end_map_bgm and not GameManager.is_bgm_muted:
 		end_map_bgm.play()
+		await end_map_bgm.finished
 		
 	if hud_fade_anim:
 		hud_fade_anim.play("fade_out")

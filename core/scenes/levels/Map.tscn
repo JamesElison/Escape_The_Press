@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://brvloh14dynlk" path="res://core/scripts/map.gd" id="1_efgaw"]
 [ext_resource type="Texture2D" uid="uid://gggx07p3di3k" path="res://core/assets/background/maps/0_crystal_palace/map.png" id="2_7sxvw"]
 [ext_resource type="AudioStream" uid="uid://ce2eal857fr5a" path="res://core/assets/sounds/level_music/map_1_bgm.wav" id="2_vyo3s"]
-[ext_resource type="AudioStream" uid="uid://c1jqxpv4d0ewr" path="res://core/assets/sounds/fx/stop_deactivation.wav" id="3_7kyno"]
+[ext_resource type="AudioStream" uid="uid://da33rw2ayycdw" path="res://core/assets/sounds/level_music/end_music.wav" id="3_dqgx4"]
 [ext_resource type="Texture2D" uid="uid://dwem8qcxt3pxe" path="res://core/assets/background/maps/0_crystal_palace/stop.png" id="3_vyo3s"]
 [ext_resource type="Shader" uid="uid://dqx6lma6pgm05" path="res://core/entities/effects/CrystalMap/portal_swirl.gdshader" id="4_t3iat"]
 [ext_resource type="Texture2D" uid="uid://wtum7eebhboq" path="res://core/assets/background/maps/0_crystal_palace/energy_stop.png" id="5_2e5nk"]
@@ -219,7 +219,7 @@ stream = ExtResource("2_vyo3s")
 bus = &"BGM"
 
 [node name="EndMapBGM" type="AudioStreamPlayer" parent="." unique_id=493814939]
-stream = ExtResource("3_7kyno")
+stream = ExtResource("3_dqgx4")
 bus = &"fx"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1920748384]

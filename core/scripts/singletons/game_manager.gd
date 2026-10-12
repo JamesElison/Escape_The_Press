@@ -28,6 +28,7 @@ var launcher_level_progress: Dictionary = {
 const LAUNCHER_ORDER: Array[String] = ["crystal_palace", "ancient_ruins", "heavy_metal", "sub_zero"]
 
 const SAVE_PATH: String = "user://game_save.dat"
+const END_GAME_SCENE_PATH: String = "res://core/scenes/levels/end_game_card.tscn"
 
 # Catálogo de temas carregados
 var themes_catalog: Dictionary = {}
@@ -110,7 +111,16 @@ func advance_to_next_level() -> void:
 # Chamado pelo map.gd APÓS o player entrar no portal e a animação terminar
 func finalize_cycle_advancement() -> void:
 	just_beat_final_level = false
-	_check_and_advance_scenario()
+	
+	# Verifica se completou o último bioma (sub_zero)
+	if equipped_launcher == "sub_zero":
+		_check_and_advance_scenario()
+		call_deferred("_change_to_end_game_scene")
+	else:
+		_check_and_advance_scenario()
+
+func _change_to_end_game_scene() -> void:
+	get_tree().change_scene_to_file(END_GAME_SCENE_PATH)
 
 # --- TROCA AUTOMÁTICA DE CENÁRIO/LANÇADOR NA VIRADA DE CICLO ---
 func _check_and_advance_scenario() -> void:

@@ -139,6 +139,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Menu" parent="HUD" unique_id=1506258400 node_paths=PackedStringArray("theme_shop_ui") instance=ExtResource("5_lsx1n")]
+visible = false
 theme_shop_ui = NodePath("../ThemeShop")
 
 [node name="ThemeShop" parent="HUD" unique_id=1610804757 instance=ExtResource("6_jn36a")]
@@ -209,7 +210,7 @@ offset_bottom = -26.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("7_0jp4f")
-text = "Version: 0.9.5"
+text = "Version: 0.9.6"
 
 [node name="HUDFadeFX" type="ColorRect" parent="HUD" unique_id=62624017]
 modulate = Color(1, 1, 1, 0)
