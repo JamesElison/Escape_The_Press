@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://b58llws2xmu6b"]
+
+[ext_resource type="Script" uid="uid://60ry5x7ebcls" path="res://core/scripts/theme_shop.gd" id="1_f1gvs"]
+[ext_resource type="AudioStream" uid="uid://67ac0syai7r6" path="res://core/assets/sounds/level_music/theme_store_music.wav" id="2_81rll"]
+[ext_resource type="Texture2D" uid="uid://q78qpwkehunk" path="res://core/assets/HUD/menu_background.png" id="3_ahtvv"]
+[ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="13_5cke0"]
+
+[node name="ThemeShop" type="Control" unique_id=1610804757]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f1gvs")
+
+[node name="ThemeShopMusic" type="AudioStreamPlayer" parent="." unique_id=1188301649]
+stream = ExtResource("2_81rll")
+bus = &"BGM"
+
+[node name="ThemeShopRect" type="TextureRect" parent="." unique_id=24330661]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = 1620.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("3_ahtvv")
+
+[node name="ThemeShopScroll" type="ScrollContainer" parent="." unique_id=859382942]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ThemeShopVBox" type="VBoxContainer" parent="ThemeShopScroll" unique_id=1322112875]
+custom_minimum_size = Vector2(720, 3000)
+layout_mode = 2
+
+[node name="ItemCard" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1651953612 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard2" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1897976037 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard3" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1686923604 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard4" parent="ThemeShopScroll/ThemeShopVBox" unique_id=566244747 instance=ExtResource("13_5cke0")]
+layout_mode = 2

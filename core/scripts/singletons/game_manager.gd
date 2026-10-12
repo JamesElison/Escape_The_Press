@@ -1,6 +1,6 @@
 extends Node
 
-var called_from_the_start_menu = false
+var just_beat_final_level: bool = false  # Flag de controle para a animação do portal no mapa
 
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
@@ -13,6 +13,8 @@ var equipped_launcher: String = "crystal_palace"
 # Armazena as configurações de áudio do jogador
 var is_bgm_muted: bool = false
 var is_sfx_muted: bool = false
+var bgm_volume_linear: float = 1.0  # Varia de 0.0 a 1.0
+var sfx_volume_linear: float = 1.0  # Varia de 0.0 a 1.0
 
 # Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
 var launcher_level_progress: Dictionary = {
@@ -93,7 +95,10 @@ func reset_level_progress() -> void:
 # Chamado quando o jogador vence a gameplay
 func advance_to_next_level() -> void:
 	if current_level >= 45:
-		_check_and_advance_scenario()
+		# Ativa a flag e mantém o jogador na 45 temporariamente para ver a animação no mapa
+		just_beat_final_level = true
+		current_level = 45
+		launcher_level_progress[equipped_launcher] = 45
 	else:
 		current_level += 1
 		launcher_level_progress[equipped_launcher] = current_level
@@ -101,6 +106,11 @@ func advance_to_next_level() -> void:
 	_recalculate_press_speed()
 	add_coins(500)
 	save_game_data()
+
+# Chamado pelo map.gd APÓS o player entrar no portal e a animação terminar
+func finalize_cycle_advancement() -> void:
+	just_beat_final_level = false
+	_check_and_advance_scenario()
 
 # --- TROCA AUTOMÁTICA DE CENÁRIO/LANÇADOR NA VIRADA DE CICLO ---
 func _check_and_advance_scenario() -> void:
@@ -119,22 +129,27 @@ func _check_and_advance_scenario() -> void:
 		launcher_level_progress[equipped_launcher] = 1
 
 		EventBus.launcher_changed.emit(equipped_launcher)
+		save_game_data()
 
 # --- CONTROLE DE ÁUDIO GLOBAL ---
 func apply_audio_settings() -> void:
 	var bgm_bus = AudioServer.get_bus_index("BGM")
 	if bgm_bus == -1:
 		bgm_bus = AudioServer.get_bus_index("Music")
+	
 	if bgm_bus != -1:
 		AudioServer.set_bus_mute(bgm_bus, is_bgm_muted)
+		AudioServer.set_bus_volume_db(bgm_bus, linear_to_db(bgm_volume_linear))
 
 	var fx_bus = AudioServer.get_bus_index("fx")
 	if fx_bus == -1:
 		fx_bus = AudioServer.get_bus_index("FX")
 	if fx_bus == -1:
 		fx_bus = AudioServer.get_bus_index("SFX")
+		
 	if fx_bus != -1:
 		AudioServer.set_bus_mute(fx_bus, is_sfx_muted)
+		AudioServer.set_bus_volume_db(fx_bus, linear_to_db(sfx_volume_linear))
 
 # --- SISTEMA DE SAVE E LOAD ---
 func save_game_data() -> void:
@@ -148,7 +163,10 @@ func save_game_data() -> void:
 			"equipped_launcher": equipped_launcher,
 			"launcher_level_progress": launcher_level_progress,
 			"is_bgm_muted": is_bgm_muted,
-			"is_sfx_muted": is_sfx_muted
+			"is_sfx_muted": is_sfx_muted,
+			"bgm_volume_linear": bgm_volume_linear,
+			"sfx_volume_linear": sfx_volume_linear,
+			"just_beat_final_level": just_beat_final_level
 		}
 		file.store_var(save_dict)
 
@@ -175,6 +193,9 @@ func load_game_data() -> void:
 				
 				is_bgm_muted = save_dict.get("is_bgm_muted", false)
 				is_sfx_muted = save_dict.get("is_sfx_muted", false)
+				bgm_volume_linear = save_dict.get("bgm_volume_linear", 1.0)
+				sfx_volume_linear = save_dict.get("sfx_volume_linear", 1.0)
+				just_beat_final_level = save_dict.get("just_beat_final_level", false)
 				
 				current_level = launcher_level_progress.get(equipped_launcher, 1)
 				_recalculate_press_speed()
@@ -193,6 +214,9 @@ func reset_all_save_data() -> void:
 	equipped_launcher = "crystal_palace"
 	is_bgm_muted = false
 	is_sfx_muted = false
+	bgm_volume_linear = 1.0
+	sfx_volume_linear = 1.0
+	just_beat_final_level = false
 	launcher_level_progress = {
 		"crystal_palace": 1,
 		"ancient_ruins": 1,

@@ -1,15 +1,23 @@
 [gd_scene format=3 uid="uid://cxw1n1qnststx"]
 
-[ext_resource type="PackedScene" uid="uid://by3lvy4ieoswm" path="res://core/scenes/set_elements/hud.tscn" id="1_jsm2u"]
 [ext_resource type="Script" uid="uid://ckx0x8fymnckc" path="res://core/scripts/main_menu.gd" id="1_vu0n6"]
 [ext_resource type="Texture2D" uid="uid://cuyulpxg23d10" path="res://core/assets/background/main_menu_background.jpg" id="1_y7ek6"]
+[ext_resource type="AudioStream" uid="uid://b73igg8wd6yah" path="res://core/assets/sounds/level_music/main_menu_music.wav" id="4_iiujd"]
+[ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/menu_button.tscn" id="4_ndiue"]
+[ext_resource type="AudioStream" uid="uid://da6h721wmnfn1" path="res://core/assets/sounds/fx/start_button_sound.wav" id="5_h2l0b"]
+[ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="5_lsx1n"]
+[ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/theme_shop.tscn" id="6_jn36a"]
+[ext_resource type="AudioStream" uid="uid://brxmnqktum4un" path="res://core/assets/sounds/fx/menu_button_sound.wav" id="6_q5yl5"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="7_0jp4f"]
+[ext_resource type="Texture2D" uid="uid://bb564w0rl0pib" path="res://core/assets/HUD/start_button_1.png" id="11_emlp4"]
+[ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="12_m5nf3"]
 
-[sub_resource type="Animation" id="Animation_vu0n6"]
+[sub_resource type="Animation" id="Animation_fhvbq"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BackGround:modulate")
+tracks/0/path = NodePath("HUDFadeFX:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -18,36 +26,74 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardBackground:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_y7ek6"]
+[sub_resource type="Animation" id="Animation_jv5g0"]
 resource_name = "fade_in"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BackGround:modulate")
+tracks/0/path = NodePath("HUDFadeFX:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.98),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_38dcn"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUDFadeFX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vu0n6"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qy31s"]
 _data = {
-&"RESET": SubResource("Animation_vu0n6"),
-&"fade_in": SubResource("Animation_y7ek6")
+&"RESET": SubResource("Animation_fhvbq"),
+&"fade_in": SubResource("Animation_jv5g0"),
+&"fade_out": SubResource("Animation_38dcn")
 }
 
 [node name="MainMenu" type="Node2D" unique_id=773711802]
 script = ExtResource("1_vu0n6")
 
-[node name="MainMenuBackGround" type="CanvasLayer" parent="." unique_id=1304510968]
-layer = -100
+[node name="HUD" type="CanvasLayer" parent="." unique_id=931431950]
 
-[node name="BackGround" type="TextureRect" parent="MainMenuBackGround" unique_id=244594244]
-modulate = Color(1, 1, 1, 0)
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="HUD" unique_id=1069566499]
+stream = ExtResource("4_iiujd")
+bus = &"BGM"
+
+[node name="StartButtonSound" type="AudioStreamPlayer" parent="HUD" unique_id=2040363580]
+stream = ExtResource("5_h2l0b")
+bus = &"fx"
+
+[node name="MenuButtonSound" type="AudioStreamPlayer" parent="HUD" unique_id=1525892280]
+stream = ExtResource("6_q5yl5")
+bus = &"fx"
+
+[node name="BackGround" type="TextureRect" parent="HUD" unique_id=244594244]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -57,7 +103,125 @@ texture = ExtResource("1_y7ek6")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="FadeAnim" type="AnimationPlayer" parent="MainMenuBackGround" unique_id=1288725575]
-libraries/ = SubResource("AnimationLibrary_vu0n6")
+[node name="MessageLabel2" type="Label" parent="HUD" unique_id=501870911]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -314.0
+offset_top = 248.0
+offset_right = 315.0
+offset_bottom = 348.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_0jp4f")
+theme_override_font_sizes/font_size = 32
+text = "Prototype Version
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HUD" parent="." unique_id=931431950 instance=ExtResource("1_jsm2u")]
+[node name="MessageLabel" type="Label" parent="HUD" unique_id=144190612]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -314.0
+offset_top = 163.0
+offset_right = 315.0
+offset_bottom = 322.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("7_0jp4f")
+theme_override_font_sizes/font_size = 64
+text = "Escape The Press!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" parent="HUD" unique_id=1506258400 node_paths=PackedStringArray("theme_shop_ui") instance=ExtResource("5_lsx1n")]
+theme_shop_ui = NodePath("../ThemeShop")
+
+[node name="ThemeShop" parent="HUD" unique_id=1610804757 instance=ExtResource("6_jn36a")]
+visible = false
+
+[node name="MenuButton" parent="HUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "play_game_button", "pause_button", "turn_left_button", "turn_right_button", "level_label") instance=ExtResource("4_ndiue")]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 152.0
+offset_bottom = 152.0
+menu_ui = NodePath("../Menu")
+theme_shop_ui = NodePath("../ThemeShop")
+play_game_button = NodePath("../StartButton")
+pause_button = NodePath("../BackGround")
+turn_left_button = NodePath("../MessageLabel2")
+turn_right_button = NodePath("../MessageLabel")
+level_label = NodePath("../VersionLabel")
+
+[node name="StartButton" type="TextureButton" parent="HUD" unique_id=1801364419]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -154.0
+offset_top = -180.0
+offset_right = 154.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("11_emlp4")
+texture_pressed = ExtResource("12_m5nf3")
+texture_disabled = ExtResource("12_m5nf3")
+
+[node name="StartButtonLabel" type="Label" parent="HUD/StartButton" unique_id=1658406349]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49512988
+anchor_top = 0.43636364
+anchor_right = 0.49512988
+anchor_bottom = 0.43636364
+offset_left = -54.5
+offset_top = -29.0
+offset_right = 54.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2509804, 0.7019608, 0.93333334, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("7_0jp4f")
+theme_override_font_sizes/font_size = 48
+text = "Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VersionLabel" type="Label" parent="HUD" unique_id=511045813]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -149.0
+offset_top = -46.0
+offset_right = -32.0
+offset_bottom = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_0jp4f")
+text = "Version: 0.9.5"
+
+[node name="HUDFadeFX" type="ColorRect" parent="HUD" unique_id=62624017]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HUDFadeAnim" type="AnimationPlayer" parent="HUD" unique_id=368756014]
+libraries/ = SubResource("AnimationLibrary_qy31s")
+
+[connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]

@@ -17,7 +17,7 @@ const WINNER_PARTICLES_SCENE = preload("res://core/entities/effects/winner_parti
 @onready var fx2 = $FxAncientRuins
 @onready var message_label = $LevelCanvasLayer/MessageLabel
 @onready var level_label = $LevelCanvasLayer/LevelLabel
-@onready var body_shop_button = $LevelCanvasLayer/BodyShopButton
+@onready var menu_button = $LevelCanvasLayer/MenuButton
 @onready var pause_button = $LevelCanvasLayer/PauseButton
 @onready var message_timer = $MessageTimer
 @onready var fog_overlay = $FogCanvas/FogOverlay
@@ -431,8 +431,8 @@ func _on_warning_piep_timer_timeout() -> void:
 	if warning_piep:
 		warning_piep.play()
 
-# --- INTEGRAÇÃO COM O BODY SHOP / PAUSE ---
-func _on_body_shop_button_pressed() -> void:
+# --- INTEGRAÇÃO COM O MENU / PAUSE ---
+func _on_menu_button_pressed() -> void:
 	set_fog_active(false)
 
 func _on_body_shop_closed() -> void:

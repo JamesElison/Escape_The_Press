@@ -1,6 +1,7 @@
 extends Control
 
 @onready var map_bgm = $MapBGM
+@onready var end_map_bgm = $EndMapBGM
 @onready var map_background = $ScrollContainer/MapBackground
 @onready var scroll_container = $ScrollContainer
 
@@ -19,6 +20,10 @@ extends Control
 @onready var hud_fade_fx = $MapHUD/HUDFadeFX
 @onready var hud_fade_anim = $MapHUD/HUDFadeAnim
 
+# Variáveis de SnowFX:
+@onready var fog_overlay = $FogCanvas/FogOverlay
+@onready var snow_fx = $SnowFX
+
 var stop_sprites: Array[Node] = []
 
 const START_Y: float = 8760.0
@@ -35,25 +40,50 @@ func _ready() -> void:
 	# Aplica o tema visual e sonoro do bioma atual no Mapa
 	_apply_map_theme()
 	
+	especific_fx()
+	
 	setup_and_position_stops()
 	
+	# Verifica e gerencia a visibilidade do portal_energy_stop na casa 45
+	_check_portal_energy_stop_visibility()
+	
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
-	# Coloca o player na parada anterior para animar até a parada atual
+	# Se acabou de vencer o nível 45, o player deve começar na parada 45 antes de ir para o portal
+	if GameManager.just_beat_final_level:
+		place_player_at_stop(45)
+		update_camera_to_player()
+		await get_tree().create_timer(0.4).timeout
+		_trigger_portal_sequence()
+		return
+	
+	# Comportamento padrão para níveis normais
 	var previous_level = max(1, current_level - 1) if current_level > 1 else 1
 	place_player_at_stop(previous_level)
-	
-	# Ajusta a tela no player na posição inicial
 	update_camera_to_player()
 	
 	if map_bgm and not GameManager.is_bgm_muted:
 		map_bgm.play()
 		
-	# Se acabou de desbloquear uma nova parada, faz a animação de deslocamento suave!
 	if current_level > 1 and previous_level != current_level:
 		await get_tree().create_timer(0.4).timeout
 		move_player_to_stop(current_level, 2.0)
+
+func _check_portal_energy_stop_visibility() -> void:
+	if portal_energy_stop:
+		if current_level >= 45 or GameManager.just_beat_final_level:
+			portal_energy_stop.show()
+		else:
+			portal_energy_stop.hide()
+
+func especific_fx() -> void:
+	if GameManager.equipped_launcher == "sub_zero":
+		fog_overlay.show()
+		snow_fx.show()
+	else:
+		fog_overlay.hide()
+		snow_fx.hide()
 
 # Aplica as texturas e músicas específicas do ThemeData para o Mapa
 func _apply_map_theme() -> void:
@@ -94,20 +124,56 @@ func move_player_to_stop(stop_number: int, duration: float = 2.0) -> void:
 	var half_screen = scroll_container.size.y / 2.0
 	var target_scroll = int(target_pos.y - half_screen)
 	
-	# Calcula a rotação direta para olhar em direção ao próximo nó (padrão 0 radianos = Direita)
 	var direction = (target_pos - map_player.position)
 	var target_rotation = direction.angle()
 	
 	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(map_player, "rotation", target_rotation, 0.4)
+	tween.tween_property(map_player, "position", target_pos, duration)
+	tween.tween_property(scroll_container, "scroll_vertical", target_scroll, duration)
+
+# Sequência especial ao vencer o nível 45: Vai até o portal e entra nele
+func _trigger_portal_sequence() -> void:
+	if not portal_sprite:
+		return
+		
+	if map_bgm and not GameManager.is_bgm_muted and not map_bgm.playing:
+		map_bgm.play()
+
+	var target_pos = portal_sprite.position
+	var half_screen = scroll_container.size.y / 2.0
+	var target_scroll = int(target_pos.y - half_screen)
 	
-	# Gira o player suavemente para a direção do movimento (em 0.4 segundos)
+	# 1. Olha para o portal
+	var direction = (target_pos - map_player.position)
+	var target_rotation = direction.angle()
+	
+	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(map_player, "rotation", target_rotation, 0.4)
 	
-	# Move o MapPlayer até a nova parada
-	tween.tween_property(map_player, "position", target_pos, duration)
+	await tween.finished
 	
-	# Rola o ScrollContainer acompanhando o jogador
-	tween.tween_property(scroll_container, "scroll_vertical", target_scroll, duration)
+	# 2. Direciona-se até o portal vagarosamente (2.0 segundos)
+	var move_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	move_tween.tween_property(map_player, "position", target_pos, 2.0)
+	move_tween.tween_property(scroll_container, "scroll_vertical", target_scroll, 2.0)
+	
+	await move_tween.finished
+	
+	# 3. Entrou no portal: toca áudio end_map e animação hud_fade_anim ("end_map")
+	if map_bgm and map_bgm.playing:
+		map_bgm.stop()
+		
+	if end_map_bgm and not GameManager.is_bgm_muted:
+		end_map_bgm.play()
+		
+	if hud_fade_anim:
+		hud_fade_anim.play("fade_out")
+		await hud_fade_anim.animation_finished
+		
+	# 4. Agora sim, aplica a virada de cenário real no GameManager e vai para o card
+	GameManager.finalize_cycle_advancement()
+	get_tree().change_scene_to_file("res://core/scenes/levels/card.tscn")
 
 func get_stop_by_number(number: int) -> Node2D:
 	var node_name = "StopSprite_" + str(number)
@@ -120,8 +186,6 @@ func update_camera_to_player() -> void:
 # Ao clicar no botão "Jogar"
 func _on_play_game_button_pressed() -> void:
 	if GameManager:
-		# Define formalmente o nível e a velocidade da prensa
 		GameManager.set_level_from_stop(current_level)
 		
-	# Abre a cena de gameplay
-	get_tree().change_scene_to_file("res://core/scenes/levels/test_area.tscn")
+	get_tree().change_scene_to_file("res://core/scenes/levels/game_play_area.tscn")

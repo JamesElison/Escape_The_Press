@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://7aa4wwaqc1dy"]
 
 [ext_resource type="Texture2D" uid="uid://dlxtjj6nhvpaj" path="res://core/assets/HUD/menu_button.png" id="1_t33e7"]
-[ext_resource type="Script" uid="uid://dcpof4hhju170" path="res://core/scripts/body_shop_button.gd" id="1_xdgk7"]
+[ext_resource type="Script" uid="uid://dcpof4hhju170" path="res://core/scripts/menu_button.gd" id="1_xdgk7"]
 
-[node name="BodyShopButton" type="TextureButton" unique_id=1078595600]
+[node name="MenuButton" type="TextureButton" unique_id=1078595600]
 offset_right = 128.0
 offset_bottom = 128.0
 texture_normal = ExtResource("1_t33e7")

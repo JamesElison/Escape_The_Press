@@ -5,8 +5,8 @@ signal closed
 
 const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 
-@onready var body_shop_music = $BodyShopMusic
-@onready var vbox_container = $BodyShopScroll/BodyShopVBox
+@onready var theme_shop_music = $ThemeShopMusic
+@onready var vbox_container = $ThemeShopScroll/ThemeShopVBox
 
 var items_catalog: Array[Dictionary] = [
 	{
@@ -19,21 +19,21 @@ var items_catalog: Array[Dictionary] = [
 	{
 		"id": "ancient_ruins",
 		"title": "Ancient Ruins",
-		"price": 1000,
+		"price": 0,
 		"texture_path": "res://core/assets/HUD/ancient_ruins_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
 		"id": "heavy_metal",
 		"title": "Heavy Metal",
-		"price": 1000,
+		"price": 0,
 		"texture_path": "res://core/assets/HUD/heavy_metal_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
 		"id": "sub_zero",
 		"title": "Sub Zero",
-		"price": 1000,
+		"price": 0,
 		"texture_path": "res://core/assets/HUD/subzero_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 	}
@@ -75,7 +75,7 @@ func _on_item_buy_requested(item_data: Dictionary) -> void:
 		refresh_all_items()
 		EventBus.launcher_changed.emit(item_id)
 		close()
-		_reload_test_area()
+		_reload_game_play_area()
 
 func _on_item_equip_requested(item_data: Dictionary) -> void:
 	var item_id = item_data.get("id", "")
@@ -83,9 +83,9 @@ func _on_item_equip_requested(item_data: Dictionary) -> void:
 	refresh_all_items()
 	EventBus.launcher_changed.emit(item_id)
 	close()
-	_reload_test_area()
+	_reload_game_play_area()
 
-func _reload_test_area() -> void:
+func _reload_game_play_area() -> void:
 	# Recarrega a cena atual para aplicar as alterações de visual e velocidade do novo cenário
 	get_tree().paused = false
 	get_tree().reload_current_scene()
@@ -97,16 +97,16 @@ func toggle_shop() -> void:
 		open()
 
 func open() -> void:
-	if body_shop_music:
-		body_shop_music.play()
+	if theme_shop_music:
+		theme_shop_music.play()
 	refresh_all_items()
 	show()
 	get_tree().paused = true
 	opened.emit()
 
 func close() -> void:
-	if body_shop_music:
-		body_shop_music.stop()
+	if theme_shop_music:
+		theme_shop_music.stop()
 	hide()
 	get_tree().paused = false
 	closed.emit()

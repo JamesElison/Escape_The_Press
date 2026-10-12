@@ -10,9 +10,12 @@
 [ext_resource type="Script" uid="uid://sgcx0oq41l6o" path="res://core/scripts/energy_stop.gd" id="6_wuo5h"]
 [ext_resource type="PackedScene" uid="uid://btruxuxlswuaq" path="res://core/scenes/levels/stop_sprite.tscn" id="8_wuo5h"]
 [ext_resource type="PackedScene" uid="uid://ckptqhwom11g" path="res://core/entities/players/map_player.tscn" id="10_7kyno"]
-[ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="11_wuo5h"]
+[ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/menu_button.tscn" id="11_wuo5h"]
 [ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="12_7kyno"]
+[ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/theme_shop.tscn" id="12_dqgx4"]
 [ext_resource type="PackedScene" uid="uid://dbwav3lnryhm5" path="res://core/scenes/set_elements/play_game_button.tscn" id="13_7kyno"]
+[ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="14_40k83"]
+[ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="15_dqgx4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_portal"]
 shader = ExtResource("4_t3iat")
@@ -193,6 +196,12 @@ _data = {
 &"RESET": SubResource("Animation_fhvbq"),
 &"fade_out": SubResource("Animation_38dcn")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0i2xg"]
+shader = ExtResource("14_40k83")
+shader_parameter/fog_color = Color(0.6766479, 0.842722, 0.99999994, 0.4)
+shader_parameter/speed = 2.0
+shader_parameter/density = 1.0
 
 [node name="Map" type="Control" unique_id=993807449]
 layout_mode = 3
@@ -401,7 +410,10 @@ rotation = -1.5707964
 [node name="Menu" parent="MapHUD" unique_id=1506258400 instance=ExtResource("12_7kyno")]
 visible = false
 
-[node name="BodyShopButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("body_shop_ui", "play_game_button") instance=ExtResource("11_wuo5h")]
+[node name="ThemeShop" parent="MapHUD" unique_id=1610804757 instance=ExtResource("12_dqgx4")]
+visible = false
+
+[node name="MenuButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "play_game_button") instance=ExtResource("11_wuo5h")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
@@ -410,7 +422,8 @@ offset_bottom = 152.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = SubResource("CompressedTexture2D_40k83")
-body_shop_ui = NodePath("../Menu")
+menu_ui = NodePath("../Menu")
+theme_shop_ui = NodePath("../ThemeShop")
 play_game_button = NodePath("../PlayGameButton")
 
 [node name="PlayGameButton" parent="MapHUD" unique_id=1552214462 instance=ExtResource("13_7kyno")]
@@ -426,12 +439,29 @@ texture_pressed = null
 
 [node name="HUDFadeFX" type="ColorRect" parent="MapHUD" unique_id=1926389460]
 modulate = Color(1, 1, 1, 0)
-offset_right = 720.0
-offset_bottom = 1280.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="HUDFadeAnim" type="AnimationPlayer" parent="MapHUD" unique_id=1520261709]
 libraries/ = SubResource("AnimationLibrary_7kyno")
+
+[node name="FogCanvas" type="CanvasLayer" parent="." unique_id=251787266]
+
+[node name="FogOverlay" type="ColorRect" parent="FogCanvas" unique_id=1404983914]
+material = SubResource("ShaderMaterial_0i2xg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8509804, 0.9490196, 1, 0.61960787)
+
+[node name="SnowFX" parent="." unique_id=2105947159 instance=ExtResource("15_dqgx4")]
 
 [connection signal="pressed" from="MapHUD/PlayGameButton" to="." method="_on_play_game_button_pressed"]

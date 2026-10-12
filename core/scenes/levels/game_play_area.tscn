@@ -1,31 +1,31 @@
 [gd_scene format=3 uid="uid://svcxf4guopac"]
 
-[ext_resource type="Script" uid="uid://dwuvak5nlj3cc" path="res://core/scripts/level.gd" id="1_3c2jl"]
-[ext_resource type="PackedScene" uid="uid://5m7ldlu1mtar" path="res://core/entities/enemies/press.tscn" id="1_b72cg"]
-[ext_resource type="Script" uid="uid://dqb10raqrdmmm" path="res://core/scripts/level_camera.gd" id="2_01iaf"]
-[ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="2_ovmqw"]
-[ext_resource type="Texture2D" uid="uid://cju1bsskns43r" path="res://core/assets/background/0_crystal_palace.jpg" id="2_ypx8k"]
-[ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="3_ovmqw"]
-[ext_resource type="AudioStream" uid="uid://cdcbumlt21tiu" path="res://core/assets/sounds/fx/black_spawn.wav" id="4_6obsd"]
-[ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="4_f6opj"]
-[ext_resource type="AudioStream" uid="uid://bl2wopveer2kn" path="res://core/assets/sounds/fx/warning_sound.wav" id="4_t4y2j"]
-[ext_resource type="AudioStream" uid="uid://b3d8ult005tcc" path="res://core/assets/sounds/fx/white_spawn.wav" id="5_05vlo"]
-[ext_resource type="AudioStream" uid="uid://dn085gkcnei50" path="res://core/assets/sounds/level_music/Victory.ogg" id="5_f6opj"]
-[ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="6_3c2jl"]
-[ext_resource type="AudioStream" uid="uid://cdlfo78wrwyoy" path="res://core/assets/sounds/fx/piep_warning.wav" id="7_c4e2t"]
-[ext_resource type="AudioStream" uid="uid://dgcvu1lrd73fi" path="res://core/assets/sounds/fx/victory_fx.wav" id="7_q3bu8"]
-[ext_resource type="PackedScene" uid="uid://cfixxn52t2t6i" path="res://core/entities/effects/ancient_fire.tscn" id="10_61cah"]
-[ext_resource type="PackedScene" uid="uid://ca6xso0mr3bqf" path="res://core/scenes/set_elements/pause_button.tscn" id="11_2xyph"]
-[ext_resource type="PackedScene" uid="uid://blqa0ul40bdoy" path="res://core/entities/effects/mini_fire.tscn" id="11_61cah"]
-[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="11_nqyh5"]
-[ext_resource type="PackedScene" uid="uid://dgsyuoff3ndoy" path="res://core/scenes/set_elements/coin.tscn" id="12_2xyph"]
-[ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/body_shop_button.tscn" id="13_jyd58"]
-[ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/body_shop.tscn" id="14_skvvx"]
-[ext_resource type="PackedScene" uid="uid://bt5kw3nc328a3" path="res://core/scenes/set_elements/turn_left_button.tscn" id="15_52uox"]
-[ext_resource type="PackedScene" uid="uid://ky17wl2bj1f1" path="res://core/scenes/set_elements/turn_right_button.tscn" id="16_ypx8k"]
-[ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="19_05vlo"]
-[ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="19_qs8fi"]
-[ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="24_05vlo"]
+[ext_resource type="Script" uid="uid://dwuvak5nlj3cc" path="res://core/scripts/level.gd" id="1_hm3ax"]
+[ext_resource type="Texture2D" uid="uid://cju1bsskns43r" path="res://core/assets/background/0_crystal_palace.jpg" id="2_drrfs"]
+[ext_resource type="Script" uid="uid://dqb10raqrdmmm" path="res://core/scripts/level_camera.gd" id="3_8uqsi"]
+[ext_resource type="AudioStream" uid="uid://cdcbumlt21tiu" path="res://core/assets/sounds/fx/black_spawn.wav" id="4_7bx1h"]
+[ext_resource type="AudioStream" uid="uid://b3d8ult005tcc" path="res://core/assets/sounds/fx/white_spawn.wav" id="5_koc5s"]
+[ext_resource type="AudioStream" uid="uid://bl2wopveer2kn" path="res://core/assets/sounds/fx/warning_sound.wav" id="6_x4boq"]
+[ext_resource type="AudioStream" uid="uid://cdlfo78wrwyoy" path="res://core/assets/sounds/fx/piep_warning.wav" id="7_5b41f"]
+[ext_resource type="AudioStream" uid="uid://c37tvmby081i6" path="res://core/assets/sounds/level_music/gameover.wav" id="8_6twkr"]
+[ext_resource type="AudioStream" uid="uid://dgcvu1lrd73fi" path="res://core/assets/sounds/fx/victory_fx.wav" id="9_pu3qn"]
+[ext_resource type="AudioStream" uid="uid://dn085gkcnei50" path="res://core/assets/sounds/level_music/Victory.ogg" id="10_tiikn"]
+[ext_resource type="PackedScene" uid="uid://5m7ldlu1mtar" path="res://core/entities/enemies/press.tscn" id="11_1wejj"]
+[ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="12_vfnlx"]
+[ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="13_sdsfl"]
+[ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="14_pkcu3"]
+[ext_resource type="PackedScene" uid="uid://blqa0ul40bdoy" path="res://core/entities/effects/mini_fire.tscn" id="15_m2d2b"]
+[ext_resource type="PackedScene" uid="uid://cfixxn52t2t6i" path="res://core/entities/effects/ancient_fire.tscn" id="16_b0ysj"]
+[ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="17_t2nl1"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="18_5c4ba"]
+[ext_resource type="PackedScene" uid="uid://dgsyuoff3ndoy" path="res://core/scenes/set_elements/coin.tscn" id="19_un7d6"]
+[ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="20_51amh"]
+[ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/theme_shop.tscn" id="21_t638o"]
+[ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/menu_button.tscn" id="22_edvoh"]
+[ext_resource type="PackedScene" uid="uid://ca6xso0mr3bqf" path="res://core/scenes/set_elements/pause_button.tscn" id="23_5gac2"]
+[ext_resource type="PackedScene" uid="uid://bt5kw3nc328a3" path="res://core/scenes/set_elements/turn_left_button.tscn" id="24_exbmq"]
+[ext_resource type="PackedScene" uid="uid://ky17wl2bj1f1" path="res://core/scenes/set_elements/turn_right_button.tscn" id="25_vte4o"]
+[ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="26_qms44"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(40, 1110)
@@ -40,7 +40,7 @@ size = Vector2(40, 100)
 size = Vector2(40, 100)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6obsd"]
-shader = ExtResource("24_05vlo")
+shader = ExtResource("17_t2nl1")
 shader_parameter/fog_color = Color(0.6766479, 0.842722, 0.99999994, 0.4)
 shader_parameter/speed = 2.0
 shader_parameter/density = 1.0
@@ -48,8 +48,8 @@ shader_parameter/density = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4o7b"]
 size = Vector2(720, 349)
 
-[node name="TestArea" type="Node2D" unique_id=792366202]
-script = ExtResource("1_3c2jl")
+[node name="GamePlayArea" type="Node2D" unique_id=792366202]
+script = ExtResource("1_hm3ax")
 
 [node name="LevelBackground" type="CanvasLayer" parent="." unique_id=1276224861]
 layer = -100
@@ -60,7 +60,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_ypx8k")
+texture = ExtResource("2_drrfs")
 expand_mode = 1
 stretch_mode = 6
 
@@ -70,37 +70,37 @@ limit_left = 0
 limit_top = 0
 limit_right = 720
 limit_bottom = 1280
-script = ExtResource("2_01iaf")
+script = ExtResource("3_8uqsi")
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="." unique_id=21811574]
 bus = &"BGM"
 
 [node name="BlackSpawn" type="AudioStreamPlayer" parent="." unique_id=1700399737]
-stream = ExtResource("4_6obsd")
+stream = ExtResource("4_7bx1h")
 bus = &"fx"
 
 [node name="WhiteSpawn" type="AudioStreamPlayer" parent="." unique_id=1624086760]
-stream = ExtResource("5_05vlo")
+stream = ExtResource("5_koc5s")
 bus = &"fx"
 
 [node name="ProximityWarning" type="AudioStreamPlayer" parent="." unique_id=1201150925]
-stream = ExtResource("4_t4y2j")
+stream = ExtResource("6_x4boq")
 bus = &"fx"
 
 [node name="WarningPiep" type="AudioStreamPlayer" parent="." unique_id=898659123]
-stream = ExtResource("7_c4e2t")
+stream = ExtResource("7_5b41f")
 bus = &"fx"
 
 [node name="LevelGameOverSound" type="AudioStreamPlayer" parent="." unique_id=1745005861]
-stream = ExtResource("4_f6opj")
+stream = ExtResource("8_6twkr")
 bus = &"fx"
 
 [node name="LevelVictoryFXs" type="AudioStreamPlayer" parent="." unique_id=1361461605]
-stream = ExtResource("7_q3bu8")
+stream = ExtResource("9_pu3qn")
 bus = &"fx"
 
 [node name="LevelVictoryMusic" type="AudioStreamPlayer" parent="." unique_id=1897559]
-stream = ExtResource("5_f6opj")
+stream = ExtResource("10_tiikn")
 bus = &"BGM"
 
 [node name="LevelStartTimer" type="Timer" parent="." unique_id=2008060520]
@@ -108,10 +108,10 @@ bus = &"BGM"
 [node name="WarningPiepTimer" type="Timer" parent="." unique_id=116311089]
 wait_time = 3.0
 
-[node name="Press" parent="." unique_id=287696895 instance=ExtResource("1_b72cg")]
+[node name="Press" parent="." unique_id=287696895 instance=ExtResource("11_1wejj")]
 position = Vector2(360, 47)
 
-[node name="Floor" parent="." unique_id=1662461556 instance=ExtResource("3_ovmqw")]
+[node name="Floor" parent="." unique_id=1662461556 instance=ExtResource("12_vfnlx")]
 position = Vector2(360, 1238)
 
 [node name="WarningLine" type="Line2D" parent="." unique_id=259418638]
@@ -120,7 +120,7 @@ points = PackedVector2Array(0, 0, 720, 0)
 width = 2.0
 default_color = Color(1, 0, 0, 0.78431374)
 
-[node name="Player" parent="." unique_id=1101960694 node_paths=PackedStringArray("charger") instance=ExtResource("2_ovmqw")]
+[node name="Player" parent="." unique_id=1101960694 node_paths=PackedStringArray("charger") instance=ExtResource("13_sdsfl")]
 position = Vector2(355, 1157)
 charger = NodePath("../Charger")
 
@@ -148,35 +148,35 @@ shape = SubResource("RectangleShape2D_1a3xw")
 position = Vector2(750, 1164)
 shape = SubResource("RectangleShape2D_t4y2j")
 
-[node name="Charger" parent="." unique_id=1260939654 instance=ExtResource("6_3c2jl")]
+[node name="Charger" parent="." unique_id=1260939654 instance=ExtResource("14_pkcu3")]
 position = Vector2(689, 47)
 rotation = 4.712389
 
 [node name="FxCrystalPalace" type="Node2D" parent="." unique_id=1335308552]
 visible = false
 
-[node name="MiniFire" parent="FxCrystalPalace" unique_id=1267859165 instance=ExtResource("11_61cah")]
+[node name="MiniFire" parent="FxCrystalPalace" unique_id=1267859165 instance=ExtResource("15_m2d2b")]
 position = Vector2(580, 1078)
 
-[node name="MiniFire2" parent="FxCrystalPalace" unique_id=550964648 instance=ExtResource("11_61cah")]
+[node name="MiniFire2" parent="FxCrystalPalace" unique_id=550964648 instance=ExtResource("15_m2d2b")]
 position = Vector2(646, 1104)
 
-[node name="MiniFire3" parent="FxCrystalPalace" unique_id=923202381 instance=ExtResource("11_61cah")]
+[node name="MiniFire3" parent="FxCrystalPalace" unique_id=923202381 instance=ExtResource("15_m2d2b")]
 position = Vector2(77, 1067)
 
 [node name="FxAncientRuins" type="Node2D" parent="." unique_id=1733441824]
 visible = false
 
-[node name="AncientFire" parent="FxAncientRuins" unique_id=1379302115 instance=ExtResource("10_61cah")]
+[node name="AncientFire" parent="FxAncientRuins" unique_id=1379302115 instance=ExtResource("16_b0ysj")]
 position = Vector2(98, 900)
 
-[node name="AncientFire2" parent="FxAncientRuins" unique_id=331888981 instance=ExtResource("10_61cah")]
+[node name="AncientFire2" parent="FxAncientRuins" unique_id=331888981 instance=ExtResource("16_b0ysj")]
 position = Vector2(658, 915)
 
-[node name="MiniFire" parent="FxAncientRuins" unique_id=720910771 instance=ExtResource("11_61cah")]
+[node name="MiniFire" parent="FxAncientRuins" unique_id=720910771 instance=ExtResource("15_m2d2b")]
 position = Vector2(650, 1083)
 
-[node name="MiniFire2" parent="FxAncientRuins" unique_id=635118482 instance=ExtResource("11_61cah")]
+[node name="MiniFire2" parent="FxAncientRuins" unique_id=635118482 instance=ExtResource("15_m2d2b")]
 position = Vector2(513, 1038)
 
 [node name="FogCanvas" type="CanvasLayer" parent="." unique_id=1643828985]
@@ -205,7 +205,7 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
 theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("11_nqyh5")
+theme_override_fonts/font = ExtResource("18_5c4ba")
 theme_override_font_sizes/font_size = 64
 text = "0"
 horizontal_alignment = 1
@@ -226,12 +226,12 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
 theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("11_nqyh5")
+theme_override_fonts/font = ExtResource("18_5c4ba")
 theme_override_font_sizes/font_size = 48
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Coin" parent="LevelCanvasLayer" unique_id=780510659 instance=ExtResource("12_2xyph")]
+[node name="Coin" parent="LevelCanvasLayer" unique_id=780510659 instance=ExtResource("19_un7d6")]
 visible = false
 anchors_preset = 2
 anchor_top = 1.0
@@ -243,13 +243,14 @@ offset_bottom = -128.0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Menu" parent="LevelCanvasLayer" unique_id=1506258400 instance=ExtResource("19_05vlo")]
+[node name="Menu" parent="LevelCanvasLayer" unique_id=1506258400 node_paths=PackedStringArray("theme_shop_ui") instance=ExtResource("20_51amh")]
+visible = false
+theme_shop_ui = NodePath("../ThemeShop")
+
+[node name="ThemeShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("21_t638o")]
 visible = false
 
-[node name="BodyShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("14_skvvx")]
-visible = false
-
-[node name="BodyShopButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("body_shop_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") instance=ExtResource("13_jyd58")]
+[node name="MenuButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") instance=ExtResource("22_edvoh")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
@@ -257,13 +258,14 @@ offset_right = 152.0
 offset_bottom = 152.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-body_shop_ui = NodePath("../Menu")
+menu_ui = NodePath("../Menu")
+theme_shop_ui = NodePath("../ThemeShop")
 pause_button = NodePath("../PauseButton")
 turn_left_button = NodePath("../TurnLeftButton")
 turn_right_button = NodePath("../TurnRightButton")
 level_label = NodePath("../LevelLabel")
 
-[node name="PauseButton" parent="LevelCanvasLayer" unique_id=126329662 instance=ExtResource("11_2xyph")]
+[node name="PauseButton" parent="LevelCanvasLayer" unique_id=126329662 instance=ExtResource("23_5gac2")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -276,7 +278,7 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TurnLeftButton" parent="LevelCanvasLayer" unique_id=1662244709 instance=ExtResource("15_52uox")]
+[node name="TurnLeftButton" parent="LevelCanvasLayer" unique_id=1662244709 instance=ExtResource("24_exbmq")]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -285,7 +287,7 @@ offset_right = 128.0
 offset_bottom = 238.0
 grow_vertical = 2
 
-[node name="TurnRightButton" parent="LevelCanvasLayer" unique_id=532990282 instance=ExtResource("16_ypx8k")]
+[node name="TurnRightButton" parent="LevelCanvasLayer" unique_id=532990282 instance=ExtResource("25_vte4o")]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -297,7 +299,7 @@ grow_vertical = 2
 [node name="MessageTimer" type="Timer" parent="." unique_id=1222788902]
 wait_time = 4.0
 
-[node name="SnowFX" parent="." unique_id=2105947159 instance=ExtResource("19_qs8fi")]
+[node name="SnowFX" parent="." unique_id=2105947159 instance=ExtResource("26_qms44")]
 
 [node name="WarningArea" type="Area2D" parent="." unique_id=1103354169]
 collision_layer = 48
@@ -324,6 +326,7 @@ position = Vector2(360, 516)
 
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_level_start_timer_timeout"]
 [connection signal="timeout" from="WarningPiepTimer" to="." method="_on_warning_piep_timer_timeout"]
+[connection signal="pressed" from="LevelCanvasLayer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="body_entered" from="WarningArea" to="." method="_on_warning_area_body_entered"]
 [connection signal="body_exited" from="WarningArea" to="." method="_on_warning_area_body_exited"]

@@ -6,12 +6,27 @@
 [ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="3_fmjsg"]
 [ext_resource type="AudioStream" uid="uid://brxmnqktum4un" path="res://core/assets/sounds/fx/menu_button_sound.wav" id="3_gq5u0"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="4_fmjsg"]
-[ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/body_shop.tscn" id="7_v8bwp"]
+[ext_resource type="Texture2D" uid="uid://b0ftb1kc8ywtw" path="res://core/assets/HUD/red_reset_button_1.png" id="7_3t435"]
+[ext_resource type="Texture2D" uid="uid://ivb7a7mkvhrg" path="res://core/assets/HUD/right_slide.png" id="7_f8k7b"]
+[ext_resource type="Texture2D" uid="uid://4w6bjos85std" path="res://core/assets/HUD/right_slide2.png" id="8_fy7ip"]
+[ext_resource type="Texture2D" uid="uid://ccj6clx7r2pti" path="res://core/assets/HUD/red_reset_button_2.png" id="8_kxn3t"]
+[ext_resource type="Texture2D" uid="uid://cjr0332ugb5fb" path="res://core/assets/HUD/slide_line.png" id="9_fy7ip"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_131mi"]
 load_path = "res://.godot/imported/menu_background.png-4dc388a3fb7c63332ed5cef501dda3c1.ctex"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lyax2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fr6rd"]
+texture = ExtResource("9_fy7ip")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_5uujt"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jwpvh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gq5u0"]
 
@@ -841,12 +856,6 @@ load_path = "res://.godot/imported/start_button_2.png-eb1b19e4ae99da15e84985587d
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3t435"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gq5u0"]
-load_path = "res://.godot/imported/start_button_1.png-aab09f1efcbf606205058586f4ca8bb8.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v8bwp"]
-load_path = "res://.godot/imported/start_button_2.png-eb1b19e4ae99da15e84985587d685b65.ctex"
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kxn3t"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3t435"]
@@ -879,9 +888,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lyax2")
-theme_shop_ui = NodePath("BodyShop")
+theme_shop_ui = NodePath("")
 
-[node name="BodyShopMusic" type="AudioStreamPlayer" parent="." unique_id=1180778385]
+[node name="MenuMusic" type="AudioStreamPlayer" parent="." unique_id=1180778385]
 stream = ExtResource("1_131mi")
 bus = &"BGM"
 
@@ -889,7 +898,7 @@ bus = &"BGM"
 stream = ExtResource("3_gq5u0")
 bus = &"fx"
 
-[node name="BodyShopRect" type="TextureRect" parent="." unique_id=1414606721]
+[node name="MenuRect" type="TextureRect" parent="." unique_id=1414606721]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -899,7 +908,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CompressedTexture2D_131mi")
 
-[node name="BodyShopScroll" type="ScrollContainer" parent="." unique_id=1084922207]
+[node name="MenuScroll" type="ScrollContainer" parent="." unique_id=1084922207]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -909,20 +918,19 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
-metadata/_edit_use_anchors_ = true
 
-[node name="BodyShopVBox" type="VBoxContainer" parent="BodyShopScroll" unique_id=703054992]
+[node name="MenuVBox" type="VBoxContainer" parent="MenuScroll" unique_id=703054992]
 custom_minimum_size = Vector2(0, 1280)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel1" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=87238395]
+[node name="Panel1" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=87238395]
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_lyax2")
 
-[node name="BGM" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel1" unique_id=223131980]
+[node name="BGM" type="TextureButton" parent="MenuScroll/MenuVBox/Panel1" unique_id=223131980]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -930,7 +938,7 @@ texture_normal = ExtResource("2_51b3p")
 texture_pressed = ExtResource("3_fmjsg")
 texture_disabled = ExtResource("3_fmjsg")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel1/BGM" unique_id=1456173329]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel1/BGM" unique_id=1456173329]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -949,12 +957,24 @@ text = "BGM Disable"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel2" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=630820430]
+[node name="BGMHSlider" type="HSlider" parent="MenuScroll/MenuVBox/Panel1" unique_id=1148967973]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_icons/grabber = ExtResource("7_f8k7b")
+theme_override_icons/grabber_highlight = ExtResource("8_fy7ip")
+theme_override_icons/grabber_disabled = ExtResource("7_f8k7b")
+theme_override_styles/slider = SubResource("StyleBoxTexture_fr6rd")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_5uujt")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_jwpvh")
+
+[node name="Panel2" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=630820430]
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_gq5u0")
 
-[node name="SFX" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel2" unique_id=1466583715]
+[node name="SFX" type="TextureButton" parent="MenuScroll/MenuVBox/Panel2" unique_id=1466583715]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -962,7 +982,7 @@ texture_normal = ExtResource("2_51b3p")
 texture_pressed = ExtResource("3_fmjsg")
 texture_disabled = ExtResource("3_fmjsg")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel2/SFX" unique_id=1567582803]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel2/SFX" unique_id=1567582803]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -981,12 +1001,24 @@ text = "SFX Disable"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel3" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=1524763138]
+[node name="SFXHSlider" type="HSlider" parent="MenuScroll/MenuVBox/Panel2" unique_id=1460345202]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_icons/grabber = ExtResource("7_f8k7b")
+theme_override_icons/grabber_highlight = ExtResource("8_fy7ip")
+theme_override_icons/grabber_disabled = ExtResource("7_f8k7b")
+theme_override_styles/slider = SubResource("StyleBoxTexture_fr6rd")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_5uujt")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_jwpvh")
+
+[node name="Panel3" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=1524763138]
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v8bwp")
 
-[node name="ThemeButton" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel3" unique_id=1900208063]
+[node name="ThemeButton" type="TextureButton" parent="MenuScroll/MenuVBox/Panel3" unique_id=1900208063]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -994,7 +1026,7 @@ texture_normal = SubResource("CompressedTexture2D_fmjsg")
 texture_pressed = SubResource("CompressedTexture2D_lyax2")
 texture_disabled = ExtResource("3_fmjsg")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel3/ThemeButton" unique_id=924805054]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel3/ThemeButton" unique_id=924805054]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1013,13 +1045,13 @@ text = "Theme Store"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel4" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=720945139]
+[node name="Panel4" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=720945139]
 visible = false
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_66y4d")
 
-[node name="SoundtrackButton" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel4" unique_id=1383452097]
+[node name="SoundtrackButton" type="TextureButton" parent="MenuScroll/MenuVBox/Panel4" unique_id=1383452097]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1027,7 +1059,7 @@ texture_normal = SubResource("CompressedTexture2D_fmjsg")
 texture_pressed = SubResource("CompressedTexture2D_lyax2")
 texture_disabled = ExtResource("3_fmjsg")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel4/SoundtrackButton" unique_id=710438567]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel4/SoundtrackButton" unique_id=710438567]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1046,20 +1078,20 @@ text = "Soundtrack"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel5" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=1784878169]
+[node name="Panel5" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=1784878169]
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3t435")
 
-[node name="ResetButton" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel5" unique_id=859188994]
+[node name="ResetButton" type="TextureButton" parent="MenuScroll/MenuVBox/Panel5" unique_id=859188994]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = SubResource("CompressedTexture2D_gq5u0")
-texture_pressed = SubResource("CompressedTexture2D_v8bwp")
-texture_disabled = ExtResource("3_fmjsg")
+texture_normal = ExtResource("7_3t435")
+texture_pressed = ExtResource("8_kxn3t")
+texture_disabled = ExtResource("8_kxn3t")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel5/ResetButton" unique_id=1032155641]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel5/ResetButton" unique_id=1032155641]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1078,7 +1110,7 @@ text = "Reset Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ResetLabel" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel5" unique_id=217435849]
+[node name="ResetLabel" type="Label" parent="MenuScroll/MenuVBox/Panel5" unique_id=217435849]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("4_fmjsg")
@@ -1086,12 +1118,12 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel6" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=2094789794]
+[node name="Panel6" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=2094789794]
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kxn3t")
 
-[node name="BackButton" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel6" unique_id=73508686]
+[node name="BackButton" type="TextureButton" parent="MenuScroll/MenuVBox/Panel6" unique_id=73508686]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1099,7 +1131,7 @@ texture_normal = SubResource("CompressedTexture2D_3t435")
 texture_pressed = SubResource("CompressedTexture2D_kxn3t")
 texture_disabled = ExtResource("3_fmjsg")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel6/BackButton" unique_id=2017381321]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel6/BackButton" unique_id=2017381321]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1118,13 +1150,12 @@ text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel7" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=435036250]
-visible = false
+[node name="Panel7" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=435036250]
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_f8k7b")
 
-[node name="BuyButton" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel7" unique_id=1194326046]
+[node name="BuyButton" type="TextureButton" parent="MenuScroll/MenuVBox/Panel7" unique_id=1194326046]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1132,7 +1163,7 @@ texture_normal = SubResource("CompressedTexture2D_f8k7b")
 texture_pressed = SubResource("CompressedTexture2D_fy7ip")
 texture_disabled = ExtResource("3_fmjsg")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel7/BuyButton" unique_id=1865533072]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel7/BuyButton" unique_id=1865533072]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1151,12 +1182,12 @@ text = "Buy Ad-Free"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel8" type="PanelContainer" parent="BodyShopScroll/BodyShopVBox" unique_id=1770622310]
+[node name="Panel8" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=1770622310]
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fy7ip")
 
-[node name="ExitButton" type="TextureButton" parent="BodyShopScroll/BodyShopVBox/Panel8" unique_id=2010555185]
+[node name="ExitButton" type="TextureButton" parent="MenuScroll/MenuVBox/Panel8" unique_id=2010555185]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1164,7 +1195,7 @@ texture_normal = SubResource("CompressedTexture2D_66y4d")
 texture_pressed = SubResource("CompressedTexture2D_ghio1")
 texture_disabled = ExtResource("3_fmjsg")
 
-[node name="Label" type="Label" parent="BodyShopScroll/BodyShopVBox/Panel8/ExitButton" unique_id=416185258]
+[node name="Label" type="Label" parent="MenuScroll/MenuVBox/Panel8/ExitButton" unique_id=416185258]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1183,11 +1214,7 @@ text = "Exit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BodyShop" parent="." unique_id=1610804757 instance=ExtResource("7_v8bwp")]
-visible = false
-layout_mode = 1
-
-[connection signal="pressed" from="BodyShopScroll/BodyShopVBox/Panel3/ThemeButton" to="." method="_on_theme_button_pressed"]
-[connection signal="pressed" from="BodyShopScroll/BodyShopVBox/Panel5/ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="BodyShopScroll/BodyShopVBox/Panel6/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="BodyShopScroll/BodyShopVBox/Panel8/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MenuScroll/MenuVBox/Panel3/ThemeButton" to="." method="_on_theme_button_pressed"]
+[connection signal="pressed" from="MenuScroll/MenuVBox/Panel5/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="MenuScroll/MenuVBox/Panel6/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MenuScroll/MenuVBox/Panel8/ExitButton" to="." method="_on_exit_button_pressed"]
