@@ -162,7 +162,7 @@ func _trigger_portal_sequence() -> void:
 	
 	# 3. Entrou no portal: toca áudio end_map e animação hud_fade_anim ("end_map")
 	if map_bgm and map_bgm.playing:
-		map_bgm.stop()
+		AudioManager.stop_with_fade_out(map_bgm, 1.0)
 		
 	if end_map_bgm and not GameManager.is_bgm_muted:
 		end_map_bgm.play()
