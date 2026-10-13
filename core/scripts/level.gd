@@ -231,6 +231,7 @@ func _start_warning_line_animation() -> void:
 
 func _apply_current_theme_visuals() -> void:
 	var theme = GameManager.get_current_theme()
+	var launcher_theme = GameManager.get_current_launcher_theme()
 	
 	if theme:
 		if is_instance_valid(background_sprite) and theme.background_texture:
@@ -240,11 +241,6 @@ func _apply_current_theme_visuals() -> void:
 			var press_sprite = press.find_child("PressSprite", true, false)
 			if press_sprite:
 				press_sprite.texture = theme.press_texture
-				
-		if is_instance_valid(player) and theme.launcher_texture:
-			var player_sprite = player.find_child("PlayerSprite", true, false)
-			if player_sprite:
-				player_sprite.texture = theme.launcher_texture
 				
 		if is_instance_valid(level_music) and theme.bgm_music:
 			level_music.stream = theme.bgm_music
@@ -264,9 +260,16 @@ func _apply_current_theme_visuals() -> void:
 		if is_instance_valid(fog_overlay):
 			fog_overlay.visible = is_sub_zero
 
+	# Aplica a textura do lançador atual proveniente do novo launcher_themes
+	if launcher_theme and is_instance_valid(player):
+		if launcher_theme.launcher_texture:
+			var player_sprite = player.find_child("PlayerSprite", true, false)
+			if player_sprite:
+				player_sprite.texture = launcher_theme.launcher_texture
+
 func set_fog_active(active: bool) -> void:
 	var theme = GameManager.get_current_theme()
-	var is_sub_zero = (theme and theme.theme_id == "mini_plasma")
+	var is_sub_zero = (theme and theme.theme_id == "sub_zero")
 	if is_instance_valid(fog_overlay):
 		fog_overlay.visible = active and is_sub_zero
 

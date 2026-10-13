@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djgpmgpu5ta0f"
-path="res://.godot/imported/crystal_palace_720x256_v2.png-9c2c8377e4103d08be67ac3e06adf39f.ctex"
+uid="uid://dl5xavonsh0cq"
+path="res://.godot/imported/0_marble_720x256_v2.png-0e3b0719c480ae4be91eac88189dbfb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/HUD/crystal_palace_720x256_v2.png"
-dest_files=["res://.godot/imported/crystal_palace_720x256_v2.png-9c2c8377e4103d08be67ac3e06adf39f.ctex"]
+source_file="res://core/assets/HUD/texture_path/0_marble_720x256_v2.png"
+dest_files=["res://.godot/imported/0_marble_720x256_v2.png-0e3b0719c480ae4be91eac88189dbfb0.ctex"]
 
 [params]
 

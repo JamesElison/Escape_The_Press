@@ -10,31 +10,31 @@ const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 
 var items_catalog: Array[Dictionary] = [
 	{
-		"id": "crystal_palace",
-		"title": "Crystal Palace",
-		"price": "N/A",
-		"texture_path": "res://core/assets/HUD/crystal_palace_720x256_v2.png",
+		"id": "marble",
+		"title": "Marble",
+		"price": "N/A",  # Padrão inicial
+		"texture_path": "res://core/assets/HUD/texture_path/0_marble_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/"
 	},
 	{
-		"id": "ancient_ruins",
-		"title": "Ancient Ruins",
-		"price": 0,
-		"texture_path": "res://core/assets/HUD/ancient_ruins_720x256.png",
+		"id": "120mm",
+		"title": "120mm",
+		"price": 0,   # Preço de exemplo para compra na lojinha
+		"texture_path": "res://core/assets/HUD/texture_path/1_120mm_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
-		"id": "heavy_metal",
-		"title": "Heavy Metal",
+		"id": "piercing",
+		"title": "Piercing",
 		"price": 0,
-		"texture_path": "res://core/assets/HUD/heavy_metal_720x256.png",
+		"texture_path": "res://core/assets/HUD/texture_path/2_piercing_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
-		"id": "sub_zero",
-		"title": "Sub Zero",
+		"id": "mini_plasma",
+		"title": "Mini Plasma",
 		"price": 0,
-		"texture_path": "res://core/assets/HUD/subzero_720x256_v2.png",
+		"texture_path": "res://core/assets/HUD/texture_path/3_mini_plasma_720x256_v2.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 	}
 ]
@@ -43,8 +43,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	
-	if not "crystal_palace" in GameManager.unlocked_launchers:
-		GameManager.unlocked_launchers.append("crystal_palace")
+	if not "marble" in GameManager.unlocked_launchers:
+		GameManager.unlocked_launchers.append("marble")
 		
 	populate_shop()
 
@@ -69,8 +69,14 @@ func _on_item_buy_requested(item_data: Dictionary) -> void:
 	var price = item_data.get("price", 0)
 	var item_id = item_data.get("id", "")
 	
+	# Garanta que preços "N/A" ou string não quebrem a lógica caso passem por aqui
+	if typeof(price) == TYPE_STRING:
+		price = 0
+		
 	if GameManager.remove_coins(price):
-		GameManager.unlocked_launchers.append(item_id)
+		if not item_id in GameManager.unlocked_launchers:
+			GameManager.unlocked_launchers.append(item_id)
+			
 		GameManager.equip_launcher_scenario(item_id)
 		refresh_all_items()
 		EventBus.launcher_changed.emit(item_id)
@@ -86,7 +92,7 @@ func _on_item_equip_requested(item_data: Dictionary) -> void:
 	_reload_game_play_area()
 
 func _reload_game_play_area() -> void:
-	# Recarrega a cena atual para aplicar as alterações de visual e velocidade do novo cenário
+	# Recarrega a cena atual para aplicar as alterações de visual do novo lançador
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 

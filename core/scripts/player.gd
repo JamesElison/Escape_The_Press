@@ -146,9 +146,9 @@ func _on_top_color_changed(color_idx: int) -> void:
 		color_tween.tween_property(laser_line, "default_color", target_color, 0.15)
 
 func update_launcher_sprite(_launcher_id: String = "") -> void:
-	var theme = GameManager.get_current_theme()
-	if theme and theme.launcher_texture:
-		player_sprite.texture = theme.launcher_texture
+	var launcher_theme = GameManager.get_current_launcher_theme()
+	if launcher_theme and launcher_theme.launcher_texture:
+		player_sprite.texture = launcher_theme.launcher_texture
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_control_enabled:

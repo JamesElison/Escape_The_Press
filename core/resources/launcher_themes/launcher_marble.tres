@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LauncherThemeData" format=3 uid="uid://b4xxa6ej4ah8g"]
+
+[ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="1_maxij"]
+[ext_resource type="AudioStream" uid="uid://cm7b8mq68n2hs" path="res://core/assets/sounds/fx/block_explode.wav" id="1_vd7m1"]
+[ext_resource type="AudioStream" uid="uid://tok6cewto0sf" path="res://core/assets/sounds/fx/ball_shoot.wav" id="2_77teh"]
+[ext_resource type="Texture2D" uid="uid://cgh6bk4jxglyl" path="res://core/assets/sprites/characters/player.png" id="3_k6b4v"]
+
+[resource]
+script = ExtResource("1_maxij")
+launcher_texture = ExtResource("3_k6b4v")
+hit_sound = ExtResource("2_77teh")
+explode_sound = ExtResource("1_vd7m1")
+metadata/_custom_type_script = "uid://bwk70f8ninqe"

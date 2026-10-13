@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh3t42j267dj2"
-path="res://.godot/imported/subzero_720x256_v2.png-e2d711c7b332925a6979e16aa7242009.ctex"
+uid="uid://dkcokp0pnbcvw"
+path="res://.godot/imported/2_piercing_720x256.png-15b47c18d3bc7b9b26e47375d88ad05b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/HUD/subzero_720x256_v2.png"
-dest_files=["res://.godot/imported/subzero_720x256_v2.png-e2d711c7b332925a6979e16aa7242009.ctex"]
+source_file="res://core/assets/HUD/texture_path/2_piercing_720x256.png"
+dest_files=["res://.godot/imported/2_piercing_720x256.png-15b47c18d3bc7b9b26e47375d88ad05b.ctex"]
 
 [params]
 

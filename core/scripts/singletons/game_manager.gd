@@ -7,16 +7,21 @@ var current_level: int = 1
 var press_speed: float = 2.0
 var coins: int = 0
 
-var unlocked_launchers: Array[String] = ["crystal_palace"]
-var equipped_launcher: String = "crystal_palace"
+# Lançadores (Itens equipáveis da lojinha)
+var unlocked_launchers: Array[String] = ["marble"]
+var equipped_launcher: String = "marble"
+
+# --- SISTEMA DE TEMA TEMPORÁRIO (TESTE) ---
+var temporary_launcher: String = ""  # Se preenchido, usa este lançador temporariamente
+var temporary_launcher_levels_remaining: int = 0  # Rodadas restantes para o teste
 
 # Armazena as configurações de áudio do jogador
 var is_bgm_muted: bool = false
 var is_sfx_muted: bool = false
-var bgm_volume_linear: float = 1.0  # Varia de 0.0 a 1.0
-var sfx_volume_linear: float = 1.0  # Varia de 0.0 a 1.0
+var bgm_volume_linear: float = 1.0  
+var sfx_volume_linear: float = 1.0  
 
-# Armazena o nível individual em que o jogador parou em cada lançador/cenário (de 1 a 45)
+# Armazena o nível individual em que o jogador parou em cada bioma/cenário (de 1 a 45)
 var launcher_level_progress: Dictionary = {
 	"crystal_palace": 1,
 	"ancient_ruins": 1,
@@ -24,29 +29,51 @@ var launcher_level_progress: Dictionary = {
 	"sub_zero": 1
 }
 
-# --- ORDEM DOS LANÇADORES/CENÁRIOS ---
+# --- ORDEM DOS CENÁRIOS (BIOMAS) PARA PROGRESSÃO DE MAPA ---
 const LAUNCHER_ORDER: Array[String] = ["crystal_palace", "ancient_ruins", "heavy_metal", "sub_zero"]
+var current_biome: String = "crystal_palace" # O bioma atual do mapa onde o jogador está jogando
 
 const SAVE_PATH: String = "user://game_save.dat"
 const END_GAME_SCENE_PATH: String = "res://core/scenes/levels/end_game_card.tscn"
 
-# Catálogo de temas carregados
-var themes_catalog: Dictionary = {}
+# Catálogos de Recursos
+var themes_catalog: Dictionary = {}          # Biomas (Cenários visuais e músicas de fundo)
+var launcher_themes_catalog: Dictionary = {} # Lançadores, Projéteis, Blocos e Sons
 
 func _ready() -> void:
 	_load_themes()
+	_load_launcher_themes()
 	load_game_data()
 
+# Carrega os biomas de cenário (ThemeData)
 func _load_themes() -> void:
 	themes_catalog["crystal_palace"] = load("res://core/resources/themes/theme_crystal_palace.tres")
 	themes_catalog["ancient_ruins"] = load("res://core/resources/themes/theme_ancient_ruins.tres")
 	themes_catalog["heavy_metal"] = load("res://core/resources/themes/theme_haevy_metal.tres")
 	themes_catalog["sub_zero"] = load("res://core/resources/themes/theme_sub_zero.tres")
 
+# Carrega os temas de lançadores da nova pasta dedicada (LauncherThemeData)
+func _load_launcher_themes() -> void:
+	launcher_themes_catalog["marble"] = load("res://core/resources/launcher_themes/launcher_marble.tres")
+	launcher_themes_catalog["120mm"] = load("res://core/resources/launcher_themes/launcher_120mm.tres")
+	launcher_themes_catalog["piercing"] = load("res://core/resources/launcher_themes/launcher_piercing.tres")
+	launcher_themes_catalog["mini_plasma"] = load("res://core/resources/launcher_themes/launcher_mini_plasma.tres")
+
+# Retorna o bioma/cenário atual baseado na progressão do mapa
 func get_current_theme() -> ThemeData:
-	if themes_catalog.has(equipped_launcher):
-		return themes_catalog[equipped_launcher]
+	if themes_catalog.has(current_biome):
+		return themes_catalog[current_biome]
 	return themes_catalog["crystal_palace"]
+
+# Retorna os dados visuais/sonoros do lançador/munição equipado (ou em teste temporário)
+func get_current_launcher_theme() -> LauncherThemeData:
+	var active_key = equipped_launcher
+	if temporary_launcher != "" and launcher_themes_catalog.has(temporary_launcher):
+		active_key = temporary_launcher
+		
+	if launcher_themes_catalog.has(active_key):
+		return launcher_themes_catalog[active_key]
+	return launcher_themes_catalog["marble"]
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
@@ -66,13 +93,22 @@ func remove_coins(amount: int) -> bool:
 		return true
 	return false
 
-# --- TROCA DE LANÇADOR (MODO TESTE E BODYSHOP) ---
+# --- TROCA DE LANÇADOR (BODYSHOP - PERMANENTE) ---
 func equip_launcher_scenario(launcher_id: String) -> void:
-	launcher_level_progress[equipped_launcher] = current_level
-	equipped_launcher = launcher_id
-	current_level = launcher_level_progress.get(launcher_id, 1)
-	_recalculate_press_speed()
-	save_game_data()
+	if launcher_themes_catalog.has(launcher_id):
+		equipped_launcher = launcher_id
+		temporary_launcher = ""
+		temporary_launcher_levels_remaining = 0
+		EventBus.launcher_changed.emit(equipped_launcher)
+		save_game_data()
+
+# --- TESTAR LANÇADOR TEMPORARIAMENTE POR X RODADAS ---
+func equip_temporary_launcher(launcher_id: String, rounds: int) -> void:
+	if launcher_themes_catalog.has(launcher_id):
+		temporary_launcher = launcher_id
+		temporary_launcher_levels_remaining = rounds
+		EventBus.launcher_changed.emit(temporary_launcher)
+		save_game_data()
 
 # --- CÁLCULO DA VELOCIDADE DA PRENSA ---
 func _recalculate_press_speed() -> void:
@@ -82,63 +118,64 @@ func _recalculate_press_speed() -> void:
 # A CENA MAP CHAMA ESTA FUNÇÃO: Define qual parada foi selecionada e salva
 func set_level_from_stop(stop_number: int) -> void:
 	current_level = clamp(stop_number, 1, 45)
-	launcher_level_progress[equipped_launcher] = current_level
+	launcher_level_progress[current_biome] = current_level
 	_recalculate_press_speed()
 	save_game_data()
 
 # --- PROGRESSÃO DE NÍVEL ---
 func reset_level_progress() -> void:
 	current_level = 1
-	launcher_level_progress[equipped_launcher] = 1
+	launcher_level_progress[current_biome] = 1
 	_recalculate_press_speed()
 	save_game_data()
 
 # Chamado quando o jogador vence a gameplay
 func advance_to_next_level() -> void:
 	if current_level >= 45:
-		# Ativa a flag e mantém o jogador na 45 temporariamente para ver a animação no mapa
 		just_beat_final_level = true
 		current_level = 45
-		launcher_level_progress[equipped_launcher] = 45
+		launcher_level_progress[current_biome] = 45
 	else:
 		current_level += 1
-		launcher_level_progress[equipped_launcher] = current_level
+		launcher_level_progress[current_biome] = current_level
 
 	_recalculate_press_speed()
 	add_coins(500)
+	
+	# Decrementa o teste temporário de lançador, se houver
+	if temporary_launcher_levels_remaining > 0:
+		temporary_launcher_levels_remaining -= 1
+		if temporary_launcher_levels_remaining <= 0:
+			temporary_launcher = ""
+			EventBus.launcher_changed.emit(equipped_launcher)
+
 	save_game_data()
 
 # Chamado pelo map.gd APÓS o player entrar no portal e a animação terminar
 func finalize_cycle_advancement() -> void:
 	just_beat_final_level = false
 	
-	# Verifica se completou o último bioma (sub_zero)
-	if equipped_launcher == "sub_zero":
-		_check_and_advance_scenario()
+	# Verifica se completou o último bioma
+	if current_biome == "sub_zero":
+		_check_and_advance_biome()
 		call_deferred("_change_to_end_game_scene")
 	else:
-		_check_and_advance_scenario()
+		_check_and_advance_biome()
 
 func _change_to_end_game_scene() -> void:
 	get_tree().change_scene_to_file(END_GAME_SCENE_PATH)
 
-# --- TROCA AUTOMÁTICA DE CENÁRIO/LANÇADOR NA VIRADA DE CICLO ---
-func _check_and_advance_scenario() -> void:
-	launcher_level_progress[equipped_launcher] = 1
+# --- TROCA AUTOMÁTICA DE BIOMA NA VIRADA DE CICLO ---
+func _check_and_advance_biome() -> void:
+	launcher_level_progress[current_biome] = 1
 
-	var current_index = LAUNCHER_ORDER.find(equipped_launcher)
+	var current_index = LAUNCHER_ORDER.find(current_biome)
 	if current_index != -1:
 		var next_index = (current_index + 1) % LAUNCHER_ORDER.size()
-		var next_launcher = LAUNCHER_ORDER[next_index]
-		
-		if not unlocked_launchers.has(next_launcher):
-			unlocked_launchers.append(next_launcher)
-			
-		equipped_launcher = next_launcher
+		current_biome = LAUNCHER_ORDER[next_index]
 		current_level = 1
-		launcher_level_progress[equipped_launcher] = 1
+		launcher_level_progress[current_biome] = 1
 
-		EventBus.launcher_changed.emit(equipped_launcher)
 		save_game_data()
 
 # --- CONTROLE DE ÁUDIO GLOBAL ---
@@ -171,7 +208,10 @@ func save_game_data() -> void:
 			"coins": coins,
 			"unlocked_launchers": unlocked_launchers,
 			"equipped_launcher": equipped_launcher,
+			"current_biome": current_biome,
 			"launcher_level_progress": launcher_level_progress,
+			"temporary_launcher": temporary_launcher,
+			"temporary_launcher_levels_remaining": temporary_launcher_levels_remaining,
 			"is_bgm_muted": is_bgm_muted,
 			"is_sfx_muted": is_sfx_muted,
 			"bgm_volume_linear": bgm_volume_linear,
@@ -188,12 +228,13 @@ func load_game_data() -> void:
 			if save_dict is Dictionary:
 				coins = save_dict.get("coins", 0)
 				
-				var raw_launchers = save_dict.get("unlocked_launchers", ["crystal_palace"])
+				var raw_launchers = save_dict.get("unlocked_launchers", ["marble"])
 				unlocked_launchers.clear()
 				for l in raw_launchers:
 					unlocked_launchers.append(str(l))
 					
-				equipped_launcher = save_dict.get("equipped_launcher", "crystal_palace")
+				equipped_launcher = save_dict.get("equipped_launcher", "marble")
+				current_biome = save_dict.get("current_biome", "crystal_palace")
 				launcher_level_progress = save_dict.get("launcher_level_progress", {
 					"crystal_palace": 1,
 					"ancient_ruins": 1,
@@ -201,13 +242,16 @@ func load_game_data() -> void:
 					"sub_zero": 1
 				})
 				
+				temporary_launcher = save_dict.get("temporary_launcher", "")
+				temporary_launcher_levels_remaining = save_dict.get("temporary_launcher_levels_remaining", 0)
+				
 				is_bgm_muted = save_dict.get("is_bgm_muted", false)
 				is_sfx_muted = save_dict.get("is_sfx_muted", false)
 				bgm_volume_linear = save_dict.get("bgm_volume_linear", 1.0)
 				sfx_volume_linear = save_dict.get("sfx_volume_linear", 1.0)
 				just_beat_final_level = save_dict.get("just_beat_final_level", false)
 				
-				current_level = launcher_level_progress.get(equipped_launcher, 1)
+				current_level = launcher_level_progress.get(current_biome, 1)
 				_recalculate_press_speed()
 				apply_audio_settings()
 
@@ -220,8 +264,11 @@ func reset_all_save_data() -> void:
 	current_level = 1
 	press_speed = 2.0
 	coins = 0
-	unlocked_launchers = ["crystal_palace"]
-	equipped_launcher = "crystal_palace"
+	unlocked_launchers = ["marble"]
+	equipped_launcher = "marble"
+	current_biome = "crystal_palace"
+	temporary_launcher = ""
+	temporary_launcher_levels_remaining = 0
 	is_bgm_muted = false
 	is_sfx_muted = false
 	bgm_volume_linear = 1.0

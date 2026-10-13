@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LauncherThemeData" format=3 uid="uid://c1frea07suf6c"]
+
+[ext_resource type="AudioStream" uid="uid://8qco0v1a1r0" path="res://core/assets/sounds/fx/specific_projectiles_sounds/2_piercing_type/block_explode.wav" id="1_bsdr4"]
+[ext_resource type="Texture2D" uid="uid://bar3eu6712fht" path="res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png" id="1_ih2by"]
+[ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="1_pojyp"]
+[ext_resource type="AudioStream" uid="uid://ikv0ex268xk7" path="res://core/assets/sounds/fx/specific_projectiles_sounds/2_piercing_type/ball_shoot.wav" id="2_04xhx"]
+
+[resource]
+script = ExtResource("1_pojyp")
+launcher_id = "piercing"
+launcher_name = "Piercing"
+launcher_texture = ExtResource("1_ih2by")
+hit_sound = ExtResource("2_04xhx")
+explode_sound = ExtResource("1_bsdr4")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/2_steel/"
+metadata/_custom_type_script = "uid://bwk70f8ninqe"

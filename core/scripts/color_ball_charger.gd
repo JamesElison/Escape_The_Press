@@ -27,10 +27,10 @@ func set_color_ball(val: int) -> void:
 			color_ball_sprite.texture = load(tex_path)
 
 func get_display_texture_path(color_idx: int) -> String:
-	var theme = GameManager.get_current_theme()
+	var launcher_theme = GameManager.get_current_launcher_theme()
 	var clamped_idx = clamp(color_idx, 0, DISPLAY_FILENAMES.size() - 1)
 	var filename = DISPLAY_FILENAMES[clamped_idx]
-	var full_path = theme.display_folder + filename
+	var full_path = launcher_theme.display_folder + filename
 	
 	if ResourceLoader.exists(full_path):
 		return full_path

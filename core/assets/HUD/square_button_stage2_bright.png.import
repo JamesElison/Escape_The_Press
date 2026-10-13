@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7a8ntvvc6krp"
-path="res://.godot/imported/ancient_ruins_720x256.png-5fbc4af865ccf7a69abf08ee0a380b48.ctex"
+uid="uid://cmg354ad5s3we"
+path="res://.godot/imported/square_button_stage2_bright.png-054aa34465d7e0d2ddb7e26f08ad7255.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/HUD/ancient_ruins_720x256.png"
-dest_files=["res://.godot/imported/ancient_ruins_720x256.png-5fbc4af865ccf7a69abf08ee0a380b48.ctex"]
+source_file="res://core/assets/HUD/square_button_stage2_bright.png"
+dest_files=["res://.godot/imported/square_button_stage2_bright.png-054aa34465d7e0d2ddb7e26f08ad7255.ctex"]
 
 [params]
 

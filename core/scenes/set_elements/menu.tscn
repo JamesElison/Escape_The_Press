@@ -7,8 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://brxmnqktum4un" path="res://core/assets/sounds/fx/menu_button_sound.wav" id="3_gq5u0"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="4_fmjsg"]
 [ext_resource type="Texture2D" uid="uid://b0ftb1kc8ywtw" path="res://core/assets/HUD/red_reset_button_1.png" id="7_3t435"]
-[ext_resource type="Texture2D" uid="uid://ivb7a7mkvhrg" path="res://core/assets/HUD/right_slide.png" id="7_f8k7b"]
-[ext_resource type="Texture2D" uid="uid://4w6bjos85std" path="res://core/assets/HUD/right_slide2.png" id="8_fy7ip"]
+[ext_resource type="Texture2D" uid="uid://b4lc6hk7aknrh" path="res://core/assets/HUD/right_slide.png" id="7_f8k7b"]
+[ext_resource type="Texture2D" uid="uid://bj2nfe7x2sd22" path="res://core/assets/HUD/right_slide2.png" id="8_fy7ip"]
 [ext_resource type="Texture2D" uid="uid://ccj6clx7r2pti" path="res://core/assets/HUD/red_reset_button_2.png" id="8_kxn3t"]
 [ext_resource type="Texture2D" uid="uid://cjr0332ugb5fb" path="res://core/assets/HUD/slide_line.png" id="9_fy7ip"]
 
@@ -19,14 +19,17 @@ load_path = "res://.godot/imported/menu_background.png-4dc388a3fb7c63332ed5cef50
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fr6rd"]
 texture = ExtResource("9_fy7ip")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
+texture_margin_left = 1.0
+texture_margin_top = 6.0
+texture_margin_right = 1.0
+texture_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_5uujt"]
+thickness = 8
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_jwpvh"]
+color = Color(0.40392157, 0.93333334, 0.9882353, 0.6509804)
+thickness = 8
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gq5u0"]
 

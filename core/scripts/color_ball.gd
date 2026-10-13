@@ -47,10 +47,10 @@ func set_color_ball(val) -> void:
 			color_ball_sprite.texture = load(tex_path)
 
 func get_projectile_texture_path(color_idx: int) -> String:
-	var theme = GameManager.get_current_theme()
+	var launcher_theme = GameManager.get_current_launcher_theme()
 	var clamped_idx = clamp(color_idx, 0, COLOR_FILENAMES.size() - 1)
 	var filename = COLOR_FILENAMES[clamped_idx]
-	var full_path = theme.projectile_folder + filename
+	var full_path = launcher_theme.projectile_folder + filename
 	
 	if ResourceLoader.exists(full_path):
 		return full_path
@@ -234,9 +234,9 @@ func destroy_with_anim() -> void:
 	is_exploding = true
 	speed = 0.0
 	
-	var theme = GameManager.get_current_theme()
-	if theme and theme.hit_sound:
-		GameManager.play_sfx_persistent(theme.hit_sound)
+	var launcher_theme = GameManager.get_current_launcher_theme()
+	if launcher_theme and launcher_theme.hit_sound:
+		GameManager.play_sfx_persistent(launcher_theme.hit_sound)
 	
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)

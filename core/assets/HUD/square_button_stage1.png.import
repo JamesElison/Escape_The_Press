@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvar3v2rfad5m"
-path="res://.godot/imported/heavy_metal_720x256.png-b481c5efb3d323a2c66550fdf32dd880.ctex"
+uid="uid://dw8m5x5xkgkm3"
+path="res://.godot/imported/square_button_stage1.png-c57cc623db97d4598899d510c3b098dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/HUD/heavy_metal_720x256.png"
-dest_files=["res://.godot/imported/heavy_metal_720x256.png-b481c5efb3d323a2c66550fdf32dd880.ctex"]
+source_file="res://core/assets/HUD/square_button_stage1.png"
+dest_files=["res://.godot/imported/square_button_stage1.png-c57cc623db97d4598899d510c3b098dd.ctex"]
 
 [params]
 

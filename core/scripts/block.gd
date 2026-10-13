@@ -39,8 +39,8 @@ const BRIGHT_FILENAMES = [
 ]
 
 func get_block_texture_path(idx: int, bright: bool = false) -> String:
-	var theme = GameManager.get_current_theme()
-	var folder = theme.block_folder
+	var launcher_theme = GameManager.get_current_launcher_theme()
+	var folder = launcher_theme.block_folder
 	var clamped_idx = clamp(idx, 0, COLOR_FILENAMES.size() - 1)
 	var filename = BRIGHT_FILENAMES[clamped_idx] if bright else COLOR_FILENAMES[clamped_idx]
 	
@@ -71,10 +71,13 @@ func _ready() -> void:
 	sync_to_physics = false
 
 func especific_fx() -> void:
-	if GameManager.equipped_launcher == "crystal_palace":
-		fluid_fx.show()
+	# Mantém a verificação de efeitos especiais baseada no lançador atual ou bioma
+	if GameManager.equipped_launcher == "marble":
+		if fluid_fx:
+			fluid_fx.show()
 	else:
-		fluid_fx.hide()
+		if fluid_fx:
+			fluid_fx.hide()
 
 func set_mystery(active: bool) -> void:
 	is_mystery_active = active
@@ -89,13 +92,13 @@ func set_mystery(active: bool) -> void:
 				block_anim.stop()
 
 func update_theme_sounds() -> void:
-	var theme = GameManager.get_current_theme()
-	if theme:
-		if theme.explode_sound:
+	var launcher_theme = GameManager.get_current_launcher_theme()
+	if launcher_theme:
+		if launcher_theme.explode_sound:
 			if block_explode_sound:
-				block_explode_sound.stream = theme.explode_sound
+				block_explode_sound.stream = launcher_theme.explode_sound
 			if block_explode_group_sound:
-				block_explode_group_sound.stream = theme.explode_sound
+				block_explode_group_sound.stream = launcher_theme.explode_sound
 
 func _physics_process(delta: float) -> void:
 	if droped_block and not has_landed:
@@ -171,7 +174,8 @@ func destroy_with_delay() -> void:
 		return
 	is_being_destroyed = true
 	
-	fluid_fx.hide()
+	if fluid_fx:
+		fluid_fx.hide()
 	
 	GameManager.add_coins(10)
 	spawn_particles()
