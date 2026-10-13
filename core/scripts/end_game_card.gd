@@ -39,5 +39,4 @@ func spawn_winner_particles() -> void:
 func _on_back_button_pressed() -> void:
 	if end_game_bgm and end_game_bgm.playing:
 		AudioManager.stop_with_fade_out(end_game_bgm, 1.0)
-	await end_game_bgm.finished
 	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")

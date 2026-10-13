@@ -5,6 +5,70 @@
 [ext_resource type="Texture2D" uid="uid://cagfsjel52a4u" path="res://core/assets/background/end_game_card.jpg" id="2_pdcjo"]
 [ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="4_dwdw3"]
 
+[sub_resource type="Animation" id="Animation_fhvbq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/CardFadeFX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HUD/CardBackground:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cj4s1"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/CardBackground:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_38dcn"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/CardFadeFX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dq04j"]
+_data = {
+&"RESET": SubResource("Animation_fhvbq"),
+&"fade_in": SubResource("Animation_cj4s1"),
+&"fade_out": SubResource("Animation_38dcn")
+}
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1tu0e"]
 load_path = "res://.godot/imported/start_button_1.png-aab09f1efcbf606205058586f4ca8bb8.ctex"
 
@@ -825,70 +889,6 @@ cache/0/28/0/glyphs/78/size = Vector2(18, 21)
 cache/0/28/0/glyphs/78/uv_rect = Rect2(100, 47, 18, 21)
 cache/0/28/0/glyphs/78/texture_idx = 0
 
-[sub_resource type="Animation" id="Animation_fhvbq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HUD/CardFadeFX:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HUD/CardBackground:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_cj4s1"]
-resource_name = "fade_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HUD/CardBackground:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_38dcn"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HUD/CardFadeFX:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dq04j"]
-_data = {
-&"RESET": SubResource("Animation_fhvbq"),
-&"fade_in": SubResource("Animation_cj4s1"),
-&"fade_out": SubResource("Animation_38dcn")
-}
-
 [node name="EndGameCard" type="Control" unique_id=864781940]
 layout_mode = 3
 anchors_preset = 0
@@ -908,6 +908,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_pdcjo")
+
+[node name="CardFadeFX" type="ColorRect" parent="HUD" unique_id=2071688046]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="CardFadeAnim" type="AnimationPlayer" parent="HUD" unique_id=1927939853]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_dq04j")
+
+[node name="WinnerMessageMarker" type="Marker2D" parent="HUD" unique_id=142836864]
+position = Vector2(360, 516)
 
 [node name="BackButton" type="TextureButton" parent="HUD" unique_id=24424312]
 anchors_preset = 7
@@ -945,21 +962,5 @@ theme_override_font_sizes/font_size = 28
 text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="CardFadeFX" type="ColorRect" parent="HUD" unique_id=2071688046]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="CardFadeAnim" type="AnimationPlayer" parent="HUD" unique_id=1927939853]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_dq04j")
-
-[node name="WinnerMessageMarker" type="Marker2D" parent="HUD" unique_id=142836864]
-position = Vector2(360, 516)
 
 [connection signal="pressed" from="HUD/BackButton" to="." method="_on_back_button_pressed"]
