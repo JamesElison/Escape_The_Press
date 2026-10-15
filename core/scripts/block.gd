@@ -24,8 +24,10 @@ var spawn_position: Vector2
 @onready var block_timer = $BlockTimer
 @onready var shine_timer = $ShineTimer
 @onready var block_anim = $BlockAnim
+@onready var coin_anim = $CoinAnim
 @onready var mystery_label = $MysteryLabel
 @onready var fluid_fx = $Fluid_Tube_Right
+
 
 const COLOR_FILENAMES = [
 	"red_block.png", "green_block.png", "blue_block.png", 
@@ -174,6 +176,8 @@ func destroy_with_delay() -> void:
 		return
 	is_being_destroyed = true
 	
+	coin_anim.play("coin_addition")
+	
 	if fluid_fx:
 		fluid_fx.hide()
 	
@@ -184,6 +188,7 @@ func destroy_with_delay() -> void:
 		block_sprite.hide()
 	if is_instance_valid(mystery_label):
 		mystery_label.hide()
+	
 	
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
@@ -398,6 +403,7 @@ func shift_down() -> void:
 		block_move_down_sound.play()
 		
 	play_impact_animation()
+	coin_anim.play("coin_subtraction")
 
 	var target_y = position.y + GRID_SIZE
 	var tween = create_tween()

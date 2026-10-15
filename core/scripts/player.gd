@@ -10,6 +10,7 @@ const SPEED = 1000.0
 
 @export var rotation_speed: float = 0.1
 @export var max_rotation_degrees: float = 75.0
+@export var shoot_cooldown: float = 0.9 # Tempo mínimo entre um tiro e outro (trava anti-rajada)
 
 const BALL_COLORS: Array[Color] = [
 	Color(0.95, 0.2, 0.2),   # 0: Red
@@ -37,6 +38,7 @@ var touch_target_x: float = 0.0
 var color_tween: Tween
 
 var is_control_enabled: bool = true
+var can_shoot: bool = true
 
 func _ready() -> void:
 	add_to_group("player")
@@ -224,7 +226,12 @@ func _physics_process(delta: float) -> void:
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			processing_shoot()
 
-func processing_shoot():
+func processing_shoot() -> void:
+	if not can_shoot:
+		return
+		
+	can_shoot = false
+
 	if player_ball_shoot:
 		player_ball_shoot.play()
 
@@ -248,6 +255,10 @@ func processing_shoot():
 	ball_shot.emit(current_color)
 	
 	reset_rotation()
+
+	var timer = get_tree().create_timer(shoot_cooldown)
+	await timer.timeout
+	can_shoot = true
 
 func die() -> void:
 	game_over.emit()

@@ -13,7 +13,7 @@ var items_catalog: Array[Dictionary] = [
 		"id": "marble",
 		"title": "Marble",
 		"price": "N/A",  # Padrão inicial
-		"texture_path": "res://core/assets/HUD/texture_path/0_marble_720x256_v2.png",
+		"texture_path": "res://core/assets/HUD/texture_path/0_marble_720x256_v2.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/"
 	},
 	{
@@ -34,7 +34,7 @@ var items_catalog: Array[Dictionary] = [
 		"id": "mini_plasma",
 		"title": "Mini Plasma",
 		"price": 0,
-		"texture_path": "res://core/assets/HUD/texture_path/3_mini_plasma_720x256_v2.png",
+		"texture_path": "res://core/assets/HUD/texture_path/3_mini_plasma_720x256_v2.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 	}
 ]

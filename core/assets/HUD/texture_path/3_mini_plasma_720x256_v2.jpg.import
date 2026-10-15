@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm5favqr48rt0"
-path="res://.godot/imported/ciano.png-5ebd243d7e7ee03e17a05a8cfdcf1297.ctex"
+uid="uid://c6q3et687p3ep"
+path="res://.godot/imported/3_mini_plasma_720x256_v2.jpg-c4516e42b44970ea4434cd8d85ae1796.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/ciano.png"
-dest_files=["res://.godot/imported/ciano.png-5ebd243d7e7ee03e17a05a8cfdcf1297.ctex"]
+source_file="res://core/assets/HUD/texture_path/3_mini_plasma_720x256_v2.jpg"
+dest_files=["res://.godot/imported/3_mini_plasma_720x256_v2.jpg-c4516e42b44970ea4434cd8d85ae1796.ctex"]
 
 [params]
 
