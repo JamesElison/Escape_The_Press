@@ -8,6 +8,7 @@ extends Resource
 
 @export_category("Launcher")
 @export var launcher_texture: Texture2D
+@export var launcher_map_texture: Texture2D
 
 @export_category("Sons")
 @export var hit_sound: AudioStream

@@ -25,6 +25,7 @@ extends Control
 @onready var snow_fx = $SnowFX
 
 var stop_sprites: Array[Node] = []
+var map_player_stoped = false
 
 const START_Y: float = 8760.0
 const SPACING_Y: float = 180.0
@@ -69,6 +70,14 @@ func _ready() -> void:
 	if current_level > 1 and previous_level != current_level:
 		await get_tree().create_timer(0.4).timeout
 		move_player_to_stop(current_level, 2.0)
+
+	# Conecta os sinais de map_play:
+	if is_instance_valid(map_player):
+		if not map_player.arrived_at_stop.is_connected(arrived_at_stop):
+			map_player.arrived_at_stop.connect(arrived_at_stop)
+		if not map_player.in_transit.is_connected(in_transit):
+			map_player.in_transit.connect(in_transit)
+
 
 func _check_portal_energy_stop_visibility() -> void:
 	if portal_energy_stop:
@@ -186,7 +195,16 @@ func update_camera_to_player() -> void:
 
 # Ao clicar no botão "Jogar"
 func _on_play_game_button_pressed() -> void:
-	if GameManager:
-		GameManager.set_level_from_stop(current_level)
-		
-	get_tree().change_scene_to_file("res://core/scenes/levels/game_play_area.tscn")
+	if map_player_stoped:
+		if GameManager:
+			GameManager.set_level_from_stop(current_level)
+			
+		get_tree().change_scene_to_file("res://core/scenes/levels/game_play_area.tscn")
+	else:
+		return
+
+func arrived_at_stop(_stop_area: Area2D) -> void:
+	map_player_stoped = true
+
+func in_transit(_stop_area: Area2D) -> void:
+	map_player_stoped = false

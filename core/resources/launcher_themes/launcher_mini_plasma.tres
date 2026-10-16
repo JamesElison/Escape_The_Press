@@ -4,12 +4,14 @@
 [ext_resource type="AudioStream" uid="uid://df1ityo8bx10b" path="res://core/assets/sounds/fx/specific_projectiles_sounds/3_mini_plasma_type/block_explode.wav" id="1_diy5s"]
 [ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="1_k4jk8"]
 [ext_resource type="AudioStream" uid="uid://cxrncuwg6vm8q" path="res://core/assets/sounds/fx/specific_projectiles_sounds/3_mini_plasma_type/ball_shoot.wav" id="2_8n5a4"]
+[ext_resource type="Texture2D" uid="uid://bxx74o5jnj8mj" path="res://core/assets/sprites/characters/launchers_for_sale/3_mini_plasma_type_top_down.png" id="3_8n5a4"]
 
 [resource]
 script = ExtResource("1_k4jk8")
 launcher_id = "mini_plasma"
 launcher_name = "Mini Plasma"
 launcher_texture = ExtResource("1_4paj3")
+launcher_map_texture = ExtResource("3_8n5a4")
 hit_sound = ExtResource("2_8n5a4")
 explode_sound = ExtResource("1_diy5s")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"

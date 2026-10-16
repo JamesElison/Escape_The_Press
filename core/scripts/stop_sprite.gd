@@ -35,9 +35,3 @@ func setup_state(current_level: int) -> void:
 		# Níveis futuros (current_level + 1 até 45): Mostra apenas o vortex
 		stop_vortex.visible = true
 		stop_energy_stop.visible = false
-
-func _on_stop_area_area_entered(area: Area2D) -> void:
-	pass
-
-func _on_stop_area_area_exited(area: Area2D) -> void:
-	pass

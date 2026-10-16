@@ -15,8 +15,12 @@ func _ready() -> void:
 	if card_bgm and not GameManager.is_bgm_muted:
 		card_bgm.play()
 	
-	await card_bgm.finished
-	card_fade_anim.play("fade_out")
+	if card_bgm and not GameManager.is_bgm_muted:
+		await card_bgm.finished
+		card_fade_anim.play("fade_out")
+	elif card_bgm and GameManager.is_bgm_muted:
+		await get_tree().create_timer(8).timeout
+		card_fade_anim.play("fade_out")
 	
 	await card_fade_anim.animation_finished
 	get_tree().change_scene_to_file("res://core/scenes/levels/Map.tscn")

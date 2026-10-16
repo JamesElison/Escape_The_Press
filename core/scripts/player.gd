@@ -232,8 +232,13 @@ func processing_shoot() -> void:
 		
 	can_shoot = false
 
-	if player_ball_shoot:
+	var launcher_theme = GameManager.get_current_launcher_theme()
+	if is_instance_valid(player_ball_shoot) and launcher_theme and launcher_theme.hit_sound:
+		player_ball_shoot.stream = launcher_theme.hit_sound
 		player_ball_shoot.play()
+
+	#if player_ball_shoot:
+		#player_ball_shoot.play()
 
 	EventBus.camera_shake_requested.emit(15.0, 0.15)
 

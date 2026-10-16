@@ -4,12 +4,14 @@
 [ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="1_tpmhb"]
 [ext_resource type="Texture2D" uid="uid://8co6jnn31b7h" path="res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png" id="1_yvl6g"]
 [ext_resource type="AudioStream" uid="uid://bki801oehx447" path="res://core/assets/sounds/fx/specific_projectiles_sounds/1_120mm_type/ball_shoot.wav" id="2_yrphs"]
+[ext_resource type="Texture2D" uid="uid://by6p4donqwdev" path="res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type_top_down.png" id="3_yrphs"]
 
 [resource]
 script = ExtResource("1_tpmhb")
 launcher_id = "120mm"
 launcher_name = "120mm"
 launcher_texture = ExtResource("1_yvl6g")
+launcher_map_texture = ExtResource("3_yrphs")
 hit_sound = ExtResource("2_yrphs")
 explode_sound = ExtResource("1_juevh")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"

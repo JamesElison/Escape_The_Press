@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://bar3eu6712fht" path="res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type.png" id="1_ih2by"]
 [ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="1_pojyp"]
 [ext_resource type="AudioStream" uid="uid://ikv0ex268xk7" path="res://core/assets/sounds/fx/specific_projectiles_sounds/2_piercing_type/ball_shoot.wav" id="2_04xhx"]
+[ext_resource type="Texture2D" uid="uid://r8eekk2f1oi" path="res://core/assets/sprites/characters/launchers_for_sale/2_piercing_type_top_down.png" id="3_04xhx"]
 
 [resource]
 script = ExtResource("1_pojyp")
 launcher_id = "piercing"
 launcher_name = "Piercing"
 launcher_texture = ExtResource("1_ih2by")
+launcher_map_texture = ExtResource("3_04xhx")
 hit_sound = ExtResource("2_04xhx")
 explode_sound = ExtResource("1_bsdr4")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
