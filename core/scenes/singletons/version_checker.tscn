@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bawcslu2fdi4u"]
+
+[ext_resource type="Script" uid="uid://b52ld0gwfctrc" path="res://core/scripts/singletons/version_checker.gd" id="1_togxq"]
+
+[node name="VersionChecker" type="Node" unique_id=467952812]
+script = ExtResource("1_togxq")

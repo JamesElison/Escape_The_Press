@@ -19,21 +19,21 @@ var items_catalog: Array[Dictionary] = [
 	{
 		"id": "120mm",
 		"title": "120mm",
-		"price": 0,   # Preço de exemplo para compra na lojinha
+		"price": 35000,   # Preço de exemplo para compra na lojinha
 		"texture_path": "res://core/assets/HUD/texture_path/1_120mm_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
 		"id": "piercing",
 		"title": "Piercing",
-		"price": 0,
+		"price": 35000,
 		"texture_path": "res://core/assets/HUD/texture_path/2_piercing_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
 		"id": "mini_plasma",
 		"title": "Mini Plasma",
-		"price": 0,
+		"price": 35000,
 		"texture_path": "res://core/assets/HUD/texture_path/3_mini_plasma_720x256_v2.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 	}

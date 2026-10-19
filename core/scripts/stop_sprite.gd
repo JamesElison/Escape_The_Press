@@ -1,6 +1,7 @@
-extends Sprite2D
+extends Node2D
 
 @onready var stop_deactivation_sound: AudioStreamPlayer = $StopDeactivation
+@onready var stop_sprite: Sprite2D = $StopSprite
 @onready var stop_vortex: ColorRect = $StopVortex
 @onready var stop_energy_stop: AnimatedSprite2D = $StopEnergyStop
 @onready var stop_area: Area2D = $StopArea
@@ -9,7 +10,16 @@ extends Sprite2D
 var stop_number: int = 1
 
 func _ready() -> void:
+	# Atualiza a textura da prensa conforme o ThemeData ativo
+	update_stopsprite_texture()
+	
 	_update_label_from_name()
+
+func update_stopsprite_texture() -> void:
+	var theme = GameManager.get_current_launcher_theme()
+	if stop_sprite and theme and theme.stop_texture:
+		stop_sprite.texture = theme.stop_texture
+
 
 # Extrai o número do nó ("StopSprite_23" -> 23) e atualiza o texto do Label
 func _update_label_from_name() -> void:

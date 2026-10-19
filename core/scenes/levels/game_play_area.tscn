@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dgcvu1lrd73fi" path="res://core/assets/sounds/fx/victory_fx.wav" id="9_pu3qn"]
 [ext_resource type="AudioStream" uid="uid://dn085gkcnei50" path="res://core/assets/sounds/level_music/Victory.ogg" id="10_tiikn"]
 [ext_resource type="PackedScene" uid="uid://5m7ldlu1mtar" path="res://core/entities/enemies/press.tscn" id="11_1wejj"]
+[ext_resource type="AudioStream" uid="uid://cpnp8543owmwd" path="res://core/assets/sounds/fx/press_stop_count.wav" id="11_drrfs"]
 [ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="12_vfnlx"]
 [ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="13_sdsfl"]
 [ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="14_pkcu3"]
@@ -102,6 +103,9 @@ bus = &"fx"
 [node name="LevelVictoryMusic" type="AudioStreamPlayer" parent="." unique_id=1897559]
 stream = ExtResource("10_tiikn")
 bus = &"BGM"
+
+[node name="PressStopCount" type="AudioStreamPlayer" parent="." unique_id=2102498344]
+stream = ExtResource("11_drrfs")
 
 [node name="LevelStartTimer" type="Timer" parent="." unique_id=2008060520]
 

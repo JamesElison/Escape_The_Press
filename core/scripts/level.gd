@@ -10,6 +10,7 @@ const WINNER_PARTICLES_SCENE = preload("res://core/entities/effects/winner_parti
 @onready var level_game_over_sound = $LevelGameOverSound
 @onready var level_victory_fx = $LevelVictoryFXs
 @onready var level_victory_music = $LevelVictoryMusic
+@onready var press_stop_count = $PressStopCount
 @onready var level_start_timer = $LevelStartTimer
 @onready var warning_piep_timer =$WarningPiepTimer
 @onready var press = $Press
@@ -198,11 +199,14 @@ func freeze_press_for_duration(duration: float) -> void:
 
 	_update_freeze_ui()
 	freeze_timer.start()
+	if is_instance_valid(press_stop_count) and not press_stop_count.playing:
+		press_stop_count.play()
 
 func _on_freeze_timer_tick() -> void:
 	freeze_time_remaining -= 1
 	if freeze_time_remaining <= 0:
 		freeze_timer.stop()
+		press_stop_count.stop()
 		is_press_frozen = false
 		if is_instance_valid(press) and not level_cleared and not is_game_over:
 			press.press_active = true
@@ -232,16 +236,11 @@ func _start_warning_line_animation() -> void:
 func _apply_current_theme_visuals() -> void:
 	var theme = GameManager.get_current_theme()
 	var launcher_theme = GameManager.get_current_launcher_theme()
-	
+
 	if theme:
 		if is_instance_valid(background_sprite) and theme.background_texture:
 			background_sprite.texture = theme.background_texture
-			
-		if is_instance_valid(press) and theme.press_texture:
-			var press_sprite = press.find_child("PressSprite", true, false)
-			if press_sprite:
-				press_sprite.texture = theme.press_texture
-				
+
 		if is_instance_valid(level_music) and theme.bgm_music:
 			level_music.stream = theme.bgm_music
 
@@ -261,11 +260,17 @@ func _apply_current_theme_visuals() -> void:
 			fog_overlay.visible = is_sub_zero
 
 	# Aplica a textura do lançador atual proveniente do novo launcher_themes
-	if launcher_theme and is_instance_valid(player):
+	if is_instance_valid(player) and launcher_theme:
 		if launcher_theme.launcher_texture:
 			var player_sprite = player.find_child("PlayerSprite", true, false)
 			if player_sprite:
 				player_sprite.texture = launcher_theme.launcher_texture
+
+	# Aplica a textura da press atual proveniente do novo launcher_themes
+	if is_instance_valid(press) and launcher_theme:
+		var press_sprite = press.find_child("PressSprite", true, false)
+		if press_sprite:
+			press_sprite.texture = launcher_theme.press_texture
 
 func set_fog_active(active: bool) -> void:
 	var theme = GameManager.get_current_theme()
@@ -293,6 +298,9 @@ func complete_level() -> void:
 	
 	if is_instance_valid(freeze_timer):
 		freeze_timer.stop()
+	
+	if is_instance_valid(press_stop_count) and press_stop_count.playing:
+		press_stop_count.stop()
 	
 	if is_instance_valid(player) and player.has_method("set_controls_enabled"):
 		player.set_controls_enabled(false)

@@ -12,7 +12,7 @@ extends Resource
 @export var map_background: Texture2D
 @export var background_texture: Texture2D
 @export var floor_texture: Texture2D
-@export var press_texture: Texture2D
+#@export var press_texture: Texture2D
 
 
 @export_category("Músicas e Sons")

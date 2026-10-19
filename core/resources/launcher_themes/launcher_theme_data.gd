@@ -10,6 +10,10 @@ extends Resource
 @export var launcher_texture: Texture2D
 @export var launcher_map_texture: Texture2D
 
+@export_category("Press e Stop")
+@export var press_texture: Texture2D
+@export var stop_texture: Texture2D
+
 @export_category("Sons")
 @export var hit_sound: AudioStream
 @export var explode_sound: AudioStream

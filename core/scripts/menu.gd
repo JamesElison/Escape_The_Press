@@ -28,8 +28,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	
-	if not "crystal_palace" in GameManager.unlocked_launchers:
-		GameManager.unlocked_launchers.append("crystal_palace")
+	if not "marble" in GameManager.unlocked_launchers:
+		GameManager.unlocked_launchers.append("marble")
 	
 	# Configura os botões BGM e SFX como botões alternáveis (toggle)
 	if is_instance_valid(bgm_button):
@@ -165,7 +165,7 @@ func close() -> void:
 
 func _on_theme_button_pressed() -> void:
 	if menu_music and menu_music.playing:
-		AudioManager.stop_with_fade_out(menu_music, 1.0)
+		menu_music.stop()
 	
 	hide()
 	themeshop_opened.emit()

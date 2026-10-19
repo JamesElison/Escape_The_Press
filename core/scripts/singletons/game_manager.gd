@@ -7,6 +7,12 @@ var current_level: int = 1
 var press_speed: float = 2.0
 var coins: int = 0
 
+# --- CONTROLE DE ANÚNCIOS E VERSÃO PREMIUM ---
+var is_premium: bool = false  # Futura versão Premium (remove anúncios)
+var losses_since_last_ad: int = 0
+var wins_since_last_ad: int = 0
+var steps_since_last_reward: int = 0
+
 # Lançadores (Itens equipáveis da lojinha)
 var unlocked_launchers: Array[String] = ["marble"]
 var equipped_launcher: String = "marble"
@@ -93,6 +99,44 @@ func remove_coins(amount: int) -> bool:
 		return true
 	return false
 
+# --- GERENCIAMENTO DE ANÚNCIOS (ADMOB) ---
+# Chamado quando o jogador perde a partida
+func register_loss() -> bool:
+	if is_premium:
+		return false
+	
+	losses_since_last_ad += 1
+	if losses_since_last_ad >= 2:
+		losses_since_last_ad = 0
+		return true  # Hora de exibir Interstitial de Derrota
+	return false
+
+# Chamado quando o jogador vence a partida
+func register_win() -> bool:
+	if is_premium:
+		return false
+		
+	wins_since_last_ad += 1
+	if wins_since_last_ad >= 5:
+		wins_since_last_ad = 0
+		return true  # Hora de exibir Interstitial de Vitória
+	return false
+
+# Incrementa passos percorridos e verifica se atingiu o marco de 15 casas para anúncio de recompensa
+func add_steps_for_reward(steps: int = 1) -> bool:
+	if is_premium:
+		return false
+		
+	steps_since_last_reward += steps
+	if steps_since_last_reward >= 15:
+		steps_since_last_reward = 0
+		return true  # Hora de oferecer o Anúncio de Recompensa (2.000 coins)
+	return false
+
+# Recompensa o jogador com 2.000 moedas após assistir ao anúncio de recompensa
+func grant_ad_reward() -> void:
+	add_coins(2000)
+
 # --- TROCA DE LANÇADOR (BODYSHOP - PERMANENTE) ---
 func equip_launcher_scenario(launcher_id: String) -> void:
 	if launcher_themes_catalog.has(launcher_id):
@@ -140,7 +184,9 @@ func advance_to_next_level() -> void:
 		launcher_level_progress[current_biome] = current_level
 
 	_recalculate_press_speed()
-	add_coins(500)
+	
+	# Conta 1 passo percorrido para a regra das 15 casas de anúncio de recompensa
+	add_steps_for_reward(1)
 	
 	# Decrementa o teste temporário de lançador, se houver
 	if temporary_launcher_levels_remaining > 0:
@@ -206,6 +252,10 @@ func save_game_data() -> void:
 			"current_level": current_level,
 			"press_speed": press_speed,
 			"coins": coins,
+			"is_premium": is_premium,
+			"losses_since_last_ad": losses_since_last_ad,
+			"wins_since_last_ad": wins_since_last_ad,
+			"steps_since_last_reward": steps_since_last_reward,
 			"unlocked_launchers": unlocked_launchers,
 			"equipped_launcher": equipped_launcher,
 			"current_biome": current_biome,
@@ -227,6 +277,10 @@ func load_game_data() -> void:
 			var save_dict = file.get_var()
 			if save_dict is Dictionary:
 				coins = save_dict.get("coins", 0)
+				is_premium = save_dict.get("is_premium", false)
+				losses_since_last_ad = save_dict.get("losses_since_last_ad", 0)
+				wins_since_last_ad = save_dict.get("wins_since_last_ad", 0)
+				steps_since_last_reward = save_dict.get("steps_since_last_reward", 0)
 				
 				var raw_launchers = save_dict.get("unlocked_launchers", ["marble"])
 				unlocked_launchers.clear()
@@ -264,6 +318,10 @@ func reset_all_save_data() -> void:
 	current_level = 1
 	press_speed = 2.0
 	coins = 0
+	is_premium = false
+	losses_since_last_ad = 0
+	wins_since_last_ad = 0
+	steps_since_last_reward = 0
 	unlocked_launchers = ["marble"]
 	equipped_launcher = "marble"
 	current_biome = "crystal_palace"

@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://8co6jnn31b7h" path="res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type.png" id="1_yvl6g"]
 [ext_resource type="AudioStream" uid="uid://bki801oehx447" path="res://core/assets/sounds/fx/specific_projectiles_sounds/1_120mm_type/ball_shoot.wav" id="2_yrphs"]
 [ext_resource type="Texture2D" uid="uid://by6p4donqwdev" path="res://core/assets/sprites/characters/launchers_for_sale/1_120mm_type_top_down.png" id="3_yrphs"]
+[ext_resource type="Texture2D" uid="uid://dx36j44rwdrp7" path="res://core/assets/sprites/set_objects/specific_press/1_blue_press.png" id="5_8csmw"]
+[ext_resource type="Texture2D" uid="uid://dbgauu1x0mbkd" path="res://core/assets/background/stop/stop_blue.png" id="7_cy4c4"]
 
 [resource]
 script = ExtResource("1_tpmhb")
@@ -12,6 +14,8 @@ launcher_id = "120mm"
 launcher_name = "120mm"
 launcher_texture = ExtResource("1_yvl6g")
 launcher_map_texture = ExtResource("3_yrphs")
+press_texture = ExtResource("5_8csmw")
+stop_texture = ExtResource("7_cy4c4")
 hit_sound = ExtResource("2_yrphs")
 explode_sound = ExtResource("1_juevh")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"

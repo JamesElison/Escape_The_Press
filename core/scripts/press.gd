@@ -28,7 +28,7 @@ func _ready() -> void:
 		add_collision_exception_with(child)
 
 func update_press_texture() -> void:
-	var theme = GameManager.get_current_theme()
+	var theme = GameManager.get_current_launcher_theme()
 	if press_sprite and theme and theme.press_texture:
 		press_sprite.texture = theme.press_texture
 
