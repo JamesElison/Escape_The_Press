@@ -7,6 +7,7 @@ signal themeshop_opened
 @onready var menu_music = $MenuMusic
 @onready var menu_button_sound = $MenuButtonSound
 @onready var vbox_container = $MenuScroll/MenuVBox
+@onready var menu_glass = $MenuGlass
 
 # Botões de controle de som, sliders e navegação
 @onready var bgm_button = $MenuScroll/MenuVBox/Panel1/BGM
@@ -14,7 +15,7 @@ signal themeshop_opened
 @onready var sfx_button = $MenuScroll/MenuVBox/Panel2/SFX
 @onready var sfx_slider = $MenuScroll/MenuVBox/Panel2/SFXHSlider
 @onready var theme_button = $MenuScroll/MenuVBox/Panel3/ThemeButton
-@onready var sound_track_button = $MenuScroll/MenuVBox/Panel4/SoundtrackButton
+@onready var difficulty_button = $MenuScroll/MenuVBox/Panel4/DifficultyButton
 @onready var reset_button = $MenuScroll/MenuVBox/Panel5/ResetButton
 @onready var reset_label = $MenuScroll/MenuVBox/Panel5/ResetLabel
 @onready var back_button = $MenuScroll/MenuVBox/Panel6/BackButton
@@ -23,7 +24,15 @@ signal themeshop_opened
 @onready var buy_button_label = $MenuScroll/MenuVBox/Panel7/BuyButton/Label
 @onready var exit_button = $MenuScroll/MenuVBox/Panel8/ExitButton
 
+# Botões do DifficultyMenu:
+@onready var difficult_menu = $DifficultyMenu
+@onready var mode_label = $DifficultyMenu/ModeLabel
+@onready var easy_button = $DifficultyMenu/Panel1/EasyButton
+@onready var medium_button = $DifficultyMenu/Panel2/MediumButton
+@onready var hard_button = $DifficultyMenu/Panel3/HardButton
+
 @export var theme_shop_ui: Control
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -172,6 +181,7 @@ func close() -> void:
 	closed.emit()
 
 func _on_theme_button_pressed() -> void:
+	menu_button_sound.play()
 	if menu_music and menu_music.playing:
 		menu_music.stop()
 	
@@ -199,7 +209,80 @@ func _on_theme_button_pressed() -> void:
 		elif target_shop.has_method("toggle_shop"):
 			target_shop.toggle_shop()
 
+func _on_difficulty_button_pressed() -> void:
+	menu_button_sound.play()
+	
+	if GameManager.easy_difficulty_mode:
+		easy_button.disabled = true
+		medium_button.disabled = false
+		hard_button.disabled = false
+
+	elif GameManager.medium_difficulty_mode:
+		easy_button.disabled = false
+		medium_button.disabled = true
+		hard_button.disabled = false
+
+	elif GameManager.hard_difficulty_mode:
+		easy_button.disabled = false
+		medium_button.disabled = false
+		hard_button.disabled = true
+
+	if is_instance_valid(menu_glass) and is_instance_valid(difficult_menu):
+		menu_glass.show()
+		difficult_menu.show()
+
+# DifficultyMenu:
+func _on_easy_button_pressed() -> void:
+	if GameManager.easy_difficulty_mode:
+		return
+	else:
+		menu_button_sound.play()
+
+		if is_instance_valid(menu_glass) and is_instance_valid(difficult_menu) and is_instance_valid(mode_label):
+			menu_glass.hide()
+			difficult_menu.hide()
+			GameManager.easy_difficulty_mode = true
+			GameManager.medium_difficulty_mode = false
+			GameManager.hard_difficulty_mode = false
+			await get_tree().process_frame
+			GameManager.check_difficulty_mode()
+			mode_label.text = str("Easy Mode Selected")
+
+func _on_medium_button_pressed() -> void:
+	if GameManager.medium_difficulty_mode:
+		return
+	else:
+		menu_button_sound.play()
+
+		if is_instance_valid(menu_glass) and is_instance_valid(difficult_menu) and is_instance_valid(mode_label):
+			menu_glass.hide()
+			difficult_menu.hide()
+			GameManager.easy_difficulty_mode = false
+			GameManager.medium_difficulty_mode = true
+			GameManager.hard_difficulty_mode = false
+			await get_tree().process_frame
+			GameManager.check_difficulty_mode()
+			mode_label.text = str("Medium Mode Selected")
+
+func _on_hard_button_pressed() -> void:
+	if GameManager.hard_difficulty_mode:
+		return
+	else:
+		menu_button_sound.play()
+
+		if is_instance_valid(menu_glass) and is_instance_valid(difficult_menu) and is_instance_valid(mode_label):
+			menu_glass.hide()
+			difficult_menu.hide()
+			GameManager.easy_difficulty_mode = false
+			GameManager.medium_difficulty_mode = false
+			GameManager.hard_difficulty_mode = true
+			await get_tree().process_frame
+			GameManager.check_difficulty_mode()
+			mode_label.text = str("Hard Mode Selected")
+
+
 func _on_reset_button_pressed() -> void:
+	menu_button_sound.play()
 	GameManager.reset_all_save_data()
 	
 	if Engine.has_singleton("InAppManager") or get_node_or_null("/root/InAppManager") != null:

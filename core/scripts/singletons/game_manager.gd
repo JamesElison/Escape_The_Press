@@ -2,9 +2,14 @@ extends Node
 
 var just_beat_final_level: bool = false  # Flag de controle para a animação do portal no mapa
 
+# --- NÍVEIS DE DIFICULDADE GERENCIADOS POR MENU ---
+var easy_difficulty_mode = true
+var medium_difficulty_mode = false
+var hard_difficulty_mode = false
+
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
-var press_speed: float = 2.0
+var press_speed: float = 0.0
 var coins: int = 0
 
 # --- CONTROLE DE ANÚNCIOS E VERSÃO PREMIUM ---
@@ -48,6 +53,17 @@ func _ready() -> void:
 	_load_themes()
 	_load_launcher_themes()
 	load_game_data()
+	check_difficulty_mode()
+
+# --- CHECA O NÍVEL DE DIFICULDADE ---
+func check_difficulty_mode() -> void:
+	if easy_difficulty_mode:
+		press_speed = 2.0
+	elif medium_difficulty_mode:
+		press_speed = 3.0
+	elif hard_difficulty_mode:
+		press_speed = 4.0
+	_recalculate_press_speed()
 
 # Carrega os biomas de cenário (ThemeData)
 func _load_themes() -> void:
@@ -98,7 +114,7 @@ func remove_coins(amount: int) -> bool:
 	return false
 
 # --- GERENCIAMENTO DE ANÚNCIOS (ADMOB) ---
-# Chamado quando o jogador perde a partida
+# Chamado quando o jogador perde a partida (condição de 2 perdas)
 func register_loss() -> bool:
 	if is_premium:
 		return false
@@ -133,7 +149,13 @@ func equip_temporary_launcher(launcher_id: String, rounds: int) -> void:
 # --- CÁLCULO DA VELOCIDADE DA PRENSA ---
 func _recalculate_press_speed() -> void:
 	var level_in_cycle = clamp(current_level, 1, 45)
-	press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
+	
+	if easy_difficulty_mode:
+		press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
+	elif medium_difficulty_mode:
+		press_speed = 3.0 + ((level_in_cycle - 1) * 0.2)
+	elif hard_difficulty_mode:
+		press_speed = 4.0 + ((level_in_cycle - 1) * 0.25)
 
 # A CENA MAP CHAMA ESTA FUNÇÃO: Define qual parada foi selecionada e salva
 func set_level_from_stop(stop_number: int) -> void:
@@ -149,7 +171,7 @@ func reset_level_progress() -> void:
 	_recalculate_press_speed()
 	save_game_data()
 
-# Chamado quando o jogador vence a gameplay
+# Chamado quando o jogador vence a gameplay (Avança a fase e gerencia o tema temporário)
 func advance_to_next_level() -> void:
 	if current_level >= 45:
 		just_beat_final_level = true
@@ -221,6 +243,9 @@ func save_game_data() -> void:
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
 		var save_dict = {
+			"easy_difficulty_mode": easy_difficulty_mode,
+			"medium_difficulty_mode": medium_difficulty_mode,
+			"hard_difficulty_mode": hard_difficulty_mode,
 			"current_level": current_level,
 			"press_speed": press_speed,
 			"coins": coins,
@@ -246,6 +271,10 @@ func load_game_data() -> void:
 		if file:
 			var save_dict = file.get_var()
 			if save_dict is Dictionary:
+				easy_difficulty_mode = save_dict.get("easy_difficulty_mode", true)
+				medium_difficulty_mode = save_dict.get("medium_difficulty_mode", false)
+				hard_difficulty_mode = save_dict.get("hard_difficulty_mode", false)
+				
 				coins = save_dict.get("coins", 0)
 				is_premium = save_dict.get("is_premium", false)
 				losses_since_last_ad = save_dict.get("losses_since_last_ad", 0)
@@ -274,7 +303,7 @@ func load_game_data() -> void:
 				just_beat_final_level = save_dict.get("just_beat_final_level", false)
 				
 				current_level = launcher_level_progress.get(current_biome, 1)
-				_recalculate_press_speed()
+				check_difficulty_mode()
 				apply_audio_settings()
 
 func reset_all_save_data() -> void:
@@ -283,6 +312,9 @@ func reset_all_save_data() -> void:
 		if dir:
 			dir.remove("game_save.dat")
 
+	easy_difficulty_mode = true
+	medium_difficulty_mode = false
+	hard_difficulty_mode = false
 	current_level = 1
 	press_speed = 2.0
 	coins = 0
@@ -305,6 +337,7 @@ func reset_all_save_data() -> void:
 		"sub_zero": 1
 	}
 
+	check_difficulty_mode()
 	apply_audio_settings()
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)

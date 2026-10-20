@@ -3,7 +3,7 @@ extends Control
 @onready var map_bgm = $MapBGM
 @onready var bonus_sfx = $BonusSFX
 @onready var bonus_bgm = $BonusBGM
-@onready var end_map_bgm = $EndMapBgm
+@onready var end_map_bgm = $EndMapBGM
 @onready var map_background = $ScrollContainer/MapBackground
 @onready var scroll_container = $ScrollContainer
 
@@ -22,6 +22,7 @@ extends Control
 @onready var hud_fade_fx = $MapHUD/HUDFadeFX
 @onready var hud_fade_anim = $MapHUD/HUDFadeAnim
 @onready var message_label = $MapHUD/MessageLabel
+@onready var confirmation_dialog = $MapHUD/ConfirmationDialog
 
 # Variáveis de SnowFX:
 @onready var fog_overlay = $FogCanvas/FogOverlay
@@ -178,7 +179,7 @@ func _trigger_portal_sequence() -> void:
 		
 	if end_map_bgm and not GameManager.is_bgm_muted:
 		end_map_bgm.play()
-		await end_map_bgm.finished	
+		await end_map_bgm.finished
 		
 	if hud_fade_anim:
 		hud_fade_anim.play("fade_out")
@@ -227,26 +228,39 @@ func in_transit(_stop_area: Area2D) -> void:
 
 # --- POPUP PARA ASSISTIR ANÚNCIO DE RECOMPENSA ---
 func _show_rewarded_ad_prompt() -> void:
-	var accept_dialog = AcceptDialog.new()
-	accept_dialog.title = "Bônus de Moedas!"
-	accept_dialog.dialog_text = "Você chegou a uma casa especial! Deseja assistir a um pequeno vídeo para ganhar 2.000 moedas?"
-	accept_dialog.ok_button_text = "Assistir Vídeo"
+	confirmation_dialog.show()
 	
-	accept_dialog.confirmed.connect(func():
-		GameManager.save_game_data()
-		AdManager.show_rewarded()
-	)
-	
-	accept_dialog.canceled.connect(func():
-		GameManager.save_game_data()
-	)
-	
-	get_tree().root.add_child(accept_dialog)
-	accept_dialog.popup_centered()
+	if not confirmation_dialog.confirmed.is_connected(_on_confirmation_dialog_confirmed):
+		confirmation_dialog.confirmed.connect(_on_confirmation_dialog_confirmed)
+		
+	if not confirmation_dialog.canceled.is_connected(_on_confirmation_dialog_canceled):
+		confirmation_dialog.canceled.connect(_on_confirmation_dialog_canceled)
+
+func _on_confirmation_dialog_confirmed() -> void:
+	GameManager.save_game_data()
+	AdManager.show_rewarded()
+	_disconnect_confirmation_signals()
+
+func _on_confirmation_dialog_canceled() -> void:
+	GameManager.save_game_data()
+	_disconnect_confirmation_signals()
+
+func _disconnect_confirmation_signals() -> void:
+	if confirmation_dialog.confirmed.is_connected(_on_confirmation_dialog_confirmed):
+		confirmation_dialog.confirmed.disconnect(_on_confirmation_dialog_confirmed)
+	if confirmation_dialog.canceled.is_connected(_on_confirmation_dialog_canceled):
+		confirmation_dialog.canceled.disconnect(_on_confirmation_dialog_canceled)
 
 # --- SORTEIO E AVISO DE LANÇADOR TEMPORÁRIO (CASAS 10, 20, 30, 40) ---
 func _trigger_temporary_launcher_bonus() -> void:
-	var available_keys = GameManager.launcher_themes_catalog.keys()
+	var available_keys: Array = []
+	
+	# Filtra apenas os temas que NÃO são "marble" e que O JOGADOR AINDA NÃO COMPROU
+	for key in GameManager.launcher_themes_catalog.keys():
+		if key != "marble" and not key in GameManager.unlocked_launchers:
+			available_keys.append(key)
+			
+	# Se todos os temas já foram comprados (ou só sobrou o marble), não faz o sorteio temporário
 	if available_keys.is_empty():
 		return
 		

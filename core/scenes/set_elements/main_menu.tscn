@@ -145,7 +145,7 @@ theme_shop_ui = NodePath("../ThemeShop")
 [node name="ThemeShop" parent="HUD" unique_id=1610804757 instance=ExtResource("6_jn36a")]
 visible = false
 
-[node name="MenuButton" parent="HUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "play_game_button", "pause_button", "turn_left_button", "turn_right_button", "level_label") instance=ExtResource("4_ndiue")]
+[node name="MenuButton" parent="HUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "play_game_button", "pause_button", "turn_left_button", "turn_right_button", "level_label") groups=["top_menu"] instance=ExtResource("4_ndiue")]
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 152.0

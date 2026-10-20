@@ -323,10 +323,10 @@ func complete_level() -> void:
 	await level_victory_music.finished
 	
 	# --- VERIFICAÇÃO DE ANÚNCIO DE VITÓRIA (A cada 5 vitórias) ---
-	if GameManager.register_win():
-		AdManager.show_interstitial()
-		# Dá um tempinho breve para o interstitial carregar/exibir antes de mudar de cena
-		await get_tree().create_timer(0.5).timeout
+	#if GameManager.register_win():
+		#AdManager.show_interstitial()
+		## Dá um tempinho breve para o interstitial carregar/exibir antes de mudar de cena
+		#await get_tree().create_timer(0.5).timeout
 	
 	# Avança o nível no GameManager e salva
 	if GameManager:

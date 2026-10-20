@@ -253,7 +253,7 @@ theme_shop_ui = NodePath("../ThemeShop")
 [node name="ThemeShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("21_t638o")]
 visible = false
 
-[node name="MenuButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") instance=ExtResource("22_edvoh")]
+[node name="MenuButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") groups=["top_menu"] instance=ExtResource("22_edvoh")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
