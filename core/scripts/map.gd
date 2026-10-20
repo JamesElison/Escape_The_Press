@@ -209,8 +209,13 @@ func _on_play_game_button_pressed() -> void:
 func arrived_at_stop(_stop_area: Area2D) -> void:
 	map_player_stoped = true
 	
-	# --- VERIFICAÇÃO DE ANÚNCIO DE RECOMPENSA (A cada 15 casas percorridas) ---
-	if GameManager.steps_since_last_reward >= 15:
+	# --- ANÚNCIOS POR MARCO DE CASA (MAPA) ---
+	# (1) Interstitial nas casas 5, 10, 20, 25, 35 e 40
+	if current_level in [5, 10, 20, 25, 35, 40]:
+		AdManager.show_interstitial()
+		
+	# (2) Rewarded nas casas 15, 30 e 45
+	elif current_level in [15, 30, 45]:
 		_show_rewarded_ad_prompt()
 		
 	# --- VERIFICAÇÃO DE LANÇADOR TEMPORÁRIO (Casas 10, 20, 30 e 40) ---
@@ -224,21 +229,15 @@ func in_transit(_stop_area: Area2D) -> void:
 func _show_rewarded_ad_prompt() -> void:
 	var accept_dialog = AcceptDialog.new()
 	accept_dialog.title = "Bônus de Moedas!"
-	accept_dialog.dialog_text = "Você percorreu 15 casas! Deseja assistir a um pequeno vídeo para ganhar 2.000 moedas?"
+	accept_dialog.dialog_text = "Você chegou a uma casa especial! Deseja assistir a um pequeno vídeo para ganhar 2.000 moedas?"
 	accept_dialog.ok_button_text = "Assistir Vídeo"
 	
 	accept_dialog.confirmed.connect(func():
-		GameManager.steps_since_last_reward = 0
-		
-		if GameManager.wins_since_last_ad > 0:
-			GameManager.wins_since_last_ad -= 1
-			
 		GameManager.save_game_data()
 		AdManager.show_rewarded()
 	)
 	
 	accept_dialog.canceled.connect(func():
-		GameManager.steps_since_last_reward = 0
 		GameManager.save_game_data()
 	)
 	
@@ -247,24 +246,19 @@ func _show_rewarded_ad_prompt() -> void:
 
 # --- SORTEIO E AVISO DE LANÇADOR TEMPORÁRIO (CASAS 10, 20, 30, 40) ---
 func _trigger_temporary_launcher_bonus() -> void:
-	# Pega as chaves disponíveis no catálogo de temas de lançadores (ex: marble, 120mm, piercing, mini_plasma)
 	var available_keys = GameManager.launcher_themes_catalog.keys()
 	if available_keys.is_empty():
 		return
 		
-	# Sorteia aleatoriamente um lançador
 	available_keys.shuffle()
 	var chosen_theme = available_keys[0]
 	
-	# Equipa temporariamente por 1 rodada
 	GameManager.equip_temporary_launcher(chosen_theme, 1)
 	
-	# Exibe a mensagem no message_label
 	if message_label:
 		message_label.text = "Congratulations!!! You will play a round, with the theme " + chosen_theme
 		message_label.show()
 		
-	# Toca o bonus_sfx e o bonus_bgm simultaneamente
 	if bonus_sfx and not GameManager.is_sfx_muted:
 		bonus_sfx.play()
 		

@@ -18,6 +18,7 @@ signal themeshop_opened
 @onready var reset_button = $MenuScroll/MenuVBox/Panel5/ResetButton
 @onready var reset_label = $MenuScroll/MenuVBox/Panel5/ResetLabel
 @onready var back_button = $MenuScroll/MenuVBox/Panel6/BackButton
+@onready var buy_opition = $MenuScroll/MenuVBox/PanelSuperUser/BuyOpition
 @onready var buy_button = $MenuScroll/MenuVBox/Panel7/BuyButton
 @onready var buy_button_label = $MenuScroll/MenuVBox/Panel7/BuyButton/Label
 @onready var exit_button = $MenuScroll/MenuVBox/Panel8/ExitButton
@@ -30,6 +31,13 @@ func _ready() -> void:
 	
 	if not "marble" in GameManager.unlocked_launchers:
 		GameManager.unlocked_launchers.append("marble")
+		
+	# Popula o OptionButton com as casas de 1 a 45 para testes rápidos
+	if is_instance_valid(buy_opition):
+		buy_opition.clear()
+		for i in range(1, 46):
+			buy_opition.add_item("Casa " + str(i), i)
+		buy_opition.select(0) # Seleciona a primeira opção por padrão
 	
 	# Configura os botões BGM e SFX como botões alternáveis (toggle)
 	if is_instance_valid(bgm_button):
@@ -204,7 +212,15 @@ func _on_reset_button_pressed() -> void:
 
 func _on_buy_button_pressed() -> void:
 	menu_button_sound.play()
-	GameManager.set_level_from_stop(44)
+	
+	# Pega o número da casa selecionada diretamente no OptionButton (buy_opition)
+	var selected_level = 1
+	if is_instance_valid(buy_opition):
+		# O ID do item que guardamos é o próprio número da casa (1 a 45)
+		selected_level = buy_opition.get_item_id(buy_opition.selected)
+		
+	GameManager.set_level_from_stop(selected_level)
+	
 	get_tree().paused = false
 	if menu_music and menu_music.playing:
 		AudioManager.stop_with_fade_out(menu_music, 1.0)
