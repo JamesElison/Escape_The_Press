@@ -73,12 +73,15 @@ func _ready() -> void:
 	sync_to_physics = false
 
 func especific_fx() -> void:
-	# Mantém a verificação de efeitos especiais baseada no lançador atual
-	if is_instance_valid(fluid_fx):
-		if GameManager.equipped_launcher == "marble":
-			fluid_fx.show()
-		elif GameManager.equipped_launcher != "marble" or GameManager.temporary_launcher != "" and GameManager.launcher_themes_catalog.has(GameManager.temporary_launcher):
-			fluid_fx.hide()
+	
+	# Descobre qual é o ID do lançador ativo atualmente (considerando se é temporário ou permanente)
+	var active_launcher_id = GameManager.temporary_launcher if GameManager.temporary_launcher != "" else GameManager.equipped_launcher
+
+	# Mostra o efeito fluid_fx apenas se o lançador ativo for "marble":
+	if is_instance_valid(fluid_fx) and (active_launcher_id == "marble"):
+		fluid_fx.show()
+	else:
+		fluid_fx.hide()
 
 func set_mystery(active: bool) -> void:
 	is_mystery_active = active

@@ -4,9 +4,75 @@
 [ext_resource type="Texture2D" uid="uid://cgh6bk4jxglyl" path="res://core/assets/sprites/characters/player.png" id="1_xvqjg"]
 [ext_resource type="AudioStream" uid="uid://tok6cewto0sf" path="res://core/assets/sounds/fx/ball_shoot.wav" id="2_hk3lc"]
 [ext_resource type="PackedScene" uid="uid://dk3bbxmwhu4nk" path="res://core/entities/effects/player_jet.tscn" id="3_xjycu"]
+[ext_resource type="Texture2D" uid="uid://dg4drtlwq1kqw" path="res://core/assets/sprites/set_objects/explosionSmoke1.png" id="5_6u4v4"]
+[ext_resource type="Texture2D" uid="uid://brgm4eqpapnic" path="res://core/assets/sprites/set_objects/explosionSmoke2.png" id="6_cfpig"]
+[ext_resource type="Texture2D" uid="uid://hck4kj5ui2f5" path="res://core/assets/sprites/set_objects/explosionSmoke3.png" id="7_qaxpu"]
+[ext_resource type="Texture2D" uid="uid://baqkj4cxlqm7l" path="res://core/assets/sprites/set_objects/explosionSmoke4.png" id="8_mb5ab"]
+[ext_resource type="Texture2D" uid="uid://1rfot4ekol78" path="res://core/assets/sprites/set_objects/explosionSmoke5.png" id="9_h55a4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6ly5"]
 size = Vector2(24, 101)
+
+[sub_resource type="Animation" id="Animation_pfkbr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShootSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShootSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_5kti8"]
+resource_name = "shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShootSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.1, 0.16666667, 0.23333333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -200), Vector2(0, -242), Vector2(0, -258), Vector2(0, -258), Vector2(0, -258)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShootSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 0.1, 0.16666667, 0.23333333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [ExtResource("5_6u4v4"), ExtResource("6_cfpig"), ExtResource("7_qaxpu"), ExtResource("8_mb5ab"), ExtResource("9_h55a4")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xbvhq"]
+_data = {
+&"RESET": SubResource("Animation_pfkbr"),
+&"shoot": SubResource("Animation_5kti8")
+}
 
 [node name="Player" type="CharacterBody2D" unique_id=1101960694 groups=["player"]]
 collision_layer = 52
@@ -34,6 +100,9 @@ rotation = 0.7853982
 position = Vector2(0, -63)
 texture = ExtResource("1_xvqjg")
 
+[node name="ShootSprite" type="Sprite2D" parent="." unique_id=1535471039]
+position = Vector2(0, -200)
+
 [node name="PlayerShape" type="CollisionPolygon2D" parent="." unique_id=939365404]
 visible = false
 position = Vector2(0, -16)
@@ -58,5 +127,8 @@ collision_mask = 4096
 [node name="LaserLine" type="Line2D" parent="." unique_id=541704108]
 width = 2.0
 default_color = Color(1, 0, 0, 0.7372549)
+
+[node name="PlayerShootAnim" type="AnimationPlayer" parent="." unique_id=1999653420]
+libraries/ = SubResource("AnimationLibrary_xbvhq")
 
 [connection signal="body_entered" from="PlayerHealthArea" to="." method="_on_player_health_area_body_entered"]

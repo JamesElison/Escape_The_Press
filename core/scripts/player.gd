@@ -5,6 +5,7 @@ var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
 
 @onready var player_jet_right = $PlayerJetRight
 @onready var player_jet_left = $PlayerJetLeft
+@onready var player_shoot_anim = $PlayerShootAnim
 
 const SPEED = 1000.0
 
@@ -226,10 +227,11 @@ func _physics_process(delta: float) -> void:
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			processing_shoot()
 
+
 func processing_shoot() -> void:
 	if not can_shoot:
 		return
-		
+
 	can_shoot = false
 
 	var launcher_theme = GameManager.get_current_launcher_theme()
@@ -237,10 +239,14 @@ func processing_shoot() -> void:
 		player_ball_shoot.stream = launcher_theme.hit_sound
 		player_ball_shoot.play()
 
-	#if player_ball_shoot:
-		#player_ball_shoot.play()
+	# Descobre qual é o ID do lançador ativo atualmente (considerando se é temporário ou permanente)
+	var active_launcher_id = GameManager.temporary_launcher if GameManager.temporary_launcher != "" else GameManager.equipped_launcher
 
-	EventBus.camera_shake_requested.emit(15.0, 0.15)
+	# Dispara a animação "shoot" apenas se o lançador ativo for "120mm" ou "piercing"
+	if is_instance_valid(player_shoot_anim) and (active_launcher_id == "120mm" or active_launcher_id == "piercing"):
+		player_shoot_anim.play("shoot")
+
+	EventBus.camera_shake_requested.emit(40.0, 0.2)
 
 	var current_color = 0
 	if is_instance_valid(charger) and charger.has_method("pop_top_ball_color"):
