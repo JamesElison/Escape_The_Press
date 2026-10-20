@@ -25,6 +25,7 @@ EventBus="*uid://bkvgbda4meyi7"
 GameManager="*uid://b0fbqwgf6kpvk"
 InAppManager="*uid://bwfyuqggfpljq"
 AudioManager="*uid://cnvlwa2gg6qiq"
+AdManager="*uid://sjjhhrychlqb"
 
 [display]
 
@@ -33,6 +34,10 @@ window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/admob/plugin.cfg")
 
 [input]
 

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://60ry5x7ebcls" path="res://core/scripts/theme_shop.gd" id="1_f1gvs"]
 [ext_resource type="AudioStream" uid="uid://67ac0syai7r6" path="res://core/assets/sounds/level_music/theme_store_music.wav" id="2_81rll"]
 [ext_resource type="Texture2D" uid="uid://q78qpwkehunk" path="res://core/assets/HUD/menu_background.png" id="3_ahtvv"]
+[ext_resource type="PackedScene" uid="uid://dgsyuoff3ndoy" path="res://core/scenes/set_elements/coin.tscn" id="5_esbd5"]
 [ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="13_5cke0"]
 
 [node name="ThemeShop" type="Control" unique_id=1610804757]
@@ -41,6 +42,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 128.0
+offset_right = 8.0
+offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
@@ -60,3 +64,12 @@ layout_mode = 2
 
 [node name="ItemCard4" parent="ThemeShopScroll/ThemeShopVBox" unique_id=566244747 instance=ExtResource("13_5cke0")]
 layout_mode = 2
+
+[node name="Coin" parent="." unique_id=1411328589 instance=ExtResource("5_esbd5")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2

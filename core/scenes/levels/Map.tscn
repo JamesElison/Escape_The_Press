@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/theme_shop.tscn" id="12_dqgx4"]
 [ext_resource type="PackedScene" uid="uid://dbwav3lnryhm5" path="res://core/scenes/set_elements/play_game_button.tscn" id="13_7kyno"]
 [ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="14_40k83"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="14_dqgx4"]
 [ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="15_dqgx4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_portal"]
@@ -215,6 +216,12 @@ script = ExtResource("1_efgaw")
 
 [node name="MapBGM" type="AudioStreamPlayer" parent="." unique_id=1071539792]
 stream = ExtResource("2_vyo3s")
+bus = &"BGM"
+
+[node name="BonusSFX" type="AudioStreamPlayer" parent="." unique_id=701651432]
+bus = &"fx"
+
+[node name="BonusBGM" type="AudioStreamPlayer" parent="." unique_id=1032291172]
 bus = &"BGM"
 
 [node name="EndMapBGM" type="AudioStreamPlayer" parent="." unique_id=493814939]
@@ -448,6 +455,26 @@ color = Color(0, 0, 0, 1)
 
 [node name="HUDFadeAnim" type="AnimationPlayer" parent="MapHUD" unique_id=1520261709]
 libraries/ = SubResource("AnimationLibrary_7kyno")
+
+[node name="MessageLabel" type="Label" parent="MapHUD" unique_id=1634588910]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -140.0
+offset_right = 309.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.23137255, 0.23137255, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("14_dqgx4")
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FogCanvas" type="CanvasLayer" parent="." unique_id=251787266]
 

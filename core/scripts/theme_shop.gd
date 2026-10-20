@@ -80,6 +80,7 @@ func _on_item_buy_requested(item_data: Dictionary) -> void:
 		GameManager.equip_launcher_scenario(item_id)
 		refresh_all_items()
 		EventBus.launcher_changed.emit(item_id)
+		await get_tree().create_timer(0.3).timeout
 		close()
 		_reload_game_play_area()
 

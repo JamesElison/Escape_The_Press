@@ -1,7 +1,9 @@
 extends Control
 
 @onready var map_bgm = $MapBGM
-@onready var end_map_bgm = $EndMapBGM
+@onready var bonus_sfx = $BonusSFX
+@onready var bonus_bgm = $BonusBGM
+@onready var end_map_bgm = $EndMapBgm
 @onready var map_background = $ScrollContainer/MapBackground
 @onready var scroll_container = $ScrollContainer
 
@@ -19,6 +21,7 @@ extends Control
 # Variáveis de MapHUD:
 @onready var hud_fade_fx = $MapHUD/HUDFadeFX
 @onready var hud_fade_anim = $MapHUD/HUDFadeAnim
+@onready var message_label = $MapHUD/MessageLabel
 
 # Variáveis de SnowFX:
 @onready var fog_overlay = $FogCanvas/FogOverlay
@@ -71,7 +74,7 @@ func _ready() -> void:
 		await get_tree().create_timer(0.4).timeout
 		move_player_to_stop(current_level, 2.0)
 
-	# Conecta os sinais de map_play:
+	# Conecta os sinais de map_player:
 	if is_instance_valid(map_player):
 		if not map_player.arrived_at_stop.is_connected(arrived_at_stop):
 			map_player.arrived_at_stop.connect(arrived_at_stop)
@@ -175,7 +178,7 @@ func _trigger_portal_sequence() -> void:
 		
 	if end_map_bgm and not GameManager.is_bgm_muted:
 		end_map_bgm.play()
-		await end_map_bgm.finished
+		await end_map_bgm.finished	
 		
 	if hud_fade_anim:
 		hud_fade_anim.play("fade_out")
@@ -205,6 +208,65 @@ func _on_play_game_button_pressed() -> void:
 
 func arrived_at_stop(_stop_area: Area2D) -> void:
 	map_player_stoped = true
+	
+	# --- VERIFICAÇÃO DE ANÚNCIO DE RECOMPENSA (A cada 15 casas percorridas) ---
+	if GameManager.steps_since_last_reward >= 15:
+		_show_rewarded_ad_prompt()
+		
+	# --- VERIFICAÇÃO DE LANÇADOR TEMPORÁRIO (Casas 10, 20, 30 e 40) ---
+	if current_level in [10, 20, 30, 40]:
+		_trigger_temporary_launcher_bonus()
 
 func in_transit(_stop_area: Area2D) -> void:
 	map_player_stoped = false
+
+# --- POPUP PARA ASSISTIR ANÚNCIO DE RECOMPENSA ---
+func _show_rewarded_ad_prompt() -> void:
+	var accept_dialog = AcceptDialog.new()
+	accept_dialog.title = "Bônus de Moedas!"
+	accept_dialog.dialog_text = "Você percorreu 15 casas! Deseja assistir a um pequeno vídeo para ganhar 2.000 moedas?"
+	accept_dialog.ok_button_text = "Assistir Vídeo"
+	
+	accept_dialog.confirmed.connect(func():
+		GameManager.steps_since_last_reward = 0
+		
+		if GameManager.wins_since_last_ad > 0:
+			GameManager.wins_since_last_ad -= 1
+			
+		GameManager.save_game_data()
+		AdManager.show_rewarded()
+	)
+	
+	accept_dialog.canceled.connect(func():
+		GameManager.steps_since_last_reward = 0
+		GameManager.save_game_data()
+	)
+	
+	get_tree().root.add_child(accept_dialog)
+	accept_dialog.popup_centered()
+
+# --- SORTEIO E AVISO DE LANÇADOR TEMPORÁRIO (CASAS 10, 20, 30, 40) ---
+func _trigger_temporary_launcher_bonus() -> void:
+	# Pega as chaves disponíveis no catálogo de temas de lançadores (ex: marble, 120mm, piercing, mini_plasma)
+	var available_keys = GameManager.launcher_themes_catalog.keys()
+	if available_keys.is_empty():
+		return
+		
+	# Sorteia aleatoriamente um lançador
+	available_keys.shuffle()
+	var chosen_theme = available_keys[0]
+	
+	# Equipa temporariamente por 1 rodada
+	GameManager.equip_temporary_launcher(chosen_theme, 1)
+	
+	# Exibe a mensagem no message_label
+	if message_label:
+		message_label.text = "Congratulations!!! You will play a round, with the theme " + chosen_theme
+		message_label.show()
+		
+	# Toca o bonus_sfx e o bonus_bgm simultaneamente
+	if bonus_sfx and not GameManager.is_sfx_muted:
+		bonus_sfx.play()
+		
+	if bonus_bgm and not GameManager.is_bgm_muted:
+		bonus_bgm.play()

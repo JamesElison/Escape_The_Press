@@ -322,6 +322,12 @@ func complete_level() -> void:
 	# Aguarda 2.5 segundos para a animação/áudio de vitória terminar
 	await level_victory_music.finished
 	
+	# --- VERIFICAÇÃO DE ANÚNCIO DE VITÓRIA (A cada 5 vitórias) ---
+	if GameManager.register_win():
+		AdManager.show_interstitial()
+		# Dá um tempinho breve para o interstitial carregar/exibir antes de mudar de cena
+		await get_tree().create_timer(0.5).timeout
+	
 	# Avança o nível no GameManager e salva
 	if GameManager:
 		GameManager.advance_to_next_level()
@@ -389,6 +395,12 @@ func game_over() -> void:
 		level_game_over_sound.play()
 
 	await get_tree().create_timer(2.0).timeout
+
+	# --- VERIFICAÇÃO DE ANÚNCIO DE DERROTA (A cada 2 derrotas) ---
+	if GameManager.register_loss():
+		AdManager.show_interstitial()
+		await get_tree().create_timer(0.5).timeout
+
 	get_tree().change_scene_to_file("res://core/scenes/levels/Map.tscn")
 
 func _on_warning_area_body_entered(body: Node2D) -> void:

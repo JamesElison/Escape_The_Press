@@ -28,6 +28,9 @@ stretch_mode = 3
 
 [node name="PriceLabel" type="Label" parent="." unique_id=1979994642]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
+theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_0417t")
 theme_override_font_sizes/font_size = 32
 text = "Unconquered"
