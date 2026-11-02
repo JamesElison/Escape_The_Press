@@ -3,9 +3,9 @@ extends Node2D
 @onready var color_ball_sprite = $ColorBallSprite
 
 const DISPLAY_FILENAMES = [
-	"red_display.png", "green_display.png", "blue_display.png", 
+	"red_display.png", "green_display.png", "blue_display.png", "white_display.png",
 	"cyan_display.png", "magenta_display.png", "yellow_display.png",
-	"black_display.png", "white_display.png"
+	"black_display.png"
 ]
 
 @export var color_ball: int = 0: set = set_color_ball
@@ -65,7 +65,7 @@ func get_random_valid_color_index() -> int:
 		var block_y = snapped(block.global_position.y, 16.0)
 		if block_y in lowest_y_levels:
 			var idx: int = block.block_color
-			if idx >= 0 and idx < 6 and not idx in available_colors:
+			if idx >= 0 and idx != 3 and idx != 7 and not idx in available_colors:
 				available_colors.append(idx)
 
 	if not available_colors.is_empty():

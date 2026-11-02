@@ -12,6 +12,7 @@
 script = ExtResource("1_k4jk8")
 launcher_id = "mini_plasma"
 launcher_name = "Mini Plasma"
+block_particles = true
 launcher_texture = ExtResource("1_4paj3")
 launcher_map_texture = ExtResource("3_8n5a4")
 press_texture = ExtResource("5_je00t")

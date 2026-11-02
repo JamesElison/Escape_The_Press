@@ -91,7 +91,7 @@ func _check_portal_energy_stop_visibility() -> void:
 			portal_energy_stop.hide()
 
 func especific_fx() -> void:
-	if GameManager.equipped_launcher == "sub_zero":
+	if GameManager.current_biome == "sub_zero":
 		fog_overlay.show()
 		snow_fx.show()
 	else:

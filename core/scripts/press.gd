@@ -6,7 +6,7 @@ var press_active = false: set = set_press_active
 @onready var press_sprite = $PressSprite
 
 # Lê a velocidade direto do GameManager
-var speed: float = 3.0
+var speed: float
 
 func set_press_active(val: bool) -> void:
 	press_active = val

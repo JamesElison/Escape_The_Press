@@ -96,6 +96,19 @@ visible = false
 position = Vector2(-44, 29)
 rotation = 0.7853982
 
+[node name="SpecialProjectiles" type="Node2D" parent="." unique_id=1963359062]
+position = Vector2(0, -180)
+
+[node name="FlameCast" type="RayCast2D" parent="SpecialProjectiles" unique_id=875787398]
+target_position = Vector2(0, -1000)
+
+[node name="FlameLine" type="Line2D" parent="SpecialProjectiles" unique_id=1365253163]
+visible = false
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, -400)
+width = 150.0
+texture_mode = 1
+
 [node name="PlayerSprite" type="Sprite2D" parent="." unique_id=1451931167]
 position = Vector2(0, -63)
 texture = ExtResource("1_xvqjg")

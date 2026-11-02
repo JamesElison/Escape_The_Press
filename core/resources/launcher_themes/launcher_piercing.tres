@@ -12,6 +12,7 @@
 script = ExtResource("1_pojyp")
 launcher_id = "piercing"
 launcher_name = "Piercing"
+block_particles = true
 launcher_texture = ExtResource("1_ih2by")
 launcher_map_texture = ExtResource("3_04xhx")
 press_texture = ExtResource("5_igke5")

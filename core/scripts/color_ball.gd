@@ -12,9 +12,9 @@ var is_exploding: bool = false
 @onready var color_ball_anim = $ColorBallAnim
 
 const COLOR_FILENAMES = [
-	"red.png", "green.png", "blue.png", 
+	"red.png", "green.png", "blue.png", "white.png",
 	"cyan.png", "magenta.png", "yellow.png",
-	"black.png", "white.png"
+	"black.png"
 ]
 
 @export var color_ball = 0: set = set_color_ball
@@ -32,6 +32,10 @@ func apply_launcher_speed() -> void:
 		"piercing":
 			speed = 1500.0
 		"mini_plasma":
+			speed = 1500.0
+		"flame":
+			speed = 1500.0
+		"high_voltage":
 			speed = 1500.0
 		_:
 			speed = 1500.0
@@ -95,9 +99,9 @@ func _physics_process(delta: float) -> void:
 			
 			var b_color = collider.block_color
 			
-			# --- EFEITO DA BOLA BRANCA (ID 7) ---
-			# Atinge qualquer bloco do grid e congela a prensa por 10 segundos
-			if color_ball == 7:
+			# --- EFEITO DA BOLA BRANCA (ID 3) ---
+			# Atinge qualquer bloco do grid e congela/para a prensa por 10 segundos
+			if color_ball == 3:
 				var level_node = get_tree().current_scene
 				if level_node and level_node.has_method("freeze_press_for_duration"):
 					level_node.freeze_press_for_duration(10.0)
@@ -109,10 +113,10 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 
-			# --- EFEITO DA BOLA PRETA (ID 6) ---
-			# Ao acertar um bloco colorido (0 a 5), limpa todos os blocos do mapa com essa mesma cor
-			if color_ball == 6:
-				if b_color >= 0 and b_color <= 5:
+			# --- EFEITO DA BOLA PRETA (ID 7) ---
+			# Ao acertar um bloco colorido, limpa todos os blocos do mapa com essa mesma cor
+			if color_ball == 7:
+				if b_color >= 0 and b_color <= 6 and b_color != 3:
 					destroy_all_blocks_of_color(b_color)
 				elif collider.has_method("destroy_with_delay"):
 					collider.destroy_with_delay()
@@ -121,8 +125,8 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 
-			# --- SE O BLOCO ATINGIDO FOR K (6) OU W (7) ---
-			if b_color == 6:
+			# --- SE O BLOCO ATINGIDO FOR PRETO (7) OU BRANCO (3) ---
+			if b_color == 7:
 				destroy_all_blocks_of_color(self.color_ball)
 				if collider.has_method("destroy_with_delay"):
 					collider.destroy_with_delay()
@@ -131,7 +135,7 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 				
-			if b_color == 7:
+			if b_color == 3:
 				var level_node = get_tree().current_scene
 				if level_node and level_node.has_method("freeze_press_for_duration"):
 					level_node.freeze_press_for_duration(10.0)
@@ -153,8 +157,8 @@ func _physics_process(delta: float) -> void:
 				
 			var ball_is_rgb = color_ball in [0, 1, 2]
 			var block_is_rgb = b_color in [0, 1, 2]
-			var ball_is_cmy = color_ball in [3, 4, 5]
-			var block_is_cmy = b_color in [3, 4, 5]
+			var ball_is_cmy = color_ball in [4, 5, 6]
+			var block_is_cmy = b_color in [4, 5, 6]
 			
 			if (ball_is_rgb and block_is_rgb) or (ball_is_cmy and block_is_cmy):
 				var new_color = mix_colors(color_ball, b_color)
@@ -251,12 +255,12 @@ func mix_colors(c1: int, c2: int) -> int:
 	var pair = [c1, c2]
 	pair.sort()
 	
-	if pair == [0, 2]: return 4
-	if pair == [0, 1]: return 5
-	if pair == [1, 2]: return 3
+	if pair == [0, 2]: return 5
+	if pair == [0, 1]: return 6
+	if pair == [1, 2]: return 4
 	
-	if pair == [3, 4]: return 2
-	if pair == [3, 5]: return 1
-	if pair == [4, 5]: return 0
+	if pair == [4, 5]: return 2
+	if pair == [4, 6]: return 1
+	if pair == [5, 6]: return 0
 	
 	return -1

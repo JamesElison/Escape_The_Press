@@ -53,17 +53,8 @@ func _ready() -> void:
 	_load_themes()
 	_load_launcher_themes()
 	load_game_data()
-	check_difficulty_mode()
-
-# --- CHECA O NÍVEL DE DIFICULDADE ---
-func check_difficulty_mode() -> void:
-	if easy_difficulty_mode:
-		press_speed = 2.0
-	elif medium_difficulty_mode:
-		press_speed = 3.0
-	elif hard_difficulty_mode:
-		press_speed = 4.0
 	_recalculate_press_speed()
+
 
 # Carrega os biomas de cenário (ThemeData)
 func _load_themes() -> void:
@@ -78,6 +69,9 @@ func _load_launcher_themes() -> void:
 	launcher_themes_catalog["120mm"] = load("res://core/resources/launcher_themes/launcher_120mm.tres")
 	launcher_themes_catalog["piercing"] = load("res://core/resources/launcher_themes/launcher_piercing.tres")
 	launcher_themes_catalog["mini_plasma"] = load("res://core/resources/launcher_themes/launcher_mini_plasma.tres")
+	launcher_themes_catalog["flame"] = load("res://core/resources/launcher_themes/launcher_flame.tres")
+	launcher_themes_catalog["high_voltage"] = load("res://core/resources/launcher_themes/launcher_hig_voltage.tres")
+	launcher_themes_catalog["high_voltage"] = load("res://core/resources/launcher_themes/launcher_high_voltage.tres")
 
 # Retorna o bioma/cenário atual baseado na progressão do mapa
 func get_current_theme() -> ThemeData:
@@ -152,10 +146,13 @@ func _recalculate_press_speed() -> void:
 	
 	if easy_difficulty_mode:
 		press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
+		print("The press speed is: ", press_speed)
 	elif medium_difficulty_mode:
 		press_speed = 3.0 + ((level_in_cycle - 1) * 0.2)
+		print("The press speed is: ", press_speed)
 	elif hard_difficulty_mode:
 		press_speed = 4.0 + ((level_in_cycle - 1) * 0.25)
+		print("The press speed is: ", press_speed)
 
 # A CENA MAP CHAMA ESTA FUNÇÃO: Define qual parada foi selecionada e salva
 func set_level_from_stop(stop_number: int) -> void:
@@ -303,7 +300,7 @@ func load_game_data() -> void:
 				just_beat_final_level = save_dict.get("just_beat_final_level", false)
 				
 				current_level = launcher_level_progress.get(current_biome, 1)
-				check_difficulty_mode()
+				_recalculate_press_speed()
 				apply_audio_settings()
 
 func reset_all_save_data() -> void:
@@ -337,7 +334,7 @@ func reset_all_save_data() -> void:
 		"sub_zero": 1
 	}
 
-	check_difficulty_mode()
+	_recalculate_press_speed()
 	apply_audio_settings()
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)

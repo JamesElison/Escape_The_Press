@@ -158,9 +158,9 @@ func trigger_mystery_reward() -> void:
 		var charger_node = find_child("Charger", true, false)
 		if charger_node and charger_node.has_method("inject_special_balls"):
 			if randf() > 0.5:
-				charger_node.inject_special_balls(6, 1) # 1 bola preta
+				charger_node.inject_special_balls(7, 1) # 1 bola preta
 			else:
-				charger_node.inject_special_balls(7, 1) # 1 bola branca
+				charger_node.inject_special_balls(3, 1) # 1 bola branca
 	else:
 		var all_blocks = get_tree().get_nodes_in_group("blocks")
 		var valid_blocks: Array[Node2D] = []
@@ -171,7 +171,7 @@ func trigger_mystery_reward() -> void:
 		if not valid_blocks.is_empty():
 			var target_block = valid_blocks.pick_random()
 			var is_black = randf() > 0.5
-			var special_color = 6 if is_black else 7
+			var special_color = 7 if is_black else 3
 			
 			if "block_color" in target_block:
 				target_block.block_color = special_color

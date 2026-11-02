@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://blkqtq0hqji30" path="res://core/scenes/set_elements/menu.tscn" id="12_7kyno"]
 [ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/theme_shop.tscn" id="12_dqgx4"]
 [ext_resource type="PackedScene" uid="uid://dbwav3lnryhm5" path="res://core/scenes/set_elements/play_game_button.tscn" id="13_7kyno"]
+[ext_resource type="PackedScene" uid="uid://b563uli21oqdk" path="res://core/scenes/set_elements/difficult_menu.tscn" id="13_l5nes"]
 [ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="14_40k83"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="14_dqgx4"]
 [ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="15_dqgx4"]
@@ -424,7 +425,11 @@ visible = false
 [node name="ThemeShop" parent="MapHUD" unique_id=1610804757 instance=ExtResource("12_dqgx4")]
 visible = false
 
-[node name="MenuButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "play_game_button") instance=ExtResource("11_wuo5h")]
+[node name="DifficultyMenu" parent="MapHUD" unique_id=2072664241 node_paths=PackedStringArray("menu_ui") instance=ExtResource("13_l5nes")]
+visible = false
+menu_ui = NodePath("../Menu")
+
+[node name="MenuButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "difficulty_menu_ui", "play_game_button", "level_label") instance=ExtResource("11_wuo5h")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
@@ -435,7 +440,9 @@ size_flags_vertical = 4
 texture_normal = SubResource("CompressedTexture2D_40k83")
 menu_ui = NodePath("../Menu")
 theme_shop_ui = NodePath("../ThemeShop")
+difficulty_menu_ui = NodePath("../DifficultyMenu")
 play_game_button = NodePath("../PlayGameButton")
+level_label = NodePath("../MessageLabel")
 
 [node name="PlayGameButton" parent="MapHUD" unique_id=1552214462 instance=ExtResource("13_7kyno")]
 anchors_preset = 1

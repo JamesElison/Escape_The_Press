@@ -12,6 +12,7 @@
 script = ExtResource("1_tpmhb")
 launcher_id = "120mm"
 launcher_name = "120mm"
+block_particles = true
 launcher_texture = ExtResource("1_yvl6g")
 launcher_map_texture = ExtResource("3_yrphs")
 press_texture = ExtResource("5_8csmw")

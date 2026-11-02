@@ -3,6 +3,7 @@ extends AnimatableBody2D
 const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 const GRID_SIZE: float = 64.0
 const PARTICLES_SCENE = preload("res://core/entities/effects/block_explosion_particles.tscn")
+const BLOCK_ANIMATIONS_SCENE = preload("res://core/entities/effects/block_animations.tscn")
 
 var affected_block: bool = false: set = set_affected_block
 var droped_block: bool = false: set = set_droped_block
@@ -30,14 +31,14 @@ var spawn_position: Vector2
 
 
 const COLOR_FILENAMES = [
-	"red_block.png", "green_block.png", "blue_block.png", 
+	"red_block.png", "green_block.png", "blue_block.png", "white_block.png",
 	"cyan_block.png", "magenta_block.png", "yellow_block.png",
-	"black_block.png", "white_block.png"
+	"black_block.png"
 ]
 const BRIGHT_FILENAMES = [
-	"red_block_bright.png", "green_block_bright.png", "blue_block_bright.png", 
+	"red_block_bright.png", "green_block_bright.png", "blue_block_bright.png", "white_block.png",
 	"cyan_block_bright.png", "magenta_block_bright.png", "yellow_block_bright.png",
-	"black_block.png", "white_block.png"
+	"black_block.png"
 ]
 
 func get_block_texture_path(idx: int, bright: bool = false) -> String:
@@ -65,7 +66,9 @@ func _ready() -> void:
 		mystery_label.hide()
 		
 	if block_color == -1:
-		block_color = randi() % 6
+		# Cores padrão permitidas no grid (Exclui Branco [3] e Preto [7] que são especiais)
+		var valid_grid_colors = [0, 1, 2, 4, 5, 6]
+		block_color = valid_grid_colors[randi() % valid_grid_colors.size()]
 	else:
 		set_block_color(block_color)
 	
@@ -73,7 +76,6 @@ func _ready() -> void:
 	sync_to_physics = false
 
 func especific_fx() -> void:
-	
 	# Descobre qual é o ID do lançador ativo atualmente (considerando se é temporário ou permanente)
 	var active_launcher_id = GameManager.temporary_launcher if GameManager.temporary_launcher != "" else GameManager.equipped_launcher
 
@@ -184,35 +186,94 @@ func destroy_with_delay() -> void:
 		fluid_fx.hide()
 	
 	GameManager.add_coins(10)
-	spawn_particles()
+	
+	# Tenta executar a animação pronta do tema; se não houver, tenta as partículas padrão
+	if not play_block_animation():
+		spawn_particles()
 	
 	if block_sprite:
 		block_sprite.hide()
 	if is_instance_valid(mystery_label):
 		mystery_label.hide()
 	
-	
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	
+	# Atualiza o stream com o som do tema atual (se houver)
+	var launcher_theme = GameManager.get_current_launcher_theme()
 	if block_explode_sound:
+		if launcher_theme and launcher_theme.explode_sound:
+			block_explode_sound.stream = launcher_theme.explode_sound
+		else:
+			block_explode_sound.stream = null
+
+	# Só toca e aguarda se realmente existir um som configurado
+	if block_explode_sound and block_explode_sound.stream:
 		await get_tree().create_timer(0.10).timeout
 		block_explode_sound.play()
 		
+		play_impact_animation()
+		
+		var destroyed_position = global_position
+		contaminate_neighbors()
+		
+		await get_tree().create_timer(block_explode_sound.stream.get_length()).timeout
+		trigger_column_rise(destroyed_position)
+		queue_free()
+		return
+
 	play_impact_animation()
 	
 	var destroyed_position = global_position
 	contaminate_neighbors()
 	
-	if block_explode_sound and block_explode_sound.stream:
-		await get_tree().create_timer(block_explode_sound.stream.get_length()).timeout
-	else:
-		await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5).timeout
 		
 	trigger_column_rise(destroyed_position)
 	queue_free()
 
+func play_block_animation() -> bool:
+	var launcher_theme = GameManager.get_current_launcher_theme()
+	if not launcher_theme or launcher_theme.block_animation_name == "" or block_color < 0:
+		return false
+		
+	if not BLOCK_ANIMATIONS_SCENE:
+		return false
+		
+	var anim_container = BLOCK_ANIMATIONS_SCENE.instantiate()
+	get_tree().current_scene.add_child(anim_container)
+	anim_container.global_position = global_position
+	
+	# Oculta todos os AnimatedSprite2D inicialmente
+	for child in anim_container.get_children():
+		if child is AnimatedSprite2D:
+			child.hide()
+			
+	# Busca o AnimatedSprite2D correspondente à cor exata (0 a 7)
+	var color_str = str(block_color)
+	var target_sprite = anim_container.find_child(color_str, true, false)
+	
+	if not target_sprite or not target_sprite is AnimatedSprite2D:
+		anim_container.queue_free()
+		return false
+		
+	target_sprite.show()
+	
+	# Dispara a animação configurada no tema (ex: "4_hay" ou "5_vegetable")
+	var anim_name = launcher_theme.block_animation_name
+	if target_sprite.sprite_frames and target_sprite.sprite_frames.has_animation(anim_name):
+		target_sprite.play(anim_name)
+		target_sprite.animation_finished.connect(func(): anim_container.queue_free())
+		return true
+	else:
+		anim_container.queue_free()
+		return false
+
 func spawn_particles() -> void:
+	var launcher_theme = GameManager.get_current_launcher_theme()
+	if not launcher_theme or not launcher_theme.block_particles:
+		return
+		
 	if not PARTICLES_SCENE or block_color < 0:
 		return
 		

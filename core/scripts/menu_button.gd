@@ -1,9 +1,11 @@
 extends TextureButton
 
 signal themeshop_closed
+signal difficulty_menu_closed
 
 @export var menu_ui: Control  # Aponta para a tela de Menu
 @export var theme_shop_ui: Control # Aponta para a loja de temas (ThemeShop)
+@export var difficulty_menu_ui: Control # Aponta para o menu de dificuldade
 @export var play_game_button: Control
 @export var pause_button: Control
 @export var turn_left_button: Control
@@ -15,6 +17,7 @@ const ALPHA_FULL: float = 1.0
 
 var menu_avaliable = false
 var themeshop_avaliable = false
+var difficulty_menu_avaliable = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -28,12 +31,16 @@ func _ready() -> void:
 			menu_ui = get_node("../Menu")
 
 	if menu_ui:
-		if not menu_ui.opened.is_connected(_on_shop_opened):
-			menu_ui.opened.connect(_on_shop_opened)
-		if not menu_ui.closed.is_connected(_on_shop_closed):
-			menu_ui.closed.connect(_on_shop_closed)
+		if not menu_ui.opened.is_connected(_on_menu_opened):
+			menu_ui.opened.connect(_on_menu_opened)
+		if not menu_ui.closed.is_connected(_on_menu_closed):
+			menu_ui.closed.connect(_on_menu_closed)
 		if not menu_ui.themeshop_opened.is_connected(_on_themeshop_opened):
-				menu_ui.themeshop_opened.connect(_on_themeshop_opened)
+			menu_ui.themeshop_opened.connect(_on_themeshop_opened)
+		if not menu_ui.difficulty_menu_opened.is_connected(_on_difficulty_menu_opened):
+			menu_ui.difficulty_menu_opened.connect(_on_difficulty_menu_opened)
+		if not difficulty_menu_ui.difficulty_menu_closed.is_connected(_on_difficulty_menu_closed):
+			difficulty_menu_ui.difficulty_menu_closed.connect(_on_difficulty_menu_closed)
 
 	if not is_instance_valid(theme_shop_ui):
 		if get_parent() and get_parent().has_node("ThemeShop"):
@@ -41,6 +48,11 @@ func _ready() -> void:
 		elif get_node_or_null("../ThemeShop") != null:
 			theme_shop_ui = get_node("../ThemeShop")
 
+	if not is_instance_valid(difficulty_menu_ui):
+			if get_parent() and get_parent().has_node("DifficultyMenu"):
+				difficulty_menu_ui = get_parent().get_node("DifficultyMenu")
+			elif get_node_or_null("../DifficultyMenu") != null:
+				menu_ui = get_node("../DifficultyMenu")
 
 
 func set_alpha():
@@ -51,13 +63,13 @@ func set_alpha():
 		self_modulate.a = ALPHA_MUTED
 
 func _on_pressed() -> void:
-	if is_instance_valid(menu_ui) and is_instance_valid(theme_shop_ui):
-		if menu_ui.has_method("open") and menu_ui.has_method("close") and theme_shop_ui.has_method("close"):
-			if not menu_avaliable and not themeshop_avaliable:
+	if is_instance_valid(menu_ui) and is_instance_valid(theme_shop_ui) and is_instance_valid(difficulty_menu_ui):
+		if menu_ui.has_method("open") and menu_ui.has_method("close") and theme_shop_ui.has_method("close") and difficulty_menu_ui.has_method("close"):
+			if not menu_avaliable and not themeshop_avaliable and not difficulty_menu_avaliable:
 				menu_ui.open()
 				print("Open Menu")
 			
-			elif menu_avaliable and not themeshop_avaliable:
+			elif menu_avaliable and not themeshop_avaliable and not difficulty_menu_avaliable:
 				menu_ui.close()
 				print("Close Menu")
 			
@@ -67,8 +79,16 @@ func _on_pressed() -> void:
 				themeshop_avaliable = false
 				menu_ui.open()
 				print("Open Menu from theme shop")
+			
+			elif difficulty_menu_avaliable:
+				difficulty_menu_ui.close()
+				difficulty_menu_closed.emit()
+				difficulty_menu_avaliable = false
+				menu_ui.open()
+				print("Open Menu from difficulty menu")
+			
 
-func _on_shop_opened() -> void:
+func _on_menu_opened() -> void:
 	menu_avaliable = true
 	self_modulate.a = ALPHA_FULL
 	if play_game_button:
@@ -82,7 +102,7 @@ func _on_shop_opened() -> void:
 	if level_label:
 		level_label.visible = false
 
-func _on_shop_closed() -> void:
+func _on_menu_closed() -> void:
 	menu_avaliable = false
 	set_alpha()
 	if play_game_button:
@@ -100,3 +120,9 @@ func _on_shop_closed() -> void:
 
 func _on_themeshop_opened() -> void:
 	themeshop_avaliable = true
+
+func _on_difficulty_menu_opened() -> void:
+	difficulty_menu_avaliable = true
+
+func _on_difficulty_menu_closed() -> void:
+	difficulty_menu_avaliable = false

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="LauncherThemeData" format=3 uid="uid://i7t2qvt1pta8"]
+
+[ext_resource type="Texture2D" uid="uid://gkfllkarj8qa" path="res://core/assets/sprites/set_objects/specific_projectiles/4_flame_type/white_flame_tileable.png" id="1_v4kv8"]
+[ext_resource type="Texture2D" uid="uid://68kbcvmrbe4q" path="res://core/assets/sprites/characters/launchers_for_sale/4_flamethrower_type_top_down.png" id="3_1c86j"]
+[ext_resource type="Texture2D" uid="uid://5kgeuw4vmr7x" path="res://core/assets/sprites/characters/launchers_for_sale/4_flamethrower_type.png" id="4_5y6ca"]
+[ext_resource type="Texture2D" uid="uid://c5wg0l1gcvh2k" path="res://core/assets/background/stop/stop_yellow.png" id="5_myj54"]
+[ext_resource type="Texture2D" uid="uid://dqvn8vx3a2m6i" path="res://core/assets/sprites/set_objects/specific_press/4_yellow_press.png" id="5_p07k6"]
+[ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="6_v6xug"]
+
+[resource]
+script = ExtResource("6_v6xug")
+launcher_id = "flame"
+launcher_name = "flame"
+is_flamethrower = true
+flame_texture = ExtResource("1_v4kv8")
+launcher_texture = ExtResource("4_5y6ca")
+launcher_map_texture = ExtResource("3_1c86j")
+press_texture = ExtResource("5_p07k6")
+stop_texture = ExtResource("5_myj54")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/4_flame_type/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/4_flame_type/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/4_hay/"
+block_animation_name = "4_hay"
+metadata/_custom_type_script = "uid://bwk70f8ninqe"

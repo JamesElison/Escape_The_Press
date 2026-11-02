@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://b58llws2xmu6b" path="res://core/scenes/set_elements/theme_shop.tscn" id="21_t638o"]
 [ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/menu_button.tscn" id="22_edvoh"]
 [ext_resource type="PackedScene" uid="uid://ca6xso0mr3bqf" path="res://core/scenes/set_elements/pause_button.tscn" id="23_5gac2"]
+[ext_resource type="PackedScene" uid="uid://b563uli21oqdk" path="res://core/scenes/set_elements/difficult_menu.tscn" id="23_8uqsi"]
 [ext_resource type="PackedScene" uid="uid://bt5kw3nc328a3" path="res://core/scenes/set_elements/turn_left_button.tscn" id="24_exbmq"]
 [ext_resource type="PackedScene" uid="uid://ky17wl2bj1f1" path="res://core/scenes/set_elements/turn_right_button.tscn" id="25_vte4o"]
 [ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="26_qms44"]
@@ -106,6 +107,7 @@ bus = &"BGM"
 
 [node name="PressStopCount" type="AudioStreamPlayer" parent="." unique_id=2102498344]
 stream = ExtResource("11_drrfs")
+bus = &"fx"
 
 [node name="LevelStartTimer" type="Timer" parent="." unique_id=2008060520]
 
@@ -253,7 +255,15 @@ theme_shop_ui = NodePath("../ThemeShop")
 [node name="ThemeShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("21_t638o")]
 visible = false
 
-[node name="MenuButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") groups=["top_menu"] instance=ExtResource("22_edvoh")]
+[node name="DifficultyMenu" parent="LevelCanvasLayer" unique_id=2072664241 node_paths=PackedStringArray("menu_ui") instance=ExtResource("23_8uqsi")]
+visible = false
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 24.0
+offset_bottom = 24.0
+menu_ui = NodePath("../Menu")
+
+[node name="MenuButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "difficulty_menu_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") groups=["top_menu"] instance=ExtResource("22_edvoh")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
@@ -263,6 +273,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 menu_ui = NodePath("../Menu")
 theme_shop_ui = NodePath("../ThemeShop")
+difficulty_menu_ui = NodePath("../DifficultyMenu")
 pause_button = NodePath("../PauseButton")
 turn_left_button = NodePath("../TurnLeftButton")
 turn_right_button = NodePath("../TurnRightButton")

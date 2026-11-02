@@ -106,7 +106,7 @@ func get_targeted_bottom_color() -> int:
 		var block_y = snapped(block.global_position.y, 16.0)
 		if block_y in lowest_y_levels:
 			var idx: int = block.block_color
-			if idx >= 0 and idx < 6 and not idx in available_colors:
+			if idx >= 0 and idx != 3 and idx != 7 and not idx in available_colors:
 				available_colors.append(idx)
 
 	if not available_colors.is_empty():

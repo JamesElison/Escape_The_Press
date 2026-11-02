@@ -5,6 +5,9 @@ extends Resource
 @export_category("Identificação do Lançador")
 @export var launcher_id: String = "marble"
 @export var launcher_name: String = "Marble"
+@export var block_particles: bool = false # TRUE se os blocos devem se "esfarelar" ao explodir.
+@export var is_flamethrower: bool = false # TRUE se for o lança-chamas ou arma de feixe contínuo.
+@export var flame_texture: Texture2D
 
 @export_category("Launcher")
 @export var launcher_texture: Texture2D
@@ -29,3 +32,4 @@ extends Resource
 @export_category("Caminhos de Sprites dos Blocos")
 # Diretório base dos blocos no tabuleiro
 @export var block_folder: String = "res://core/assets/sprites/set_objects/"
+@export var block_animation_name: String
