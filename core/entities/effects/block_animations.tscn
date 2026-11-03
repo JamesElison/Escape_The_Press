@@ -462,7 +462,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -539,7 +539,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_75d43"]
@@ -619,7 +619,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -696,7 +696,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ngf2m"]
@@ -776,7 +776,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -853,7 +853,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r7vb8"]
@@ -933,7 +933,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1010,7 +1010,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n5430"]
@@ -1090,7 +1090,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1167,7 +1167,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gw1cb"]
@@ -1247,7 +1247,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1324,7 +1324,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ws85y"]
@@ -1404,7 +1404,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1481,7 +1481,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p3bfw"]
@@ -1561,7 +1561,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"4_hay",
-"speed": 48.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1638,7 +1638,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"5_vegetable",
-"speed": 48.0
+"speed": 24.0
 }]
 
 [node name="BlockAnimations" type="Node2D" unique_id=414541590]
@@ -1646,39 +1646,39 @@ animations = [{
 [node name="0" type="AnimatedSprite2D" parent="." unique_id=1922430867]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qhvy1")
-animation = &"4_hay"
+animation = &"5_vegetable"
 
 [node name="1" type="AnimatedSprite2D" parent="." unique_id=1528987778]
 visible = false
 sprite_frames = SubResource("SpriteFrames_75d43")
-animation = &"4_hay"
+animation = &"5_vegetable"
 
 [node name="2" type="AnimatedSprite2D" parent="." unique_id=197226688]
 visible = false
 sprite_frames = SubResource("SpriteFrames_ngf2m")
-animation = &"4_hay"
+animation = &"5_vegetable"
 
 [node name="3" type="AnimatedSprite2D" parent="." unique_id=157474341]
 visible = false
 sprite_frames = SubResource("SpriteFrames_r7vb8")
-animation = &"4_hay"
+animation = &"5_vegetable"
 
 [node name="4" type="AnimatedSprite2D" parent="." unique_id=197362541]
 visible = false
 sprite_frames = SubResource("SpriteFrames_n5430")
-animation = &"4_hay"
+animation = &"5_vegetable"
 
 [node name="5" type="AnimatedSprite2D" parent="." unique_id=350555016]
 visible = false
 sprite_frames = SubResource("SpriteFrames_gw1cb")
-animation = &"4_hay"
+animation = &"5_vegetable"
 
 [node name="6" type="AnimatedSprite2D" parent="." unique_id=2054735795]
 visible = false
 sprite_frames = SubResource("SpriteFrames_ws85y")
-animation = &"4_hay"
+animation = &"5_vegetable"
 
 [node name="7" type="AnimatedSprite2D" parent="." unique_id=1635171597]
 visible = false
 sprite_frames = SubResource("SpriteFrames_p3bfw")
-animation = &"4_hay"
+animation = &"5_vegetable"

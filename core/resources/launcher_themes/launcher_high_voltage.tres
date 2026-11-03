@@ -2,8 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://dilvbka4wcb3r" path="res://core/assets/sprites/characters/launchers_for_sale/5_high_voltage_type_top_down.png" id="1_ak383"]
 [ext_resource type="Texture2D" uid="uid://dxwhsig1nt8qe" path="res://core/assets/sprites/set_objects/specific_projectiles/5_high_voltage_type/white_zigzag_tileable.png" id="1_ihdrs"]
+[ext_resource type="AudioStream" uid="uid://3pfcnyjsirec" path="res://core/assets/sounds/fx/specific_projectiles_sounds/5_high_voltage/block_explode.wav" id="1_pf52b"]
 [ext_resource type="Texture2D" uid="uid://dwio81arlvb1g" path="res://core/assets/sprites/characters/launchers_for_sale/5_high_voltage_type.png" id="2_m2utg"]
 [ext_resource type="Texture2D" uid="uid://6sli0rpdhiev" path="res://core/assets/sprites/set_objects/specific_press/5_green_press.png" id="3_ihdrs"]
+[ext_resource type="AudioStream" uid="uid://vf5vjs0clb5a" path="res://core/assets/sounds/fx/specific_projectiles_sounds/5_high_voltage/ball_shoot.wav" id="3_yqvx4"]
 [ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="4_x4xnx"]
 [ext_resource type="Texture2D" uid="uid://d2emr048yp0pj" path="res://core/assets/background/stop/stop_green.png" id="5_m2utg"]
 
@@ -17,6 +19,8 @@ launcher_texture = ExtResource("2_m2utg")
 launcher_map_texture = ExtResource("1_ak383")
 press_texture = ExtResource("3_ihdrs")
 stop_texture = ExtResource("5_m2utg")
+hit_sound = ExtResource("3_yqvx4")
+explode_sound = ExtResource("1_pf52b")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/5_high_voltage_type/"
 display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/5_high_voltage_type/"
 block_folder = "res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/"

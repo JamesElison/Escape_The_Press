@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bb564w0rl0pib" path="res://core/assets/HUD/start_button_1.png" id="2_51b3p"]
 [ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="3_fmjsg"]
 [ext_resource type="AudioStream" uid="uid://brxmnqktum4un" path="res://core/assets/sounds/fx/menu_button_sound.wav" id="3_gq5u0"]
-[ext_resource type="Script" uid="uid://bjrfogt1hxkec" path="res://core/scripts/menu_scroll.gd" id="4_66y4d"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="4_fmjsg"]
 [ext_resource type="Texture2D" uid="uid://b0ftb1kc8ywtw" path="res://core/assets/HUD/red_reset_button_1.png" id="7_3t435"]
 [ext_resource type="Texture2D" uid="uid://b4lc6hk7aknrh" path="res://core/assets/HUD/right_slide.png" id="7_f8k7b"]
@@ -938,7 +937,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
 horizontal_scroll_mode = 0
-script = ExtResource("4_66y4d")
 
 [node name="MenuVBox" type="VBoxContainer" parent="MenuScroll" unique_id=703054992]
 custom_minimum_size = Vector2(0, 1280)

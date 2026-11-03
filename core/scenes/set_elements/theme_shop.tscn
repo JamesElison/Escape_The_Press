@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://60ry5x7ebcls" path="res://core/scripts/theme_shop.gd" id="1_f1gvs"]
 [ext_resource type="AudioStream" uid="uid://67ac0syai7r6" path="res://core/assets/sounds/level_music/theme_store_music.wav" id="2_81rll"]
 [ext_resource type="Texture2D" uid="uid://q78qpwkehunk" path="res://core/assets/HUD/menu_background.png" id="3_ahtvv"]
-[ext_resource type="Script" uid="uid://bjrfogt1hxkec" path="res://core/scripts/menu_scroll.gd" id="4_lqmwk"]
 [ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="13_5cke0"]
 
 [node name="ThemeShop" type="Control" unique_id=1610804757]
@@ -16,6 +15,7 @@ offset_left = 1.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_f1gvs")
 
@@ -28,18 +28,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -100.0
-offset_right = -100.0
-offset_bottom = 1620.0
+offset_bottom = 1720.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.3, 1.3)
 mouse_filter = 2
 texture = ExtResource("3_ahtvv")
 
 [node name="ThemeShopScroll" type="ScrollContainer" parent="." unique_id=859382942]
-custom_minimum_size = Vector2(720, 0)
+custom_minimum_size = Vector2(720, 1280)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,35 +43,48 @@ anchor_bottom = 1.0
 offset_right = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+focus_mode = 2
 horizontal_scroll_mode = 0
-script = ExtResource("4_lqmwk")
+vertical_scroll_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ThemeShopVBox" type="VBoxContainer" parent="ThemeShopScroll" unique_id=1322112875]
-custom_minimum_size = Vector2(720, 3000)
+custom_minimum_size = Vector2(720, 3500)
 layout_mode = 2
-mouse_filter = 0
+size_flags_vertical = 3
 
 [node name="ItemCard" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1651953612 instance=ExtResource("13_5cke0")]
 layout_mode = 2
-mouse_filter = 1
 
 [node name="ItemCard1" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1897976037 instance=ExtResource("13_5cke0")]
 layout_mode = 2
-mouse_filter = 1
 
 [node name="ItemCard2" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1686923604 instance=ExtResource("13_5cke0")]
 layout_mode = 2
-mouse_filter = 1
 
 [node name="ItemCard3" parent="ThemeShopScroll/ThemeShopVBox" unique_id=566244747 instance=ExtResource("13_5cke0")]
 layout_mode = 2
-mouse_filter = 1
 
 [node name="ItemCard4" parent="ThemeShopScroll/ThemeShopVBox" unique_id=220351344 instance=ExtResource("13_5cke0")]
 layout_mode = 2
-mouse_filter = 1
 
 [node name="ItemCard5" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1801825992 instance=ExtResource("13_5cke0")]
 layout_mode = 2
-mouse_filter = 1
+
+[node name="ItemCard6" parent="ThemeShopScroll/ThemeShopVBox" unique_id=598414123 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard7" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1565318297 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard8" parent="ThemeShopScroll/ThemeShopVBox" unique_id=263745291 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard9" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1987949688 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard10" parent="ThemeShopScroll/ThemeShopVBox" unique_id=572369554 instance=ExtResource("13_5cke0")]
+layout_mode = 2
+
+[node name="ItemCard11" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1710310196 instance=ExtResource("13_5cke0")]
+layout_mode = 2

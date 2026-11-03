@@ -38,7 +38,6 @@ const FLAME_COLORS = {
 	5: Color(0.9, 0.25, 0.85), # Magenta
 	6: Color(0.95, 0.85, 0.1), # Yellow
 	7: Color(0.15, 0.15, 0.15) # Black
-	
 }
 
 @onready var player_ball_shoot = $PlayerBallShoot
@@ -60,6 +59,7 @@ var can_shoot: bool = true
 
 # Controle do estado do lança-chamas
 var is_flame_active: bool = false
+var flame_tween: Tween
 
 func _ready() -> void:
 	add_to_group("player")
@@ -67,8 +67,6 @@ func _ready() -> void:
 	touch_target_x = global_position.x
 	is_control_enabled = true
 	
-	#if is_instance_valid(flame_particles):
-		#flame_particles.emitting = false
 	if is_instance_valid(flame_cast):
 		flame_cast.enabled = false
 
@@ -158,17 +156,15 @@ func update_flame_beam(color_idx: int) -> void:
 
 	flame_line.clear_points()
 	
-	# Ponto de origem inicial na ponta do canhão
 	var current_origin = player_marker.global_position if is_instance_valid(player_marker) else global_position
 	var current_dir = Vector2.UP.rotated(global_rotation)
 	
-	# Adiciona o primeiro ponto localmente
 	if is_instance_valid(player_marker) and flame_line.get_parent() == player_marker:
 		flame_line.add_point(Vector2.ZERO)
 	else:
 		flame_line.add_point(flame_line.to_local(current_origin))
 
-	var max_reflections = 3 # Quantidade máxima de ricochetes que o fogo pode fazer nas paredes
+	var max_reflections = 3
 	var space_state = get_world_2d().direct_space_state
 
 	for i in range(max_reflections):
@@ -179,7 +175,6 @@ func update_flame_beam(color_idx: int) -> void:
 		query.collide_with_bodies = true
 		query.collide_with_areas = true
 		
-		# Usa a mesma máscara de colisão do FlameCast ou Laser
 		if is_instance_valid(flame_cast):
 			query.collision_mask = flame_cast.collision_mask
 		
@@ -189,24 +184,25 @@ func update_flame_beam(color_idx: int) -> void:
 			var hit_point: Vector2 = result.position
 			var hit_normal: Vector2 = result.normal
 			
-			# Adiciona o ponto de impacto convertido para o espaço local da linha
 			flame_line.add_point(flame_line.to_local(hit_point))
 			
-			# Calcula o novo Direcional usando o bounce (mesma lógica do laser)
 			current_dir = current_dir.bounce(hit_normal).normalized()
 			current_origin = hit_point + current_dir * 1.5
 			
 			var collider = result.collider
-			# Se bateu em um bloco ou no Press, o fogo encerra o ricochete ali
 			if collider and (collider.is_in_group("blocks") or collider.name == "Press"):
 				break
 		else:
-			# Se não bateu em nada, estica a linha até o limite máximo na direção atual
 			flame_line.add_point(flame_line.to_local(ray_target))
 			break
 
 func start_flame(color_idx: int) -> void:
 	is_flame_active = true
+	
+	# Oculta o Laser padrão enquanto a chama estiver ativa
+	if is_instance_valid(laser_line):
+		laser_line.hide()
+		laser_line.clear_points()
 	
 	if is_instance_valid(flame_cast):
 		flame_cast.enabled = true
@@ -214,23 +210,40 @@ func start_flame(color_idx: int) -> void:
 	if is_instance_valid(flame_line):
 		flame_line.show()
 		
-		# Pega o tema atual do lançador e aplica a flame_texture se ela existir no recurso
 		var launcher_theme = GameManager.get_current_launcher_theme()
 		if launcher_theme and launcher_theme.is_flamethrower and launcher_theme.flame_texture:
 			flame_line.texture = launcher_theme.flame_texture
 		
-		# Aplica a cor correspondente na Line2D
 		var valid_idx = clamp(color_idx, 0, BALL_COLORS.size() - 1)
 		if FLAME_COLORS.has(valid_idx):
 			flame_line.default_color = FLAME_COLORS[valid_idx]
+			
+		# Animação segura de inversão horizontal (piscar/tremeluzir)
+		if flame_tween and flame_tween.is_running():
+			flame_tween.kill()
+			
+		flame_line.scale.x = 1.0 
+		flame_tween = create_tween().set_loops(5)
+		flame_tween.tween_property(flame_line, "scale:x", -1.0, 0.10)
+		flame_tween.tween_property(flame_line, "scale:x", 1.0, 0.10)
 
 func stop_flame() -> void:
 	is_flame_active = false
+	
+	if flame_tween and flame_tween.is_running():
+		flame_tween.kill()
+	if is_instance_valid(flame_line):
+		flame_line.scale.x = 1.0
+		
 	if is_instance_valid(flame_cast):
 		flame_cast.enabled = false
 	if is_instance_valid(flame_line):
 		flame_line.hide()
 		flame_line.clear_points()
+		
+	# Restaura a visibilidade do Laser quando o fogo acaba
+	if is_instance_valid(laser_line):
+		laser_line.show()
 
 
 func _on_top_color_changed(color_idx: int) -> void:
@@ -253,7 +266,6 @@ func _on_top_color_changed(color_idx: int) -> void:
 		else:
 			color_tween.tween_property(laser_line, "default_color", target_color, 0.15)
 			
-	# Atualiza a cor da chama se o lança-chamas estiver ativo
 	if is_flame_active:
 		start_flame(color_idx)
 
@@ -330,7 +342,9 @@ func _physics_process(delta: float) -> void:
 
 	global_position.x = clamp(global_position.x, 0.0, screen_size.x)
 
-	update_laser()
+	# Atualiza o laser apenas se o lança-chamas estiver desligado
+	if not is_flame_active:
+		update_laser()
 	
 	if is_flame_active:
 		var current_color = charger.get_top_ball_color() if is_instance_valid(charger) else 0
@@ -351,14 +365,12 @@ func processing_shoot() -> void:
 	if launcher_theme and launcher_theme.is_flamethrower:
 		can_shoot = false
 		
-		# 1. Toca o som de tiro do lançador
 		if is_instance_valid(player_ball_shoot) and launcher_theme.hit_sound:
 			player_ball_shoot.stream = launcher_theme.hit_sound
 			player_ball_shoot.play()
 
 		EventBus.camera_shake_requested.emit(30.0, 0.15)
 
-		# 2. Pega a cor atual do topo do carregador e consome (remove)
 		var current_color = 0
 		if is_instance_valid(charger) and charger.has_method("pop_top_ball_color"):
 			current_color = charger.pop_top_ball_color()
@@ -367,10 +379,8 @@ func processing_shoot() -> void:
 
 		ball_shot.emit(current_color)
 
-		# 3. Dispara a rajada visual de fogo passando a cor correta
 		start_flame(current_color)
 		
-		# 4. Varredura física suportando ricochetes para encontrar o alvo final atingido
 		var space_state = get_world_2d().direct_space_state
 		var current_origin = player_marker.global_position if is_instance_valid(player_marker) else global_position
 		var current_dir = Vector2.UP.rotated(global_rotation)
@@ -396,28 +406,23 @@ func processing_shoot() -> void:
 				
 				if collider and collider.is_in_group("blocks"):
 					final_collider = collider
-					break # Encontrou o bloco após o ricochete, para a busca
+					break
 				elif collider and collider.name == "Press":
-					final_collider = collider # Bateu na Press!
+					final_collider = collider
 					break
 				else:
-					# Continua o ricochete se bateu em outra superfície reflexiva
 					current_dir = current_dir.bounce(hit_normal).normalized()
 					current_origin = hit_point + current_dir * 1.5
 			else:
 				break
 
-		# 5. Aplica a lógica dependendo do que foi atingido
 		if is_instance_valid(final_collider):
-			# Se o feixe bateu na Press, spawna o bloco da cor atual na prensa
 			if final_collider.name == "Press":
 				spawn_block_on_press_flame(final_collider, last_hit_position, current_color)
 				if "press_hit" in final_collider:
 					final_collider.press_hit()
 			
-			# Se bateu em um bloco
 			elif final_collider.is_in_group("blocks") and "block_color" in final_collider:
-				# --- VERIFICAÇÃO DO BLOCO MISTERIOSO ---
 				if final_collider.get("is_mystery_active") == true:
 					final_collider.set_mystery(false)
 					var level_node = get_tree().current_scene
@@ -426,7 +431,6 @@ func processing_shoot() -> void:
 				
 				var b_color = final_collider.block_color
 				
-				# Bloco Branco (3) ou Chama Branca (3) -> Congela a prensa
 				if current_color == 3 or b_color == 3:
 					var level_node = get_tree().current_scene
 					if level_node and level_node.has_method("freeze_press_for_duration"):
@@ -436,7 +440,6 @@ func processing_shoot() -> void:
 					else:
 						final_collider.queue_free()
 				
-				# Bloco Preto (7) ou Chama Preta (7) -> Limpa blocos da cor correspondente
 				elif current_color == 7:
 					if b_color >= 0 and b_color <= 6 and b_color != 3:
 						var all_blocks = get_tree().get_nodes_in_group("blocks")
@@ -480,8 +483,8 @@ func processing_shoot() -> void:
 						if final_collider.has_method("shift_down"):
 							final_collider.shift_down()
 
-		# Desliga a chama após um curto período de rajada
-		await get_tree().create_timer(0.25).timeout
+		# Duração total ajustada para 0,5 segundos
+		await get_tree().create_timer(0.8).timeout
 		stop_flame()
 		
 		reset_rotation()
@@ -574,14 +577,13 @@ func spawn_block_on_press_flame(press_node: Node2D, impact_position: Vector2, co
 func mix_flame_colors(c1: int, c2: int) -> int:
 	var pair = [c1, c2]
 	pair.sort()
-	if pair == [0, 2]: return 5 # 4
-	if pair == [0, 1]: return 6 # 5
-	if pair == [1, 2]: return 4 # 3
-	if pair == [4, 5]: return 2 # 3, 4
-	if pair == [4, 6]: return 1 # 3, 5
-	if pair == [5, 6]: return 0 # 4, 5
+	if pair == [0, 2]: return 5
+	if pair == [0, 1]: return 6
+	if pair == [1, 2]: return 4
+	if pair == [4, 5]: return 2
+	if pair == [4, 6]: return 1
+	if pair == [5, 6]: return 0
 	return -1
-
 
 
 func die() -> void:
