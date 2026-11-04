@@ -40,7 +40,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 64.0
 offset_right = 8.0
+offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
@@ -51,7 +53,6 @@ metadata/_edit_use_anchors_ = true
 [node name="ThemeShopVBox" type="VBoxContainer" parent="ThemeShopScroll" unique_id=1322112875]
 custom_minimum_size = Vector2(720, 3500)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="ItemCard" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1651953612 instance=ExtResource("13_5cke0")]
 layout_mode = 2

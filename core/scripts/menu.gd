@@ -11,9 +11,11 @@ signal difficulty_menu_opened
 
 # Botões de controle de som, sliders e navegação
 @onready var bgm_button = $MenuScroll/MenuVBox/Panel1/BGM
-@onready var bgm_slider = $MenuScroll/MenuVBox/Panel1/BGMHSlider
+@onready var bgm_button_label = $MenuScroll/MenuVBox/Panel1/BGM/Label
+@onready var bgm_slider = $MenuScroll/MenuVBox/PanelA/BGMHSlider
 @onready var sfx_button = $MenuScroll/MenuVBox/Panel2/SFX
-@onready var sfx_slider = $MenuScroll/MenuVBox/Panel2/SFXHSlider
+@onready var sfx_button_label = $MenuScroll/MenuVBox/Panel2/SFX/Label
+@onready var sfx_slider = $MenuScroll/MenuVBox/PanelB/SFXHSlider
 @onready var theme_button = $MenuScroll/MenuVBox/Panel3/ThemeButton
 @onready var difficulty_button = $MenuScroll/MenuVBox/Panel4/DifficultyButton
 @onready var reset_button = $MenuScroll/MenuVBox/Panel5/ResetButton
@@ -106,6 +108,8 @@ func refresh_all_items() -> void:
 func _update_audio_buttons_visual_state() -> void:
 	if is_instance_valid(bgm_button):
 		bgm_button.button_pressed = GameManager.is_bgm_muted
+		if is_instance_valid(bgm_button_label):
+			bgm_button_label.text = "Enable BGM" if GameManager.is_bgm_muted else "Disable BGM"
 
 	if is_instance_valid(bgm_slider):
 		bgm_slider.value = GameManager.bgm_volume_linear
@@ -113,6 +117,8 @@ func _update_audio_buttons_visual_state() -> void:
 
 	if is_instance_valid(sfx_button):
 		sfx_button.button_pressed = GameManager.is_sfx_muted
+		if is_instance_valid(sfx_button_label):
+			sfx_button_label.text = "Enable FSX" if GameManager.is_sfx_muted else "Disable FSX"
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.value = GameManager.sfx_volume_linear
@@ -123,6 +129,9 @@ func _on_bgm_button_toggled(toggled_on: bool) -> void:
 	GameManager.is_bgm_muted = toggled_on
 	GameManager.apply_audio_settings()
 	GameManager.save_game_data()
+
+	if is_instance_valid(bgm_button_label):
+		bgm_button_label.text = "Enable BGM" if toggled_on else "Disable BGM"
 
 	if is_instance_valid(bgm_slider):
 		bgm_slider.editable = not toggled_on
@@ -144,6 +153,9 @@ func _on_sfx_button_toggled(toggled_on: bool) -> void:
 	GameManager.is_sfx_muted = toggled_on
 	GameManager.apply_audio_settings()
 	GameManager.save_game_data()
+
+	if is_instance_valid(sfx_button_label):
+		sfx_button_label.text = "Enable FSX" if toggled_on else "Disable FSX"
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.editable = not toggled_on

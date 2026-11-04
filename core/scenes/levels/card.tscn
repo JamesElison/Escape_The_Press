@@ -90,6 +90,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_fhvbq")
+expand_mode = 1
 stretch_mode = 6
 
 [node name="CardFadeFX" type="ColorRect" parent="." unique_id=1728822050]
