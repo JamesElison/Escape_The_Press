@@ -125,6 +125,16 @@ visible = false
 position = Vector2(-44, 29)
 rotation = 0.7853982
 
+[node name="LaserRayCast" type="RayCast2D" parent="." unique_id=1527978726]
+position = Vector2(0, -133)
+target_position = Vector2(0, -1000)
+collision_mask = 4096
+
+[node name="LaserLine" type="Line2D" parent="." unique_id=541704108]
+points = PackedVector2Array(0, -100)
+width = 2.0
+default_color = Color(1, 0, 0, 0.7372549)
+
 [node name="SpecialProjectiles" type="Node2D" parent="." unique_id=1963359062]
 position = Vector2(0, -180)
 
@@ -151,7 +161,7 @@ position = Vector2(0, -16)
 polygon = PackedVector2Array(-27, -58, -48, -41, -52, -10, -50, -1, -37, 16, -67, 34, -45, 55, -17, 61, 12, 61, 40, 55, 67, 37, 36, 13, 49, 1, 51, -9, 45, -44, 25, -58)
 
 [node name="PlayerMarker" type="Marker2D" parent="." unique_id=1818940908]
-position = Vector2(0, -180)
+position = Vector2(0, -150)
 
 [node name="PlayerHealthArea" type="Area2D" parent="." unique_id=697782315]
 collision_layer = 48
@@ -160,15 +170,6 @@ collision_layer = 48
 visible = false
 position = Vector2(0, -128.5)
 shape = SubResource("RectangleShape2D_k6ly5")
-
-[node name="LaserRayCast" type="RayCast2D" parent="." unique_id=1527978726]
-position = Vector2(0, -133)
-target_position = Vector2(0, -1000)
-collision_mask = 4096
-
-[node name="LaserLine" type="Line2D" parent="." unique_id=541704108]
-width = 2.0
-default_color = Color(1, 0, 0, 0.7372549)
 
 [node name="PlayerShootAnim" type="AnimationPlayer" parent="." unique_id=1999653420]
 libraries/ = SubResource("AnimationLibrary_xbvhq")

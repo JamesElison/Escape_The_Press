@@ -37,6 +37,8 @@ func apply_launcher_speed() -> void:
 			speed = 1500.0
 		"high_voltage":
 			speed = 1500.0
+		"fire_fighter":
+			speed = 1500.0
 		_:
 			speed = 1500.0
 
@@ -90,7 +92,6 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 
-			# Verificação do Bloco Misterioso
 			if collider.get("is_mystery_active") == true:
 				collider.set_mystery(false)
 				var level_node = get_tree().current_scene
@@ -99,8 +100,6 @@ func _physics_process(delta: float) -> void:
 			
 			var b_color = collider.block_color
 			
-			# --- EFEITO DA BOLA BRANCA (ID 3) ---
-			# Atinge qualquer bloco do grid e congela/para a prensa por 10 segundos
 			if color_ball == 3:
 				var level_node = get_tree().current_scene
 				if level_node and level_node.has_method("freeze_press_for_duration"):
@@ -113,8 +112,6 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 
-			# --- EFEITO DA BOLA PRETA (ID 7) ---
-			# Ao acertar um bloco colorido, limpa todos os blocos do mapa com essa mesma cor
 			if color_ball == 7:
 				if b_color >= 0 and b_color <= 6 and b_color != 3:
 					destroy_all_blocks_of_color(b_color)
@@ -125,7 +122,6 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 
-			# --- SE O BLOCO ATINGIDO FOR PRETO (7) OU BRANCO (3) ---
 			if b_color == 7:
 				destroy_all_blocks_of_color(self.color_ball)
 				if collider.has_method("destroy_with_delay"):
@@ -146,7 +142,6 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 
-			# --- COLISÕES PADRÃO DE MESMA COR ---
 			if b_color == color_ball:
 				if collider.has_method("destroy_with_delay"):
 					collider.destroy_with_delay()
@@ -176,7 +171,6 @@ func _physics_process(delta: float) -> void:
 				destroy_with_anim()
 				return
 			
-			# Miscigenação incompatível faz o bloco descer
 			if (ball_is_rgb and block_is_cmy) or (ball_is_cmy and block_is_rgb):
 				if collider.has_method("shift_down"):
 					collider.shift_down()

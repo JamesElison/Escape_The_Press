@@ -33,3 +33,4 @@ extends Resource
 # Diretório base dos blocos no tabuleiro
 @export var block_folder: String = "res://core/assets/sprites/set_objects/"
 @export var block_animation_name: String
+@export var use_animated_blocks: bool = false # TRUE se os blocos usarem AnimatedSprite2D com animações customizadas

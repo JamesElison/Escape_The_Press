@@ -29,6 +29,8 @@ var spawn_position: Vector2
 @onready var mystery_label = $MysteryLabel
 @onready var fluid_fx = $Fluid_Tube_Right
 
+# Referência dinâmica opcional para o AnimatedSprite2D interno do bloco (se o tema usar)
+var animated_block_node: AnimatedSprite2D = null
 
 const COLOR_FILENAMES = [
 	"red_block.png", "green_block.png", "blue_block.png", "white_block.png",
@@ -54,10 +56,49 @@ func get_block_texture_path(idx: int, bright: bool = false) -> String:
 
 func set_block_color(val: int) -> void:
 	block_color = val
-	if is_node_ready() and block_sprite and val >= 0:
-		var tex_path = get_block_texture_path(val)
-		if ResourceLoader.exists(tex_path):
-			block_sprite.texture = load(tex_path)
+	if is_node_ready() and val >= 0:
+		var launcher_theme = GameManager.get_current_launcher_theme()
+		if launcher_theme and launcher_theme.use_animated_blocks:
+			_setup_animated_block_visuals(val)
+		else:
+			if block_sprite:
+				block_sprite.show()
+				if animated_block_node:
+					animated_block_node.hide()
+				var tex_path = get_block_texture_path(val)
+				if ResourceLoader.exists(tex_path):
+					block_sprite.texture = load(tex_path)
+
+func _setup_animated_block_visuals(color_idx: int) -> void:
+	if not animated_block_node:
+		# Procura ou instancia o nó de animação interna do bloco se houver na cena
+		animated_block_node = find_child("AnimatedBlockSprite", true, false)
+		if not animated_block_node:
+			# Se não existir fixo na cena, podemos instanciar o conjunto de animações ou criar um
+			var anim_instance = BLOCK_ANIMATIONS_SCENE.instantiate()
+			add_child(anim_instance)
+			anim_instance.name = "AnimatedBlockSpriteContainer"
+			anim_instance.position = Vector2.ZERO
+			for child in anim_instance.get_children():
+				child.hide()
+
+	if block_sprite:
+		block_sprite.hide()
+
+	# Esconde todos os outros e exibe apenas o AnimatedSprite2D correspondente ao índice da cor (0 a 7)
+	var container = find_child("AnimatedBlockSpriteContainer", true, false)
+	if container:
+		for child in container.get_children():
+			if child is AnimatedSprite2D:
+				child.hide()
+		
+		var color_str = str(color_idx)
+		var target_sprite = container.find_child(color_str, true, false)
+		if target_sprite and target_sprite is AnimatedSprite2D:
+			target_sprite.show()
+			animated_block_node = target_sprite
+			if target_sprite.sprite_frames and target_sprite.sprite_frames.has_animation("6_block_flame"):
+				target_sprite.play("6_block_flame")
 
 func _ready() -> void:
 	especific_fx()
@@ -66,7 +107,6 @@ func _ready() -> void:
 		mystery_label.hide()
 		
 	if block_color == -1:
-		# Cores padrão permitidas no grid (Exclui Branco [3] e Preto [7] que são especiais)
 		var valid_grid_colors = [0, 1, 2, 4, 5, 6]
 		block_color = valid_grid_colors[randi() % valid_grid_colors.size()]
 	else:
@@ -76,10 +116,8 @@ func _ready() -> void:
 	sync_to_physics = false
 
 func especific_fx() -> void:
-	# Descobre qual é o ID do lançador ativo atualmente (considerando se é temporário ou permanente)
 	var active_launcher_id = GameManager.temporary_launcher if GameManager.temporary_launcher != "" else GameManager.equipped_launcher
 
-	# Mostra o efeito fluid_fx apenas se o lançador ativo for "marble":
 	if is_instance_valid(fluid_fx) and (active_launcher_id == "marble"):
 		fluid_fx.show()
 	else:
@@ -187,19 +225,20 @@ func destroy_with_delay() -> void:
 	
 	GameManager.add_coins(10)
 	
-	# Tenta executar a animação pronta do tema; se não houver, tenta as partículas padrão
 	if not play_block_animation():
 		spawn_particles()
 	
 	if block_sprite:
 		block_sprite.hide()
+	if animated_block_node and animated_block_node is AnimatedSprite2D:
+		animated_block_node.hide()
+		
 	if is_instance_valid(mystery_label):
 		mystery_label.hide()
 	
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	
-	# Atualiza o stream com o som do tema atual (se houver)
 	var launcher_theme = GameManager.get_current_launcher_theme()
 	if block_explode_sound:
 		if launcher_theme and launcher_theme.explode_sound:
@@ -207,7 +246,6 @@ func destroy_with_delay() -> void:
 		else:
 			block_explode_sound.stream = null
 
-	# Só toca e aguarda se realmente existir um som configurado
 	if block_explode_sound and block_explode_sound.stream:
 		await get_tree().create_timer(0.10).timeout
 		block_explode_sound.play()
@@ -234,7 +272,41 @@ func destroy_with_delay() -> void:
 
 func play_block_animation() -> bool:
 	var launcher_theme = GameManager.get_current_launcher_theme()
-	if not launcher_theme or launcher_theme.block_animation_name == "" or block_color < 0:
+	if not launcher_theme or block_color < 0:
+		return false
+
+	# Tratamento específico para o tema de bombeiro com AnimatedSprite2D e a animação "6_flame"
+	if launcher_theme.use_animated_blocks:
+		if not BLOCK_ANIMATIONS_SCENE:
+			return false
+			
+		var anim_container = BLOCK_ANIMATIONS_SCENE.instantiate()
+		get_tree().current_scene.add_child(anim_container)
+		anim_container.global_position = global_position
+		
+		for child in anim_container.get_children():
+			if child is AnimatedSprite2D:
+				child.hide()
+				
+		var color_str = str(block_color)
+		var target_sprite = anim_container.find_child(color_str, true, false)
+		
+		if not target_sprite or not target_sprite is AnimatedSprite2D:
+			anim_container.queue_free()
+			return false
+			
+		target_sprite.show()
+		
+		if target_sprite.sprite_frames and target_sprite.sprite_frames.has_animation("6_flame"):
+			target_sprite.play("6_flame")
+			target_sprite.animation_finished.connect(func(): anim_container.queue_free())
+			return true
+		else:
+			anim_container.queue_free()
+			return false
+
+	# Comportamento padrão para os demais temas
+	if launcher_theme.block_animation_name == "":
 		return false
 		
 	if not BLOCK_ANIMATIONS_SCENE:
@@ -244,12 +316,10 @@ func play_block_animation() -> bool:
 	get_tree().current_scene.add_child(anim_container)
 	anim_container.global_position = global_position
 	
-	# Oculta todos os AnimatedSprite2D inicialmente
 	for child in anim_container.get_children():
 		if child is AnimatedSprite2D:
 			child.hide()
 			
-	# Busca o AnimatedSprite2D correspondente à cor exata (0 a 7)
 	var color_str = str(block_color)
 	var target_sprite = anim_container.find_child(color_str, true, false)
 	
@@ -259,7 +329,6 @@ func play_block_animation() -> bool:
 		
 	target_sprite.show()
 	
-	# Dispara a animação configurada no tema (ex: "4_hay" ou "5_vegetable")
 	var anim_name = launcher_theme.block_animation_name
 	if target_sprite.sprite_frames and target_sprite.sprite_frames.has_animation(anim_name):
 		target_sprite.play(anim_name)
@@ -504,23 +573,12 @@ func _on_block_timer_timeout() -> void:
 	queue_free()
 
 func fade_to_color(new_color_index: int) -> void:
-	if not block_sprite or new_color_index < 0:
-		block_color = new_color_index
-		return
-
-	var temp_sprite = Sprite2D.new()
-	temp_sprite.texture = block_sprite.texture
-	temp_sprite.position = block_sprite.position
-	temp_sprite.scale = block_sprite.scale
-	temp_sprite.centered = block_sprite.centered
-	
-	add_child(temp_sprite)
 	block_color = new_color_index
-
-	var tween = create_tween()
-	tween.tween_property(temp_sprite, "modulate:a", 0.0, 1.0)
-	
-	await tween.finished
-	temp_sprite.queue_free()
+	if animated_block_node and animated_block_node is AnimatedSprite2D:
+		_setup_animated_block_visuals(new_color_index)
+	elif block_sprite:
+		var tex_path = get_block_texture_path(new_color_index)
+		if ResourceLoader.exists(tex_path):
+			block_sprite.texture = load(tex_path)
 	
 	check_line_matches()

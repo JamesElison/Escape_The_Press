@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="LauncherThemeData" format=3 uid="uid://cn7s52eodv2t7"]
+
+[ext_resource type="AudioStream" uid="uid://bonyb5ns56h1d" path="res://core/assets/sounds/fx/specific_projectiles_sounds/6_fire_fighter/block_explode.wav" id="1_514ce"]
+[ext_resource type="Texture2D" uid="uid://cy2ft7ndonaqt" path="res://core/assets/sprites/set_objects/specific_projectiles/6_fire_fighter/white_water_jet_tileable.png" id="1_av7bb"]
+[ext_resource type="Texture2D" uid="uid://brmpgnfvsxt52" path="res://core/assets/sprites/characters/launchers_for_sale/firefighter_topdown.png" id="1_f8ptv"]
+[ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="1_k2na0"]
+[ext_resource type="Texture2D" uid="uid://dr6hmem7y7h6d" path="res://core/assets/sprites/characters/launchers_for_sale/6_firefighter.png" id="2_av7bb"]
+[ext_resource type="AudioStream" uid="uid://bx4do2ssb0k6m" path="res://core/assets/sounds/fx/specific_projectiles_sounds/6_fire_fighter/ball_shoot.wav" id="3_jl7sf"]
+[ext_resource type="Texture2D" uid="uid://cgvkqfem0j63v" path="res://core/assets/sprites/set_objects/press.png" id="3_uh1yl"]
+[ext_resource type="Texture2D" uid="uid://dktgvyqiawcud" path="res://core/assets/background/stop/stop_red.png" id="5_514ce"]
+
+[resource]
+script = ExtResource("1_k2na0")
+launcher_id = "fire_fighter"
+launcher_name = "fire_fighter"
+is_flamethrower = true
+flame_texture = ExtResource("1_av7bb")
+launcher_texture = ExtResource("2_av7bb")
+launcher_map_texture = ExtResource("1_f8ptv")
+press_texture = ExtResource("3_uh1yl")
+stop_texture = ExtResource("5_514ce")
+hit_sound = ExtResource("3_jl7sf")
+explode_sound = ExtResource("1_514ce")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/6_fire_fighter/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/6_fire_fighter/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/6_flame/"
+block_animation_name = "6_flame"
+use_animated_blocks = true
+metadata/_custom_type_script = "uid://bwk70f8ninqe"
