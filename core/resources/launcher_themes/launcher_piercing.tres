@@ -22,4 +22,5 @@ explode_sound = ExtResource("1_bsdr4")
 projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 block_folder = "res://core/assets/sprites/set_objects/specific_blocks/2_steel/"
+block_animation_name = "2_steel"
 metadata/_custom_type_script = "uid://bwk70f8ninqe"
