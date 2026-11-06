@@ -224,8 +224,8 @@ func start_flame(color_idx: int) -> void:
 			
 		flame_line.scale.x = 1.0 
 		flame_tween = create_tween().set_loops(5)
-		flame_tween.tween_property(flame_line, "scale:x", -1.0, 0.10)
-		flame_tween.tween_property(flame_line, "scale:x", 1.0, 0.10)
+		flame_tween.tween_property(flame_line, "scale:x", -1.0, 0.05)
+		flame_tween.tween_property(flame_line, "scale:x", 1.0, 0.05)
 
 func stop_flame() -> void:
 	is_flame_active = false
@@ -483,7 +483,7 @@ func processing_shoot() -> void:
 						if final_collider.has_method("shift_down"):
 							final_collider.shift_down()
 
-		# Duração total ajustada para 0,5 segundos
+		# Duração total da chama
 		await get_tree().create_timer(0.8).timeout
 		stop_flame()
 		
@@ -501,10 +501,12 @@ func processing_shoot() -> void:
 		player_ball_shoot.stream = launcher_theme.hit_sound
 		player_ball_shoot.play()
 
-	var active_launcher_id = GameManager.temporary_launcher if GameManager.temporary_launcher != "" else GameManager.equipped_launcher
-
-	if is_instance_valid(player_shoot_anim) and (active_launcher_id == "120mm" or active_launcher_id == "piercing"):
-		player_shoot_anim.play("shoot")
+	# Executa a animação "kick" (ou "shoot") somente se não for lança-chamas
+	if is_instance_valid(player_shoot_anim) and launcher_theme and not launcher_theme.is_flamethrower:
+		if player_shoot_anim.has_animation("kick"):
+			player_shoot_anim.play("kick")
+		elif player_shoot_anim.has_animation("shoot"):
+			player_shoot_anim.play("shoot")
 
 	EventBus.camera_shake_requested.emit(40.0, 0.2)
 
@@ -531,7 +533,7 @@ func processing_shoot() -> void:
 	await timer.timeout
 	can_shoot = true
 
-func spawn_block_on_press_flame(press_node: Node2D, impact_position: Vector2, color_idx: int) -> void:
+func spawn_block_on_press_flame(press_node: Node2D, impact_position:Vector2, color_idx: int) -> void:
 	const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 	const GRID_SIZE: float = 64.0
 	
