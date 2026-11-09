@@ -734,7 +734,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1326,7 +1326,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1918,7 +1918,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2510,7 +2510,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3102,7 +3102,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3694,7 +3694,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -4286,7 +4286,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -4878,7 +4878,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"2_steel",
-"speed": 30.0
+"speed": 48.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -5158,7 +5158,7 @@ animations = [{
 [node name="0" type="AnimatedSprite2D" parent="." unique_id=1922430867]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qhvy1")
-animation = &"6_flame"
+animation = &"2_steel"
 autoplay = "6_flame_block"
 frame = 23
 frame_progress = 1.0
@@ -5166,45 +5166,43 @@ frame_progress = 1.0
 [node name="1" type="AnimatedSprite2D" parent="." unique_id=1528987778]
 visible = false
 sprite_frames = SubResource("SpriteFrames_75d43")
-animation = &"6_flame_block"
+animation = &"2_steel"
 autoplay = "6_flame_block"
-frame = 1
-frame_progress = 0.3910586
 
 [node name="2" type="AnimatedSprite2D" parent="." unique_id=197226688]
 visible = false
 sprite_frames = SubResource("SpriteFrames_ngf2m")
-animation = &"6_flame_block"
+animation = &"2_steel"
 autoplay = "6_flame_block"
 
 [node name="3" type="AnimatedSprite2D" parent="." unique_id=157474341]
 visible = false
 sprite_frames = SubResource("SpriteFrames_r7vb8")
-animation = &"6_flame_block"
+animation = &"2_steel"
 autoplay = "6_flame_block"
-frame = 11
-frame_progress = 0.028515108
 
 [node name="4" type="AnimatedSprite2D" parent="." unique_id=197362541]
 visible = false
 sprite_frames = SubResource("SpriteFrames_n5430")
-animation = &"6_flame_block"
+animation = &"2_steel"
 autoplay = "6_flame_block"
 
 [node name="5" type="AnimatedSprite2D" parent="." unique_id=350555016]
 visible = false
 sprite_frames = SubResource("SpriteFrames_gw1cb")
-animation = &"6_flame_block"
+animation = &"2_steel"
 autoplay = "6_flame_block"
+frame = 23
+frame_progress = 1.0
 
 [node name="6" type="AnimatedSprite2D" parent="." unique_id=2054735795]
 visible = false
 sprite_frames = SubResource("SpriteFrames_ws85y")
-animation = &"6_flame_block"
+animation = &"2_steel"
 autoplay = "6_flame_block"
 
 [node name="7" type="AnimatedSprite2D" parent="." unique_id=1635171597]
 visible = false
 sprite_frames = SubResource("SpriteFrames_p3bfw")
-animation = &"6_flame_block"
+animation = &"2_steel"
 autoplay = "6_flame_block"

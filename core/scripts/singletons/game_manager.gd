@@ -23,6 +23,7 @@ var equipped_launcher: String = "marble"
 # --- SISTEMA DE TEMA TEMPORÁRIO (TESTE) ---
 var temporary_launcher: String = ""  # Se preenchido, usa este lançador temporariamente
 var temporary_launcher_levels_remaining: int = 0  # Rodadas restantes para o teste
+var used_temporary_launchers: Array[String] = []  # Histórico de temporários já sorteados no ciclo
 
 # Armazena as configurações de áudio do jogador
 var is_bgm_muted: bool = false
@@ -110,7 +111,6 @@ func remove_coins(amount: int) -> bool:
 	return false
 
 # --- GERENCIAMENTO DE ANÚNCIOS (ADMOB) ---
-# Chamado quando o jogador perde a partida (condição de 2 perdas)
 func register_loss() -> bool:
 	if is_premium:
 		return false
@@ -121,7 +121,6 @@ func register_loss() -> bool:
 		return true  # Hora de exibir Interstitial de Derrota
 	return false
 
-# Recompensa o jogador com 2.000 moedas após assistir ao anúncio de recompensa
 func grant_ad_reward() -> void:
 	add_coins(2000)
 
@@ -142,19 +141,43 @@ func equip_temporary_launcher(launcher_id: String, rounds: int) -> void:
 		EventBus.launcher_changed.emit(temporary_launcher)
 		save_game_data()
 
+# --- SORTEIO INTELIGENTE DE LANÇADOR TEMPORÁRIO ---
+func get_next_temporary_launcher() -> String:
+	var available_keys: Array = []
+	
+	# 1. Filtra itens válidos que não são marble, não foram comprados e ainda não foram sorteados neste ciclo
+	for key in launcher_themes_catalog.keys():
+		if key != "marble" and not key in unlocked_launchers and not key in used_temporary_launchers:
+			available_keys.append(key)
+			
+	# 2. Se a lista esgotou, limpa o histórico e recomeça o ciclo de sorteios
+	if available_keys.is_empty():
+		used_temporary_launchers.clear()
+		for key in launcher_themes_catalog.keys():
+			if key != "marble" and not key in unlocked_launchers:
+				available_keys.append(key)
+				
+	if available_keys.is_empty():
+		return ""
+		
+	available_keys.shuffle()
+	var chosen_theme = available_keys[0]
+	
+	used_temporary_launchers.append(chosen_theme)
+	save_game_data()
+	
+	return chosen_theme
+
 # --- CÁLCULO DA VELOCIDADE DA PRENSA ---
 func _recalculate_press_speed() -> void:
 	var level_in_cycle = clamp(current_level, 1, 45)
 	
 	if easy_difficulty_mode:
 		press_speed = 2.0 + ((level_in_cycle - 1) * 0.1)
-		print("The press speed is: ", press_speed)
 	elif medium_difficulty_mode:
 		press_speed = 3.0 + ((level_in_cycle - 1) * 0.2)
-		print("The press speed is: ", press_speed)
 	elif hard_difficulty_mode:
 		press_speed = 4.0 + ((level_in_cycle - 1) * 0.25)
-		print("The press speed is: ", press_speed)
 
 # A CENA MAP CHAMA ESTA FUNÇÃO: Define qual parada foi selecionada e salva
 func set_level_from_stop(stop_number: int) -> void:
@@ -170,7 +193,6 @@ func reset_level_progress() -> void:
 	_recalculate_press_speed()
 	save_game_data()
 
-# Chamado quando o jogador vence a gameplay (Avança a fase e gerencia o tema temporário)
 func advance_to_next_level() -> void:
 	if current_level >= 45:
 		just_beat_final_level = true
@@ -182,7 +204,6 @@ func advance_to_next_level() -> void:
 
 	_recalculate_press_speed()
 	
-	# Decrementa o teste temporário de lançador, se houver
 	if temporary_launcher_levels_remaining > 0:
 		temporary_launcher_levels_remaining -= 1
 		if temporary_launcher_levels_remaining <= 0:
@@ -191,7 +212,6 @@ func advance_to_next_level() -> void:
 
 	save_game_data()
 
-# Chamado pelo map.gd APÓS o player entrar no portal e a animação terminar
 func finalize_cycle_advancement() -> void:
 	just_beat_final_level = false
 	
@@ -204,7 +224,6 @@ func finalize_cycle_advancement() -> void:
 func _change_to_end_game_scene() -> void:
 	get_tree().change_scene_to_file(END_GAME_SCENE_PATH)
 
-# --- TROCA AUTOMÁTICA DE BIOMA NA VIRADA DE CICLO ---
 func _check_and_advance_biome() -> void:
 	launcher_level_progress[current_biome] = 1
 
@@ -256,6 +275,7 @@ func save_game_data() -> void:
 			"launcher_level_progress": launcher_level_progress,
 			"temporary_launcher": temporary_launcher,
 			"temporary_launcher_levels_remaining": temporary_launcher_levels_remaining,
+			"used_temporary_launchers": used_temporary_launchers,
 			"is_bgm_muted": is_bgm_muted,
 			"is_sfx_muted": is_sfx_muted,
 			"bgm_volume_linear": bgm_volume_linear,
@@ -295,6 +315,11 @@ func load_game_data() -> void:
 				temporary_launcher = save_dict.get("temporary_launcher", "")
 				temporary_launcher_levels_remaining = save_dict.get("temporary_launcher_levels_remaining", 0)
 				
+				var raw_used = save_dict.get("used_temporary_launchers", [])
+				used_temporary_launchers.clear()
+				for u in raw_used:
+					used_temporary_launchers.append(str(u))
+				
 				is_bgm_muted = save_dict.get("is_bgm_muted", false)
 				is_sfx_muted = save_dict.get("is_sfx_muted", false)
 				bgm_volume_linear = save_dict.get("bgm_volume_linear", 1.0)
@@ -324,6 +349,7 @@ func reset_all_save_data() -> void:
 	current_biome = "crystal_palace"
 	temporary_launcher = ""
 	temporary_launcher_levels_remaining = 0
+	used_temporary_launchers.clear()
 	is_bgm_muted = false
 	is_sfx_muted = false
 	bgm_volume_linear = 1.0

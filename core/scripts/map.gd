@@ -253,20 +253,14 @@ func _disconnect_confirmation_signals() -> void:
 
 # --- SORTEIO E AVISO DE LANÇADOR TEMPORÁRIO (CASAS 10, 20, 30, 40) ---
 func _trigger_temporary_launcher_bonus() -> void:
-	var available_keys: Array = []
-	
-	# Filtra apenas os temas que NÃO são "marble" e que O JOGADOR AINDA NÃO COMPROU
-	for key in GameManager.launcher_themes_catalog.keys():
-		if key != "marble" and not key in GameManager.unlocked_launchers:
-			available_keys.append(key)
-			
-	# Se todos os temas já foram comprados (ou só sobrou o marble), não faz o sorteio temporário
-	if available_keys.is_empty():
+	if not GameManager:
 		return
 		
-	available_keys.shuffle()
-	var chosen_theme = available_keys[0]
+	var chosen_theme = GameManager.get_next_temporary_launcher()
 	
+	if chosen_theme == "":
+		return
+		
 	GameManager.equip_temporary_launcher(chosen_theme, 1)
 	
 	if message_label:
