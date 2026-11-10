@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="LauncherThemeData" format=3 uid="uid://bqewlqg6qxe2x"]
+
+[ext_resource type="Texture2D" uid="uid://3pvtqoaj0knb" path="res://core/assets/sprites/set_objects/specific_projectiles/7_laser_beam/raio_laser_branco_tileavel.png" id="1_pmy3u"]
+[ext_resource type="Texture2D" uid="uid://cmtwpfe7l7xxr" path="res://core/assets/sprites/characters/launchers_for_sale/7_laser_beam_topdown.png" id="2_12fgr"]
+[ext_resource type="Texture2D" uid="uid://cdn3ssxfv74b1" path="res://core/assets/sprites/characters/launchers_for_sale/7_laser_beam.png" id="3_gem3b"]
+[ext_resource type="Texture2D" uid="uid://n0ptndcdsmn3" path="res://core/assets/sprites/set_objects/specific_press/7_violet_press.png" id="4_ls1q3"]
+[ext_resource type="Texture2D" uid="uid://ckf0hkwi0r35q" path="res://core/assets/background/stop/stop_violet.png" id="6_1lfk3"]
+[ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="7_f6hma"]
+
+[resource]
+script = ExtResource("7_f6hma")
+launcher_id = "laser_beam"
+launcher_name = "laser_beam"
+is_flamethrower = true
+flame_texture = ExtResource("1_pmy3u")
+launcher_texture = ExtResource("3_gem3b")
+launcher_map_texture = ExtResource("2_12fgr")
+press_texture = ExtResource("4_ls1q3")
+stop_texture = ExtResource("6_1lfk3")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/7_laser_beam/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/7_laser_beam/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/7_fruits/"
+block_animation_name = "7_fruits"
+metadata/_custom_type_script = "uid://bwk70f8ninqe"

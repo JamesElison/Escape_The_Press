@@ -57,6 +57,13 @@ var items_catalog: Array[Dictionary] = [
 		"price": 0,
 		"texture_path": "res://core/assets/HUD/texture_path/6_fire_fighter_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/6_fire_fighter/"
+	},
+	{
+		"id": "laser_beam",
+		"title": "Laser Beam",
+		"price": 0,
+		"texture_path": "res://core/assets/HUD/texture_path/7_laser_beam_720x256.jpg",
+		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/7_laser_beam/"
 	}
 ]
 

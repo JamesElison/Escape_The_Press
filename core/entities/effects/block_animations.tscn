@@ -1007,6 +1007,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"7_fruits",
+"speed": 16.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_730oy"]
@@ -1599,6 +1604,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"7_fruits",
+"speed": 16.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_csr7l"]
@@ -2191,6 +2201,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"7_fruits",
+"speed": 16.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r7ge1"]
@@ -2783,6 +2798,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"7_fruits",
+"speed": 16.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_abshr"]
@@ -3375,6 +3395,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"7_fruits",
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6y46t"]
@@ -3967,6 +3992,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"7_fruits",
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cs5k"]
@@ -4559,6 +4589,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"7_fruits",
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_87rqu"]
@@ -5151,6 +5186,11 @@ animations = [{
 "loop": 1,
 "name": &"6_flame_block",
 "speed": 12.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"7_fruits",
+"speed": 5.0
 }]
 
 [node name="BlockAnimations" type="Node2D" unique_id=414541590]
@@ -5158,51 +5198,46 @@ animations = [{
 [node name="0" type="AnimatedSprite2D" parent="." unique_id=1922430867]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qhvy1")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
-frame = 23
-frame_progress = 1.0
 
 [node name="1" type="AnimatedSprite2D" parent="." unique_id=1528987778]
 visible = false
 sprite_frames = SubResource("SpriteFrames_75d43")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
 
 [node name="2" type="AnimatedSprite2D" parent="." unique_id=197226688]
 visible = false
 sprite_frames = SubResource("SpriteFrames_ngf2m")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
 
 [node name="3" type="AnimatedSprite2D" parent="." unique_id=157474341]
 visible = false
 sprite_frames = SubResource("SpriteFrames_r7vb8")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
 
 [node name="4" type="AnimatedSprite2D" parent="." unique_id=197362541]
-visible = false
 sprite_frames = SubResource("SpriteFrames_n5430")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
 
 [node name="5" type="AnimatedSprite2D" parent="." unique_id=350555016]
 visible = false
 sprite_frames = SubResource("SpriteFrames_gw1cb")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
-frame = 23
-frame_progress = 1.0
 
 [node name="6" type="AnimatedSprite2D" parent="." unique_id=2054735795]
 visible = false
 sprite_frames = SubResource("SpriteFrames_ws85y")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
 
 [node name="7" type="AnimatedSprite2D" parent="." unique_id=1635171597]
 visible = false
 sprite_frames = SubResource("SpriteFrames_p3bfw")
-animation = &"2_steel"
+animation = &"7_fruits"
 autoplay = "6_flame_block"
