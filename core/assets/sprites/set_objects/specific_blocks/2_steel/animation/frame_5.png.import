@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkcokp0pnbcvw"
-path="res://.godot/imported/2_piercing_720x256.png-15b47c18d3bc7b9b26e47375d88ad05b.ctex"
+uid="uid://byrfub6pg71ka"
+path="res://.godot/imported/frame_5.png-56eb7b9755e449a0ef1547b63a40dba1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/assets/HUD/texture_path/2_piercing_720x256.png"
-dest_files=["res://.godot/imported/2_piercing_720x256.png-15b47c18d3bc7b9b26e47375d88ad05b.ctex"]
+source_file="res://core/assets/sprites/set_objects/specific_blocks/2_steel/animation/frame_5.png"
+dest_files=["res://.godot/imported/frame_5.png-56eb7b9755e449a0ef1547b63a40dba1.ctex"]
 
 [params]
 

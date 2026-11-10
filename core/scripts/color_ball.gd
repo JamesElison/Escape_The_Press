@@ -241,8 +241,8 @@ func destroy_with_anim() -> void:
 	if color_ball_shape:
 		color_ball_shape.set_deferred("disabled", true)
 		
-	color_ball_anim.play("explode")
-	await get_tree().create_timer(0.42).timeout
+	#color_ball_anim.play("explode")
+	#await get_tree().create_timer(0.42).timeout
 	queue_free()
 
 func mix_colors(c1: int, c2: int) -> int:

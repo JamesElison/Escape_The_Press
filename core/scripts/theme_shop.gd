@@ -27,7 +27,7 @@ var items_catalog: Array[Dictionary] = [
 		"id": "piercing",
 		"title": "Piercing",
 		"price": 0,
-		"texture_path": "res://core/assets/HUD/texture_path/2_piercing_720x256.png",
+		"texture_path": "res://core/assets/HUD/texture_path/2_piercing_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
