@@ -58,32 +58,56 @@
 [ext_resource type="Texture2D" uid="uid://dmbkc6e0qufsg" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/red_block_1.png" id="52_eas4u"]
 [ext_resource type="Texture2D" uid="uid://ca4s4tncns7d5" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_3.png" id="52_r7vb8"]
 [ext_resource type="Texture2D" uid="uid://bl5b3ejuhi81i" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_4.png" id="53_n5430"]
+[ext_resource type="Texture2D" uid="uid://wsgg84d7csiw" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_0.png" id="53_qpalm"]
 [ext_resource type="Texture2D" uid="uid://cyeb5h5sb8ci2" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_5.png" id="54_gw1cb"]
+[ext_resource type="Texture2D" uid="uid://ddii3rrcig1ua" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_1.png" id="54_xmocu"]
 [ext_resource type="Texture2D" uid="uid://r47kyec40vpt" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_6.png" id="55_ws85y"]
+[ext_resource type="Texture2D" uid="uid://do5l8l6qf72rt" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_2.png" id="55_y3vkc"]
+[ext_resource type="Texture2D" uid="uid://digu15msyn7ir" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_3.png" id="56_8oyuy"]
 [ext_resource type="Texture2D" uid="uid://blsq3hd3loovl" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_7.png" id="56_l18bf"]
 [ext_resource type="Texture2D" uid="uid://bk8i2ngl52hog" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_8.png" id="57_1l7oo"]
+[ext_resource type="Texture2D" uid="uid://bruy7tq2t2h6d" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_4.png" id="57_w3ens"]
 [ext_resource type="Texture2D" uid="uid://c8fykdg4diy1j" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_9.png" id="58_2oxla"]
+[ext_resource type="Texture2D" uid="uid://b6k53i63ecrxt" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_5.png" id="58_wmfnb"]
 [ext_resource type="Texture2D" uid="uid://bgeufctuwjft7" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_10.png" id="59_m8qho"]
+[ext_resource type="Texture2D" uid="uid://b050iqnq27ji" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_6.png" id="59_qyute"]
 [ext_resource type="Texture2D" uid="uid://c1acvci168bvu" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_11.png" id="60_13y54"]
+[ext_resource type="Texture2D" uid="uid://cmfqrjrfc3s7s" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_7.png" id="60_bd1vb"]
 [ext_resource type="Texture2D" uid="uid://banssboi7mjsx" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_12.png" id="61_m0nb1"]
+[ext_resource type="Texture2D" uid="uid://btpx7dqbp7qwb" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_8.png" id="61_vlkn1"]
+[ext_resource type="Texture2D" uid="uid://c0gr5c2nhdqhm" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_9.png" id="62_5w1xg"]
 [ext_resource type="Texture2D" uid="uid://uit7dcdso47h" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_13.png" id="62_ygn6k"]
+[ext_resource type="Texture2D" uid="uid://df52n0ey3pmal" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_10.png" id="63_xq3el"]
 [ext_resource type="Texture2D" uid="uid://bgpf1obqko6d3" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_14.png" id="63_ywvrr"]
 [ext_resource type="Texture2D" uid="uid://ba256ripqhekq" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_15.png" id="64_ssri8"]
+[ext_resource type="Texture2D" uid="uid://y6lid6fcrn4v" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_11.png" id="64_syg54"]
+[ext_resource type="Texture2D" uid="uid://c18beh5cssq8d" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_12.png" id="65_0dgqv"]
 [ext_resource type="Texture2D" uid="uid://dtdn0dsybde7i" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_16.png" id="65_o4wnp"]
 [ext_resource type="Texture2D" uid="uid://btaegf2rnjyq" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_17.png" id="66_0xu1j"]
+[ext_resource type="Texture2D" uid="uid://bmv1tvvcmerli" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_13.png" id="66_rnwtw"]
 [ext_resource type="Texture2D" uid="uid://c6vyxoxtneteq" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_18.png" id="67_u72oa"]
+[ext_resource type="Texture2D" uid="uid://i1yss08c5j5y" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_14.png" id="67_x15bf"]
 [ext_resource type="Texture2D" uid="uid://bhtu2rldjqqyq" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_19.png" id="68_5vuew"]
+[ext_resource type="Texture2D" uid="uid://bmnm62viflwtv" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_15.png" id="68_vydw4"]
 [ext_resource type="Texture2D" uid="uid://ugx0pccsbocm" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_20.png" id="69_itmnf"]
+[ext_resource type="Texture2D" uid="uid://5cqeh5igismj" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_16.png" id="69_wyd23"]
 [ext_resource type="Texture2D" uid="uid://wbyntm8jhke8" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_21.png" id="70_6j3ky"]
+[ext_resource type="Texture2D" uid="uid://tc6k5envs5jx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_17.png" id="70_r7ge1"]
+[ext_resource type="Texture2D" uid="uid://dw1v0hlhe3ej1" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_18.png" id="71_0r257"]
 [ext_resource type="Texture2D" uid="uid://ujiunwt8oejo" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_22.png" id="71_q6qm3"]
+[ext_resource type="Texture2D" uid="uid://pdl02gl3bont" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_19.png" id="72_argvn"]
 [ext_resource type="Texture2D" uid="uid://bh8pab3j5843d" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/1_green/frame_23.png" id="72_oke7t"]
+[ext_resource type="Texture2D" uid="uid://b6ofx6ua1tlag" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_20.png" id="73_0tbot"]
 [ext_resource type="Texture2D" uid="uid://cwjqxliqsadra" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/2_blue/frame_0.png" id="73_dy35o"]
 [ext_resource type="Texture2D" uid="uid://cwv3cef742yh8" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/1_green/frame_0.png" id="73_nsr2o"]
 [ext_resource type="Texture2D" uid="uid://f4hsg7du7ijt" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/1_green/frame_1.png" id="74_o32s5"]
 [ext_resource type="Texture2D" uid="uid://cwhts0m0wqdem" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/2_blue/frame_1.png" id="74_pp87f"]
+[ext_resource type="Texture2D" uid="uid://bxi63yu3u202l" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_21.png" id="74_wkmx8"]
 [ext_resource type="Texture2D" uid="uid://cbeschaamrs45" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/1_green/frame_2.png" id="75_lraeb"]
 [ext_resource type="Texture2D" uid="uid://cfn5qddasg3dc" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/2_blue/frame_2.png" id="75_o4pki"]
+[ext_resource type="Texture2D" uid="uid://bcpl5jpf1huyw" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_22.png" id="75_ssmjv"]
 [ext_resource type="Texture2D" uid="uid://cj6n5micgtldr" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/1_green/frame_3.png" id="76_jcylt"]
+[ext_resource type="Texture2D" uid="uid://dy3eykf0gbxc0" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/0_red/frame_23.png" id="76_ldym0"]
 [ext_resource type="Texture2D" uid="uid://bxe5btghpeafi" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/2_blue/frame_3.png" id="76_urr04"]
 [ext_resource type="Texture2D" uid="uid://52wx0ahwk6hh" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/1_green/frame_4.png" id="77_ls6xt"]
 [ext_resource type="Texture2D" uid="uid://dbkhj4bmbgr0t" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/2_blue/frame_4.png" id="77_yml04"]
@@ -170,45 +194,69 @@
 [ext_resource type="Texture2D" uid="uid://dgqvixrvra085" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_7.png" id="128_c0r83"]
 [ext_resource type="Texture2D" uid="uid://bjnpgqxy7sbvo" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_7.png" id="128_gjwf6"]
 [ext_resource type="Texture2D" uid="uid://dcwpq12av8rld" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_8.png" id="129_c2dy8"]
+[ext_resource type="Texture2D" uid="uid://dxfcn7ed7nf7h" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_0.png" id="129_huvle"]
 [ext_resource type="Texture2D" uid="uid://b2aqr1w0651os" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_8.png" id="129_nymdn"]
 [ext_resource type="Texture2D" uid="uid://dm23bvp4x4rx6" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_9.png" id="130_8lxi1"]
+[ext_resource type="Texture2D" uid="uid://dl2ciff7o3qd8" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_1.png" id="130_al22w"]
 [ext_resource type="Texture2D" uid="uid://bijnpcr4ovvp2" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_9.png" id="130_ls76x"]
 [ext_resource type="Texture2D" uid="uid://bp6hph6x05l2a" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_10.png" id="131_3qwns"]
+[ext_resource type="Texture2D" uid="uid://cci8piam0opxg" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_2.png" id="131_jr5en"]
 [ext_resource type="Texture2D" uid="uid://dbn1fygaxjg6n" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_10.png" id="131_rlf5o"]
 [ext_resource type="Texture2D" uid="uid://bu8brsig7irge" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_11.png" id="132_4r2pr"]
 [ext_resource type="Texture2D" uid="uid://ba6xm3ftsuhj5" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_11.png" id="132_ccx5l"]
+[ext_resource type="Texture2D" uid="uid://e53pa8lcq7ln" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_3.png" id="132_wyfwn"]
 [ext_resource type="Texture2D" uid="uid://bmy6x3juuoqrt" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_12.png" id="133_eltu7"]
 [ext_resource type="Texture2D" uid="uid://c3u6md7n3a8hp" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_12.png" id="133_hv4be"]
+[ext_resource type="Texture2D" uid="uid://bqbw3s8nsx1ra" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_4.png" id="133_pwc1x"]
 [ext_resource type="Texture2D" uid="uid://i2i48yarrik3" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_13.png" id="134_2ejjw"]
+[ext_resource type="Texture2D" uid="uid://dseu14d70ootg" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_5.png" id="134_ktnw3"]
 [ext_resource type="Texture2D" uid="uid://dl1d00jrd4q7h" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_13.png" id="134_warfm"]
 [ext_resource type="Texture2D" uid="uid://dxabeouh6x4no" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_14.png" id="135_0chtt"]
+[ext_resource type="Texture2D" uid="uid://p20x5wxawcq2" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_6.png" id="135_go2ry"]
 [ext_resource type="Texture2D" uid="uid://b6bfm6cjvih7d" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_14.png" id="135_sp183"]
 [ext_resource type="Texture2D" uid="uid://bk3fnjl5ck53c" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_15.png" id="136_871dn"]
+[ext_resource type="Texture2D" uid="uid://c321r11smrh7t" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_7.png" id="136_wj2hu"]
 [ext_resource type="Texture2D" uid="uid://yq1jcw15e0ur" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_15.png" id="136_y8fml"]
 [ext_resource type="Texture2D" uid="uid://drgka3l21a710" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_16.png" id="137_3kpdx"]
+[ext_resource type="Texture2D" uid="uid://bs4v7wxsaaxti" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_8.png" id="137_v6uj8"]
 [ext_resource type="Texture2D" uid="uid://18uewwipcm0e" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_16.png" id="137_y073m"]
+[ext_resource type="Texture2D" uid="uid://bx60olvcuonib" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_9.png" id="138_gd3xo"]
 [ext_resource type="Texture2D" uid="uid://ctw1v7c0turwe" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_17.png" id="138_k7msl"]
 [ext_resource type="Texture2D" uid="uid://sui5gd3jhigi" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_17.png" id="138_sb7nb"]
+[ext_resource type="Texture2D" uid="uid://td7cvfuhrk8p" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_10.png" id="139_c35yc"]
 [ext_resource type="Texture2D" uid="uid://batso5j0hxb6k" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_18.png" id="139_d8k5a"]
 [ext_resource type="Texture2D" uid="uid://cgxsnbek6pflf" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_18.png" id="139_hiq4j"]
 [ext_resource type="Texture2D" uid="uid://bngp4dyn8e703" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_19.png" id="140_4p306"]
 [ext_resource type="Texture2D" uid="uid://bewqfprf2su4x" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_19.png" id="140_u2kgp"]
+[ext_resource type="Texture2D" uid="uid://dlte46ogpmcp0" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_11.png" id="140_vo4sd"]
 [ext_resource type="Texture2D" uid="uid://3dcdk16h8ysb" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_20.png" id="141_2e3cy"]
+[ext_resource type="Texture2D" uid="uid://bgwj8yqe54g37" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_12.png" id="141_qufqn"]
 [ext_resource type="Texture2D" uid="uid://dvjb422ihygw" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_20.png" id="141_shmqp"]
 [ext_resource type="Texture2D" uid="uid://bif34acnl42bq" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_21.png" id="142_2yuun"]
+[ext_resource type="Texture2D" uid="uid://bdy8ss5lt2i63" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_13.png" id="142_3wudc"]
 [ext_resource type="Texture2D" uid="uid://cva2dhm8olyo4" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_21.png" id="142_5hvjt"]
+[ext_resource type="Texture2D" uid="uid://f2rr7a6jeoad" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_14.png" id="143_7ck1v"]
 [ext_resource type="Texture2D" uid="uid://csmmcjbp44xcv" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_22.png" id="143_bdexa"]
 [ext_resource type="Texture2D" uid="uid://bmkm6h883uxnp" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_22.png" id="143_taxbg"]
 [ext_resource type="Texture2D" uid="uid://438kywv4bivh" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/2_blue/frame_23.png" id="144_2leha"]
 [ext_resource type="Texture2D" uid="uid://bfofrtjtes6wr" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/4_cyan/frame_23.png" id="144_8t428"]
+[ext_resource type="Texture2D" uid="uid://d0ss8fid2x6t1" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_15.png" id="144_n4q0q"]
+[ext_resource type="Texture2D" uid="uid://kfr0d1a6wjnd" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_16.png" id="145_l8m5f"]
 [ext_resource type="Texture2D" uid="uid://cmeq5nbvtulfe" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_0.png" id="145_p3bfw"]
+[ext_resource type="Texture2D" uid="uid://c6xdyf21dma1c" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_17.png" id="146_abshr"]
 [ext_resource type="Texture2D" uid="uid://b43n2w4tmtmxx" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_1.png" id="146_fh4v3"]
 [ext_resource type="Texture2D" uid="uid://dyp3xnan4tncp" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_2.png" id="147_ajfei"]
+[ext_resource type="Texture2D" uid="uid://dljj4yuide7nm" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_18.png" id="147_nxxhl"]
 [ext_resource type="Texture2D" uid="uid://c7iri6gowuy0v" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_3.png" id="148_bl6je"]
+[ext_resource type="Texture2D" uid="uid://btuirvn8oaiv4" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_19.png" id="148_eurvk"]
 [ext_resource type="Texture2D" uid="uid://ddvtd8tmhh184" path="res://core/assets/sprites/set_objects/specific_blocks/2_steel/animation/3_white_sprite_sheet.png" id="148_ls6xt"]
+[ext_resource type="Texture2D" uid="uid://csaqtldyw6w71" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_20.png" id="149_8uwel"]
 [ext_resource type="Texture2D" uid="uid://xdvhkisdtkom" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_4.png" id="149_neq75"]
+[ext_resource type="Texture2D" uid="uid://dqw3g6sntb81q" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_21.png" id="150_4ovu2"]
 [ext_resource type="Texture2D" uid="uid://dxcj37ppvqldb" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_5.png" id="150_cjpus"]
+[ext_resource type="Texture2D" uid="uid://c4gl7xkym4r0" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_22.png" id="151_mxm3g"]
 [ext_resource type="Texture2D" uid="uid://bpe451jdikbyk" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_6.png" id="151_t4aml"]
+[ext_resource type="Texture2D" uid="uid://bcx5w6fd5hbjk" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/1_green/frame_23.png" id="152_djhls"]
 [ext_resource type="Texture2D" uid="uid://c2isjgqukfx3p" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_7.png" id="152_x17b5"]
 [ext_resource type="Texture2D" uid="uid://c8ecc0xaqtlxf" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/5_magenta/frame_8.png" id="153_ljepl"]
 [ext_resource type="Texture2D" uid="uid://bp5e7tu2qdxdo" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/animation/blue_flame_disable.png" id="154_53npw"]
@@ -278,20 +326,44 @@
 [ext_resource type="Texture2D" uid="uid://ccyfmypnhivnx" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/7_black/frame_23.png" id="192_5b2kb"]
 [ext_resource type="Texture2D" uid="uid://cu2gewfju344u" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/3_white/frame_23.png" id="192_vydw4"]
 [ext_resource type="Texture2D" uid="uid://cb44ccd3smwhm" path="res://core/assets/sprites/set_objects/specific_blocks/2_steel/animation/4_cyan_sprite_sheet.png" id="197_p6lbm"]
+[ext_resource type="Texture2D" uid="uid://bdvtjvriep2gw" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_0.png" id="205_pxfwi"]
 [ext_resource type="Texture2D" uid="uid://db0w1bohitet7" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/animation/white_flame_disable.png" id="206_5fiq4"]
+[ext_resource type="Texture2D" uid="uid://ds17qm0o5jod7" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_1.png" id="206_qqcjt"]
+[ext_resource type="Texture2D" uid="uid://bgave8kuffrcj" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_2.png" id="207_2asta"]
 [ext_resource type="Texture2D" uid="uid://cp8ncabv5hj8h" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/white_black.png" id="207_mbfpp"]
 [ext_resource type="Texture2D" uid="uid://ia23rlcrch63" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/white_black_1.png" id="208_0a7bv"]
+[ext_resource type="Texture2D" uid="uid://doeg5jdml2slx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_3.png" id="208_gtyfx"]
+[ext_resource type="Texture2D" uid="uid://b6x3heaho83wm" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_4.png" id="209_o8q0s"]
+[ext_resource type="Texture2D" uid="uid://cqrky3a2vsuqj" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_5.png" id="210_ip7vb"]
+[ext_resource type="Texture2D" uid="uid://dcuanfnnskclc" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_6.png" id="211_goluc"]
+[ext_resource type="Texture2D" uid="uid://bkqs20h7yj3w2" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_7.png" id="212_ppeun"]
+[ext_resource type="Texture2D" uid="uid://ccrd2l1vpam4a" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_8.png" id="213_ykq6p"]
+[ext_resource type="Texture2D" uid="uid://5xqnqj33joda" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_9.png" id="214_1stfs"]
+[ext_resource type="Texture2D" uid="uid://dp0mrbdrp7cb1" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_10.png" id="215_b4yo5"]
+[ext_resource type="Texture2D" uid="uid://56xfecn67cj5" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_11.png" id="216_v7b0m"]
+[ext_resource type="Texture2D" uid="uid://crblknf8pvggh" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_12.png" id="217_3ipla"]
 [ext_resource type="Texture2D" uid="uid://cv2u5u4uf74sl" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_0.png" id="217_wyd23"]
+[ext_resource type="Texture2D" uid="uid://mj1w17ulwup5" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_13.png" id="218_pk48x"]
 [ext_resource type="Texture2D" uid="uid://c3lawf4qo078a" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_1.png" id="218_r7ge1"]
 [ext_resource type="Texture2D" uid="uid://blmc2muq5ymcn" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_2.png" id="219_0r257"]
+[ext_resource type="Texture2D" uid="uid://bjeqmsjedjy1f" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_14.png" id="219_tuf26"]
 [ext_resource type="Texture2D" uid="uid://bh8vbtgjx2du7" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_3.png" id="220_argvn"]
+[ext_resource type="Texture2D" uid="uid://b55hw0gn6h31a" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_15.png" id="220_wx5d6"]
 [ext_resource type="Texture2D" uid="uid://cnsojxihxaco2" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_4.png" id="221_0tbot"]
+[ext_resource type="Texture2D" uid="uid://dhc1npad3pl" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_16.png" id="221_1uv6r"]
+[ext_resource type="Texture2D" uid="uid://5qkgvglmfdhf" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_17.png" id="222_6y46t"]
 [ext_resource type="Texture2D" uid="uid://j8f5cyedd6rw" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_5.png" id="222_wkmx8"]
+[ext_resource type="Texture2D" uid="uid://bhrooc2d3y0w2" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_18.png" id="223_cf20g"]
 [ext_resource type="Texture2D" uid="uid://8lram7t2c7vu" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_6.png" id="223_ssmjv"]
+[ext_resource type="Texture2D" uid="uid://mx72kbjdxjxf" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_19.png" id="224_ghqsy"]
 [ext_resource type="Texture2D" uid="uid://cxltcm2yxxqpo" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_7.png" id="224_ldym0"]
+[ext_resource type="Texture2D" uid="uid://cx6qw85i4ic0n" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_20.png" id="225_1s14h"]
 [ext_resource type="Texture2D" uid="uid://ckma54x846ee8" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_8.png" id="225_huvle"]
 [ext_resource type="Texture2D" uid="uid://bnrgcpvt6nagc" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_9.png" id="226_al22w"]
+[ext_resource type="Texture2D" uid="uid://cnultoi625id7" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_21.png" id="226_pc7fk"]
 [ext_resource type="Texture2D" uid="uid://cq6rqpoyvxoxx" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_10.png" id="227_jr5en"]
+[ext_resource type="Texture2D" uid="uid://37np8f1ixdig" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_22.png" id="227_pkonq"]
+[ext_resource type="Texture2D" uid="uid://bmgumousht372" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/2_blue/frame_23.png" id="228_ud6xo"]
 [ext_resource type="Texture2D" uid="uid://cdhsurkrrdv2u" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_11.png" id="228_wyfwn"]
 [ext_resource type="Texture2D" uid="uid://d3bbw7s5rpafw" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_12.png" id="229_pwc1x"]
 [ext_resource type="Texture2D" uid="uid://ce68nt8bn0v74" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/4_cyan/frame_13.png" id="230_ktnw3"]
@@ -325,30 +397,54 @@
 [ext_resource type="Texture2D" uid="uid://cf4vx665e4q6o" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_13.png" id="278_ip7vb"]
 [ext_resource type="Texture2D" uid="uid://dc8agpyvc1drg" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_14.png" id="279_goluc"]
 [ext_resource type="Texture2D" uid="uid://dhx7id46g841r" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_15.png" id="280_ppeun"]
+[ext_resource type="Texture2D" uid="uid://droyi8sp3oqrs" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_0.png" id="281_41ybl"]
 [ext_resource type="Texture2D" uid="uid://ddojem6mjrer0" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_16.png" id="281_ykq6p"]
 [ext_resource type="Texture2D" uid="uid://eidw8frgxurq" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_17.png" id="282_1stfs"]
+[ext_resource type="Texture2D" uid="uid://bt2br6uy744v0" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_1.png" id="282_uigvx"]
 [ext_resource type="Texture2D" uid="uid://onb3dr2pfuqx" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_18.png" id="283_b4yo5"]
+[ext_resource type="Texture2D" uid="uid://gp1p6egfu25y" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_2.png" id="283_xpsjh"]
+[ext_resource type="Texture2D" uid="uid://d1pcll665vhp2" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_3.png" id="284_rmo6d"]
 [ext_resource type="Texture2D" uid="uid://bpjot8yrrn4nw" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_19.png" id="284_v7b0m"]
 [ext_resource type="Texture2D" uid="uid://b77e6n56t5hud" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_20.png" id="285_3ipla"]
+[ext_resource type="Texture2D" uid="uid://bqvjq2aashnn4" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_4.png" id="285_ujjgq"]
+[ext_resource type="Texture2D" uid="uid://d3vuooxpv00jv" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_5.png" id="286_de04b"]
 [ext_resource type="Texture2D" uid="uid://dgc2yo54bgqss" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_21.png" id="286_pk48x"]
+[ext_resource type="Texture2D" uid="uid://bi86goo46re5" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_6.png" id="287_nmxp3"]
 [ext_resource type="Texture2D" uid="uid://b5d7kcn1wwqxm" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_22.png" id="287_tuf26"]
+[ext_resource type="Texture2D" uid="uid://ctrdw0bnkk2uq" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_7.png" id="288_melek"]
 [ext_resource type="Texture2D" uid="uid://m1e27bjnaega" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/5_magenta/frame_23.png" id="288_wx5d6"]
 [ext_resource type="Texture2D" uid="uid://bl14xrhiwqso7" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_0.png" id="289_1uv6r"]
+[ext_resource type="Texture2D" uid="uid://daey8inh726wy" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_8.png" id="289_4nrly"]
 [ext_resource type="Texture2D" uid="uid://c4up7p8bjm78i" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_1.png" id="290_6y46t"]
+[ext_resource type="Texture2D" uid="uid://d3e2cpj4pihh8" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_9.png" id="290_et8iu"]
 [ext_resource type="Texture2D" uid="uid://bo2unnyfyue5t" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_2.png" id="291_cf20g"]
+[ext_resource type="Texture2D" uid="uid://bu2fpjclgxpu" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_10.png" id="291_cwing"]
 [ext_resource type="Texture2D" uid="uid://djkrqguc8kn6f" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_3.png" id="292_ghqsy"]
+[ext_resource type="Texture2D" uid="uid://cto76svoiutjs" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_11.png" id="292_idtdu"]
 [ext_resource type="Texture2D" uid="uid://b08o3pbqugh2f" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_4.png" id="293_1s14h"]
+[ext_resource type="Texture2D" uid="uid://dls4ww6cnppwd" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_12.png" id="293_gjsyn"]
+[ext_resource type="Texture2D" uid="uid://c7ayv1roldpm3" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_13.png" id="294_erqne"]
 [ext_resource type="Texture2D" uid="uid://mbq47vllpwsj" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_5.png" id="294_pc7fk"]
 [ext_resource type="Texture2D" uid="uid://4dg6l0lcfclm" path="res://core/assets/sprites/set_objects/specific_blocks/2_steel/animation/6_yellow_sprite_sheet.png" id="295_5opjp"]
+[ext_resource type="Texture2D" uid="uid://1ym5yc5a0aid" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_14.png" id="295_c8e12"]
 [ext_resource type="Texture2D" uid="uid://ccypuqdl02hf4" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_6.png" id="295_pkonq"]
+[ext_resource type="Texture2D" uid="uid://p5rfwsjex5r7" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_15.png" id="296_0c6ec"]
 [ext_resource type="Texture2D" uid="uid://xdfsvc0s0s38" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_7.png" id="296_ud6xo"]
 [ext_resource type="Texture2D" uid="uid://c2vspxj5jhqns" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_8.png" id="297_41ybl"]
+[ext_resource type="Texture2D" uid="uid://vc6gpnona1ar" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_16.png" id="297_gctn7"]
+[ext_resource type="Texture2D" uid="uid://btn8i0ejy3w0e" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_17.png" id="298_7cs5k"]
 [ext_resource type="Texture2D" uid="uid://dxx8ci516ttpo" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_9.png" id="298_uigvx"]
+[ext_resource type="Texture2D" uid="uid://q1nrtjhuc3p" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_18.png" id="299_2bwbf"]
 [ext_resource type="Texture2D" uid="uid://nonocsw5vepu" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_10.png" id="299_xpsjh"]
+[ext_resource type="Texture2D" uid="uid://8bmssvx8ssml" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_19.png" id="300_8av6o"]
 [ext_resource type="Texture2D" uid="uid://dquhm12pbsyu1" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_11.png" id="300_rmo6d"]
+[ext_resource type="Texture2D" uid="uid://wlt0m5hc4rjx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_20.png" id="301_6fvma"]
 [ext_resource type="Texture2D" uid="uid://bwd5d8e36ykdk" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_12.png" id="301_ujjgq"]
 [ext_resource type="Texture2D" uid="uid://bhd558al7pqyl" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_13.png" id="302_de04b"]
+[ext_resource type="Texture2D" uid="uid://cjlf0hkfe106c" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_21.png" id="302_qpmsy"]
+[ext_resource type="Texture2D" uid="uid://cutij3jmo2lcu" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_22.png" id="303_fajyq"]
 [ext_resource type="Texture2D" uid="uid://corehlc8bi00y" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_14.png" id="303_nmxp3"]
+[ext_resource type="Texture2D" uid="uid://bhl5301rpg7d1" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/3_white/frame_23.png" id="304_eknmb"]
 [ext_resource type="Texture2D" uid="uid://rluwvmdfxg83" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_15.png" id="304_melek"]
 [ext_resource type="Texture2D" uid="uid://b3hipmn5orqtk" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_16.png" id="305_4nrly"]
 [ext_resource type="Texture2D" uid="uid://bp1231mxvulp2" path="res://core/assets/sprites/set_objects/specific_blocks/4_hay/animation/6_yellow/frame_17.png" id="306_et8iu"]
@@ -386,28 +482,52 @@
 [ext_resource type="Texture2D" uid="uid://ormwik0ktura" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/6_yellow/frame_22.png" id="335_ewhts"]
 [ext_resource type="Texture2D" uid="uid://c858faoqq374a" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/6_yellow/frame_23.png" id="336_iux3m"]
 [ext_resource type="Texture2D" uid="uid://c227yyxex285e" path="res://core/assets/sprites/set_objects/specific_blocks/2_steel/animation/7_black_sprite_sheet.png" id="344_o6hb6"]
+[ext_resource type="Texture2D" uid="uid://bswsyah1iaq8g" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_0.png" id="357_t4t5p"]
+[ext_resource type="Texture2D" uid="uid://bybpvfplckpuc" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_1.png" id="358_2bhp5"]
+[ext_resource type="Texture2D" uid="uid://5y6xaytbr4l8" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_2.png" id="359_unep2"]
+[ext_resource type="Texture2D" uid="uid://c5ildbqyn6tkm" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_3.png" id="360_2aul5"]
 [ext_resource type="Texture2D" uid="uid://bn3lj7v3hhido" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_0.png" id="361_2b3qw"]
+[ext_resource type="Texture2D" uid="uid://cgr0g767abln8" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_4.png" id="361_mbhh2"]
+[ext_resource type="Texture2D" uid="uid://ch2xn0ew47r1p" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_5.png" id="362_3laos"]
 [ext_resource type="Texture2D" uid="uid://ckwy4e5ihw4k6" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_1.png" id="362_87rqu"]
 [ext_resource type="Texture2D" uid="uid://bx67iyxv5uc4w" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/animation/yellon_flame_disable.png" id="362_rgqjg"]
 [ext_resource type="Texture2D" uid="uid://dnwya6sw7of00" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_2.png" id="363_7hup6"]
 [ext_resource type="Texture2D" uid="uid://d3mq486twec27" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/yellow_block.png" id="363_ec3jg"]
+[ext_resource type="Texture2D" uid="uid://dae2m0vag0nmt" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_6.png" id="363_u311t"]
+[ext_resource type="Texture2D" uid="uid://bu04ujaeltt0c" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_7.png" id="364_0wf6q"]
 [ext_resource type="Texture2D" uid="uid://b0oq7k8mml85y" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/yellow_block_1.png" id="364_8ir1x"]
 [ext_resource type="Texture2D" uid="uid://b5yavubef7cd3" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_3.png" id="364_s17j7"]
+[ext_resource type="Texture2D" uid="uid://bve2ybxqyx63q" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_8.png" id="365_3xgha"]
 [ext_resource type="Texture2D" uid="uid://vjs0073b5hpa" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_4.png" id="365_wun2f"]
+[ext_resource type="Texture2D" uid="uid://cebp6w5cyeqgn" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_9.png" id="366_3k7b7"]
 [ext_resource type="Texture2D" uid="uid://cr5k8brshsmk" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_5.png" id="366_rp2s5"]
 [ext_resource type="Texture2D" uid="uid://dmlh02cu7lxyy" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_6.png" id="367_ds2uu"]
+[ext_resource type="Texture2D" uid="uid://duqh2vagiara7" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_10.png" id="367_ubw35"]
 [ext_resource type="Texture2D" uid="uid://dreeqooky6lqh" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_7.png" id="368_dyhmf"]
+[ext_resource type="Texture2D" uid="uid://b1xb0l2thj5qy" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_11.png" id="368_hwnee"]
+[ext_resource type="Texture2D" uid="uid://c6aaykudsp13d" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_12.png" id="369_qyk3i"]
 [ext_resource type="Texture2D" uid="uid://cgc74yhgky4nk" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_8.png" id="369_wiqwv"]
+[ext_resource type="Texture2D" uid="uid://yq3oxljgydfp" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_13.png" id="370_fx3ki"]
 [ext_resource type="Texture2D" uid="uid://d3pv4wqt6xtfe" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_9.png" id="370_vcsp0"]
+[ext_resource type="Texture2D" uid="uid://cvs2tnk3a1drb" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_14.png" id="371_ewhts"]
 [ext_resource type="Texture2D" uid="uid://rbeqr3r3gim2" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_10.png" id="371_q6ybj"]
+[ext_resource type="Texture2D" uid="uid://dbcm43hal8dnx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_15.png" id="372_iux3m"]
 [ext_resource type="Texture2D" uid="uid://h47ckv4xeull" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_11.png" id="372_mr3rr"]
+[ext_resource type="Texture2D" uid="uid://dvtkyjaebax5t" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_16.png" id="373_2b3qw"]
 [ext_resource type="Texture2D" uid="uid://04tayj8cct6x" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_12.png" id="373_3ww2o"]
+[ext_resource type="Texture2D" uid="uid://nmkmhtabo2j4" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_17.png" id="374_87rqu"]
 [ext_resource type="Texture2D" uid="uid://cgskg8l1x1760" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_13.png" id="374_a46x5"]
+[ext_resource type="Texture2D" uid="uid://e178h32we0wc" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_18.png" id="375_7hup6"]
 [ext_resource type="Texture2D" uid="uid://ptfg2ph35f63" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_14.png" id="375_ewu0t"]
 [ext_resource type="Texture2D" uid="uid://d2678avjp5qqo" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_15.png" id="376_nwrqj"]
+[ext_resource type="Texture2D" uid="uid://csyd4mxkrwafo" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_19.png" id="376_s17j7"]
 [ext_resource type="Texture2D" uid="uid://c0utfuk3pec4r" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_16.png" id="377_lxnef"]
+[ext_resource type="Texture2D" uid="uid://dg05jlqdcr7du" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_20.png" id="377_wun2f"]
 [ext_resource type="Texture2D" uid="uid://d0nah2r75b45i" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_17.png" id="378_l3g4p"]
+[ext_resource type="Texture2D" uid="uid://c4ky8807whuvj" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_21.png" id="378_rp2s5"]
+[ext_resource type="Texture2D" uid="uid://d3i2iy6q16sid" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_22.png" id="379_ds2uu"]
 [ext_resource type="Texture2D" uid="uid://bwvjq3vua2sq4" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_18.png" id="379_hb1fn"]
+[ext_resource type="Texture2D" uid="uid://cmmup7rbytl0p" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/4_cyan/frame_23.png" id="380_dyhmf"]
 [ext_resource type="Texture2D" uid="uid://8ncetbwhavio" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_19.png" id="380_ovhu5"]
 [ext_resource type="Texture2D" uid="uid://dew1okspcn30o" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_20.png" id="381_ivtng"]
 [ext_resource type="Texture2D" uid="uid://ct70ehtrk568t" path="res://core/assets/sprites/set_objects/specific_blocks/5_vegetable/animation/7_black/frame_21.png" id="382_cuswt"]
@@ -416,6 +536,78 @@
 [ext_resource type="Texture2D" uid="uid://dryph35sugycp" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/animation/black_flame_disable.png" id="414_c2dy8"]
 [ext_resource type="Texture2D" uid="uid://d1gtwohjfbrps" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/black_block.png" id="415_ls76x"]
 [ext_resource type="Texture2D" uid="uid://bepw7swwcov1e" path="res://core/assets/sprites/set_objects/specific_blocks/6_flame/black_block_1.png" id="416_rlf5o"]
+[ext_resource type="Texture2D" uid="uid://0guakk01mk5d" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_0.png" id="433_wiqwv"]
+[ext_resource type="Texture2D" uid="uid://ulkhfo3vsnwx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_1.png" id="434_vcsp0"]
+[ext_resource type="Texture2D" uid="uid://c0viiaac7p3ve" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_2.png" id="435_q6ybj"]
+[ext_resource type="Texture2D" uid="uid://duqblrhmv2kdb" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_3.png" id="436_mr3rr"]
+[ext_resource type="Texture2D" uid="uid://e4ywa3gho3m4" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_4.png" id="437_3ww2o"]
+[ext_resource type="Texture2D" uid="uid://cxvatr2fmsen5" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_5.png" id="438_a46x5"]
+[ext_resource type="Texture2D" uid="uid://dmp5f4qjmcmnx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_6.png" id="439_ewu0t"]
+[ext_resource type="Texture2D" uid="uid://1080hruefvb7" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_7.png" id="440_nwrqj"]
+[ext_resource type="Texture2D" uid="uid://b1iqn2r2m1xks" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_8.png" id="441_lxnef"]
+[ext_resource type="Texture2D" uid="uid://dwwie7sjb3axe" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_9.png" id="442_l3g4p"]
+[ext_resource type="Texture2D" uid="uid://bkf16daul8jtj" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_10.png" id="443_hb1fn"]
+[ext_resource type="Texture2D" uid="uid://rli5nfbdalg5" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_11.png" id="444_ovhu5"]
+[ext_resource type="Texture2D" uid="uid://bbhpl34a2rxoh" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_12.png" id="445_ivtng"]
+[ext_resource type="Texture2D" uid="uid://d3ft8pk4cki0f" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_13.png" id="446_cuswt"]
+[ext_resource type="Texture2D" uid="uid://b3kusj5a6lmnk" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_14.png" id="447_jkwjd"]
+[ext_resource type="Texture2D" uid="uid://dg56rrbm6j71x" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_15.png" id="448_dava0"]
+[ext_resource type="Texture2D" uid="uid://csny6bhnepojk" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_16.png" id="449_06acq"]
+[ext_resource type="Texture2D" uid="uid://oq4r87yahubl" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_17.png" id="450_oqe3h"]
+[ext_resource type="Texture2D" uid="uid://dp17kyswbgo8c" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_18.png" id="451_6370b"]
+[ext_resource type="Texture2D" uid="uid://n848bqxciehx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_19.png" id="452_plae3"]
+[ext_resource type="Texture2D" uid="uid://d184vtrb86gpf" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_20.png" id="453_7semj"]
+[ext_resource type="Texture2D" uid="uid://cdkl5he7tp8t4" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_21.png" id="454_qkxu7"]
+[ext_resource type="Texture2D" uid="uid://dquol12o1m57w" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_22.png" id="455_fjry8"]
+[ext_resource type="Texture2D" uid="uid://b65qb4upuwwng" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/5_magenta/frame_23.png" id="456_cdvm1"]
+[ext_resource type="Texture2D" uid="uid://0a8mhjlvdf2c" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_0.png" id="509_nc3iy"]
+[ext_resource type="Texture2D" uid="uid://c67fg62kk1the" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_1.png" id="510_3uxp2"]
+[ext_resource type="Texture2D" uid="uid://b3mmxwddpfw0c" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_2.png" id="511_ihr71"]
+[ext_resource type="Texture2D" uid="uid://bd5q7khpr3o5x" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_3.png" id="512_mmo2w"]
+[ext_resource type="Texture2D" uid="uid://cr4atj3vhk3q1" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_4.png" id="513_n1rgu"]
+[ext_resource type="Texture2D" uid="uid://do6lx1a1xrgmi" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_5.png" id="514_67msb"]
+[ext_resource type="Texture2D" uid="uid://ioyhqcqktgag" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_6.png" id="515_s4r2y"]
+[ext_resource type="Texture2D" uid="uid://dpbbf41j8emqm" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_7.png" id="516_hq7pc"]
+[ext_resource type="Texture2D" uid="uid://c22ahjhlcnnec" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_8.png" id="517_0isij"]
+[ext_resource type="Texture2D" uid="uid://ddol3e5qo8j0w" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_9.png" id="518_oogf0"]
+[ext_resource type="Texture2D" uid="uid://b881imeds6j05" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_10.png" id="519_355mr"]
+[ext_resource type="Texture2D" uid="uid://brnbaomcqb3ub" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_11.png" id="520_lran3"]
+[ext_resource type="Texture2D" uid="uid://coabmss5xwmfr" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_12.png" id="521_rcd15"]
+[ext_resource type="Texture2D" uid="uid://sr81vbd1iuwx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_13.png" id="522_fl775"]
+[ext_resource type="Texture2D" uid="uid://d3erbha7adhw8" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_14.png" id="523_ohofk"]
+[ext_resource type="Texture2D" uid="uid://bjnqxdp127cic" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_15.png" id="524_46eb0"]
+[ext_resource type="Texture2D" uid="uid://cctumffjn7unk" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_16.png" id="525_o3c1t"]
+[ext_resource type="Texture2D" uid="uid://ckqqng45u1gn5" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_17.png" id="526_0c71a"]
+[ext_resource type="Texture2D" uid="uid://pp0v58pujs1v" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_18.png" id="527_ro07k"]
+[ext_resource type="Texture2D" uid="uid://5v4yql3xtmxl" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_19.png" id="528_bx5ox"]
+[ext_resource type="Texture2D" uid="uid://balcmdalq1jc" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_20.png" id="529_r2tpr"]
+[ext_resource type="Texture2D" uid="uid://7ye01b0oik4o" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_21.png" id="530_nwcp3"]
+[ext_resource type="Texture2D" uid="uid://u2b6m2weyi1s" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_22.png" id="531_ax46l"]
+[ext_resource type="Texture2D" uid="uid://cql0mmgjnbyy4" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/6_yellow/frame_23.png" id="532_rtfqj"]
+[ext_resource type="Texture2D" uid="uid://be2wcgbhd6txw" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_0.png" id="585_6lsvb"]
+[ext_resource type="Texture2D" uid="uid://dihd7w33q565e" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_1.png" id="586_cw017"]
+[ext_resource type="Texture2D" uid="uid://cgsucj1awsrel" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_2.png" id="587_dh1xv"]
+[ext_resource type="Texture2D" uid="uid://cl5oyjmphtq2l" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_3.png" id="588_bm0k7"]
+[ext_resource type="Texture2D" uid="uid://cjokuwe41lmvo" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_4.png" id="589_vcsd5"]
+[ext_resource type="Texture2D" uid="uid://o0ps0st0pw8q" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_5.png" id="590_abqyv"]
+[ext_resource type="Texture2D" uid="uid://c73mrtn3wjog8" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_6.png" id="591_fk7q8"]
+[ext_resource type="Texture2D" uid="uid://bvtd13qrrt2pd" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_7.png" id="592_sjx6w"]
+[ext_resource type="Texture2D" uid="uid://dqdampoyf27km" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_8.png" id="593_n5i1h"]
+[ext_resource type="Texture2D" uid="uid://b80epoueokvlx" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_9.png" id="594_d0knf"]
+[ext_resource type="Texture2D" uid="uid://w5d4065o7d16" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_10.png" id="595_rwg2w"]
+[ext_resource type="Texture2D" uid="uid://c8n118wikoem" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_11.png" id="596_0jmpk"]
+[ext_resource type="Texture2D" uid="uid://cvgx5rnhu4drm" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_12.png" id="597_hdc8s"]
+[ext_resource type="Texture2D" uid="uid://bftdwf27hvqiq" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_13.png" id="598_lo6vk"]
+[ext_resource type="Texture2D" uid="uid://d16wh67vqrsfi" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_14.png" id="599_2qji3"]
+[ext_resource type="Texture2D" uid="uid://bvvdj6m3pcm5s" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_15.png" id="600_fuppl"]
+[ext_resource type="Texture2D" uid="uid://cty08fybe7aao" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_16.png" id="601_bic3p"]
+[ext_resource type="Texture2D" uid="uid://c4nrx2wvqgern" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_17.png" id="602_vq1aw"]
+[ext_resource type="Texture2D" uid="uid://crhu6agn6m85x" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_18.png" id="603_asie3"]
+[ext_resource type="Texture2D" uid="uid://c6pcv2cmnpyv0" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_19.png" id="604_1fcky"]
+[ext_resource type="Texture2D" uid="uid://b1dkvsfst60em" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_20.png" id="605_76eah"]
+[ext_resource type="Texture2D" uid="uid://berelqp2pi2w7" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_21.png" id="606_7i7yy"]
+[ext_resource type="Texture2D" uid="uid://beokhk3ti07rn" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_22.png" id="607_gclx6"]
+[ext_resource type="Texture2D" uid="uid://cqrke6m2cbpdt" path="res://core/assets/sprites/set_objects/specific_blocks/7_fruits/animation/7_black/frame_23.png" id="608_r002j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o32s5"]
 atlas = ExtResource("1_o32s5")
@@ -1008,10 +1200,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("53_qpalm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_xmocu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_y3vkc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_8oyuy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_w3ens")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_wmfnb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_qyute")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_bd1vb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_vlkn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_5w1xg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_xq3el")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_syg54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_0dgqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_rnwtw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_x15bf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_vydw4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_wyd23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_r7ge1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_0r257")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_argvn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_0tbot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_wkmx8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_ssmjv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_ldym0")
+}],
 "loop": 0,
 "name": &"7_fruits",
-"speed": 16.0
+"speed": 24.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_730oy"]
@@ -1605,10 +1869,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("129_huvle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("130_al22w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("131_jr5en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("132_wyfwn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("133_pwc1x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("134_ktnw3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("135_go2ry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("136_wj2hu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("137_v6uj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("138_gd3xo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("139_c35yc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("140_vo4sd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("141_qufqn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("142_3wudc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("143_7ck1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("144_n4q0q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("145_l8m5f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("146_abshr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("147_nxxhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("148_eurvk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("149_8uwel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("150_4ovu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("151_mxm3g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("152_djhls")
+}],
 "loop": 0,
 "name": &"7_fruits",
-"speed": 16.0
+"speed": 24.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_csr7l"]
@@ -2202,10 +2538,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("205_pxfwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("206_qqcjt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("207_2asta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("208_gtyfx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("209_o8q0s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("210_ip7vb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("211_goluc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("212_ppeun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("213_ykq6p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("214_1stfs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("215_b4yo5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("216_v7b0m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("217_3ipla")
+}, {
+"duration": 1.0,
+"texture": ExtResource("218_pk48x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("219_tuf26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("220_wx5d6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("221_1uv6r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("222_6y46t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("223_cf20g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("224_ghqsy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("225_1s14h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("226_pc7fk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("227_pkonq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("228_ud6xo")
+}],
 "loop": 0,
 "name": &"7_fruits",
-"speed": 16.0
+"speed": 24.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r7ge1"]
@@ -2799,10 +3207,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("281_41ybl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("282_uigvx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("283_xpsjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("284_rmo6d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("285_ujjgq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("286_de04b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("287_nmxp3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("288_melek")
+}, {
+"duration": 1.0,
+"texture": ExtResource("289_4nrly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("290_et8iu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("291_cwing")
+}, {
+"duration": 1.0,
+"texture": ExtResource("292_idtdu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("293_gjsyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("294_erqne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("295_c8e12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("296_0c6ec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("297_gctn7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("298_7cs5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("299_2bwbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("300_8av6o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("301_6fvma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("302_qpmsy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("303_fajyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("304_eknmb")
+}],
 "loop": 0,
 "name": &"7_fruits",
-"speed": 16.0
+"speed": 24.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_abshr"]
@@ -3396,10 +3876,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
-"loop": 1,
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("357_t4t5p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("358_2bhp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("359_unep2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("360_2aul5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("361_mbhh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("362_3laos")
+}, {
+"duration": 1.0,
+"texture": ExtResource("363_u311t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("364_0wf6q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("365_3xgha")
+}, {
+"duration": 1.0,
+"texture": ExtResource("366_3k7b7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("367_ubw35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("368_hwnee")
+}, {
+"duration": 1.0,
+"texture": ExtResource("369_qyk3i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("370_fx3ki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("371_ewhts")
+}, {
+"duration": 1.0,
+"texture": ExtResource("372_iux3m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("373_2b3qw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("374_87rqu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("375_7hup6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("376_s17j7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("377_wun2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("378_rp2s5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("379_ds2uu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("380_dyhmf")
+}],
+"loop": 0,
 "name": &"7_fruits",
-"speed": 5.0
+"speed": 24.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6y46t"]
@@ -3993,10 +4545,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
-"loop": 1,
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("433_wiqwv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("434_vcsp0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("435_q6ybj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("436_mr3rr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("437_3ww2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("438_a46x5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("439_ewu0t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("440_nwrqj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("441_lxnef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("442_l3g4p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("443_hb1fn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("444_ovhu5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("445_ivtng")
+}, {
+"duration": 1.0,
+"texture": ExtResource("446_cuswt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("447_jkwjd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("448_dava0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("449_06acq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("450_oqe3h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("451_6370b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("452_plae3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("453_7semj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("454_qkxu7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("455_fjry8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("456_cdvm1")
+}],
+"loop": 0,
 "name": &"7_fruits",
-"speed": 5.0
+"speed": 24.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cs5k"]
@@ -4590,10 +5214,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
-"loop": 1,
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("509_nc3iy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("510_3uxp2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("511_ihr71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("512_mmo2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("513_n1rgu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("514_67msb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("515_s4r2y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("516_hq7pc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("517_0isij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("518_oogf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("519_355mr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("520_lran3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("521_rcd15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("522_fl775")
+}, {
+"duration": 1.0,
+"texture": ExtResource("523_ohofk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("524_46eb0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("525_o3c1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("526_0c71a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("527_ro07k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("528_bx5ox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("529_r2tpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("530_nwcp3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("531_ax46l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("532_rtfqj")
+}],
+"loop": 0,
 "name": &"7_fruits",
-"speed": 5.0
+"speed": 24.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_87rqu"]
@@ -5187,10 +5883,82 @@ animations = [{
 "name": &"6_flame_block",
 "speed": 12.0
 }, {
-"frames": [],
-"loop": 1,
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("585_6lsvb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("586_cw017")
+}, {
+"duration": 1.0,
+"texture": ExtResource("587_dh1xv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("588_bm0k7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("589_vcsd5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("590_abqyv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("591_fk7q8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("592_sjx6w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("593_n5i1h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("594_d0knf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("595_rwg2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("596_0jmpk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("597_hdc8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("598_lo6vk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("599_2qji3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("600_fuppl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("601_bic3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("602_vq1aw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("603_asie3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("604_1fcky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("605_76eah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("606_7i7yy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("607_gclx6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("608_r002j")
+}],
+"loop": 0,
 "name": &"7_fruits",
-"speed": 5.0
+"speed": 24.0
 }]
 
 [node name="BlockAnimations" type="Node2D" unique_id=414541590]
@@ -5200,6 +5968,8 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_qhvy1")
 animation = &"7_fruits"
 autoplay = "6_flame_block"
+frame = 23
+frame_progress = 1.0
 
 [node name="1" type="AnimatedSprite2D" parent="." unique_id=1528987778]
 visible = false
@@ -5220,6 +5990,7 @@ animation = &"7_fruits"
 autoplay = "6_flame_block"
 
 [node name="4" type="AnimatedSprite2D" parent="." unique_id=197362541]
+visible = false
 sprite_frames = SubResource("SpriteFrames_n5430")
 animation = &"7_fruits"
 autoplay = "6_flame_block"
