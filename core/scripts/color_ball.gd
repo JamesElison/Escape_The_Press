@@ -39,6 +39,10 @@ func apply_launcher_speed() -> void:
 			speed = 1500.0
 		"fire_fighter":
 			speed = 1500.0
+		"laser_beam":
+			speed = 1500.0
+		"ice_cube":
+			speed = 1500.0
 		_:
 			speed = 1500.0
 
@@ -232,9 +236,9 @@ func destroy_with_anim() -> void:
 	is_exploding = true
 	speed = 0.0
 	
-	var launcher_theme = GameManager.get_current_launcher_theme()
-	if launcher_theme and launcher_theme.hit_sound:
-		GameManager.play_sfx_persistent(launcher_theme.hit_sound)
+	#var launcher_theme = GameManager.get_current_launcher_theme()
+	#if launcher_theme and launcher_theme.hit_sound:
+		#GameManager.play_sfx_persistent(launcher_theme.hit_sound)
 	
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)

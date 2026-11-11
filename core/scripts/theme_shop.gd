@@ -64,6 +64,13 @@ var items_catalog: Array[Dictionary] = [
 		"price": 0,
 		"texture_path": "res://core/assets/HUD/texture_path/7_laser_beam_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/7_laser_beam/"
+	},
+	{
+		"id": "ice_cube",
+		"title": "Ice Cube",
+		"price": 0,
+		"texture_path": "res://core/assets/HUD/texture_path/8_ice_cube_720x256.png",
+		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/8_ice_cube/"
 	}
 ]
 

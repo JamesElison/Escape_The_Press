@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="LauncherThemeData" format=4 uid="uid://cn7s52eodv2t7"]
 
+[ext_resource type="Texture2D" uid="uid://b84hp6yb3fewh" path="res://core/assets/sprites/characters/launchers_for_sale/6_firefighter_topdown.png" id="1_152bc"]
 [ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="1_k2na0"]
 
 [sub_resource type="AudioStreamWAV" id="AudioStreamWAV_k2na0"]
@@ -17,9 +18,6 @@ format = 3
 mix_rate = 48000
 stereo = true
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fqg20"]
-load_path = "res://.godot/imported/firefighter_topdown.png-b46090ff3b0078b95ea15c2089cc2e2a.ctex"
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f8ptv"]
 load_path = "res://.godot/imported/6_firefighter.png-440382ed663dd0827636478aeb584281.ctex"
 
@@ -36,7 +34,7 @@ launcher_name = "fire_fighter"
 is_flamethrower = true
 flame_texture = SubResource("CompressedTexture2D_152bc")
 launcher_texture = SubResource("CompressedTexture2D_f8ptv")
-launcher_map_texture = SubResource("CompressedTexture2D_fqg20")
+launcher_map_texture = ExtResource("1_152bc")
 press_texture = SubResource("CompressedTexture2D_av7bb")
 stop_texture = SubResource("CompressedTexture2D_uh1yl")
 hit_sound = SubResource("AudioStreamWAV_xpnh1")

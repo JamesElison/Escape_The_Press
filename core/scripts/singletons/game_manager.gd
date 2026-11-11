@@ -75,6 +75,7 @@ func _load_launcher_themes() -> void:
 	launcher_themes_catalog["high_voltage"] = load("res://core/resources/launcher_themes/launcher_high_voltage.tres")
 	launcher_themes_catalog["fire_fighter"] = load("res://core/resources/launcher_themes/launcher_fire_fighter.tres")
 	launcher_themes_catalog["laser_beam"] = load("res://core/resources/launcher_themes/launcher_laser_beam.tres")
+	launcher_themes_catalog["ice_cube"] = load("res://core/resources/launcher_themes/launcher_ice_cube.tres")
 	
 
 # Retorna o bioma/cenário atual baseado na progressão do mapa

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="LauncherThemeData" format=3 uid="uid://0oujv1dumodo"]
+
+[ext_resource type="Texture2D" uid="uid://44yoxppt83sj" path="res://core/assets/sprites/characters/launchers_for_sale/8_ice_launcher_topdown.png" id="1_5ow78"]
+[ext_resource type="AudioStream" uid="uid://sviavni1be85" path="res://core/assets/sounds/fx/specific_projectiles_sounds/8_ice_cube/block_explode.wav" id="1_nuqhh"]
+[ext_resource type="Texture2D" uid="uid://dp1n1funo15cf" path="res://core/assets/sprites/characters/launchers_for_sale/8_ice_launcher.png" id="2_ar4vh"]
+[ext_resource type="AudioStream" uid="uid://dx0ia1h5rc56p" path="res://core/assets/sounds/fx/specific_projectiles_sounds/8_ice_cube/ball_shoot.wav" id="2_cduib"]
+[ext_resource type="Texture2D" uid="uid://c0uanqm6qjexf" path="res://core/assets/sprites/set_objects/specific_press/press_ice.png" id="3_gwf7p"]
+[ext_resource type="Texture2D" uid="uid://dbj57olw3jnaa" path="res://core/assets/background/stop/stop_ice.png" id="5_e76t0"]
+[ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="6_ktan2"]
+
+[resource]
+script = ExtResource("6_ktan2")
+launcher_id = "ice_cube"
+launcher_name = "ice_cube"
+launcher_texture = ExtResource("2_ar4vh")
+launcher_map_texture = ExtResource("1_5ow78")
+press_texture = ExtResource("3_gwf7p")
+stop_texture = ExtResource("5_e76t0")
+hit_sound = ExtResource("2_cduib")
+explode_sound = ExtResource("1_nuqhh")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/8_ice_cube/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/8_ice_cube/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/8_whisky_glass/"
+block_animation_name = "8_whisky_glass"
+metadata/_custom_type_script = "uid://bwk70f8ninqe"

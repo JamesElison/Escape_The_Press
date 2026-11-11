@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Garante que o script execute apenas no diretório atual onde foi chamado
+cd "$(dirname "$0")"
+
+echo "=== Iniciando o redimensionamento dos frames (128x128px quadrado) ==="
+
+# Ajusta temporariamente a política do ImageMagick para permitir edição de arquivos PNG locais se necessário
+POLICY_FILE="/etc/ImageMagick-6/policy.xml"
+if [ -f "$POLICY_FILE" ]; then
+    sudo sed -i 's/rights="none" pattern="PNG"/rights="read|write" pattern="PNG"/g' "$POLICY_FILE" 2>/dev/null
+fi
+
+# 1 e 2. Redimensiona todos os arquivos que começam com "frame_" e terminam com ".png" para 128x128 (preenchendo/cortando para quadrado perfeito)
+# O operador '^!' força exatos 128x128 preenchendo o espaço de forma centralizada (contain/cover)
+for img in frame_*.png; do
+    if [ -f "$img" ]; then
+        echo "Processando: $img"
+        # Redimensiona para 128x128 mantendo o quadrado central
+        convert "$img" -resize 128x128\! "$img"
+    fi
+done
+
+echo "=== Redimensionamento concluído com sucesso! ==="
+echo "=== Abrindo os arquivos no visualizador Pix ==="
+
+# 3. Abre todos os arquivos processados no aplicativo Pix nativo do Linux Mint
+# pix frame_*.png &
