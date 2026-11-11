@@ -79,13 +79,17 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ItemCard8" parent="ThemeShopScroll/ThemeShopVBox" unique_id=263745291 instance=ExtResource("13_5cke0")]
+visible = false
 layout_mode = 2
 
 [node name="ItemCard9" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1987949688 instance=ExtResource("13_5cke0")]
+visible = false
 layout_mode = 2
 
 [node name="ItemCard10" parent="ThemeShopScroll/ThemeShopVBox" unique_id=572369554 instance=ExtResource("13_5cke0")]
+visible = false
 layout_mode = 2
 
 [node name="ItemCard11" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1710310196 instance=ExtResource("13_5cke0")]
+visible = false
 layout_mode = 2

@@ -6,6 +6,7 @@ signal equip_requested(item_data: Dictionary)
 @onready var item_accepted_sound = $ItemAccepted
 @onready var item_not_accepted_sound = $ItemNotAccepted
 @onready var icon_texture = $Icon
+@onready var theme_label = $ThemeLabel
 @onready var price_label = $PriceLabel
 @onready var action_button = $BuyButton
 @onready var action_button_label = $BuyButton/BuyButtonLabel
@@ -14,6 +15,10 @@ var current_item_data: Dictionary = {}
 
 func setup(data: Dictionary) -> void:
 	current_item_data = data
+	
+	# Exibe o título do launcher no ThemeLabel
+	if theme_label:
+		theme_label.text = data.get("title", "")
 	
 	if data.get("texture_path") != "":
 		icon_texture.texture = load(data.get("texture_path"))
