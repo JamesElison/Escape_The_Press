@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dwuvak5nlj3cc" path="res://core/scripts/level.gd" id="1_hm3ax"]
 [ext_resource type="Texture2D" uid="uid://cju1bsskns43r" path="res://core/assets/background/0_crystal_palace.jpg" id="2_drrfs"]
 [ext_resource type="Script" uid="uid://dqb10raqrdmmm" path="res://core/scripts/level_camera.gd" id="3_8uqsi"]
-[ext_resource type="AudioStream" uid="uid://cdcbumlt21tiu" path="res://core/assets/sounds/fx/black_spawn.wav" id="4_7bx1h"]
 [ext_resource type="AudioStream" uid="uid://b3d8ult005tcc" path="res://core/assets/sounds/fx/white_spawn.wav" id="5_koc5s"]
 [ext_resource type="AudioStream" uid="uid://bl2wopveer2kn" path="res://core/assets/sounds/fx/warning_sound.wav" id="6_x4boq"]
 [ext_resource type="AudioStream" uid="uid://cdlfo78wrwyoy" path="res://core/assets/sounds/fx/piep_warning.wav" id="7_5b41f"]
@@ -78,7 +77,7 @@ script = ExtResource("3_8uqsi")
 bus = &"BGM"
 
 [node name="BlackSpawn" type="AudioStreamPlayer" parent="." unique_id=1700399737]
-stream = ExtResource("4_7bx1h")
+stream = ExtResource("5_koc5s")
 bus = &"fx"
 
 [node name="WhiteSpawn" type="AudioStreamPlayer" parent="." unique_id=1624086760]

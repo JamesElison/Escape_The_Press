@@ -43,6 +43,8 @@ func apply_launcher_speed() -> void:
 			speed = 1500.0
 		"ice_cube":
 			speed = 1500.0
+		"dart":
+			speed = 1500.0
 		_:
 			speed = 1500.0
 

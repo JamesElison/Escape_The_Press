@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="LauncherThemeData" format=3 uid="uid://gccs5apbwn5o"]
+
+[ext_resource type="AudioStream" uid="uid://b6hhhn8wlw2vi" path="res://core/assets/sounds/fx/specific_projectiles_sounds/9_dart/block_explode.wav" id="1_jrw8j"]
+[ext_resource type="Texture2D" uid="uid://nnu63opn0mfa" path="res://core/assets/sprites/characters/launchers_for_sale/9_arrow_copper_topdown.png" id="1_uf0mt"]
+[ext_resource type="AudioStream" uid="uid://cmxmcwqkgkr6t" path="res://core/assets/sounds/fx/specific_projectiles_sounds/9_dart/ball_shoot.wav" id="2_gj3tn"]
+[ext_resource type="Texture2D" uid="uid://ct7que4t01qr4" path="res://core/assets/sprites/characters/launchers_for_sale/9_arrow_copper.png" id="2_kcyg2"]
+[ext_resource type="Texture2D" uid="uid://c0lqik3rtni1w" path="res://core/assets/sprites/set_objects/specific_press/press_cooper.png" id="3_jrw8j"]
+[ext_resource type="Texture2D" uid="uid://bcmwl0q2eufy3" path="res://core/assets/background/stop/stop_copper.png" id="5_gj3tn"]
+[ext_resource type="Script" uid="uid://bwk70f8ninqe" path="res://core/resources/launcher_themes/launcher_theme_data.gd" id="6_umbr1"]
+
+[resource]
+script = ExtResource("6_umbr1")
+launcher_id = "dart"
+launcher_name = "dart"
+launcher_texture = ExtResource("2_kcyg2")
+launcher_map_texture = ExtResource("1_uf0mt")
+press_texture = ExtResource("3_jrw8j")
+stop_texture = ExtResource("5_gj3tn")
+hit_sound = ExtResource("2_gj3tn")
+explode_sound = ExtResource("1_jrw8j")
+projectile_folder = "res://core/assets/sprites/set_objects/specific_projectiles/9_dart/"
+display_folder = "res://core/assets/sprites/set_objects/specific_projectiles/9_dart/"
+block_folder = "res://core/assets/sprites/set_objects/specific_blocks/9_bubble/"
+block_animation_name = "9_bubble"
+metadata/_custom_type_script = "uid://bwk70f8ninqe"

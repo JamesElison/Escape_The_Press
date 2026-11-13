@@ -118,7 +118,7 @@ func _update_audio_buttons_visual_state() -> void:
 	if is_instance_valid(sfx_button):
 		sfx_button.button_pressed = GameManager.is_sfx_muted
 		if is_instance_valid(sfx_button_label):
-			sfx_button_label.text = "Enable Effects" if GameManager.is_sfx_muted else "Disable Effects"
+			sfx_button_label.text = "Enable Sound" if GameManager.is_sfx_muted else "Disable Sound"
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.value = GameManager.sfx_volume_linear
@@ -155,7 +155,7 @@ func _on_sfx_button_toggled(toggled_on: bool) -> void:
 	GameManager.save_game_data()
 
 	if is_instance_valid(sfx_button_label):
-		sfx_button_label.text = "Enable Effects" if toggled_on else "Disable Effects"
+		sfx_button_label.text = "Enable Sound" if toggled_on else "Disable Sound"
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.editable = not toggled_on
