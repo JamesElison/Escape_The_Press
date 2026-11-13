@@ -109,7 +109,7 @@ func _update_audio_buttons_visual_state() -> void:
 	if is_instance_valid(bgm_button):
 		bgm_button.button_pressed = GameManager.is_bgm_muted
 		if is_instance_valid(bgm_button_label):
-			bgm_button_label.text = "Enable BGM" if GameManager.is_bgm_muted else "Disable BGM"
+			bgm_button_label.text = "Enable Music" if GameManager.is_bgm_muted else "Disable Music"
 
 	if is_instance_valid(bgm_slider):
 		bgm_slider.value = GameManager.bgm_volume_linear
@@ -118,7 +118,7 @@ func _update_audio_buttons_visual_state() -> void:
 	if is_instance_valid(sfx_button):
 		sfx_button.button_pressed = GameManager.is_sfx_muted
 		if is_instance_valid(sfx_button_label):
-			sfx_button_label.text = "Enable FSX" if GameManager.is_sfx_muted else "Disable FSX"
+			sfx_button_label.text = "Enable Effects" if GameManager.is_sfx_muted else "Disable Effects"
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.value = GameManager.sfx_volume_linear
@@ -131,7 +131,7 @@ func _on_bgm_button_toggled(toggled_on: bool) -> void:
 	GameManager.save_game_data()
 
 	if is_instance_valid(bgm_button_label):
-		bgm_button_label.text = "Enable BGM" if toggled_on else "Disable BGM"
+		bgm_button_label.text = "Enable Music" if toggled_on else "Disable Music"
 
 	if is_instance_valid(bgm_slider):
 		bgm_slider.editable = not toggled_on
@@ -155,7 +155,7 @@ func _on_sfx_button_toggled(toggled_on: bool) -> void:
 	GameManager.save_game_data()
 
 	if is_instance_valid(sfx_button_label):
-		sfx_button_label.text = "Enable FSX" if toggled_on else "Disable FSX"
+		sfx_button_label.text = "Enable Effects" if toggled_on else "Disable Effects"
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.editable = not toggled_on

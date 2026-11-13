@@ -12,7 +12,7 @@ signal difficulty_menu_closed
 @export var turn_right_button: Control
 @export var level_label: Control
 
-const ALPHA_MUTED: float = 130.0 / 255.0
+const ALPHA_MUTED: float = 1.0 #130.0 / 255.0
 const ALPHA_FULL: float = 1.0
 
 var menu_avaliable = false

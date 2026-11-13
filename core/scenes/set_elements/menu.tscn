@@ -983,7 +983,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_fmjsg")
 theme_override_font_sizes/font_size = 28
-text = "BGM Disable"
+text = "Music Disable"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -998,7 +998,7 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("4_fmjsg")
 theme_override_font_sizes/font_size = 28
-text = "BGM Slider"
+text = "Music Volume Slider"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1045,7 +1045,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = SubResource("FontFile_fy7ip")
 theme_override_font_sizes/font_size = 28
-text = "SFX Disable"
+text = "Effects Disable"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1060,7 +1060,7 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("4_fmjsg")
 theme_override_font_sizes/font_size = 28
-text = "SFX Slider"
+text = "Effects Volume  Slider"
 horizontal_alignment = 1
 vertical_alignment = 1
 
