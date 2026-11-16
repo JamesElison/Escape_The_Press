@@ -224,7 +224,8 @@ func destroy_with_delay() -> void:
 	if fluid_fx:
 		fluid_fx.hide()
 	
-	GameManager.add_coins(10)
+	# Direciona para a conta provisória da partida
+	GameManager.add_match_coins(10)
 	
 	if not play_block_animation():
 		spawn_particles()
@@ -417,9 +418,9 @@ func apply_upward_gravity() -> void:
 		tween.tween_property(self, "position:y", position.y - GRID_SIZE, 0.12)
 		await tween.finished
 		
-		if block_move_up_sound:
+		if block_move_down_sound:
 			await get_tree().create_timer(0.10).timeout
-			block_move_up_sound.play()
+			block_move_down_sound.play()
 		
 		trigger_column_rise(global_position + Vector2.DOWN * GRID_SIZE)
 		apply_upward_gravity()
@@ -527,9 +528,8 @@ func shift_down() -> void:
 	if is_being_destroyed:
 		return
 
-	GameManager.coins -= 10
-	EventBus.coins_updated.emit(GameManager.coins)
-	GameManager.save_game_data()
+	# Direciona a penalidade para a conta provisória da partida
+	GameManager.remove_match_coins(10)
 
 	if block_move_down_sound:
 		await get_tree().create_timer(0.10).timeout

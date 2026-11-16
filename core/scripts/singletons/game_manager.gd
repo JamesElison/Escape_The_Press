@@ -10,7 +10,10 @@ var hard_difficulty_mode = false
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
 var press_speed: float = 0.0
-var coins: int = 0
+var coins: int = 0  # Conta definitiva do jogador (persiste no save)
+
+# --- CONTA PROVISÓRIA DA PARTIDA ---
+var match_coins: int = 0  # Conta temporária da partida atual (inicia zerada)
 
 # --- CONTROLE DE ANÚNCIOS E VERSÃO PREMIUM ---
 var is_premium: bool = false  # Futura versão Premium (remove anúncios)
@@ -55,6 +58,7 @@ func _ready() -> void:
 	_load_launcher_themes()
 	load_game_data()
 	_recalculate_press_speed()
+	reset_match_coins()
 
 
 # Carrega os biomas de cenário (ThemeData)
@@ -77,7 +81,6 @@ func _load_launcher_themes() -> void:
 	launcher_themes_catalog["laser_beam"] = load("res://core/resources/launcher_themes/launcher_laser_beam.tres")
 	launcher_themes_catalog["ice_cube"] = load("res://core/resources/launcher_themes/launcher_ice_cube.tres")
 	launcher_themes_catalog["dart"] = load("res://core/resources/launcher_themes/launcher_dart.tres")
-	
 
 # Retorna o bioma/cenário atual baseado na progressão do mapa
 func get_current_theme() -> ThemeData:
@@ -99,7 +102,38 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
 		save_game_data()
 
-# --- GERENCIAMENTO DE MOEDAS ---
+# --- GERENCIAMENTO DE MOEDAS DA PARTIDA E DEFINITIVAS ---
+
+# Reseta e inicia a conta provisória da partida zerada (chamada ao entrar em uma fase)
+func reset_match_coins() -> void:
+	match_coins = 0
+	# Não atualizamos a HUD da partida com valores provisórios, mantendo a permanente visível
+
+# Adiciona moedas à conta provisória da partida (sem atualizar a HUD da cena coin)
+func add_match_coins(amount: int) -> void:
+	match_coins += amount
+
+# Remove moedas da conta provisória da partida (penalidade de erro, sem atualizar a HUD da cena coin)
+func remove_match_coins(amount: int) -> bool:
+	if match_coins >= amount:
+		match_coins -= amount
+	else:
+		match_coins = 0  # Evita saldo negativo na partida
+	return true
+
+# Consolida os ganhos da partida na conta definitiva ao vencer e atualiza a HUD
+func claim_match_coins() -> void:
+	if match_coins > 0:
+		coins += match_coins
+		match_coins = 0
+		save_game_data()
+		EventBus.coins_updated.emit(coins) # Atualiza a cena coin ao vencer
+
+# Descarta os ganhos da partida ao perder ou fechar sem vencer
+func discard_match_coins() -> void:
+	match_coins = 0
+
+# --- GERENCIAMENTO DE MOEDAS (DEFINITIVAS / COMPRAS / RECOMPENSAS) ---
 func add_coins(amount: int) -> void:
 	coins += amount
 	EventBus.coins_updated.emit(coins)
@@ -148,12 +182,10 @@ func equip_temporary_launcher(launcher_id: String, rounds: int) -> void:
 func get_next_temporary_launcher() -> String:
 	var available_keys: Array = []
 	
-	# 1. Filtra itens válidos que não são marble, não foram comprados e ainda não foram sorteados neste ciclo
 	for key in launcher_themes_catalog.keys():
 		if key != "marble" and not key in unlocked_launchers and not key in used_temporary_launchers:
 			available_keys.append(key)
 			
-	# 2. Se a lista esgotou, limpa o histórico e recomeça o ciclo de sorteios
 	if available_keys.is_empty():
 		used_temporary_launchers.clear()
 		for key in launcher_themes_catalog.keys():
@@ -182,7 +214,6 @@ func _recalculate_press_speed() -> void:
 	elif hard_difficulty_mode:
 		press_speed = 4.0 + ((level_in_cycle - 1) * 0.25)
 
-# A CENA MAP CHAMA ESTA FUNÇÃO: Define qual parada foi selecionada e salva
 func set_level_from_stop(stop_number: int) -> void:
 	current_level = clamp(stop_number, 1, 45)
 	launcher_level_progress[current_biome] = current_level
@@ -345,6 +376,7 @@ func reset_all_save_data() -> void:
 	current_level = 1
 	press_speed = 2.0
 	coins = 0
+	match_coins = 0
 	is_premium = false
 	losses_since_last_ad = 0
 	unlocked_launchers = ["marble"]

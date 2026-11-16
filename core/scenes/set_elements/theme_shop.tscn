@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://60ry5x7ebcls" path="res://core/scripts/theme_shop.gd" id="1_f1gvs"]
 [ext_resource type="AudioStream" uid="uid://67ac0syai7r6" path="res://core/assets/sounds/level_music/theme_store_music.wav" id="2_81rll"]
 [ext_resource type="Texture2D" uid="uid://q78qpwkehunk" path="res://core/assets/HUD/menu_background.png" id="3_ahtvv"]
+[ext_resource type="Script" uid="uid://mlcuo5wvf58j" path="res://core/scripts/coin.gd" id="4_lqmwk"]
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="5_8pj3l"]
 [ext_resource type="PackedScene" uid="uid://48fi5ikc2tna" path="res://core/scenes/set_elements/shop_item.tscn" id="13_5cke0"]
 
 [node name="ThemeShop" type="Control" unique_id=1610804757]
@@ -34,15 +36,53 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_ahtvv")
 
+[node name="CoinPanel" type="Panel" parent="." unique_id=698631440]
+modulate = Color(1, 1, 1, 0.69803923)
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 256.0
+script = ExtResource("4_lqmwk")
+
+[node name="TitleLabel" type="Label" parent="CoinPanel" unique_id=969795643]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.5
+offset_top = 48.0
+offset_right = 90.5
+offset_bottom = 87.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_8pj3l")
+theme_override_font_sizes/font_size = 32
+text = "Your Coins"
+
+[node name="CoinLabel" type="Label" parent="CoinPanel" unique_id=1130144675]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_right = 192.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_8pj3l")
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ThemeShopScroll" type="ScrollContainer" parent="." unique_id=859382942]
 custom_minimum_size = Vector2(720, 1280)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 64.0
+offset_top = 256.0
 offset_right = 8.0
-offset_bottom = 64.0
+offset_bottom = 256.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2

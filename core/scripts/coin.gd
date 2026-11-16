@@ -8,6 +8,7 @@ var color_tween: Tween
 var original_font_color: Color
 
 func _ready() -> void:
+	# Inicia puxando o valor atual da conta permanente do jogador
 	previous_coins = GameManager.coins
 	
 	# Salva a cor original do label logo no início da cena

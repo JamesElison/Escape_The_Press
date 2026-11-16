@@ -7,6 +7,7 @@ signal difficulty_menu_opened
 
 @onready var menu_music = $MenuMusic
 @onready var menu_button_sound = $MenuButtonSound
+@onready var coin_label = $CoinPanel/CoinLabel
 @onready var vbox_container = $MenuScroll/MenuVBox
 
 # Botões de controle de som, sliders e navegação

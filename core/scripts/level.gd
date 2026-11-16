@@ -11,12 +11,18 @@ const WINNER_PARTICLES_SCENE = preload("res://core/entities/effects/winner_parti
 @onready var level_victory_fx = $LevelVictoryFXs
 @onready var level_victory_music = $LevelVictoryMusic
 @onready var press_stop_count = $PressStopCount
+@onready var match_dial_fx = $MatchDialFX
+@onready var count_down_fx = $CountdownFX
+@onready var confirmation_fx = $ConfirmationFX
+@onready var winner_voice = $WinnerVoice
+@onready var loser_voice = $LoserVoice
 @onready var level_start_timer = $LevelStartTimer
 @onready var warning_piep_timer =$WarningPiepTimer
 @onready var press = $Press
 @onready var player = $Player
 @onready var fx2 = $FxAncientRuins
 @onready var message_label = $LevelCanvasLayer/MessageLabel
+@onready var match_coins_label = $LevelCanvasLayer/MatchCoinsLabel
 @onready var level_label = $LevelCanvasLayer/LevelLabel
 @onready var menu_button = $LevelCanvasLayer/MenuButton
 @onready var pause_button = $LevelCanvasLayer/PauseButton
@@ -53,6 +59,7 @@ var freeze_timer: Timer
 
 func _ready() -> void:
 	GameManager.load_game_data()
+	GameManager.reset_match_coins()
 	await get_tree().process_frame
 	
 	level_cleared = false
@@ -314,19 +321,62 @@ func complete_level() -> void:
 		level_victory_fx.play()
 		await get_tree().create_timer(1.0).timeout
 		spawn_winner_particles()
-		show_message("WINNER!!!")
+		show_message("YOU WIN!!!")
+		if is_instance_valid(winner_voice):
+			winner_voice.play()
 	
 	if is_instance_valid(level_victory_music):
 		level_victory_music.play()
 		
-	# Aguarda 2.5 segundos para a animação/áudio de vitória terminar
+	# Aguarda a música/áudio de vitória terminar
 	await level_victory_music.finished
+
+	# --- SEQUÊNCIA DE ANIMAÇÃO DAS MOEDAS DA PARTIDA ---
+	var total_match_earnings = GameManager.match_coins
 	
-	# --- VERIFICAÇÃO DE ANÚNCIO DE VITÓRIA (A cada 5 vitórias) ---
-	#if GameManager.register_win():
-		#AdManager.show_interstitial()
-		## Dá um tempinho breve para o interstitial carregar/exibir antes de mudar de cena
-		#await get_tree().create_timer(0.5).timeout
+	if total_match_earnings > 0:
+		# (1) Toca o som match_dial_fx
+		if is_instance_valid(match_dial_fx):
+			match_dial_fx.play()
+		
+		# (2) Mostra o match_coins_label zerado por 1/2 segundo
+		if is_instance_valid(match_coins_label):
+			match_coins_label.text = format_number(0)
+			match_coins_label.show()
+			
+		await get_tree().create_timer(0.5).timeout
+		
+		# (3) Começa a crescer de 1 em 1 a cada 1/10 de segundo até o total apurado
+		var current_counter = 0
+		if is_instance_valid(match_coins_label):
+			match_coins_label.text = format_number(current_counter)
+			
+		while current_counter < total_match_earnings:
+			current_counter += 1
+			
+			if is_instance_valid(match_coins_label):
+				match_coins_label.text = format_number(current_counter)
+				
+			# Toca o count_down_fx a cada passo de incremento
+			if is_instance_valid(count_down_fx):
+				count_down_fx.stop() # Reinicia o som caso ele ainda estivesse tocando
+				count_down_fx.play()
+				
+			await get_tree().create_timer(0.005).timeout
+			
+		# (4) Ao terminar de apurar tudo, para o count_down_fx, consolida as moedas e toca o confirmation_fx
+		if is_instance_valid(count_down_fx):
+			count_down_fx.stop()
+			
+		# Consolida as moedas na conta permanente e atualiza a CoinLabel da cena Coin.tscn
+		if GameManager:
+			GameManager.claim_match_coins()
+			
+		if is_instance_valid(confirmation_fx):
+			confirmation_fx.play()
+			
+		# (5) Aguarda o confirmation_fx terminar (0.70 segundos)
+		await get_tree().create_timer(0.70).timeout
 	
 	# Avança o nível no GameManager e salva
 	if GameManager:
@@ -334,6 +384,12 @@ func complete_level() -> void:
 	
 	# Muda a cena de volta para o mapa
 	get_tree().change_scene_to_file("res://core/scenes/levels/Map.tscn")
+
+func format_number(value: int) -> String:
+	var texts := str(value)
+	var regex := RegEx.create_from_string("(\\d)(?=(\\d{3})+$)")
+	return regex.sub(texts, "$1.", true)
+
 
 func spawn_winner_particles() -> void:
 	if not WINNER_PARTICLES_SCENE:
@@ -367,6 +423,8 @@ func show_message(text: String) -> void:
 func show_game_over() -> void:
 	is_game_over = true
 	show_message("You Lose")
+	if is_instance_valid(loser_voice):
+		loser_voice.play()
 
 func _on_level_start_timer_timeout() -> void:
 	if is_instance_valid(press) and not is_press_frozen:
@@ -378,6 +436,7 @@ func _on_message_timer_timeout() -> void:
 
 func game_over() -> void:
 	level_cleared = true
+	GameManager.discard_match_coins()
 	
 	if is_instance_valid(freeze_timer):
 		freeze_timer.stop()
