@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThemeData" format=3 uid="uid://d0rj0ycce7jrr"]
+
+[ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_kgmyk"]
+[ext_resource type="Texture2D" uid="uid://dk547t0o67t36" path="res://core/assets/background/6_house.png" id="1_uieal"]
+[ext_resource type="Texture2D" uid="uid://dpyu56xjwbuha" path="res://core/assets/background/cards/shadowy_house.jpg" id="2_m25mc"]
+[ext_resource type="Texture2D" uid="uid://tc8cksbcskqk" path="res://core/assets/sprites/set_objects/specific_floor/6_floor_house.png" id="3_456xl"]
+[ext_resource type="Texture2D" uid="uid://6hujnln05781" path="res://core/assets/background/maps/6_house/map_house.png" id="4_s0cay"]
+
+[resource]
+script = ExtResource("1_kgmyk")
+theme_id = "house"
+theme_name = "Shadowy House"
+card_background = ExtResource("2_m25mc")
+map_background = ExtResource("4_s0cay")
+background_texture = ExtResource("1_uieal")
+floor_texture = ExtResource("3_456xl")
+metadata/_custom_type_script = "uid://0ul35sqx5i5c"

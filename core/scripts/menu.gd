@@ -22,7 +22,8 @@ signal difficulty_menu_opened
 @onready var reset_button = $MenuScroll/MenuVBox/Panel5/ResetButton
 @onready var reset_label = $MenuScroll/MenuVBox/Panel5/ResetLabel
 @onready var back_button = $MenuScroll/MenuVBox/Panel6/BackButton
-@onready var buy_opition = $MenuScroll/MenuVBox/PanelSuperUser/BuyOpition
+@onready var biome_opition = $MenuScroll/MenuVBox/PanelSuperUser/BiomeOption
+@onready var buy_opition = $MenuScroll/MenuVBox/Panel7/BuyOpition
 @onready var buy_button = $MenuScroll/MenuVBox/Panel7/BuyButton
 @onready var buy_button_label = $MenuScroll/MenuVBox/Panel7/BuyButton/Label
 @onready var exit_button = $MenuScroll/MenuVBox/Panel8/ExitButton
@@ -37,6 +38,19 @@ func _ready() -> void:
 	
 	if not "marble" in GameManager.unlocked_launchers:
 		GameManager.unlocked_launchers.append("marble")
+		
+	# Popula o OptionButton com os biomas disponíveis no GameManager
+	if is_instance_valid(biome_opition):
+		biome_opition.clear()
+		var current_biome_idx := 0
+		for i in range(GameManager.LAUNCHER_ORDER.size()):
+			var biome_id: String = GameManager.LAUNCHER_ORDER[i]
+			# Formata "crystal_palace" para "Crystal Palace" na exibição
+			var display_name: String = biome_id.capitalize()
+			biome_opition.add_item(display_name, i)
+			if biome_id == GameManager.current_biome:
+				current_biome_idx = i
+		biome_opition.select(current_biome_idx)
 		
 	# Popula o OptionButton com as casas de 1 a 45 para testes rápidos
 	if is_instance_valid(buy_opition):
@@ -102,6 +116,11 @@ func _ready() -> void:
 
 func refresh_all_items() -> void:
 	_update_audio_buttons_visual_state()
+	# Sincroniza o seletor de bioma caso o jogador tenha avançado de ciclo
+	if is_instance_valid(biome_opition):
+		var idx := GameManager.LAUNCHER_ORDER.find(GameManager.current_biome)
+		if idx != -1:
+			biome_opition.select(idx)
 	for child in vbox_container.get_children():
 		if child.has_method("update_state"):
 			child.update_state()
@@ -265,12 +284,19 @@ func _on_reset_button_pressed() -> void:
 func _on_buy_button_pressed() -> void:
 	menu_button_sound.play()
 	
-	# Pega o número da casa selecionada diretamente no OptionButton (buy_opition)
+	# 1. Define o bioma selecionado no BiomeOption antes de aplicar o nível
+	if is_instance_valid(biome_opition) and biome_opition.selected >= 0:
+		var biome_index: int = biome_opition.get_item_id(biome_opition.selected)
+		if biome_index >= 0 and biome_index < GameManager.LAUNCHER_ORDER.size():
+			GameManager.current_biome = GameManager.LAUNCHER_ORDER[biome_index]
+	
+	# 2. Pega o número da casa selecionada diretamente no OptionButton (buy_opition)
 	var selected_level = 1
 	if is_instance_valid(buy_opition):
 		# O ID do item que guardamos é o próprio número da casa (1 a 45)
 		selected_level = buy_opition.get_item_id(buy_opition.selected)
 		
+	# Salva o nível dentro do bioma recém-selecionado e recalcula a velocidade da prensa
 	GameManager.set_level_from_stop(selected_level)
 	
 	get_tree().paused = false

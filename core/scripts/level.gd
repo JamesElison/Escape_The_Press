@@ -14,6 +14,7 @@ const WINNER_PARTICLES_SCENE = preload("res://core/entities/effects/winner_parti
 @onready var match_dial_fx = $MatchDialFX
 @onready var count_down_fx = $CountdownFX
 @onready var confirmation_fx = $ConfirmationFX
+@onready var ready_go_voice = $ReadyGoVoice
 @onready var winner_voice = $WinnerVoice
 @onready var loser_voice = $LoserVoice
 @onready var level_start_timer = $LevelStartTimer
@@ -352,7 +353,7 @@ func complete_level() -> void:
 			match_coins_label.text = format_number(current_counter)
 			
 		while current_counter < total_match_earnings:
-			current_counter += 1
+			current_counter += 10
 			
 			if is_instance_valid(match_coins_label):
 				match_coins_label.text = format_number(current_counter)
@@ -362,7 +363,7 @@ func complete_level() -> void:
 				count_down_fx.stop() # Reinicia o som caso ele ainda estivesse tocando
 				count_down_fx.play()
 				
-			await get_tree().create_timer(0.005).timeout
+			await get_tree().create_timer(0.0001).timeout
 			
 		# (4) Ao terminar de apurar tudo, para o count_down_fx, consolida as moedas e toca o confirmation_fx
 		if is_instance_valid(count_down_fx):
@@ -409,6 +410,8 @@ func spawn_winner_particles() -> void:
 func show_level_start(level_number: int) -> void:
 	setup_for_level()
 	show_message("Challenge " + str(level_number) + "! Ready Go!")
+	if is_instance_valid(ready_go_voice):
+		ready_go_voice.play()
 
 func setup_for_level() -> void:
 	is_game_over = false

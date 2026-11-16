@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c6p7ipae3fmnf" path="res://core/scenes/set_elements/floor.tscn" id="12_vfnlx"]
 [ext_resource type="PackedScene" uid="uid://fqrebvpju1u5" path="res://core/entities/players/player.tscn" id="13_sdsfl"]
 [ext_resource type="AudioStream" uid="uid://c6osu3ph1a25v" path="res://core/assets/sounds/fx/you_win.wav" id="14_5b41f"]
+[ext_resource type="AudioStream" uid="uid://cqfgswus64mt1" path="res://core/assets/sounds/fx/ready_go.wav" id="14_6twkr"]
 [ext_resource type="PackedScene" uid="uid://uj3irgw3oyb4" path="res://core/scenes/set_elements/charger.tscn" id="14_pkcu3"]
 [ext_resource type="AudioStream" uid="uid://bl2i4c4ovjveb" path="res://core/assets/sounds/fx/you_lose.wav" id="15_6twkr"]
 [ext_resource type="PackedScene" uid="uid://blqa0ul40bdoy" path="res://core/entities/effects/mini_fire.tscn" id="15_m2d2b"]
@@ -754,14 +755,19 @@ stream = ExtResource("29_koc5s")
 volume_db = 5.0
 bus = &"fx"
 
+[node name="ReadyGoVoice" type="AudioStreamPlayer" parent="." unique_id=172464521]
+stream = ExtResource("14_6twkr")
+volume_db = 1.0
+bus = &"fx"
+
 [node name="WinnerVoice" type="AudioStreamPlayer" parent="." unique_id=690358152]
 stream = ExtResource("14_5b41f")
-volume_db = 10.0
+volume_db = 1.0
 bus = &"fx"
 
 [node name="LoserVoice" type="AudioStreamPlayer" parent="." unique_id=1626636179]
 stream = ExtResource("15_6twkr")
-volume_db = 10.0
+volume_db = 1.0
 bus = &"fx"
 
 [node name="LevelStartTimer" type="Timer" parent="." unique_id=2008060520]

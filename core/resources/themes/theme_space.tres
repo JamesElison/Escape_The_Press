@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThemeData" format=3 uid="uid://v43rijboeirb"]
+
+[ext_resource type="Texture2D" uid="uid://dxssd0di0et8g" path="res://core/assets/background/7_space.jpg" id="1_feqbs"]
+[ext_resource type="Texture2D" uid="uid://buelhwj22r50b" path="res://core/assets/background/cards/deep_space.jpg" id="2_460b3"]
+[ext_resource type="Texture2D" uid="uid://b3pnkgl31h3nd" path="res://core/assets/sprites/set_objects/specific_floor/7_floor_space.png" id="3_feqbs"]
+[ext_resource type="Texture2D" uid="uid://ief2la5djf5m" path="res://core/assets/background/maps/7_space/map_space.jpg" id="4_vupk3"]
+[ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="5_a6tld"]
+
+[resource]
+script = ExtResource("5_a6tld")
+theme_id = "space"
+theme_name = "Deep Space"
+card_background = ExtResource("2_460b3")
+map_background = ExtResource("4_vupk3")
+background_texture = ExtResource("1_feqbs")
+floor_texture = ExtResource("3_feqbs")
+metadata/_custom_type_script = "uid://0ul35sqx5i5c"

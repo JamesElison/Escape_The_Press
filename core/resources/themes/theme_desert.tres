@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThemeData" format=3 uid="uid://cq6c7ntt1t7cm"]
+
+[ext_resource type="Texture2D" uid="uid://xtvey0l1vv8j" path="res://core/assets/background/5_desert.jpg" id="1_73mkc"]
+[ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="1_77tir"]
+[ext_resource type="Texture2D" uid="uid://bdwaq32clhal7" path="res://core/assets/background/cards/scorching_desert.jpg" id="2_ym0r6"]
+[ext_resource type="Texture2D" uid="uid://coe0208rw8aqw" path="res://core/assets/sprites/set_objects/specific_floor/5_floor_desert.png" id="3_iifa7"]
+[ext_resource type="Texture2D" uid="uid://b6josytpmw6yv" path="res://core/assets/background/maps/5_desert/map_desert.jpg" id="4_rw2kb"]
+
+[resource]
+script = ExtResource("1_77tir")
+theme_id = "desert"
+theme_name = "Scorching Desert"
+card_background = ExtResource("2_ym0r6")
+map_background = ExtResource("4_rw2kb")
+background_texture = ExtResource("1_73mkc")
+floor_texture = ExtResource("3_iifa7")
+metadata/_custom_type_script = "uid://0ul35sqx5i5c"

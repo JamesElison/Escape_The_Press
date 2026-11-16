@@ -39,11 +39,15 @@ var launcher_level_progress: Dictionary = {
 	"crystal_palace": 1,
 	"ancient_ruins": 1,
 	"heavy_metal": 1,
-	"sub_zero": 1
+	"sub_zero": 1,
+	"seabed": 1,
+	"desert": 1,
+	"house": 1,
+	"space": 1
 }
 
 # --- ORDEM DOS CENÁRIOS (BIOMAS) PARA PROGRESSÃO DE MAPA ---
-const LAUNCHER_ORDER: Array[String] = ["crystal_palace", "ancient_ruins", "heavy_metal", "sub_zero"]
+const LAUNCHER_ORDER: Array[String] = ["crystal_palace", "ancient_ruins", "heavy_metal", "sub_zero", "seabed", "desert", "house", "space"]
 var current_biome: String = "crystal_palace" # O bioma atual do mapa onde o jogador está jogando
 
 const SAVE_PATH: String = "user://game_save.dat"
@@ -67,6 +71,10 @@ func _load_themes() -> void:
 	themes_catalog["ancient_ruins"] = load("res://core/resources/themes/theme_ancient_ruins.tres")
 	themes_catalog["heavy_metal"] = load("res://core/resources/themes/theme_haevy_metal.tres")
 	themes_catalog["sub_zero"] = load("res://core/resources/themes/theme_sub_zero.tres")
+	themes_catalog["seabed"] = load("res://core/resources/themes/theme_seabed.tres")
+	themes_catalog["desert"] = load("res://core/resources/themes/theme_desert.tres")
+	themes_catalog["house"] = load("res://core/resources/themes/theme_house.tres")
+	themes_catalog["space"] = load("res://core/resources/themes/theme_space.tres")
 
 # Carrega os temas de lançadores da nova pasta dedicada (LauncherThemeData)
 func _load_launcher_themes() -> void:
@@ -249,7 +257,7 @@ func advance_to_next_level() -> void:
 func finalize_cycle_advancement() -> void:
 	just_beat_final_level = false
 	
-	if current_biome == "sub_zero":
+	if current_biome == "space":
 		_check_and_advance_biome()
 		call_deferred("_change_to_end_game_scene")
 	else:
@@ -343,7 +351,11 @@ func load_game_data() -> void:
 					"crystal_palace": 1,
 					"ancient_ruins": 1,
 					"heavy_metal": 1,
-					"sub_zero": 1
+					"sub_zero": 1,
+					"seabed": 1,
+					"desert": 1,
+					"house": 1,
+					"space": 1
 				})
 				
 				temporary_launcher = save_dict.get("temporary_launcher", "")
@@ -394,7 +406,11 @@ func reset_all_save_data() -> void:
 		"crystal_palace": 1,
 		"ancient_ruins": 1,
 		"heavy_metal": 1,
-		"sub_zero": 1
+		"sub_zero": 1,
+		"seabed": 1,
+		"desert": 1,
+		"house": 1,
+		"space": 1
 	}
 
 	_recalculate_press_speed()
