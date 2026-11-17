@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://db8wkkmqqj1rg" path="res://core/assets/sprites/set_objects/specific_floor/3_floor_ice.png" id="4_k5fh6"]
 [ext_resource type="AudioStream" uid="uid://dh5salu3vumus" path="res://core/assets/sounds/level_music/3_sub_zero_card_view_bgm.wav" id="4_ojpx4"]
 [ext_resource type="Texture2D" uid="uid://ba8b15bcookb3" path="res://core/assets/background/maps/3_sub_zero/map_sub_zero.jpg" id="9_7u26j"]
-[ext_resource type="AudioStream" uid="uid://4xgs4ifv06um" path="res://core/assets/sounds/level_music/map_4_bgm.wav" id="10_1rj48"]
+[ext_resource type="AudioStream" uid="uid://dxre15i6pjds4" path="res://core/assets/sounds/level_music/map_3_bgm.wav" id="10_1rj48"]
 
 [resource]
 script = ExtResource("1_l8j3o")

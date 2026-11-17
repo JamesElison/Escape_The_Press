@@ -2,8 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://3vc5cgruki2u" path="res://core/assets/background/4_seabed.jpg" id="1_e4ibt"]
 [ext_resource type="Texture2D" uid="uid://dhl2shhadg77b" path="res://core/assets/background/cards/seabeb.jpg" id="2_kty6d"]
+[ext_resource type="AudioStream" uid="uid://b1gv3dysa2pdn" path="res://core/assets/sounds/level_music/4_seabed_music.wav" id="2_shbff"]
 [ext_resource type="Texture2D" uid="uid://dgoqvktc4i6h" path="res://core/assets/sprites/set_objects/specific_floor/4_floor_seabed.png" id="3_shbff"]
 [ext_resource type="Texture2D" uid="uid://uvjh62tl7onr" path="res://core/assets/background/maps/4_seabed/map_seabed.jpg" id="4_7pmor"]
+[ext_resource type="AudioStream" uid="uid://c35iuqvcnkgad" path="res://core/assets/sounds/level_music/4_seabed_card_view_bgm.wav" id="4_ppd5r"]
+[ext_resource type="AudioStream" uid="uid://mtt1q6fixi6r" path="res://core/assets/sounds/level_music/map_4_bgm.wav" id="6_7pmor"]
 [ext_resource type="Script" uid="uid://0ul35sqx5i5c" path="res://core/resources/theme_data.gd" id="8_277mh"]
 
 [resource]
@@ -14,4 +17,7 @@ card_background = ExtResource("2_kty6d")
 map_background = ExtResource("4_7pmor")
 background_texture = ExtResource("1_e4ibt")
 floor_texture = ExtResource("3_shbff")
+card_bgm = ExtResource("4_ppd5r")
+map_bgm = ExtResource("6_7pmor")
+bgm_music = ExtResource("2_shbff")
 metadata/_custom_type_script = "uid://0ul35sqx5i5c"
