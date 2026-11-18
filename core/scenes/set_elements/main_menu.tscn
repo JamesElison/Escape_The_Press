@@ -94,6 +94,11 @@ bus = &"fx"
 stream = ExtResource("6_q5yl5")
 bus = &"fx"
 
+[node name="AttractTimer" type="Timer" parent="HUD" unique_id=631421483]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
 [node name="BackGround" type="TextureRect" parent="HUD" unique_id=244594244]
 anchors_preset = 15
 anchor_right = 1.0

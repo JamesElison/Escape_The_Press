@@ -56,6 +56,7 @@ var color_tween: Tween
 
 var is_control_enabled: bool = true
 var can_shoot: bool = true
+var shot_this_frame: bool = false
 
 # Controle do estado do lança-chamas
 var is_flame_active: bool = false
@@ -275,7 +276,7 @@ func update_launcher_sprite(_launcher_id: String = "") -> void:
 		player_sprite.texture = launcher_theme.launcher_texture
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_control_enabled:
+	if not is_control_enabled or GameManager.is_attract_mode:
 		return
 
 	if event is InputEventMouseButton:
@@ -304,6 +305,29 @@ func _unhandled_input(event: InputEvent) -> void:
 		touch_target_x = event.position.x
 
 func _physics_process(delta: float) -> void:
+	# --- MODO DEMONSTRAÇÃO (ATTRACT MODE) ---
+	if GameManager.is_attract_mode:
+		var frame_data = DemoManager.get_next_playback_frame()
+		if frame_data.is_empty():
+			var level_node = get_tree().current_scene
+			if level_node and level_node.has_method("exit_attract_mode"):
+				level_node.exit_attract_mode()
+			return
+			
+		global_position.x = frame_data.get("x", global_position.x)
+		rotation = frame_data.get("r", rotation)
+		
+		if not is_flame_active:
+			update_laser()
+		else:
+			var current_color = charger.get_top_ball_color() if is_instance_valid(charger) else 0
+			update_flame_beam(current_color)
+			
+		if frame_data.get("s", false) == true:
+			processing_shoot()
+		return
+
+	# --- MODO DE JOGO NORMAL / GRAVAÇÃO ---
 	if not is_control_enabled:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -354,11 +378,17 @@ func _physics_process(delta: float) -> void:
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			processing_shoot()
 
+	# Grava o estado atual caso a gravação esteja ligada
+	if GameManager.is_recording_demo:
+		DemoManager.record_frame(global_position.x, rotation, shot_this_frame)
+		shot_this_frame = false
+
 
 func processing_shoot() -> void:
 	if not can_shoot:
 		return
 
+	shot_this_frame = true
 	var launcher_theme = GameManager.get_current_launcher_theme()
 	
 	# --- COMPORTAMENTO ESPECÍFICO PARA LANÇA-CHAMAS ---
@@ -533,7 +563,7 @@ func processing_shoot() -> void:
 	await timer.timeout
 	can_shoot = true
 
-func spawn_block_on_press_flame(press_node: Node2D, impact_position:Vector2, color_idx: int) -> void:
+func spawn_block_on_press_flame(press_node: Node2D, impact_position: Vector2, color_idx: int) -> void:
 	const BLOCK_SCENE = preload("res://core/entities/enemies/block.tscn")
 	const GRID_SIZE: float = 64.0
 	

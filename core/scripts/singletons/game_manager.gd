@@ -2,6 +2,18 @@ extends Node
 
 var just_beat_final_level: bool = false  # Flag de controle para a animação do portal no mapa
 
+# --- CONTROLE DO MODO DEMONSTRAÇÃO (ATTRACT MODE) ---
+var is_attract_mode: bool = false      # True quando o jogo está rodando a demo sozinho
+var is_recording_demo: bool = false    # True quando VOCÊ está gravando uma demo para salvar
+
+# Lista com os arquivos de demonstração disponíveis no projeto
+const DEMO_FILES: Array[String] = [
+	"res://core/resources/demo_replay_1.json",
+	"res://core/resources/demo_replay_2.json",
+	"res://core/resources/demo_replay_3.json"
+]
+var current_demo_index: int = 0 # Controla qual demo vai tocar na vez
+
 # --- NÍVEIS DE DIFICULDADE GERENCIADOS POR MENU ---
 var easy_difficulty_mode = true
 var medium_difficulty_mode = false

@@ -58,10 +58,22 @@ var is_press_frozen: bool = false
 var freeze_time_remaining: int = 0
 var freeze_timer: Timer
 
+func _enter_tree() -> void:
+	# Roda ANTES de qualquer nó filho nascer para injetar a seed correta da demo
+	DemoManager.prepare_early_seed()
+
 func _ready() -> void:
-	GameManager.load_game_data()
+	# Só carrega o save do jogador se NÃO estiver no modo demonstração!
+	if not GameManager.is_attract_mode:
+		GameManager.load_game_data()
+		
 	GameManager.reset_match_coins()
 	await get_tree().process_frame
+	if not is_inside_tree():
+		return
+		
+	# Restaura o visual, as cores exatas dos blocos e do Charger da gravação atual
+	DemoManager.capture_or_restore_board_state(get_tree())
 	
 	level_cleared = false
 
@@ -74,6 +86,7 @@ func _ready() -> void:
 	if is_instance_valid(level_label):
 		level_label.text = str(GameManager.current_level)
 
+	# Aplica o tema visual correto correspondente à demo que está rodando
 	_apply_current_theme_visuals()
 
 	if is_instance_valid(player):
@@ -84,7 +97,16 @@ func _ready() -> void:
 		press.speed = GameManager.press_speed
 		press.press_active = true
 
-	show_level_start(GameManager.current_level)
+	if GameManager.is_attract_mode:
+		if is_instance_valid(message_label):
+			message_label.text = "DEMO - TAP TO PLAY"
+			message_label.show()
+		if is_instance_valid(menu_button):
+			menu_button.hide()
+		if is_instance_valid(pause_button):
+			pause_button.hide()
+	else:
+		show_level_start(GameManager.current_level)
 
 	if is_instance_valid(level_start_timer):
 		if not level_start_timer.timeout.is_connected(_on_level_start_timer_timeout):
@@ -99,11 +121,32 @@ func _ready() -> void:
 	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
 		EventBus.launcher_changed.connect(_on_launcher_changed)
 
+func _input(event: InputEvent) -> void:
+	# Se estiver assistindo à demo, qualquer toque/clique retorna imediatamente ao Menu Principal
+	if GameManager.is_attract_mode and event.is_pressed():
+		exit_attract_mode()
+		return
+		
+	# No PC: aperte F9 durante uma gravação para salvar o arquivo JSON
+	if GameManager.is_recording_demo and event is InputEventKey and event.pressed and event.keycode == KEY_F9:
+		DemoManager.save_recording_to_disk()
+		GameManager.is_recording_demo = false
+		show_message("DEMO SAVED!")
+
+func exit_attract_mode() -> void:
+	GameManager.is_attract_mode = false
+	GameManager.discard_match_coins()
+	GameManager.load_game_data() # Restaura o save original do jogador ao voltar ao menu
+	get_tree().change_scene_to_file("res://core/scenes/set_elements/main_menu.tscn")
+
 func _on_launcher_changed(_launcher_id: String) -> void:
 	_apply_current_theme_visuals()
 
 # --- SISTEMA DE SORTEIO DO BLOCO MISTERIOSO ---
 func _setup_mystery_system() -> void:
+	if not is_inside_tree():
+		return
+
 	mystery_timer = Timer.new()
 	mystery_timer.wait_time = 10.0
 	mystery_timer.autostart = true
@@ -111,7 +154,15 @@ func _setup_mystery_system() -> void:
 	mystery_timer.timeout.connect(_on_mystery_timer_timeout)
 	add_child(mystery_timer)
 	
-	get_tree().create_timer(3.0).timeout.connect(_on_mystery_timer_timeout)
+	var initial_timer = Timer.new()
+	initial_timer.wait_time = 3.0
+	initial_timer.one_shot = true
+	initial_timer.autostart = true
+	initial_timer.timeout.connect(func():
+		_on_mystery_timer_timeout()
+		initial_timer.queue_free()
+	)
+	add_child(initial_timer)
 
 func _on_mystery_timer_timeout() -> void:
 	if level_cleared or is_game_over:
@@ -218,7 +269,7 @@ func _on_freeze_timer_tick() -> void:
 		is_press_frozen = false
 		if is_instance_valid(press) and not level_cleared and not is_game_over:
 			press.press_active = true
-		if is_instance_valid(message_label):
+		if is_instance_valid(message_label) and not GameManager.is_attract_mode:
 			message_label.hide()
 	else:
 		_update_freeze_ui()
@@ -302,6 +353,10 @@ func _process(_delta: float) -> void:
 		complete_level()
 
 func complete_level() -> void:
+	if GameManager.is_attract_mode:
+		exit_attract_mode()
+		return
+
 	level_cleared = true
 	
 	if is_instance_valid(freeze_timer):
@@ -347,13 +402,15 @@ func complete_level() -> void:
 			
 		await get_tree().create_timer(0.5).timeout
 		
-		# (3) Começa a crescer de 1 em 1 a cada 1/10 de segundo até o total apurado
+		# (3) Começa a crescer até o total apurado
 		var current_counter = 0
 		if is_instance_valid(match_coins_label):
 			match_coins_label.text = format_number(current_counter)
 			
 		while current_counter < total_match_earnings:
 			current_counter += 10
+			if current_counter > total_match_earnings:
+				current_counter = total_match_earnings
 			
 			if is_instance_valid(match_coins_label):
 				match_coins_label.text = format_number(current_counter)
@@ -390,7 +447,6 @@ func format_number(value: int) -> String:
 	var texts := str(value)
 	var regex := RegEx.create_from_string("(\\d)(?=(\\d{3})+$)")
 	return regex.sub(texts, "$1.", true)
-
 
 func spawn_winner_particles() -> void:
 	if not WINNER_PARTICLES_SCENE:
@@ -434,10 +490,16 @@ func _on_level_start_timer_timeout() -> void:
 		press.press_active = true
 
 func _on_message_timer_timeout() -> void:
+	if GameManager.is_attract_mode:
+		return
 	if not is_game_over and not is_press_frozen and is_instance_valid(message_label):
 		message_label.hide()
 
 func game_over() -> void:
+	if GameManager.is_attract_mode:
+		exit_attract_mode()
+		return
+
 	level_cleared = true
 	GameManager.discard_match_coins()
 	
