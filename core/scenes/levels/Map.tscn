@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://brvloh14dynlk" path="res://core/scripts/map.gd" id="1_efgaw"]
 [ext_resource type="Texture2D" uid="uid://gggx07p3di3k" path="res://core/assets/background/maps/0_crystal_palace/map.png" id="2_7sxvw"]
 [ext_resource type="AudioStream" uid="uid://bfi4kb2n54rpw" path="res://core/assets/sounds/level_music/map_1_bgm.wav" id="2_vyo3s"]
-[ext_resource type="AudioStream" uid="uid://da33rw2ayycdw" path="res://core/assets/sounds/level_music/end_music.wav" id="3_dqgx4"]
+[ext_resource type="AudioStream" uid="uid://clisrb7xsrjn3" path="res://core/assets/sounds/level_music/end_music.wav" id="3_dqgx4"]
 [ext_resource type="Shader" uid="uid://dqx6lma6pgm05" path="res://core/entities/effects/CrystalMap/portal_swirl.gdshader" id="4_t3iat"]
 [ext_resource type="Texture2D" uid="uid://dktgvyqiawcud" path="res://core/assets/background/stop/stop_red.png" id="5_2e5nk"]
 [ext_resource type="Script" uid="uid://sgcx0oq41l6o" path="res://core/scripts/energy_stop.gd" id="6_wuo5h"]

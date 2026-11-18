@@ -4,7 +4,6 @@
 [ext_resource type="AudioStream" uid="uid://c1jqxpv4d0ewr" path="res://core/assets/sounds/fx/stop_deactivation.wav" id="3_bb0bv"]
 [ext_resource type="Shader" uid="uid://dqx6lma6pgm05" path="res://core/entities/effects/CrystalMap/portal_swirl.gdshader" id="4_qottc"]
 [ext_resource type="Texture2D" uid="uid://3v1at2l0udou" path="res://core/assets/background/stop/energy_stop.png" id="5_20mwa"]
-[ext_resource type="Script" uid="uid://sgcx0oq41l6o" path="res://core/scripts/energy_stop.gd" id="6_irr3v"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="7_8s7cx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_portal"]
@@ -157,8 +156,8 @@ offset_bottom = 180.0
 visible = false
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_w4o7b")
+autoplay = "default"
 frame_progress = 0.75160074
-script = ExtResource("6_irr3v")
 
 [node name="StopArea" type="Area2D" parent="." unique_id=650352359]
 visible = false

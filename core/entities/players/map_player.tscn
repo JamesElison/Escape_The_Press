@@ -2,14 +2,158 @@
 
 [ext_resource type="Texture2D" uid="uid://djhh2xqffivhm" path="res://core/assets/sprites/characters/player/player_top_down.png" id="1_woepo"]
 [ext_resource type="Script" uid="uid://bbrwoo20m16gs" path="res://core/scripts/map_player.gd" id="1_x8lxd"]
+[ext_resource type="AudioStream" uid="uid://bqiaqyx0yy8ah" path="res://core/assets/sounds/fx/enter_the_level.wav" id="2_t43x2"]
+[ext_resource type="Texture2D" uid="uid://dg4drtlwq1kqw" path="res://core/assets/sprites/set_objects/explosionSmoke1.png" id="3_2f2ub"]
+[ext_resource type="Texture2D" uid="uid://brgm4eqpapnic" path="res://core/assets/sprites/set_objects/explosionSmoke2.png" id="4_jb5ls"]
+[ext_resource type="Texture2D" uid="uid://hck4kj5ui2f5" path="res://core/assets/sprites/set_objects/explosionSmoke3.png" id="5_t43x2"]
+[ext_resource type="Texture2D" uid="uid://baqkj4cxlqm7l" path="res://core/assets/sprites/set_objects/explosionSmoke4.png" id="6_hsbkq"]
+[ext_resource type="Texture2D" uid="uid://1rfot4ekol78" path="res://core/assets/sprites/set_objects/explosionSmoke5.png" id="7_0aodv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
 radius = 20.0
+
+[sub_resource type="Animation" id="Animation_5mr4b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FXSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FXSprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_2f2ub")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FXSprite:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.3, 0.3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FXStream:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ra4yj"]
+resource_name = "enter_the_level"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FXSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.18, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FXSprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_2f2ub"), ExtResource("3_2f2ub"), ExtResource("4_jb5ls"), ExtResource("5_t43x2"), ExtResource("6_hsbkq"), ExtResource("7_0aodv")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FXSprite:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.21, 0.3, 0.42, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(0.5, 0.5), Vector2(0.7, 0.7), Vector2(0.9, 0.9), Vector2(0.3, 0.3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FXStream:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(-0.1, 0.059999995),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mu2ay"]
+_data = {
+&"RESET": SubResource("Animation_5mr4b"),
+&"enter_the_level": SubResource("Animation_ra4yj")
+}
 
 [node name="MapPlayer" type="Area2D" unique_id=112971002]
 collision_layer = 65536
 collision_mask = 32768
 script = ExtResource("1_x8lxd")
+
+[node name="FXStream" type="AudioStreamPlayer" parent="." unique_id=1993007216]
+stream = ExtResource("2_t43x2")
+volume_db = 0.2
+bus = &"fx"
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2108670292]
 position = Vector2(10, 2.842171e-14)
@@ -17,8 +161,18 @@ rotation = 1.5707964
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_woepo")
 
+[node name="FXSprite" type="Sprite2D" parent="." unique_id=184019754]
+visible = false
+rotation = 1.5707964
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2f2ub")
+
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=362123131]
+visible = false
 shape = SubResource("CircleShape2D_k6ly5")
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=617718716]
+libraries/ = SubResource("AnimationLibrary_mu2ay")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

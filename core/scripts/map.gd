@@ -180,6 +180,11 @@ func _trigger_portal_sequence() -> void:
 	await move_tween.finished
 	
 	# 3. Entrou no portal: toca áudio end_map e animação hud_fade_anim ("end_map")
+	if is_instance_valid(map_player):
+		map_player.enter_the_level_anim()
+	
+	await get_tree().create_timer(1.0).timeout
+	
 	if map_bgm and map_bgm.playing:
 		AudioManager.stop_with_fade_out(map_bgm, 1.0)
 		
@@ -208,7 +213,8 @@ func _on_play_game_button_pressed() -> void:
 	if map_player_stoped:
 		if GameManager:
 			GameManager.set_level_from_stop(current_level)
-			
+		map_player.enter_the_level_anim()
+		await get_tree().create_timer(1.0).timeout
 		get_tree().change_scene_to_file("res://core/scenes/levels/level.tscn")
 	else:
 		return
