@@ -28,7 +28,8 @@ const WINNER_PARTICLES_SCENE = preload("res://core/entities/effects/winner_parti
 @onready var menu_button = $LevelCanvasLayer/MenuButton
 @onready var pause_button = $LevelCanvasLayer/PauseButton
 @onready var message_timer = $MessageTimer
-@onready var fog_overlay = $FogCanvas/FogOverlay
+@onready var fog_overlay = $FXCanvas/FogOverlay
+@onready var water_shader_rect = $FXCanvas/WaterShaderRect
 @onready var snow_fx = $SnowFX
 @onready var warning_area = $WarningArea
 @onready var warning_color = $WarningColor
@@ -305,6 +306,7 @@ func _apply_current_theme_visuals() -> void:
 
 		var active_theme_id = theme.theme_id
 		var is_sub_zero = (active_theme_id == "sub_zero")
+		var is_seabed = (active_theme_id == "seabed")
 
 		# Partículas de Neve
 		if is_instance_valid(snow_fx):
@@ -317,6 +319,10 @@ func _apply_current_theme_visuals() -> void:
 		# Overlay de Neblina Densa
 		if is_instance_valid(fog_overlay):
 			fog_overlay.visible = is_sub_zero
+		
+		# Overlay de WaterShader
+		if is_instance_valid(water_shader_rect):
+			water_shader_rect.visible = is_seabed
 
 	# Aplica a textura do lançador atual proveniente do novo launcher_themes
 	if is_instance_valid(player) and launcher_theme:

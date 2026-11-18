@@ -18,6 +18,7 @@
 [ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="14_40k83"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="14_dqgx4"]
 [ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="15_dqgx4"]
+[ext_resource type="Shader" uid="uid://beodw2p0dajr1" path="res://core/scenes/levels/level.gdshader" id="18_vsenb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_portal"]
 shader = ExtResource("4_t3iat")
@@ -148,6 +149,19 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6ly5"]
 radius = 50.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0i2xg"]
+shader = ExtResource("14_40k83")
+shader_parameter/fog_color = Color(0.6766479, 0.842722, 0.99999994, 0.4)
+shader_parameter/speed = 2.0
+shader_parameter/density = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phiv8"]
+shader = ExtResource("18_vsenb")
+shader_parameter/water_color = Color(0.050980393, 0.2509804, 0.4509804, 0.4627451)
+shader_parameter/wave_speed = 2.00000009174012
+shader_parameter/wave_frequency = 10.0000004275
+shader_parameter/wave_amplitude = 0.0030000001425
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40k83"]
 load_path = "res://.godot/imported/menu_button.png-1f1a085ee7473a443b4bb8cfb2b497d0.ctex"
 
@@ -202,12 +216,6 @@ _data = {
 [sub_resource type="Theme" id="Theme_0i2xg"]
 default_font = ExtResource("14_dqgx4")
 default_font_size = 32
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0i2xg"]
-shader = ExtResource("14_40k83")
-shader_parameter/fog_color = Color(0.6766479, 0.842722, 0.99999994, 0.4)
-shader_parameter/speed = 2.0
-shader_parameter/density = 1.0
 
 [node name="Map" type="Control" unique_id=993807449]
 layout_mode = 3
@@ -417,6 +425,31 @@ position = Vector2(367, 610.0001)
 position = Vector2(366, 8941)
 rotation = -1.5707964
 
+[node name="FXCanvas" type="CanvasLayer" parent="." unique_id=251787266]
+
+[node name="FogOverlay" type="ColorRect" parent="FXCanvas" unique_id=1404983914]
+visible = false
+material = SubResource("ShaderMaterial_0i2xg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8509804, 0.9490196, 1, 0.61960787)
+
+[node name="WaterShaderRect" type="ColorRect" parent="FXCanvas" unique_id=1593392399]
+visible = false
+material = SubResource("ShaderMaterial_phiv8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SnowFX" parent="." unique_id=2105947159 instance=ExtResource("15_dqgx4")]
+
 [node name="MapHUD" type="CanvasLayer" parent="." unique_id=1352260203]
 
 [node name="Menu" parent="MapHUD" unique_id=1506258400 instance=ExtResource("12_7kyno")]
@@ -501,19 +534,5 @@ ok_button_text = "Watch Ad"
 dialog_text = "You’ve arrived at a special stop! Would you like to watch a short video to earn 2.000 coins?"
 dialog_autowrap = true
 cancel_button_text = "Not Now"
-
-[node name="FogCanvas" type="CanvasLayer" parent="." unique_id=251787266]
-
-[node name="FogOverlay" type="ColorRect" parent="FogCanvas" unique_id=1404983914]
-material = SubResource("ShaderMaterial_0i2xg")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.8509804, 0.9490196, 1, 0.61960787)
-
-[node name="SnowFX" parent="." unique_id=2105947159 instance=ExtResource("15_dqgx4")]
 
 [connection signal="pressed" from="MapHUD/PlayGameButton" to="." method="_on_play_game_button_pressed"]

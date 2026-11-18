@@ -29,7 +29,7 @@ func _input(event: InputEvent) -> void:
 func _on_attract_timer_timeout() -> void:
 	GameManager.is_attract_mode = true
 	# Carrega a cena da partida diretamente!
-	get_tree().change_scene_to_file("res://core/scenes/levels/game_play_area.tscn")
+	get_tree().change_scene_to_file("res://core/scenes/levels/level.tscn")
 
 func _on_start_button_pressed() -> void:
 	# 1. Desativa o botão (como start_button_2.png está no campo Disabled, ele vai manter o visual pressionado)

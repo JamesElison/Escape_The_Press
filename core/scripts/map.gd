@@ -25,7 +25,8 @@ extends Control
 @onready var confirmation_dialog = $MapHUD/ConfirmationDialog
 
 # Variáveis de SnowFX:
-@onready var fog_overlay = $FogCanvas/FogOverlay
+@onready var fog_overlay = $FXCanvas/FogOverlay
+@onready var water_shader_rect = $FXCanvas/WaterShaderRect
 @onready var snow_fx = $SnowFX
 
 var stop_sprites: Array[Node] = []
@@ -97,6 +98,11 @@ func especific_fx() -> void:
 	else:
 		fog_overlay.hide()
 		snow_fx.hide()
+
+	if GameManager.current_biome == "seabed":
+		water_shader_rect.show()
+	else:
+		water_shader_rect.hide()
 
 # Aplica as texturas e músicas específicas do ThemeData para o Mapa
 func _apply_map_theme() -> void:
@@ -203,7 +209,7 @@ func _on_play_game_button_pressed() -> void:
 		if GameManager:
 			GameManager.set_level_from_stop(current_level)
 			
-		get_tree().change_scene_to_file("res://core/scenes/levels/game_play_area.tscn")
+		get_tree().change_scene_to_file("res://core/scenes/levels/level.tscn")
 	else:
 		return
 
