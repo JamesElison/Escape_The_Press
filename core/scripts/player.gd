@@ -6,6 +6,7 @@ var pre_ball = preload("res://core/scenes/set_elements/color_ball.tscn")
 @onready var player_jet_right = $PlayerJetRight
 @onready var player_jet_left = $PlayerJetLeft
 @onready var player_shoot_anim = $PlayerShootAnim
+@onready var die_anim = $DieAnim
 
 # Nós do Lança-Chamas (Option 1)
 @onready var flame_cast: RayCast2D = $SpecialProjectiles/FlameCast
@@ -41,6 +42,7 @@ const FLAME_COLORS = {
 }
 
 @onready var player_ball_shoot = $PlayerBallShoot
+@onready var fx_stream = $FXStream
 @onready var player_sprite = $PlayerSprite
 @onready var player_marker = $PlayerMarker
 @onready var laser_ray_cast: RayCast2D = $LaserRayCast
@@ -531,14 +533,16 @@ func processing_shoot() -> void:
 		player_ball_shoot.stream = launcher_theme.hit_sound
 		player_ball_shoot.play()
 
-	# Executa a animação "kick" (ou "shoot") somente se não for lança-chamas
+	# Executa a animação "shoot" apenas para os temas "120mm" e "piercing"
 	if is_instance_valid(player_shoot_anim) and launcher_theme and not launcher_theme.is_flamethrower:
-		if player_shoot_anim.has_animation("kick"):
-			player_shoot_anim.play("kick")
-		elif player_shoot_anim.has_animation("shoot"):
-			player_shoot_anim.play("shoot")
+		var active_launcher = GameManager.temporary_launcher if GameManager.temporary_launcher != "" else GameManager.equipped_launcher
+		
+		if active_launcher == "120mm" or active_launcher == "piercing":
+			if player_shoot_anim.has_animation("shoot"):
+				player_shoot_anim.play("shoot")
 
-	EventBus.camera_shake_requested.emit(40.0, 0.2)
+
+	EventBus.camera_shake_requested.emit(80.0, 0.2)
 
 	var current_color = 0
 	if is_instance_valid(charger) and charger.has_method("pop_top_ball_color"):
@@ -620,14 +624,16 @@ func mix_flame_colors(c1: int, c2: int) -> int:
 
 func die() -> void:
 	game_over.emit()
-	player_sprite.hide()
+	#player_sprite.hide()
 	stop_flame()
-	if is_instance_valid(player_jet_right):
-		player_jet_right.hide()
-	if is_instance_valid(player_jet_left):
-		player_jet_left.hide()
-	if is_instance_valid(laser_line):
-		laser_line.hide()
+	if is_instance_valid(die_anim):
+		die_anim.play("die")
+	#if is_instance_valid(player_jet_right):
+		#player_jet_right.hide()
+	#if is_instance_valid(player_jet_left):
+		#player_jet_left.hide()
+	#if is_instance_valid(laser_line):
+		#laser_line.hide()
 
 func _on_player_health_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("blocks"):

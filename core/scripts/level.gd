@@ -100,7 +100,7 @@ func _ready() -> void:
 
 	if GameManager.is_attract_mode:
 		if is_instance_valid(message_label):
-			message_label.text = "DEMO - TAP TO PLAY"
+			message_label.text = "Demo - Tap to play"
 			message_label.show()
 		if is_instance_valid(menu_button):
 			menu_button.hide()
@@ -517,6 +517,8 @@ func game_over() -> void:
 
 	if is_instance_valid(press):
 		press.press_active = false
+	
+	await get_tree().create_timer(1.0).timeout
 	show_game_over()
 
 	if is_instance_valid(level_music):
