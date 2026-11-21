@@ -1,9 +1,13 @@
 extends Control
 
+const DEFAULT_RESET_WARNING := "Watch out for this button!"
+
 signal opened
 signal closed
 signal themeshop_opened
 signal difficulty_menu_opened
+
+var _reset_countdown_token: int = 0
 
 @onready var menu_music = $MenuMusic
 @onready var menu_button_sound = $MenuButtonSound
@@ -18,18 +22,29 @@ signal difficulty_menu_opened
 @onready var sfx_button_label = $MenuScroll/MenuVBox/Panel2/SFX/Label
 @onready var sfx_slider = $MenuScroll/MenuVBox/PanelB/SFXHSlider
 @onready var theme_button = $MenuScroll/MenuVBox/Panel3/ThemeButton
+@onready var theme_button_label = $MenuScroll/MenuVBox/Panel3/ThemeButton/Label
+@onready var biome_button = $MenuScroll/MenuVBox/Panel3b/BiomeButton
+@onready var biome_button_label = $MenuScroll/MenuVBox/Panel3b/BiomeButton/Label
 @onready var difficulty_button = $MenuScroll/MenuVBox/Panel4/DifficultyButton
+@onready var difficulty_button_label = $MenuScroll/MenuVBox/Panel4/DifficultyButton/Label
+@onready var language_button = $MenuScroll/MenuVBox/Panel4b/LanguageButton
+@onready var language_button_label = $MenuScroll/MenuVBox/Panel4b/LanguageButton/Label
 @onready var reset_button = $MenuScroll/MenuVBox/Panel5/ResetButton
+@onready var reset_button_label = $MenuScroll/MenuVBox/Panel5/ResetButton/Label
 @onready var reset_label = $MenuScroll/MenuVBox/Panel5/ResetLabel
 @onready var back_button = $MenuScroll/MenuVBox/Panel6/BackButton
+@onready var back_button_label = $MenuScroll/MenuVBox/Panel6/BackButton/Label
 @onready var biome_opition = $MenuScroll/MenuVBox/PanelSuperUser/BiomeOption
 @onready var buy_opition = $MenuScroll/MenuVBox/Panel7/BuyOpition
 @onready var buy_button = $MenuScroll/MenuVBox/Panel7/BuyButton
 @onready var buy_button_label = $MenuScroll/MenuVBox/Panel7/BuyButton/Label
 @onready var exit_button = $MenuScroll/MenuVBox/Panel8/ExitButton
+@onready var exit_button_label = $MenuScroll/MenuVBox/Panel8/ExitButton/Label
+@onready var reset_confirm = $ConfirmationDialog
 
 @export var theme_shop_ui: Control
 @export var difficulty_menu_ui: Control
+@export var language_menu_ui: Control
 
 
 func _ready() -> void:
@@ -239,6 +254,9 @@ func _on_theme_button_pressed() -> void:
 		elif target_shop.has_method("toggle_shop"):
 			target_shop.toggle_shop()
 
+func _on_biome_button_pressed() -> void:
+	pass # Replace with function body.
+
 func _on_difficulty_button_pressed() -> void:
 	menu_button_sound.play()
 	if menu_music and menu_music.playing:
@@ -268,18 +286,82 @@ func _on_difficulty_button_pressed() -> void:
 		elif target_shop.has_method("toggle_shop"):
 			target_shop.toggle_shop()
 
+func _on_language_button_pressed() -> void:
+	pass # Replace with function body.
 
 func _on_reset_button_pressed() -> void:
 	menu_button_sound.play()
+	
+	if is_instance_valid(reset_confirm):
+		_reset_countdown_token += 1
+		var current_token := _reset_countdown_token
+		
+		#reset_confirm.dialog_text = "Are you sure you want to reset all save data?"
+		reset_confirm.cancel_button_text = "Cancel"
+		
+		var ok_btn: Button = reset_confirm.get_ok_button()
+		if is_instance_valid(ok_btn):
+			ok_btn.disabled = true
+			ok_btn.text = "5"
+		else:
+			reset_confirm.ok_button_text = "5"
+		
+		if not reset_confirm.confirmed.is_connected(_on_reset_confirmed):
+			reset_confirm.confirmed.connect(_on_reset_confirmed)
+		if not reset_confirm.canceled.is_connected(_on_reset_canceled):
+			reset_confirm.canceled.connect(_on_reset_canceled)
+			
+		reset_confirm.popup_centered()
+		
+		# Contagem regressiva de 5 até 1 (1.0s cada) com o botão OK desabilitado
+		for count in ["5", "4", "3", "2", "1"]:
+			if current_token != _reset_countdown_token or not is_instance_valid(reset_confirm) or not reset_confirm.visible:
+				return
+			if is_instance_valid(ok_btn):
+				ok_btn.disabled = true
+				ok_btn.text = count
+			await get_tree().create_timer(1.0, true).timeout
+		
+		# Finaliza a contagem e libera o botão Confirm
+		if current_token != _reset_countdown_token or not is_instance_valid(reset_confirm) or not reset_confirm.visible:
+			return
+		if is_instance_valid(ok_btn):
+			ok_btn.text = "Confirm"
+			ok_btn.disabled = false
+		else:
+			reset_confirm.ok_button_text = "Confirm"
+	else:
+		_on_reset_confirmed()
+
+func _on_reset_confirmed() -> void:
+	_reset_countdown_token += 1
+	_disconnect_reset_dialog_signals()
 	GameManager.reset_all_save_data()
 	
 	if Engine.has_singleton("InAppManager") or get_node_or_null("/root/InAppManager") != null:
 		get_node("/root/InAppManager").reset_local_purchases()
 		
-	reset_label.text = str("Save successfully cleared!")
-	await get_tree().create_timer(2).timeout
-	reset_label.text = ""
+	reset_label.text = "Save successfully cleared!"
 	_update_audio_buttons_visual_state()
+	
+	await get_tree().create_timer(2.0, true).timeout
+	if is_instance_valid(reset_label):
+		reset_label.text = DEFAULT_RESET_WARNING
+
+func _on_reset_canceled() -> void:
+	_reset_countdown_token += 1
+	#var ok_btn := reset_confirm.get_ok_button() if is_instance_valid(reset_confirm) else null
+	var ok_btn: Button = reset_confirm.get_ok_button() if is_instance_valid(reset_confirm) else null
+	if is_instance_valid(ok_btn):
+		ok_btn.disabled = false
+	_disconnect_reset_dialog_signals()
+
+func _disconnect_reset_dialog_signals() -> void:
+	if is_instance_valid(reset_confirm):
+		if reset_confirm.confirmed.is_connected(_on_reset_confirmed):
+			reset_confirm.confirmed.disconnect(_on_reset_confirmed)
+		if reset_confirm.canceled.is_connected(_on_reset_canceled):
+			reset_confirm.canceled.disconnect(_on_reset_canceled)
 
 func _on_buy_button_pressed() -> void:
 	menu_button_sound.play()

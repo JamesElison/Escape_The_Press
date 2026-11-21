@@ -16,7 +16,7 @@ stereo = true
 [resource]
 script = ExtResource("1_l8j3o")
 theme_id = "sub_zero"
-theme_name = "Sub Zero"
+theme_name = "Freezing Hell"
 card_background = ExtResource("3_xvtle")
 map_background = ExtResource("9_7u26j")
 background_texture = ExtResource("1_2sjfs")

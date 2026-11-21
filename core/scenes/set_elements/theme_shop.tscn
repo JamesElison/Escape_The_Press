@@ -91,7 +91,7 @@ vertical_scroll_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ThemeShopVBox" type="VBoxContainer" parent="ThemeShopScroll" unique_id=1322112875]
-custom_minimum_size = Vector2(720, 3500)
+custom_minimum_size = Vector2(720, 3072)
 layout_mode = 2
 
 [node name="ItemCard" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1651953612 instance=ExtResource("13_5cke0")]
@@ -119,17 +119,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ItemCard8" parent="ThemeShopScroll/ThemeShopVBox" unique_id=263745291 instance=ExtResource("13_5cke0")]
-visible = false
 layout_mode = 2
 
 [node name="ItemCard9" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1987949688 instance=ExtResource("13_5cke0")]
-visible = false
 layout_mode = 2
 
 [node name="ItemCard10" parent="ThemeShopScroll/ThemeShopVBox" unique_id=572369554 instance=ExtResource("13_5cke0")]
-visible = false
-layout_mode = 2
-
-[node name="ItemCard11" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1710310196 instance=ExtResource("13_5cke0")]
 visible = false
 layout_mode = 2
