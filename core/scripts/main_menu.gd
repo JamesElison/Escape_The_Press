@@ -20,6 +20,16 @@ func _ready() -> void:
 		main_menu_music.play()
 	if is_instance_valid(attract_timer):
 		attract_timer.timeout.connect(_on_attract_timer_timeout)
+	
+	#var lbl := get_node_or_null("HUD/MessageLabel") # ajuste o caminho se ele estiver aninhado
+	#print("=== TESTE TRADUÇÃO ===")
+	#print("Locale atual: ", TranslationServer.get_locale())
+	#print("tr('MAIN_MENU_TITLE'): ", tr("MAIN_MENU_TITLE"))
+	#if lbl:
+		#print("Texto no nó antes: ", lbl.text)
+		## Teste forçado via tr() no código (apenas para diagnosticar):
+		#lbl.text = tr("MAIN_MENU_TITLE")
+		#print("Texto no nó após tr(): ", lbl.text)
 
 func _input(event: InputEvent) -> void:
 	# Sempre que o jogador tocar na tela, reinicia a contagem de 15 segundos

@@ -1,10 +1,10 @@
 extends Node
 
-var just_beat_final_level: bool = false  # Flag de controle para a animação do portal no mapa[cite: 3]
+var just_beat_final_level: bool = false  # Flag de controle para a animação do portal no mapa
 
 # --- CONTROLE DO MODO DEMONSTRAÇÃO (ATTRACT MODE) ---
-var is_attract_mode: bool = false      # True quando o jogo está rodando a demo sozinho[cite: 3]
-var is_recording_demo: bool = false    # True quando VOCÊ está gravando uma demo para salvar[cite: 3]
+var is_attract_mode: bool = false      # True quando o jogo está rodando a demo sozinho[cite: 16]
+var is_recording_demo: bool = false    # True quando VOCÊ está gravando uma demo para salvar[cite: 16]
 
 # Lista com os arquivos de demonstração disponíveis no projeto
 const DEMO_FILES: Array[String] = [
@@ -12,7 +12,7 @@ const DEMO_FILES: Array[String] = [
 	"res://core/resources/demo_replay_2.json",
 	"res://core/resources/demo_replay_3.json"
 ]
-var current_demo_index: int = 0 # Controla qual demo vai tocar na vez[cite: 3]
+var current_demo_index: int = 0 # Controla qual demo vai tocar na vez[cite: 16]
 
 # --- NÍVEIS DE DIFICULDADE GERENCIADOS POR MENU ---
 var easy_difficulty_mode = true
@@ -28,13 +28,13 @@ var spanish = false
 # --- DADOS PERSISTENTES DO JOGO ---
 var current_level: int = 1
 var press_speed: float = 0.0
-var coins: int = 0  # Conta definitiva do jogador (persiste no save)[cite: 3]
+var coins: int = 0  # Conta definitiva do jogador (persiste no save)[cite: 16]
 
 # --- CONTA PROVISÓRIA DA PARTIDA ---
-var match_coins: int = 0  # Conta temporária da partida atual (inicia zerada)[cite: 3]
+var match_coins: int = 0  # Conta temporária da partida atual (inicia zerada)[cite: 16]
 
 # --- CONTROLE DE ANÚNCIOS E VERSÃO PREMIUM ---
-var is_premium: bool = false  # Futura versão Premium (remove anúncios)[cite: 3]
+var is_premium: bool = false  # Futura versão Premium (remove anúncios)[cite: 16]
 var losses_since_last_ad: int = 0
 
 # Lançadores (Itens equipáveis da lojinha)
@@ -42,9 +42,9 @@ var unlocked_launchers: Array[String] = ["marble"]
 var equipped_launcher: String = "marble"
 
 # --- SISTEMA DE TEMA TEMPORÁRIO (TESTE) ---
-var temporary_launcher: String = ""  # Se preenchido, usa este lançador temporariamente[cite: 3]
-var temporary_launcher_levels_remaining: int = 0  # Rodadas restantes para o teste[cite: 3]
-var used_temporary_launchers: Array[String] = []  # Histórico de temporários já sorteados no ciclo[cite: 3]
+var temporary_launcher: String = ""  # Se preenchido, usa este lançador temporariamente[cite: 16]
+var temporary_launcher_levels_remaining: int = 0  # Rodadas restantes para o teste[cite: 16]
+var used_temporary_launchers: Array[String] = []  # Histórico de temporários já sorteados no ciclo[cite: 16]
 
 # Armazena as configurações de áudio do jogador
 var is_bgm_muted: bool = false
@@ -52,7 +52,7 @@ var is_sfx_muted: bool = false
 var bgm_volume_linear: float = 1.0  
 var sfx_volume_linear: float = 1.0  
 
-# Armazena o nível individual em que o jogador parou em cada bioma/cenário (de 1 a 45)[cite: 3]
+# Armazena o nível individual em que o jogador parou em cada bioma/cenário (de 1 a 45)[cite: 16]
 var launcher_level_progress: Dictionary = {
 	"crystal_palace": 1,
 	"ancient_ruins": 1,
@@ -64,22 +64,22 @@ var launcher_level_progress: Dictionary = {
 	"space": 1
 }
 
-# Biomas que já tiveram a 45ª casa concluída pelo jogador
+# Biomas que já tiveram a 45ª casa concluída pelo jogador[cite: 16]
 var completed_biomes: Array[String] = []
 
-# Controla se o jogador já fez uma revisita posterior à conclusão da 45ª casa em cada bioma
+# Controla se o jogador já fez uma revisita posterior à conclusão da 45ª casa em cada bioma[cite: 16]
 var revisited_after_completion: Dictionary = {}
 
 # --- ORDEM DOS CENÁRIOS (BIOMAS) PARA PROGRESSÃO DE MAPA ---
 const LAUNCHER_ORDER: Array[String] = ["crystal_palace", "ancient_ruins", "heavy_metal", "sub_zero", "seabed", "desert", "house", "space"]
-var current_biome: String = "crystal_palace" # O bioma atual do mapa onde o jogador está jogando[cite: 3]
+var current_biome: String = "crystal_palace" # O bioma atual do mapa onde o jogador está jogando[cite: 16]
 
 const SAVE_PATH: String = "user://game_save.dat"
 const END_GAME_SCENE_PATH: String = "res://core/scenes/levels/end_game_card.tscn"
 
 # Catálogos de Recursos
-var themes_catalog: Dictionary = {}          # Biomas (Cenários visuais e músicas de fundo)[cite: 3]
-var launcher_themes_catalog: Dictionary = {} # Lançadores, Projéteis, Blocos e Sons[cite: 3]
+var themes_catalog: Dictionary = {}          # Biomas (Cenários visuais e músicas de fundo)[cite: 16]
+var launcher_themes_catalog: Dictionary = {} # Lançadores, Projéteis, Blocos e Sons[cite: 16]
 
 func _ready() -> void:
 	_load_themes()
@@ -87,6 +87,7 @@ func _ready() -> void:
 	load_game_data()
 	_recalculate_press_speed()
 	reset_match_coins()
+	apply_language_settings()
 
 
 # Carrega os biomas de cenário (ThemeData)
@@ -100,7 +101,7 @@ func _load_themes() -> void:
 	themes_catalog["house"] = load("res://core/resources/themes/theme_house.tres")
 	themes_catalog["space"] = load("res://core/resources/themes/theme_space.tres")
 
-# Carrega os temas de lançadores da nova pasta dedicada (LauncherThemeData)[cite: 3]
+# Carrega os temas de lançadores da nova pasta dedicada (LauncherThemeData)[cite: 16]
 func _load_launcher_themes() -> void:
 	launcher_themes_catalog["marble"] = load("res://core/resources/launcher_themes/launcher_marble.tres")
 	launcher_themes_catalog["120mm"] = load("res://core/resources/launcher_themes/launcher_120mm.tres")
@@ -120,7 +121,7 @@ func get_current_theme() -> ThemeData:
 		return themes_catalog[current_biome]
 	return themes_catalog["crystal_palace"]
 
-# Retorna os dados visuais/sonoros do lançador/munição equipado (ou em teste temporário)[cite: 3]
+# Retorna os dados visuais/sonoros do lançador/munição equipado (ou em teste temporário)[cite: 16]
 func get_current_launcher_theme() -> LauncherThemeData:
 	var active_key = equipped_launcher
 	if temporary_launcher != "" and launcher_themes_catalog.has(temporary_launcher):
@@ -136,32 +137,32 @@ func _notification(what: int) -> void:
 
 # --- GERENCIAMENTO DE MOEDAS DA PARTIDA E DEFINITIVAS ---
 
-# Reseta e inicia a conta provisória da partida zerada (chamada ao entrar em uma fase)[cite: 3]
+# Reseta e inicia a conta provisória da partida zerada (chamada ao entrar em uma fase)[cite: 16]
 func reset_match_coins() -> void:
 	match_coins = 0
-	# Não atualizamos a HUD da partida com valores provisórios, mantendo a permanente visível[cite: 3]
+	# Não atualizamos a HUD da partida com valores provisórios, mantendo a permanente visível[cite: 16]
 
-# Adiciona moedas à conta provisória da partida (sem atualizar a HUD da cena coin)[cite: 3]
+# Adiciona moedas à conta provisória da partida (sem atualizar a HUD da cena coin)[cite: 16]
 func add_match_coins(amount: int) -> void:
 	match_coins += amount
 
-# Remove moedas da conta provisória da partida (penalidade de erro, sem atualizar a HUD da cena coin)[cite: 3]
+# Remove moedas da conta provisória da partida (penalidade de erro, sem atualizar a HUD da cena coin)[cite: 16]
 func remove_match_coins(amount: int) -> bool:
 	if match_coins >= amount:
 		match_coins -= amount
 	else:
-		match_coins = 0  # Evita saldo negativo na partida[cite: 3]
+		match_coins = 0  # Evita saldo negativo na partida[cite: 16]
 	return true
 
-# Consolida os ganhos da partida na conta definitiva ao vencer e atualiza a HUD[cite: 3]
+# Consolida os ganhos da partida na conta definitiva ao vencer e atualiza a HUD[cite: 16]
 func claim_match_coins() -> void:
 	if match_coins > 0:
 		coins += match_coins
 		match_coins = 0
 		save_game_data()
-		EventBus.coins_updated.emit(coins) # Atualiza a cena coin ao vencer[cite: 3]
+		EventBus.coins_updated.emit(coins) # Atualiza a cena coin ao vencer[cite: 16]
 
-# Descarta os ganhos da partida ao perder ou fechar sem vencer[cite: 3]
+# Descarta os ganhos da partida ao perder ou fechar sem vencer[cite: 16]
 func discard_match_coins() -> void:
 	match_coins = 0
 
@@ -187,7 +188,7 @@ func register_loss() -> bool:
 	losses_since_last_ad += 1
 	if losses_since_last_ad >= 2:
 		losses_since_last_ad = 0
-		return true  # Hora de exibir Interstitial de Derrota[cite: 3]
+		return true  # Hora de exibir Interstitial de Derrota[cite: 16]
 	return false
 
 func grant_ad_reward() -> void:
@@ -220,11 +221,11 @@ func select_biome_from_shop(biome_id: String) -> bool:
 	if not can_join_biome(biome_id):
 		return false
 
-	# Salva o nível em que estava no bioma anterior antes de trocar
+	# Salva o nível em que estava no bioma anterior antes de trocar[cite: 16]
 	if current_biome in LAUNCHER_ORDER:
 		launcher_level_progress[current_biome] = clamp(int(current_level), 1, 45)
 
-	# Se já estiver no bioma selecionado, mantém o progresso exato onde parou
+	# Se já estiver no bioma selecionado, mantém o progresso exato onde parou[cite: 16]
 	if biome_id == current_biome:
 		current_level = clamp(int(launcher_level_progress.get(biome_id, current_level)), 1, 45)
 		launcher_level_progress[biome_id] = current_level
@@ -234,13 +235,13 @@ func select_biome_from_shop(biome_id: String) -> bool:
 
 	current_biome = biome_id
 
-	# Primeira revisita após concluir a 45ª casa: inicia na casa 1
+	# Primeira revisita após concluir a 45ª casa: inicia na casa 1[cite: 16]
 	if not revisited_after_completion.get(biome_id, false):
 		revisited_after_completion[biome_id] = true
 		current_level = 1
 		launcher_level_progress[biome_id] = 1
 	else:
-		# Revisitas seguintes: retorna para a última casa salva nesse bioma
+		# Revisitas seguintes: retorna para a última casa salva nesse bioma[cite: 16]
 		current_level = clamp(int(launcher_level_progress.get(biome_id, 1)), 1, 45)
 		launcher_level_progress[biome_id] = current_level
 
@@ -350,6 +351,20 @@ func _check_and_advance_biome() -> void:
 
 		save_game_data()
 
+# --- CONTROLE DE IDIOMA GLOBAL ---
+func apply_language_settings() -> void:
+	var locale := "en"
+	if portuguese:
+		locale = "pt_BR"
+	elif mandarin:
+		locale = "zh"
+	elif spanish:
+		locale = "es"
+	elif english:
+		locale = "en"
+
+	TranslationServer.set_locale(locale)
+
 # --- CONTROLE DE ÁUDIO GLOBAL ---
 func apply_audio_settings() -> void:
 	var bgm_bus = AudioServer.get_bus_index("BGM")
@@ -378,6 +393,10 @@ func save_game_data() -> void:
 			"easy_difficulty_mode": easy_difficulty_mode,
 			"medium_difficulty_mode": medium_difficulty_mode,
 			"hard_difficulty_mode": hard_difficulty_mode,
+			"english": english,
+			"portuguese": portuguese,
+			"mandarin": mandarin,
+			"spanish": spanish,
 			"current_level": current_level,
 			"press_speed": press_speed,
 			"coins": coins,
@@ -409,6 +428,11 @@ func load_game_data() -> void:
 				easy_difficulty_mode = save_dict.get("easy_difficulty_mode", true)
 				medium_difficulty_mode = save_dict.get("medium_difficulty_mode", false)
 				hard_difficulty_mode = save_dict.get("hard_difficulty_mode", false)
+
+				english = save_dict.get("english", true)
+				portuguese = save_dict.get("portuguese", false)
+				mandarin = save_dict.get("mandarin", false)
+				spanish = save_dict.get("spanish", false)
 				
 				coins = save_dict.get("coins", 0)
 				is_premium = save_dict.get("is_premium", false)
@@ -456,6 +480,7 @@ func load_game_data() -> void:
 				current_level = launcher_level_progress.get(current_biome, 1)
 				_recalculate_press_speed()
 				apply_audio_settings()
+				apply_language_settings()
 
 func reset_all_save_data() -> void:
 	if FileAccess.file_exists(SAVE_PATH):
@@ -466,6 +491,10 @@ func reset_all_save_data() -> void:
 	easy_difficulty_mode = true
 	medium_difficulty_mode = false
 	hard_difficulty_mode = false
+	english = true
+	portuguese = false
+	mandarin = false
+	spanish = false
 	current_level = 1
 	press_speed = 2.0
 	coins = 0
@@ -498,6 +527,7 @@ func reset_all_save_data() -> void:
 
 	_recalculate_press_speed()
 	apply_audio_settings()
+	apply_language_settings()
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)
 

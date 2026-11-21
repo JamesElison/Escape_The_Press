@@ -86,6 +86,7 @@ func _on_english_button_pressed() -> void:
 		GameManager.portuguese = false
 		GameManager.mandarin = false
 		GameManager.spanish = false
+		GameManager.apply_language_settings()
 		mode_label.text = str("English Selected")
 		close()
 
@@ -96,6 +97,7 @@ func _on_portuguese_button_pressed() -> void:
 		GameManager.portuguese = true
 		GameManager.mandarin = false
 		GameManager.spanish = false
+		GameManager.apply_language_settings()
 		mode_label.text = str("Português Selecionado")
 		close()
 
@@ -106,6 +108,7 @@ func _on_mandarin_button_pressed() -> void:
 		GameManager.portuguese = false
 		GameManager.mandarin = true
 		GameManager.spanish = false
+		GameManager.apply_language_settings()
 		mode_label.text = str("已选择中文")
 		close()
 
@@ -116,5 +119,6 @@ func _on_spanish_button_pressed() -> void:
 		GameManager.portuguese = false
 		GameManager.mandarin = false
 		GameManager.spanish = true
+		GameManager.apply_language_settings()
 		mode_label.text = str("Español seleccionado")
 		close()

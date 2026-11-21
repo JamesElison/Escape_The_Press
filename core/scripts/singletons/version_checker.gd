@@ -49,10 +49,10 @@ func _show_update_popup(notes: String, is_forced: bool) -> void:
 	# Aqui você pode instanciar uma cena de UI própria com o estilo do seu jogo,
 	# ou usar uma caixa de diálogo nativa rápida do Control (AcceptDialog/ConfirmationDialog):
 	var dialog = ConfirmationDialog.new()
-	dialog.title = "Atualização Disponível!"
-	dialog.dialog_text = notes + "\n\nDeseja abrir a Play Store para atualizar?"
-	dialog.ok_button_text = "Atualizar"
-	dialog.cancel_button_text = "Agora não"
+	dialog.title = "Update Available!"
+	dialog.dialog_text = notes + "\n\nDo you want to open the Play Store to update?"
+	dialog.ok_button_text = "To update"
+	dialog.cancel_button_text = "Not now"
 	
 	dialog.confirmed.connect(func():
 		OS.shell_open(PLAY_STORE_URL)

@@ -111,22 +111,6 @@ texture = ExtResource("1_y7ek6")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="MessageLabel2" type="Label" parent="HUD" unique_id=501870911]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -314.0
-offset_top = 248.0
-offset_right = 315.0
-offset_bottom = 348.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("7_0jp4f")
-theme_override_font_sizes/font_size = 32
-text = "Prototype Version
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="MessageLabel" type="Label" parent="HUD" unique_id=144190612]
 anchors_preset = 5
 anchor_left = 0.5
@@ -141,7 +125,22 @@ theme_override_colors/font_outline_color = Color(0.7372549, 0.7372549, 0.7372549
 theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("7_0jp4f")
 theme_override_font_sizes/font_size = 64
-text = "Escape The Press!
+text = "MAIN_MENU_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel2" type="Label" parent="HUD" unique_id=501870911]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -314.0
+offset_top = 1200.0
+offset_right = 315.0
+offset_bottom = 1300.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_0jp4f")
+theme_override_font_sizes/font_size = 32
+text = "
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -214,7 +213,7 @@ theme_override_colors/font_outline_color = Color(0.2509804, 0.7019608, 0.9333333
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("7_0jp4f")
 theme_override_font_sizes/font_size = 48
-text = "Start"
+text = "MAIN_MENU_BUTTON"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -232,7 +231,7 @@ offset_bottom = -26.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("7_0jp4f")
-text = "Version: 0.10.0"
+text = "Version: 0.10.4"
 
 [node name="HUDFadeFX" type="ColorRect" parent="HUD" unique_id=62624017]
 modulate = Color(1, 1, 1, 0)

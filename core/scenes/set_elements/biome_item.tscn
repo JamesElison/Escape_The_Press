@@ -565,6 +565,7 @@ mouse_filter = 2
 stretch_mode = 3
 
 [node name="ThemeLabel" type="Label" parent="." unique_id=1609353417]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.21176471, 0.21176471, 0.21176471, 1)

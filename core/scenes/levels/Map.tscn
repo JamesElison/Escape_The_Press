@@ -6,7 +6,6 @@
 [ext_resource type="AudioStream" uid="uid://clisrb7xsrjn3" path="res://core/assets/sounds/level_music/end_music.wav" id="3_dqgx4"]
 [ext_resource type="Shader" uid="uid://dqx6lma6pgm05" path="res://core/entities/effects/CrystalMap/portal_swirl.gdshader" id="4_t3iat"]
 [ext_resource type="Texture2D" uid="uid://fui6oo5j4sfa" path="res://core/assets/background/stop/portal.png" id="5_vsenb"]
-[ext_resource type="Script" uid="uid://sgcx0oq41l6o" path="res://core/scripts/energy_stop.gd" id="6_wuo5h"]
 [ext_resource type="Texture2D" uid="uid://3v1at2l0udou" path="res://core/assets/background/stop/energy_stop.png" id="7_0i2xg"]
 [ext_resource type="PackedScene" uid="uid://btruxuxlswuaq" path="res://core/scenes/levels/stop_sprite.tscn" id="8_wuo5h"]
 [ext_resource type="PackedScene" uid="uid://ckptqhwom11g" path="res://core/entities/players/map_player.tscn" id="10_7kyno"]
@@ -278,7 +277,6 @@ visible = false
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_w4o7b")
 frame_progress = 0.49506903
-script = ExtResource("6_wuo5h")
 
 [node name="PortalArea" type="Area2D" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=911751676]
 visible = false
@@ -536,14 +534,14 @@ autowrap_mode = 3
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="MapHUD" unique_id=961345533]
 transparent_bg = true
 oversampling_override = 1.0
-title = "Special Stop"
+title = "CD_SPECIAL_TITLE"
 position = Vector2i(104, 128)
-size = Vector2i(512, 256)
+size = Vector2i(571, 256)
 transparent = true
 theme = SubResource("Theme_0i2xg")
-ok_button_text = "Watch Ad"
-dialog_text = "You’ve arrived at a special stop! Would you like to watch a short video to earn 2.000 coins?"
+ok_button_text = "CD_WATCH_AD"
+dialog_text = "CD_SPECIAL_TEST"
 dialog_autowrap = true
-cancel_button_text = "Not Now"
+cancel_button_text = "CD_NOT_NOW"
 
 [connection signal="pressed" from="MapHUD/PlayGameButton" to="." method="_on_play_game_button_pressed"]

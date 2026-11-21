@@ -77,3 +77,6 @@ layout_mode = 2
 
 [node name="ItemCard7" parent="ThemeShopScroll/ThemeShopVBox" unique_id=310925898 instance=ExtResource("4_x2y4d")]
 layout_mode = 2
+
+[node name="ItemCard8" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1941468444 instance=ExtResource("4_x2y4d")]
+layout_mode = 2

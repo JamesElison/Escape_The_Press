@@ -1,0 +1,65 @@
+keys;en;pt_BR;zh;es
+MAIN_MENU_TITLE;Escape The Press!;Escape da Prensa!;逃离压床!;¡Escapa de la Prensa!
+MAIN_MENU_BUTTON;Start;Iniciar;开始;Iniciar
+MENU_MUSIC_DISABLE_BUTTON;Disable Music;Sem Música;无音乐;Sin música
+MENU_MUSIC_ENABLE_BUTTON;Enable Music;Com Música;开启音乐;Con música
+MENU_VOLUME_SILDER;Music Volume Slider;Controle de Volume da Música;音乐音量控制;Control de volumen de música
+MENU_SOUND_DISABLE_BUTTON;Disable Sound;Sem Sons;无音效;Sin sonidos
+MENU_SOUND_ENABLE_BUTTON;Enable Sound;Com Sons;开启音效;Con sonidos
+MENU_SOUND_SLIDER;Sound Volume Slider;Controle de Volume dos Sons;音效音量控制;Control de volumen de sonidos
+MENU_THEME_STORE_BUTTON;Theme Store;Loja de Temas;主题商店;Tienda de temas
+IS_EQUIPPED_LABEL;Using;Em Uso;使用中;En uso
+IS_UNLOCKED_PRICE;Acquired;Comprado;已购买;Comprado
+IS_UNLOCKED_LABEL;To Use;Disponível;可用;Disponible
+LOCKED_PRICE;% Coins;% Moedas;% 金币;% Monedas
+LOCKED_LABEL;Buy;Comprar;购买;Comprar
+THEME_SHOP_TITLE_MARBLE;Marble;Bolas de Gude;玻璃弹珠;Canicas
+THEME_SHOP_TITLE_120MM;120mm;120mm;120毫米;120mm
+THEME_SHOP_TITLE_PIERCING;Piercing;Penetrante;穿甲弹;Perforante
+THEME_SHOP_TITLE_MINI_PLASMA;Mini Plasma;Mini Plasma;迷你等离子;Mini plasma
+THEME_SHOP_TITLE_FLAME_THROWER;Flame Thrower;Lança Chamas;火焰喷射器;Lanzallamas
+THEME_SHOP_TITLE_HIGH_VOLTAGE;High Voltage;Alta Voltagem;高电压;Alto voltaje
+THEME_SHOP_TITLE_FIRE_FIGHTER;Fire Fighter;Bombeiro;消防员;Bombero
+THEME_SHOP_TITLE_LASER_BEAM;Laser Beam;Raio Laser;激光束;Rayo láser
+THEME_SHOP_TITLE_ICE_CUBE;Ice Cube;Cubo de Gelo;冰块;Cubo de hielo
+THEME_SHOP_TITLE_DART;Dart;Dardos;飞镖;Dardos
+THEME_SHOP_TITLE_LABEL;Your Coins;Suas Moedas;你的金币;Tus monedas
+MENU_BIOMES_SHOP;Biomes Shop;Biomas;生物群系;Biomas
+BIOME_BUTTON_EXPLORING;Exploring;Desbravando;探索中;Explorando
+BIOME_PRICE_AVALIABLE;Avaliable;Disponível;已解锁;Disponible
+BIOME_BUTTON_JOIN;Join;Ingressar;进入;Ingresar
+BIOME_PRICE_UNAVALIABLE;Unavailable;Indisponível;不可用;No disponible
+BIOME_BUTTON_BLOCKED;Blocked;Bloqueado;已锁定;Bloqueado
+MENU_DIFFICULTY_BUTTON;Difficulty;Dificuldade;难度;Dificultad
+EASY;Easy;Fácil;简单;Fácil
+MEDIUM;Medium;Médio;中等;Medio
+HARD;Hard;Difícil;困难;Difícil
+MENU_LANGUAGE_MENU_BUTTON;Language;Idiomas;语言;Idiomas
+ENGLISH;English;Inglês;英语;Inglés
+PORTUGUESE;Portuguese;Português;葡萄牙语;Portugués
+MANDARIN;Mandarin;Mandarim;中文;Mandarín
+RESET_BUTTON;Reset Game;Apagar Tudo;重置游戏;Reiniciar juego
+CD_TITLE;ATTENTION!!!;ATENÇÃO!!!;警告！！！;¡¡¡ATENCIÓN!!!
+CD_TEXT;"If you confirm this action, you will lose your progress, achievements, and in-game purchases!";"Se você confirmar essa ação, você perderá seu progresso e suas conquistas e compras no jogo!";如果您确认此操作，您将失去游戏中的所有进度、成就和购买记录！;"Si confirmas esta acción, ¡perderás tu progreso, tus logros y tus compras en el juego!"
+CD_OK;Confirm;Confirmar;确认;Confirmar
+CD_CANCEL;Cancel;Cancelar;取消;Cancelar
+RESET_LABEL_NORMAL;Watch out for this button!;Cuidado com este botão!;小心此按钮！;¡Cuidado con este botón!
+RESET_LABEL_PRESS;Save successfully cleared!;Dados salvos removidos com sucesso!;存档数据已成功清除！;¡Datos guardados eliminados con éxito!
+MENU_MAIN_MENU_BUTTON;Main Menu;Menu Principal;主菜单;Menú principal
+MENU_EXIT_BUTTON;Exit;Sair;退出;Salir
+DEMO_TAP_TO_PLAY;Demo - Tap to play;Demo - Toque para jogar;演示 - 点击开始游戏;Demo - Toca para jugar
+YOU_WIN;YOU WIN!!!;VOCÊ VENCEU!!!;你赢了！！！;¡¡¡GANASTE!!!
+CHALLENGE_READY_GO;Challenge %! Ready Go!;"Desafio %! Preparar, Já!";挑战 %！预备，开始！;"¡Desafío %! ¡Preparados, ya!"
+YOU_LOSE;You Lose;Você Perdeu;你输了;Perdiste
+EASY_MODE_SELECTED;Easy Mode Selected;Modo Fácil Selecionado;已选择简单模式;Modo Fácil seleccionado
+MEDIUM_MODE_SELECTED;Medium Mode Selected;Modo Médio Selecionado;已选择中等模式;Modo Medio seleccionado
+HARD_MODE_SELECTED;Hard Mode Selected;Modo Difícil Selecionado;已选择困难模式;Modo Difícil seleccionado
+CONGRATULATIONS_YOU;"Congratulations!!! You will play a round, with the theme";"Parabéns!!! Você vai jogar uma rodada, com o tema";恭喜！！！您将使用以下主题进行一局游戏：;¡¡¡Felicidades!!! Vas a jugar una ronda con el tema
+VS_UPDATE_AVAILABLE;Update Available!;Atualização Disponível!;有可用更新！;¡Actualización disponible!
+VS_DO_YOU_WANT;Do you want to open the Play Store to update?;Deseja abrir a Play Store para atualizar?;是否打开 Play 商店进行更新？;¿Deseas abrir Play Store para actualizar?
+VS_TO_UPDATE;To update;Atualizar;更新;Actualizar
+VS_NOT_NOW;Not now;Agora não;暂不更新;Ahora no
+CD_NOT_NOW;Not now;Agora não;;
+CD_WATCH_AD;Watch Ad;Assistir Vídeo;;
+CD_SPECIAL_TITLE;Special Stop;Parada Especial;;
+CD_SPECIAL_TEXT;You’ve arrived at a special stop! Would you like to watch a short video to earn 2.000 coins?;Você chegou a uma parada especial! Gostaria de assistir a um vídeo curto para ganhar 2.000 moedas?;;
