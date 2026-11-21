@@ -1,11 +1,15 @@
 extends Control
 
 const DEFAULT_RESET_WARNING := "Watch out for this button!"
+const BIOME_SHOP_SCENE := preload("res://core/scenes/set_elements/biome_shop.tscn")
+const LANGUAGE_MENU_SCENE := preload("res://core/scenes/set_elements/language_menu.tscn")
 
 signal opened
 signal closed
 signal themeshop_opened
 signal difficulty_menu_opened
+signal biome_shop_opened
+signal language_menu_opened
 
 var _reset_countdown_token: int = 0
 
@@ -43,6 +47,7 @@ var _reset_countdown_token: int = 0
 @onready var reset_confirm = $ConfirmationDialog
 
 @export var theme_shop_ui: Control
+@export var biome_shop_ui: Control
 @export var difficulty_menu_ui: Control
 @export var language_menu_ui: Control
 
@@ -107,9 +112,17 @@ func _ready() -> void:
 		if not theme_button.pressed.is_connected(_on_theme_button_pressed):
 			theme_button.pressed.connect(_on_theme_button_pressed)
 
+	if is_instance_valid(biome_button):
+		if not biome_button.pressed.is_connected(_on_biome_button_pressed):
+			biome_button.pressed.connect(_on_biome_button_pressed)
+
 	if is_instance_valid(difficulty_button):
 		if not difficulty_button.pressed.is_connected(_on_difficulty_button_pressed):
 			difficulty_button.pressed.connect(_on_difficulty_button_pressed)
+
+	if is_instance_valid(language_button):
+		if not language_button.pressed.is_connected(_on_language_button_pressed):
+			language_button.pressed.connect(_on_language_button_pressed)
 
 	if is_instance_valid(reset_button):
 		if not reset_button.pressed.is_connected(_on_reset_button_pressed):
@@ -211,6 +224,8 @@ func toggle_shop() -> void:
 		open()
 
 func open() -> void:
+	if is_instance_valid(reset_label):
+		reset_label.text = DEFAULT_RESET_WARNING
 	if not GameManager.is_bgm_muted and menu_music and not menu_music.playing:
 		menu_music.play()
 	refresh_all_items()
@@ -255,7 +270,41 @@ func _on_theme_button_pressed() -> void:
 			target_shop.toggle_shop()
 
 func _on_biome_button_pressed() -> void:
-	pass # Replace with function body.
+	if is_instance_valid(menu_button_sound):
+		menu_button_sound.play()
+	if menu_music and menu_music.playing:
+		menu_music.stop()
+
+	hide()
+	biome_shop_opened.emit()
+
+	var target_shop: Node = biome_shop_ui
+
+	if not is_instance_valid(target_shop):
+		if get_parent() and get_parent().has_node("BiomeShop"):
+			target_shop = get_parent().get_node("BiomeShop")
+		elif get_node_or_null("../BiomeShop") != null:
+			target_shop = get_node("../BiomeShop")
+		elif BIOME_SHOP_SCENE:
+			var instantiated_shop = BIOME_SHOP_SCENE.instantiate()
+			var parent_target: Node = get_parent() if get_parent() else get_tree().current_scene
+			if is_instance_valid(parent_target):
+				parent_target.add_child(instantiated_shop)
+				target_shop = instantiated_shop
+				biome_shop_ui = instantiated_shop
+
+	if is_instance_valid(target_shop):
+		target_shop.show()
+
+		if not GameManager.is_bgm_muted:
+			var shop_music = target_shop.find_child("*Music*", true, false)
+			if shop_music and shop_music is AudioStreamPlayer and not shop_music.playing:
+				shop_music.play()
+
+		if target_shop.has_method("open"):
+			target_shop.open()
+		elif target_shop.has_method("toggle_shop"):
+			target_shop.toggle_shop()
 
 func _on_difficulty_button_pressed() -> void:
 	menu_button_sound.play()
@@ -287,7 +336,33 @@ func _on_difficulty_button_pressed() -> void:
 			target_shop.toggle_shop()
 
 func _on_language_button_pressed() -> void:
-	pass # Replace with function body.
+	menu_button_sound.play()
+	if menu_music and menu_music.playing:
+		menu_music.stop()
+	
+	hide()
+	language_menu_opened.emit()
+	
+	var target_shop: Node = language_menu_ui
+	
+	if not is_instance_valid(target_shop):
+		if get_parent() and get_parent().has_node("LanguageMenu"):
+			target_shop = get_parent().get_node("LanguageMenu")
+		elif get_node_or_null("../LanguageMenu") != null:
+			target_shop = get_node("../LanguageMenu")
+
+	if is_instance_valid(target_shop):
+		target_shop.show()
+		
+		if not GameManager.is_bgm_muted:
+			var shop_music = target_shop.find_child("*BGM*", true, false)
+			if shop_music and shop_music is AudioStreamPlayer and not shop_music.playing:
+				shop_music.play()
+
+		if target_shop.has_method("open"):
+			target_shop.open()
+		elif target_shop.has_method("toggle_shop"):
+			target_shop.toggle_shop()
 
 func _on_reset_button_pressed() -> void:
 	menu_button_sound.play()
@@ -296,7 +371,6 @@ func _on_reset_button_pressed() -> void:
 		_reset_countdown_token += 1
 		var current_token := _reset_countdown_token
 		
-		#reset_confirm.dialog_text = "Are you sure you want to reset all save data?"
 		reset_confirm.cancel_button_text = "Cancel"
 		
 		var ok_btn: Button = reset_confirm.get_ok_button()
@@ -313,14 +387,14 @@ func _on_reset_button_pressed() -> void:
 			
 		reset_confirm.popup_centered()
 		
-		# Contagem regressiva de 5 até 1 (1.0s cada) com o botão OK desabilitado
+		# Contagem regressiva de 5 até 1 (0.5s cada) com o botão OK desabilitado
 		for count in ["5", "4", "3", "2", "1"]:
 			if current_token != _reset_countdown_token or not is_instance_valid(reset_confirm) or not reset_confirm.visible:
 				return
 			if is_instance_valid(ok_btn):
 				ok_btn.disabled = true
 				ok_btn.text = count
-			await get_tree().create_timer(1.0, true).timeout
+			await get_tree().create_timer(0.5, true).timeout
 		
 		# Finaliza a contagem e libera o botão Confirm
 		if current_token != _reset_countdown_token or not is_instance_valid(reset_confirm) or not reset_confirm.visible:
@@ -350,7 +424,6 @@ func _on_reset_confirmed() -> void:
 
 func _on_reset_canceled() -> void:
 	_reset_countdown_token += 1
-	#var ok_btn := reset_confirm.get_ok_button() if is_instance_valid(reset_confirm) else null
 	var ok_btn: Button = reset_confirm.get_ok_button() if is_instance_valid(reset_confirm) else null
 	if is_instance_valid(ok_btn):
 		ok_btn.disabled = false

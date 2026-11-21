@@ -16,7 +16,6 @@ var current_item_data: Dictionary = {}
 func setup(data: Dictionary) -> void:
 	current_item_data = data
 	
-	# Exibe o título do bioma no ThemeLabel
 	if theme_label:
 		theme_label.text = data.get("title", "")
 	
@@ -26,61 +25,30 @@ func setup(data: Dictionary) -> void:
 	update_state()
 
 func update_state() -> void:
-	var item_id = current_item_data.get("id", "")
-	var price = current_item_data.get("price", 0)
+	var item_id: String = str(current_item_data.get("id", ""))
+	var is_current_biome: bool = (GameManager.current_biome == item_id)
+	var is_conquered: bool = GameManager.is_biome_completed(item_id)
 	
-	var is_unlocked = item_id in GameManager.unlocked_launchers
-	var is_equipped = (GameManager.equipped_launcher == item_id)
-	
-	if is_equipped:
+	if is_current_biome:
 		price_label.text = ""
 		action_button_label.text = "Exploring"
 		action_button.disabled = true
-	elif is_unlocked:
+	elif is_conquered:
 		price_label.text = "Available"
 		action_button_label.text = "Join"
 		action_button.disabled = false
 	else:
-		# Exibe o preço formatado com ponto separador de milhar
-		#if typeof(price) == TYPE_INT or typeof(price) == TYPE_FLOAT:
-			#price_label.text = _format_number(int(price)) + " Coins"
-			#price_label.text = ""
-		#else:
-			#price_label.text = str(price)
 		price_label.text = "Unavailable"
 		action_button_label.text = "Blocked"
 		action_button.disabled = true
 
 func _on_action_button_pressed() -> void:
-	var item_id = current_item_data.get("id", "")
+	var item_id: String = str(current_item_data.get("id", ""))
 	
-	if item_id in GameManager.unlocked_launchers:
+	if GameManager.can_join_biome(item_id) and GameManager.current_biome != item_id:
 		if item_accepted_sound:
 			item_accepted_sound.play()
 		equip_requested.emit(current_item_data)
 	else:
-		var price = current_item_data.get("price", 0)
-		if typeof(price) == TYPE_STRING:
-			price = 0
-			
-		# Verifica se o jogador tem moedas suficientes
-		if GameManager.coins >= price:
-			if item_accepted_sound:
-				item_accepted_sound.play()
-			buy_requested.emit(current_item_data)
-		else:
-			if item_not_accepted_sound:
-				item_not_accepted_sound.play()
-
-# Função auxiliar para formatar milhares (ex: 35000 -> "35.000")
-#func _format_number(number: int) -> String:
-	#var num_str = str(number)
-	#var result = ""
-	#var length = num_str.length()
-	#
-	#for i in range(length):
-		#if i > 0 and (length - i) % 3 == 0:
-			#result += "."
-		#result += num_str[i]
-		#
-	#return result
+		if item_not_accepted_sound:
+			item_not_accepted_sound.play()

@@ -51,7 +51,7 @@ vertical_scroll_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ThemeShopVBox" type="VBoxContainer" parent="ThemeShopScroll" unique_id=1322112875]
-custom_minimum_size = Vector2(720, 3072)
+custom_minimum_size = Vector2(720, 2304)
 layout_mode = 2
 
 [node name="ItemCard" parent="ThemeShopScroll/ThemeShopVBox" unique_id=1651953612 instance=ExtResource("4_x2y4d")]

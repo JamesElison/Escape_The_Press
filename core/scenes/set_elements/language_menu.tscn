@@ -1050,3 +1050,8 @@ theme_override_font_sizes/font_size = 28
 text = "Español"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="LanguageMenu/Panel1/EnglishButton" to="." method="_on_english_button_pressed"]
+[connection signal="pressed" from="LanguageMenu/Panel2/PortugueseButton" to="." method="_on_portuguese_button_pressed"]
+[connection signal="pressed" from="LanguageMenu/Panel3/MandarinButton" to="." method="_on_mandarin_button_pressed"]
+[connection signal="pressed" from="LanguageMenu/Panel4/SpanishButton" to="." method="_on_spanish_button_pressed"]

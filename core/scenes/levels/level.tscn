@@ -31,7 +31,9 @@
 [ext_resource type="PackedScene" uid="uid://b563uli21oqdk" path="res://core/scenes/set_elements/difficult_menu.tscn" id="28_6ylpk"]
 [ext_resource type="PackedScene" uid="uid://7aa4wwaqc1dy" path="res://core/scenes/set_elements/menu_button.tscn" id="29_4wm2k"]
 [ext_resource type="PackedScene" uid="uid://ca6xso0mr3bqf" path="res://core/scenes/set_elements/pause_button.tscn" id="30_tnlyx"]
+[ext_resource type="PackedScene" uid="uid://c817lnl14tjvq" path="res://core/scenes/set_elements/biome_shop.tscn" id="30_w1ej8"]
 [ext_resource type="PackedScene" uid="uid://bt5kw3nc328a3" path="res://core/scenes/set_elements/turn_left_button.tscn" id="31_wsr1v"]
+[ext_resource type="PackedScene" uid="uid://b4bbc66jq7tw0" path="res://core/scenes/set_elements/language_menu.tscn" id="32_5p453"]
 [ext_resource type="PackedScene" uid="uid://ky17wl2bj1f1" path="res://core/scenes/set_elements/turn_right_button.tscn" id="32_jxapc"]
 [ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="33_x3mhd"]
 
@@ -957,6 +959,9 @@ theme_shop_ui = NodePath("../ThemeShop")
 [node name="ThemeShop" parent="LevelCanvasLayer" unique_id=1610804757 instance=ExtResource("27_1pvfb")]
 visible = false
 
+[node name="BiomeShop" parent="LevelCanvasLayer" unique_id=604045916 instance=ExtResource("30_w1ej8")]
+visible = false
+
 [node name="DifficultyMenu" parent="LevelCanvasLayer" unique_id=2072664241 node_paths=PackedStringArray("menu_ui") instance=ExtResource("28_6ylpk")]
 visible = false
 offset_left = 24.0
@@ -965,7 +970,11 @@ offset_right = 24.0
 offset_bottom = 24.0
 menu_ui = NodePath("../Menu")
 
-[node name="MenuButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "difficulty_menu_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") groups=["top_menu"] instance=ExtResource("29_4wm2k")]
+[node name="LanguageMenu" parent="LevelCanvasLayer" unique_id=180829212 node_paths=PackedStringArray("menu_ui") instance=ExtResource("32_5p453")]
+visible = false
+menu_ui = NodePath("../Menu")
+
+[node name="MenuButton" parent="LevelCanvasLayer" unique_id=575916918 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "biome_shop_ui", "difficulty_menu_ui", "language_menu_ui", "pause_button", "turn_left_button", "turn_right_button", "level_label") groups=["top_menu"] instance=ExtResource("29_4wm2k")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
@@ -975,7 +984,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 menu_ui = NodePath("../Menu")
 theme_shop_ui = NodePath("../ThemeShop")
+biome_shop_ui = NodePath("../BiomeShop")
 difficulty_menu_ui = NodePath("../DifficultyMenu")
+language_menu_ui = NodePath("../LanguageMenu")
 pause_button = NodePath("../PauseButton")
 turn_left_button = NodePath("../TurnLeftButton")
 turn_right_button = NodePath("../TurnRightButton")

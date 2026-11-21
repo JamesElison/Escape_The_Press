@@ -18,6 +18,8 @@
 [ext_resource type="Shader" uid="uid://dasbfeh3lic8k" path="res://core/entities/effects/test_area.gdshader" id="14_40k83"]
 [ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="14_dqgx4"]
 [ext_resource type="PackedScene" uid="uid://duytgf6ioum0b" path="res://core/entities/effects/snow_fx.tscn" id="15_dqgx4"]
+[ext_resource type="PackedScene" uid="uid://c817lnl14tjvq" path="res://core/scenes/set_elements/biome_shop.tscn" id="16_4l38j"]
+[ext_resource type="PackedScene" uid="uid://b4bbc66jq7tw0" path="res://core/scenes/set_elements/language_menu.tscn" id="18_u7lch"]
 [ext_resource type="Shader" uid="uid://beodw2p0dajr1" path="res://core/scenes/levels/level.gdshader" id="18_vsenb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_portal"]
@@ -458,11 +460,18 @@ visible = false
 [node name="ThemeShop" parent="MapHUD" unique_id=1610804757 instance=ExtResource("12_dqgx4")]
 visible = false
 
+[node name="BiomeShop" parent="MapHUD" unique_id=1031346906 instance=ExtResource("16_4l38j")]
+visible = false
+
 [node name="DifficultyMenu" parent="MapHUD" unique_id=2072664241 node_paths=PackedStringArray("menu_ui") instance=ExtResource("13_l5nes")]
 visible = false
 menu_ui = NodePath("../Menu")
 
-[node name="MenuButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "difficulty_menu_ui", "play_game_button", "level_label") instance=ExtResource("11_wuo5h")]
+[node name="LanguageMenu" parent="MapHUD" unique_id=273996688 node_paths=PackedStringArray("menu_ui") instance=ExtResource("18_u7lch")]
+visible = false
+menu_ui = NodePath("../Menu")
+
+[node name="MenuButton" parent="MapHUD" unique_id=1078595600 node_paths=PackedStringArray("menu_ui", "theme_shop_ui", "biome_shop_ui", "difficulty_menu_ui", "language_menu_ui", "play_game_button", "level_label") instance=ExtResource("11_wuo5h")]
 process_mode = 3
 offset_left = 24.0
 offset_top = 24.0
@@ -473,7 +482,9 @@ size_flags_vertical = 4
 texture_normal = SubResource("CompressedTexture2D_40k83")
 menu_ui = NodePath("../Menu")
 theme_shop_ui = NodePath("../ThemeShop")
+biome_shop_ui = NodePath("../BiomeShop")
 difficulty_menu_ui = NodePath("../DifficultyMenu")
+language_menu_ui = NodePath("../LanguageMenu")
 play_game_button = NodePath("../PlayGameButton")
 level_label = NodePath("../MessageLabel")
 
