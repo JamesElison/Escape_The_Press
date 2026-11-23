@@ -540,7 +540,7 @@ size = Vector2i(571, 256)
 transparent = true
 theme = SubResource("Theme_0i2xg")
 ok_button_text = "CD_WATCH_AD"
-dialog_text = "CD_SPECIAL_TEST"
+dialog_text = "CD_SPECIAL_TEXT"
 dialog_autowrap = true
 cancel_button_text = "CD_NOT_NOW"
 
