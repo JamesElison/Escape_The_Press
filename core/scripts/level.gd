@@ -100,7 +100,7 @@ func _ready() -> void:
 
 	if GameManager.is_attract_mode:
 		if is_instance_valid(message_label):
-			message_label.text = "Demo - Tap to play"
+			message_label.text = tr("DEMO_TAP_TO_PLAY")
 			message_label.show()
 		if is_instance_valid(menu_button):
 			menu_button.hide()
@@ -121,6 +121,11 @@ func _ready() -> void:
 
 	if not EventBus.launcher_changed.is_connected(_on_launcher_changed):
 		EventBus.launcher_changed.connect(_on_launcher_changed)
+	
+	# Espera 5 segundos e muda gamemanager.ongoin para true
+	await get_tree().create_timer(5.0).timeout
+	GameManager.ongoing = true
+	print("O ongonig está: ", GameManager.ongoing)
 
 func _input(event: InputEvent) -> void:
 	# Se estiver assistindo à demo, qualquer toque/clique retorna imediatamente ao Menu Principal
@@ -359,6 +364,8 @@ func _process(_delta: float) -> void:
 		complete_level()
 
 func complete_level() -> void:
+	GameManager.ongoing = false
+	print("O ongonig está: ", GameManager.ongoing)
 	if GameManager.is_attract_mode:
 		exit_attract_mode()
 		return
@@ -383,7 +390,7 @@ func complete_level() -> void:
 		level_victory_fx.play()
 		await get_tree().create_timer(1.0).timeout
 		spawn_winner_particles()
-		show_message("YOU WIN!!!")
+		show_message(tr("YOU_WIN"))
 		if is_instance_valid(winner_voice):
 			winner_voice.play()
 	
@@ -471,7 +478,8 @@ func spawn_winner_particles() -> void:
 
 func show_level_start(level_number: int) -> void:
 	setup_for_level()
-	show_message("Challenge " + str(level_number) + "! Ready Go!")
+	#show_message("Challenge " + str(level_number) + "! Ready Go!")
+	show_message(tr("CHALLENGE_READY_GO") % level_number)
 	if is_instance_valid(ready_go_voice):
 		ready_go_voice.play()
 
@@ -487,7 +495,7 @@ func show_message(text: String) -> void:
 
 func show_game_over() -> void:
 	is_game_over = true
-	show_message("You Lose")
+	show_message(tr("YOU_LOSE"))
 	if is_instance_valid(loser_voice):
 		loser_voice.play()
 
@@ -502,6 +510,8 @@ func _on_message_timer_timeout() -> void:
 		message_label.hide()
 
 func game_over() -> void:
+	GameManager.ongoing = false
+	print("O ongonig está: ", GameManager.ongoing)
 	if GameManager.is_attract_mode:
 		exit_attract_mode()
 		return

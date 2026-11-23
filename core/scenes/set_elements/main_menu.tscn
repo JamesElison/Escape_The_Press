@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bb564w0rl0pib" path="res://core/assets/HUD/start_button_1.png" id="11_emlp4"]
 [ext_resource type="PackedScene" uid="uid://b4bbc66jq7tw0" path="res://core/scenes/set_elements/language_menu.tscn" id="11_q5yl5"]
 [ext_resource type="Texture2D" uid="uid://dkv6dpoj6pds" path="res://core/assets/HUD/start_button_2.png" id="12_m5nf3"]
+[ext_resource type="PackedScene" uid="uid://bawcslu2fdi4u" path="res://core/scenes/singletons/version_checker.tscn" id="15_q5yl5"]
 
 [sub_resource type="Animation" id="Animation_fhvbq"]
 length = 0.001
@@ -231,7 +232,7 @@ offset_bottom = -26.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("7_0jp4f")
-text = "0.10.4"
+text = "0.10.6"
 horizontal_alignment = 2
 
 [node name="HUDFadeFX" type="ColorRect" parent="HUD" unique_id=62624017]
@@ -246,5 +247,8 @@ color = Color(0, 0, 0, 1)
 
 [node name="HUDFadeAnim" type="AnimationPlayer" parent="HUD" unique_id=368756014]
 libraries/ = SubResource("AnimationLibrary_qy31s")
+
+[node name="VersionChecker" parent="HUD" unique_id=1010853168 instance=ExtResource("15_q5yl5")]
+size = Vector2i(519, 104)
 
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]

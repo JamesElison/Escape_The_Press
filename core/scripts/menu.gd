@@ -1,6 +1,7 @@
 extends Control
 
-const DEFAULT_RESET_WARNING := "Watch out for this button!"
+const RESET_WARNING_KEY := "RESET_LABEL_NORMAL"
+const RESET_SUCCESS_KEY := "RESET_LABEL_PRESS"
 const BIOME_SHOP_SCENE := preload("res://core/scenes/set_elements/biome_shop.tscn")
 const LANGUAGE_MENU_SCENE := preload("res://core/scenes/set_elements/language_menu.tscn")
 
@@ -142,6 +143,7 @@ func _ready() -> void:
 
 	_update_audio_buttons_visual_state()
 
+
 func refresh_all_items() -> void:
 	_update_audio_buttons_visual_state()
 	# Sincroniza o seletor de bioma caso o jogador tenha avançado de ciclo
@@ -157,7 +159,7 @@ func _update_audio_buttons_visual_state() -> void:
 	if is_instance_valid(bgm_button):
 		bgm_button.button_pressed = GameManager.is_bgm_muted
 		if is_instance_valid(bgm_button_label):
-			bgm_button_label.text = "Enable Music" if GameManager.is_bgm_muted else "Disable Music"
+			bgm_button_label.text = tr("MENU_MUSIC_ENABLE_BUTTON") if GameManager.is_bgm_muted else tr("MENU_MUSIC_DISABLE_BUTTON")
 
 	if is_instance_valid(bgm_slider):
 		bgm_slider.value = GameManager.bgm_volume_linear
@@ -166,7 +168,7 @@ func _update_audio_buttons_visual_state() -> void:
 	if is_instance_valid(sfx_button):
 		sfx_button.button_pressed = GameManager.is_sfx_muted
 		if is_instance_valid(sfx_button_label):
-			sfx_button_label.text = "Enable Sound" if GameManager.is_sfx_muted else "Disable Sound"
+			sfx_button_label.text = tr("MENU_SOUND_ENABLE_BUTTON") if GameManager.is_sfx_muted else tr("MENU_SOUND_DISABLE_BUTTON")
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.value = GameManager.sfx_volume_linear
@@ -179,7 +181,7 @@ func _on_bgm_button_toggled(toggled_on: bool) -> void:
 	GameManager.save_game_data()
 
 	if is_instance_valid(bgm_button_label):
-		bgm_button_label.text = "Enable Music" if toggled_on else "Disable Music"
+		bgm_button_label.text = tr("MENU_MUSIC_ENABLE_BUTTON") if toggled_on else tr("MENU_MUSIC_DISABLE_BUTTON")
 
 	if is_instance_valid(bgm_slider):
 		bgm_slider.editable = not toggled_on
@@ -203,7 +205,7 @@ func _on_sfx_button_toggled(toggled_on: bool) -> void:
 	GameManager.save_game_data()
 
 	if is_instance_valid(sfx_button_label):
-		sfx_button_label.text = "Enable Sound" if toggled_on else "Disable Sound"
+		sfx_button_label.text = tr("MENU_SOUND_ENABLE_BUTTON") if toggled_on else tr("MENU_SOUND_DISABLE_BUTTON")
 
 	if is_instance_valid(sfx_slider):
 		sfx_slider.editable = not toggled_on
@@ -225,13 +227,16 @@ func toggle_shop() -> void:
 
 func open() -> void:
 	if is_instance_valid(reset_label):
-		reset_label.text = DEFAULT_RESET_WARNING
+		reset_label.text = _get_reset_warning_text()
 	if not GameManager.is_bgm_muted and menu_music and not menu_music.playing:
 		menu_music.play()
 	refresh_all_items()
 	show()
 	get_tree().paused = true
 	opened.emit()
+
+func _get_reset_warning_text() -> String:
+	return tr(RESET_WARNING_KEY)
 
 func close() -> void:
 	if menu_music and menu_music.playing:
@@ -371,7 +376,7 @@ func _on_reset_button_pressed() -> void:
 		_reset_countdown_token += 1
 		var current_token := _reset_countdown_token
 		
-		reset_confirm.cancel_button_text = "Cancel"
+		reset_confirm.cancel_button_text = tr("CD_CANCEL")
 		
 		var ok_btn: Button = reset_confirm.get_ok_button()
 		if is_instance_valid(ok_btn):
@@ -400,27 +405,35 @@ func _on_reset_button_pressed() -> void:
 		if current_token != _reset_countdown_token or not is_instance_valid(reset_confirm) or not reset_confirm.visible:
 			return
 		if is_instance_valid(ok_btn):
-			ok_btn.text = "Confirm"
+			ok_btn.text = tr("CD_OK")
 			ok_btn.disabled = false
 		else:
-			reset_confirm.ok_button_text = "Confirm"
+			reset_confirm.ok_button_text = tr("CD_OK")
 	else:
 		_on_reset_confirmed()
 
 func _on_reset_confirmed() -> void:
 	_reset_countdown_token += 1
+	var current_token := _reset_countdown_token
 	_disconnect_reset_dialog_signals()
+
+	if is_instance_valid(reset_label):
+		reset_label.text = tr(RESET_SUCCESS_KEY)
+
+	await get_tree().create_timer(2.0, true).timeout
+
+	if current_token != _reset_countdown_token:
+		return
+
 	GameManager.reset_all_save_data()
-	
+
 	if Engine.has_singleton("InAppManager") or get_node_or_null("/root/InAppManager") != null:
 		get_node("/root/InAppManager").reset_local_purchases()
-		
-	reset_label.text = "Save successfully cleared!"
+
 	_update_audio_buttons_visual_state()
-	
-	await get_tree().create_timer(2.0, true).timeout
+
 	if is_instance_valid(reset_label):
-		reset_label.text = DEFAULT_RESET_WARNING
+		reset_label.text = _get_reset_warning_text()
 
 func _on_reset_canceled() -> void:
 	_reset_countdown_token += 1

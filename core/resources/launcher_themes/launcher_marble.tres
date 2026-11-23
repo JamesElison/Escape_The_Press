@@ -10,6 +10,7 @@
 
 [resource]
 script = ExtResource("1_maxij")
+launcher_name = "THEME_SHOP_TITLE_MARBLE"
 block_particles = true
 launcher_texture = ExtResource("3_k6b4v")
 launcher_map_texture = ExtResource("3_77teh")

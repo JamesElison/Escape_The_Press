@@ -27,7 +27,7 @@ load_path = "res://.godot/imported/stop_violet.png-a9935f6f130cc8c51a6422c4e1e41
 [resource]
 script = ExtResource("7_f6hma")
 launcher_id = "laser_beam"
-launcher_name = "laser_beam"
+launcher_name = "THEME_SHOP_TITLE_LASER_BEAM"
 is_flamethrower = true
 flame_texture = SubResource("CompressedTexture2D_nkwep")
 launcher_texture = SubResource("CompressedTexture2D_pmy3u")

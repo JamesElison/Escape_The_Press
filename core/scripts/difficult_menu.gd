@@ -51,19 +51,19 @@ func close() -> void:
 
 func check_button_state() -> void:
 	if GameManager.easy_difficulty_mode:
-		mode_label.text = str("Easy Mode Selected")
+		mode_label.text = tr("EASY_MODE_SELECTED")
 		easy_button.disabled = true
 		medium_button.disabled = false
 		hard_button.disabled = false
 
 	elif GameManager.medium_difficulty_mode:
-		mode_label.text = str("Medium Mode Selected")
+		mode_label.text = tr("MEDIUM_MODE_SELECTED")
 		easy_button.disabled = false
 		medium_button.disabled = true
 		hard_button.disabled = false
 
 	elif GameManager.hard_difficulty_mode:
-		mode_label.text = str("Hard Mode Selected")
+		mode_label.text = tr("HARD_MODE_SELECTED")
 		easy_button.disabled = false
 		medium_button.disabled = false
 		hard_button.disabled = true
@@ -75,7 +75,7 @@ func _on_easy_button_pressed() -> void:
 		GameManager.medium_difficulty_mode = false
 		GameManager.hard_difficulty_mode = false
 		GameManager._recalculate_press_speed()
-		mode_label.text = str("Easy Mode Selected")
+		mode_label.text = tr("EASY_MODE_SELECTED")
 		close()
 
 func _on_medium_button_pressed() -> void:
@@ -85,7 +85,7 @@ func _on_medium_button_pressed() -> void:
 		GameManager.medium_difficulty_mode = true
 		GameManager.hard_difficulty_mode = false
 		GameManager._recalculate_press_speed()
-		mode_label.text = str("Medium Mode Selected")
+		mode_label.text = tr("MEDIUM_MODE_SELECTED")
 		close()
 
 func _on_hard_button_pressed() -> void:
@@ -95,5 +95,5 @@ func _on_hard_button_pressed() -> void:
 		GameManager.medium_difficulty_mode = false
 		GameManager.hard_difficulty_mode = true
 		GameManager._recalculate_press_speed()
-		mode_label.text = str("Hard Mode Selected")
+		mode_label.text = tr("HARD_MODE_SELECTED")
 		close()

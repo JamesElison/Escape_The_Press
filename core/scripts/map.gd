@@ -267,20 +267,26 @@ func _disconnect_confirmation_signals() -> void:
 func _trigger_temporary_launcher_bonus() -> void:
 	if not GameManager:
 		return
-		
-	var chosen_theme = GameManager.get_next_temporary_launcher()
-	
+
+	var chosen_theme: String = str(GameManager.get_next_temporary_launcher())
+
 	if chosen_theme == "":
 		return
-		
+
 	GameManager.equip_temporary_launcher(chosen_theme, 1)
-	
+
+	var launcher_title: String = chosen_theme
+	if GameManager.launcher_themes_catalog.has(chosen_theme):
+		var launcher_data: LauncherThemeData = GameManager.launcher_themes_catalog[chosen_theme]
+		if launcher_data and launcher_data.launcher_name != "":
+			launcher_title = tr(launcher_data.launcher_name)
+
 	if message_label:
-		message_label.text = "Congratulations!!! You will play a round, with the theme " + chosen_theme
+		message_label.text = tr("CONGRATULATIONS_YOU") + " " + launcher_title
 		message_label.show()
-		
+
 	if bonus_sfx and not GameManager.is_sfx_muted:
 		bonus_sfx.play()
-		
+
 	if bonus_bgm and not GameManager.is_bgm_muted:
 		bonus_bgm.play()

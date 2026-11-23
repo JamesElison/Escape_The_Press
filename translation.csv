@@ -11,7 +11,7 @@ MENU_THEME_STORE_BUTTON;Theme Store;Loja de Temas;主题商店;Tienda de temas
 IS_EQUIPPED_LABEL;Using;Em Uso;使用中;En uso
 IS_UNLOCKED_PRICE;Acquired;Comprado;已购买;Comprado
 IS_UNLOCKED_LABEL;To Use;Disponível;可用;Disponible
-LOCKED_PRICE;% Coins;% Moedas;% 金币;% Monedas
+LOCKED_PRICE; Coins; Moedas; 金币; Monedas
 LOCKED_LABEL;Buy;Comprar;购买;Comprar
 THEME_SHOP_TITLE_MARBLE;Marble;Bolas de Gude;玻璃弹珠;Canicas
 THEME_SHOP_TITLE_120MM;120mm;120mm;120毫米;120mm
@@ -49,12 +49,12 @@ MENU_MAIN_MENU_BUTTON;Main Menu;Menu Principal;主菜单;Menú principal
 MENU_EXIT_BUTTON;Exit;Sair;退出;Salir
 DEMO_TAP_TO_PLAY;Demo - Tap to play;Demo - Toque para jogar;演示 - 点击开始游戏;Demo - Toca para jugar
 YOU_WIN;YOU WIN!!!;VOCÊ VENCEU!!!;你赢了！！！;¡¡¡GANASTE!!!
-CHALLENGE_READY_GO;Challenge %! Ready Go!;"Desafio %! Preparar, Já!";挑战 %！预备，开始！;"¡Desafío %! ¡Preparados, ya!"
+CHALLENGE_READY_GO;Challenge %s! Ready Go!;"Desafio %s! Preparar, Já!";挑战 %s！预备，开始！;"¡Desafío %s! ¡Preparados, ya!"
 YOU_LOSE;You Lose;Você Perdeu;你输了;Perdiste
 EASY_MODE_SELECTED;Easy Mode Selected;Modo Fácil Selecionado;已选择简单模式;Modo Fácil seleccionado
 MEDIUM_MODE_SELECTED;Medium Mode Selected;Modo Médio Selecionado;已选择中等模式;Modo Medio seleccionado
 HARD_MODE_SELECTED;Hard Mode Selected;Modo Difícil Selecionado;已选择困难模式;Modo Difícil seleccionado
-CONGRATULATIONS_YOU;"Congratulations!!! You will play a round, with the theme";"Parabéns!!! Você vai jogar uma rodada, com o tema";恭喜！！！您将使用以下主题进行一局游戏：;¡¡¡Felicidades!!! Vas a jugar una ronda con el tema
+CONGRATULATIONS_YOU;"Congratulations!!! You will play a round, with the theme ";"Parabéns!!! Você vai jogar uma rodada, com o tema ";恭喜！！！您将使用以下主题进行一局游戏：;¡¡¡Felicidades!!! Vas a jugar una ronda con el tema 
 VS_UPDATE_AVAILABLE;Update Available!;Atualização Disponível!;有可用更新！;¡Actualización disponible!
 VS_DO_YOU_WANT;Do you want to open the Play Store to update?;Deseja abrir a Play Store para atualizar?;是否打开 Play 商店进行更新？;¿Deseas abrir Play Store para actualizar?
 VS_TO_UPDATE;To update;Atualizar;更新;Actualizar

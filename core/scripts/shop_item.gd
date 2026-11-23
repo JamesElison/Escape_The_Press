@@ -34,20 +34,20 @@ func update_state() -> void:
 	
 	if is_equipped:
 		price_label.text = ""
-		action_button_label.text = "Using"
+		action_button_label.text = tr("IS_EQUIPPED_LABEL")
 		action_button.disabled = true
 	elif is_unlocked:
-		price_label.text = "Acquired"
-		action_button_label.text = "To Use"
+		price_label.text = tr("IS_UNLOCKED_PRICE")
+		action_button_label.text = tr("IS_UNLOCKED_LABEL")
 		action_button.disabled = false
 	else:
 		# Exibe o preço formatado com ponto separador de milhar
 		if typeof(price) == TYPE_INT or typeof(price) == TYPE_FLOAT:
-			price_label.text = _format_number(int(price)) + " Coins"
+			price_label.text = _format_number(int(price)) + tr("LOCKED_PRICE")
 		else:
 			price_label.text = str(price)
 			
-		action_button_label.text = "Buy"
+		action_button_label.text = tr("LOCKED_LABEL")
 		action_button.disabled = false
 
 func _on_action_button_pressed() -> void:

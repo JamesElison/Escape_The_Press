@@ -7,7 +7,7 @@ const BLOCK_ANIMATIONS_SCENE = preload("res://core/entities/effects/block_animat
 
 var affected_block: bool = false: set = set_affected_block
 var droped_block: bool = false: set = set_droped_block
-
+var animate_on_press_hit: bool = false
 var block_color: int = -1: set = set_block_color
 
 var has_landed: bool = false
@@ -43,6 +43,27 @@ const BRIGHT_FILENAMES = [
 	"cyan_block_bright.png", "magenta_block_bright.png", "yellow_block_bright.png",
 	"black_block.png"
 ]
+
+func _ready() -> void:
+	especific_fx()
+	update_theme_sounds()
+	if is_instance_valid(mystery_label):
+		mystery_label.hide()
+		
+	if block_color == -1:
+		var valid_grid_colors = [0, 1, 2, 4, 5, 6]
+		block_color = valid_grid_colors[randi() % valid_grid_colors.size()]
+	else:
+		set_block_color(block_color)
+	
+	add_to_group("blocks")
+	sync_to_physics = false
+	
+	if GameManager.ongoing and is_instance_valid(coin_anim):
+		coin_anim.play("coin_subtraction")
+	
+	var press_node = get_tree().current_scene.find_child("Press", true, false)
+
 
 func get_block_texture_path(idx: int, bright: bool = false) -> String:
 	var launcher_theme = GameManager.get_current_launcher_theme()
@@ -101,20 +122,6 @@ func _setup_animated_block_visuals(color_idx: int) -> void:
 			if target_sprite.sprite_frames and target_sprite.sprite_frames.has_animation("6_block_flame"):
 				target_sprite.play("6_block_flame")
 
-func _ready() -> void:
-	especific_fx()
-	update_theme_sounds()
-	if is_instance_valid(mystery_label):
-		mystery_label.hide()
-		
-	if block_color == -1:
-		var valid_grid_colors = [0, 1, 2, 4, 5, 6]
-		block_color = valid_grid_colors[randi() % valid_grid_colors.size()]
-	else:
-		set_block_color(block_color)
-	
-	add_to_group("blocks")
-	sync_to_physics = false
 
 func especific_fx() -> void:
 	var active_launcher_id = GameManager.temporary_launcher if GameManager.temporary_launcher != "" else GameManager.equipped_launcher
@@ -208,6 +215,7 @@ func spawn_replacement_block() -> void:
 		
 		if press_node.has_method("add_collision_exception_with"):
 			press_node.add_collision_exception_with(new_block)
+
 
 func play_color_change_sound() -> void:
 	if block_color_change_sound:

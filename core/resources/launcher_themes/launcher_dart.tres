@@ -11,7 +11,7 @@
 [resource]
 script = ExtResource("6_umbr1")
 launcher_id = "dart"
-launcher_name = "dart"
+launcher_name = "THEME_SHOP_TITLE_DART"
 launcher_texture = ExtResource("2_kcyg2")
 launcher_map_texture = ExtResource("1_uf0mt")
 press_texture = ExtResource("3_jrw8j")

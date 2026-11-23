@@ -31,15 +31,15 @@ func update_state() -> void:
 	
 	if is_current_biome:
 		price_label.text = ""
-		action_button_label.text = "Exploring"
+		action_button_label.text = tr("BIOME_BUTTON_EXPLORING")
 		action_button.disabled = true
 	elif is_conquered:
-		price_label.text = "Available"
-		action_button_label.text = "Join"
+		price_label.text = tr("BIOME_PRICE_AVALIABLE")
+		action_button_label.text = tr("BIOME_BUTTON_JOIN")
 		action_button.disabled = false
 	else:
-		price_label.text = "Unavailable"
-		action_button_label.text = "Blocked"
+		price_label.text = tr("BIOME_PRICE_UNAVALIABLE")
+		action_button_label.text = tr("BIOME_BUTTON_BLOCKED")
 		action_button.disabled = true
 
 func _on_action_button_pressed() -> void:

@@ -27,7 +27,7 @@ load_path = "res://.godot/imported/stop_red.png-950d02b5078a1fdb84aeaed163951346
 [resource]
 script = ExtResource("1_k2na0")
 launcher_id = "fire_fighter"
-launcher_name = "fire_fighter"
+launcher_name = "THEME_SHOP_TITLE_FIRE_FIGHTER"
 is_flamethrower = true
 flame_texture = SubResource("CompressedTexture2D_xpnh1")
 launcher_texture = SubResource("CompressedTexture2D_av7bb")

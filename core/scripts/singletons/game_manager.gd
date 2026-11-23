@@ -1,6 +1,7 @@
 extends Node
 
 var just_beat_final_level: bool = false  # Flag de controle para a animação do portal no mapa
+var ongoing: bool = false
 
 # --- CONTROLE DO MODO DEMONSTRAÇÃO (ATTRACT MODE) ---
 var is_attract_mode: bool = false      # True quando o jogo está rodando a demo sozinho[cite: 16]
@@ -108,7 +109,6 @@ func _load_launcher_themes() -> void:
 	launcher_themes_catalog["piercing"] = load("res://core/resources/launcher_themes/launcher_piercing.tres")
 	launcher_themes_catalog["mini_plasma"] = load("res://core/resources/launcher_themes/launcher_mini_plasma.tres")
 	launcher_themes_catalog["flame"] = load("res://core/resources/launcher_themes/launcher_flame.tres")
-	launcher_themes_catalog["high_voltage"] = load("res://core/resources/launcher_themes/launcher_hig_voltage.tres")
 	launcher_themes_catalog["high_voltage"] = load("res://core/resources/launcher_themes/launcher_high_voltage.tres")
 	launcher_themes_catalog["fire_fighter"] = load("res://core/resources/launcher_themes/launcher_fire_fighter.tres")
 	launcher_themes_catalog["laser_beam"] = load("res://core/resources/launcher_themes/launcher_laser_beam.tres")

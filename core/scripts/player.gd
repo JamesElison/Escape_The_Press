@@ -592,6 +592,8 @@ func spawn_block_on_press_flame(press_node: Node2D, impact_position: Vector2, co
 	var new_block = BLOCK_SCENE.instantiate()
 	new_block.name = "Block_Spawned"
 	new_block.position = final_local_pos
+	if "animate_on_press_hit" in new_block:
+		new_block.animate_on_press_hit = true
 
 	new_block.add_to_group("blocks")
 	container.add_child(new_block)
@@ -601,6 +603,11 @@ func spawn_block_on_press_flame(press_node: Node2D, impact_position: Vector2, co
 
 	if press_node.has_method("add_collision_exception_with"):
 		press_node.add_collision_exception_with(new_block)
+
+	#if press_node.has_signal("hit_anim") and new_block.has_method("play_coin_subtraction"):
+		#if not press_node.hit_anim.is_connected(new_block.play_coin_subtraction):
+			#press_node.hit_anim.connect(new_block.play_coin_subtraction, CONNECT_ONE_SHOT)
+			#print("[Player] Conectou hit_anim no bloco da chama: ", new_block.name)
 
 	get_tree().process_frame.connect(
 		func():

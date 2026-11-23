@@ -12,7 +12,7 @@
 [resource]
 script = ExtResource("4_x4xnx")
 launcher_id = "high_voltage"
-launcher_name = "high_voltage"
+launcher_name = "THEME_SHOP_TITLE_HIGH_VOLTAGE"
 is_flamethrower = true
 flame_texture = ExtResource("1_ihdrs")
 launcher_texture = ExtResource("2_m2utg")

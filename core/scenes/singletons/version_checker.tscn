@@ -1,6 +1,20 @@
 [gd_scene format=3 uid="uid://bawcslu2fdi4u"]
 
+[ext_resource type="FontFile" uid="uid://dnnkj3n1uuckt" path="res://core/assets/fonts/Xolonium-Regular.ttf" id="1_slafr"]
 [ext_resource type="Script" uid="uid://b52ld0gwfctrc" path="res://core/scripts/singletons/version_checker.gd" id="1_togxq"]
 
-[node name="VersionChecker" type="Node" unique_id=467952812]
+[sub_resource type="Theme" id="Theme_0jp4f"]
+default_font = ExtResource("1_slafr")
+default_font_size = 28
+
+[node name="VersionChecker" type="ConfirmationDialog" unique_id=1010853168]
+oversampling_override = 1.0
+title = "VS_UPDATE_AVAILABLE"
+position = Vector2i(0, 36)
+size = Vector2i(519, 256)
+theme = SubResource("Theme_0jp4f")
+ok_button_text = "VS_TO_UPDATE"
+dialog_text = "VS_DO_YOU_WANT"
+dialog_autowrap = true
+cancel_button_text = "VS_NOT_NOW"
 script = ExtResource("1_togxq")

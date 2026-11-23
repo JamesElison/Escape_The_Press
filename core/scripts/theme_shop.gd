@@ -11,76 +11,75 @@ const SHOP_ITEM_SCENE = preload("res://core/scenes/set_elements/shop_item.tscn")
 var items_catalog: Array[Dictionary] = [
 	{
 		"id": "marble",
-		"title": "Marble",
+		"title_key": "THEME_SHOP_TITLE_MARBLE",
 		"price": "N/A",  # Padrão inicial
 		"texture_path": "res://core/assets/HUD/texture_path/0_marble_720x256_v2.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/"
 	},
 	{
 		"id": "120mm",
-		"title": "120mm",
-		"price": 0,   # Preço de exemplo para compra na lojinha
+		"title_key": "THEME_SHOP_TITLE_120MM",
+		"price": 35700,   # Preço de exemplo para compra na lojinha
 		"texture_path": "res://core/assets/HUD/texture_path/1_120mm_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
 		"id": "piercing",
-		"title": "Piercing",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_PIERCING",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/2_piercing_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
 		"id": "mini_plasma",
-		"title": "Mini Plasma",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_MINI_PLASMA",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/3_mini_plasma_720x256_v2.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 	},
 	{
 		"id": "flame",
-		"title": "Flame Thrower",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_FLAME_THROWER",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/4_flame_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/4_flame_type/"
 	},
 	{
 		"id": "high_voltage",
-		"title": "High Voltage",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_HIGH_VOLTAGE",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/5_high_voltage_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/5_high_voltage_type/"
 	},
 	{
 		"id": "fire_fighter",
-		"title": "Fire Fighter",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_FIRE_FIGHTER",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/6_fire_fighter_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/6_fire_fighter/"
 	},
 	{
 		"id": "laser_beam",
-		"title": "Laser Beam",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_LASER_BEAM",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/7_laser_beam_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/7_laser_beam/"
 	},
 	{
 		"id": "ice_cube",
-		"title": "Ice Cube",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_ICE_CUBE",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/8_ice_cube_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/8_ice_cube/"
 	},
 	{
 		"id": "dart",
-		"title": "Dart",
-		"price": 0,
+		"title_key": "THEME_SHOP_TITLE_DART",
+		"price": 35700,
 		"texture_path": "res://core/assets/HUD/texture_path/9_dart_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/9_dart/"
 	}
 ]
-
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -96,9 +95,14 @@ func populate_shop() -> void:
 		child.queue_free()
 		
 	for item_data in items_catalog:
+		var localized_item := item_data.duplicate()
+		var title_key: String = item_data.get("title_key", "")
+		if title_key != "":
+			localized_item["title"] = tr(title_key)
+			
 		var item_node = SHOP_ITEM_SCENE.instantiate()
 		vbox_container.add_child(item_node)
-		item_node.setup(item_data)
+		item_node.setup(localized_item)
 		
 		item_node.buy_requested.connect(_on_item_buy_requested)
 		item_node.equip_requested.connect(_on_item_equip_requested)
@@ -149,6 +153,7 @@ func toggle_shop() -> void:
 func open() -> void:
 	if theme_shop_music:
 		theme_shop_music.play()
+	populate_shop()
 	refresh_all_items()
 	show()
 	get_tree().paused = true

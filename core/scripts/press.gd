@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal hit_anim
+
 var press_active = false: set = set_press_active
 
 @onready var press_hit_sound = $PressHitSound
@@ -53,5 +55,8 @@ func _physics_process(delta: float) -> void:
 			collider.die()
 
 func press_hit() -> void:
+	# Direciona a penalidade para a conta provisória da partida
+	GameManager.remove_match_coins(10)
+	
 	if press_hit_sound:
 		press_hit_sound.play()

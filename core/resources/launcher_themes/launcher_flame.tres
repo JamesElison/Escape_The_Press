@@ -12,7 +12,7 @@
 [resource]
 script = ExtResource("6_v6xug")
 launcher_id = "flame"
-launcher_name = "flame"
+launcher_name = "THEME_SHOP_TITLE_FLAME_THROWER"
 is_flamethrower = true
 flame_texture = ExtResource("1_v4kv8")
 launcher_texture = ExtResource("4_5y6ca")

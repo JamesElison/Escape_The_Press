@@ -11,7 +11,7 @@
 [resource]
 script = ExtResource("6_ktan2")
 launcher_id = "ice_cube"
-launcher_name = "ice_cube"
+launcher_name = "THEME_SHOP_TITLE_ICE_CUBE"
 launcher_texture = ExtResource("2_ar4vh")
 launcher_map_texture = ExtResource("1_5ow78")
 press_texture = ExtResource("3_gwf7p")
