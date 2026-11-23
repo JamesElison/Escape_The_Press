@@ -49,13 +49,15 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -90.5
-offset_top = 48.0
+offset_top = 64.0
 offset_right = 90.5
-offset_bottom = 87.0
+offset_bottom = 103.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("5_8pj3l")
 theme_override_font_sizes/font_size = 32
-text = "Your Coins"
+text = "THEME_SHOP_TITLE_LABEL"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CoinLabel" type="Label" parent="CoinPanel" unique_id=1130144675]
 layout_mode = 1
