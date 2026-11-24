@@ -2,6 +2,9 @@ extends Control
 
 const RESET_WARNING_KEY := "RESET_LABEL_NORMAL"
 const RESET_SUCCESS_KEY := "RESET_LABEL_PRESS"
+const BUY_WARNING_KEY := "BUY_GAME_LABEL"
+const BUY_OPERATION_KEY := "BUY_GAME_LABEL_OPERATION"
+const BUY_SUCCESS_KEY := "BUY_GAME_LABEL_ACQUIRED"
 const BIOME_SHOP_SCENE := preload("res://core/scenes/set_elements/biome_shop.tscn")
 const LANGUAGE_MENU_SCENE := preload("res://core/scenes/set_elements/language_menu.tscn")
 
@@ -13,6 +16,7 @@ signal biome_shop_opened
 signal language_menu_opened
 
 var _reset_countdown_token: int = 0
+var _buy_countdown_token: int = 0
 
 @onready var menu_music = $MenuMusic
 @onready var menu_button_sound = $MenuButtonSound
@@ -34,6 +38,11 @@ var _reset_countdown_token: int = 0
 @onready var difficulty_button_label = $MenuScroll/MenuVBox/Panel4/DifficultyButton/Label
 @onready var language_button = $MenuScroll/MenuVBox/Panel4b/LanguageButton
 @onready var language_button_label = $MenuScroll/MenuVBox/Panel4b/LanguageButton/Label
+@onready var buy_coin_button = $MenuScroll/MenuVBox/Panel4c/BuyCoinButton
+@onready var buy_coin_button_label = $MenuScroll/MenuVBox/Panel4c/BuyCoinLabel
+@onready var buy_game_button = $MenuScroll/MenuVBox/Panel4d/BuyGameButton
+@onready var buy_game_button_label = $MenuScroll/MenuVBox/Panel4d/BuyGameLabel
+@onready var buy_game_label = $MenuScroll/MenuVBox/Panel4d/BuyGameLabel
 @onready var reset_button = $MenuScroll/MenuVBox/Panel5/ResetButton
 @onready var reset_button_label = $MenuScroll/MenuVBox/Panel5/ResetButton/Label
 @onready var reset_label = $MenuScroll/MenuVBox/Panel5/ResetLabel
@@ -46,6 +55,7 @@ var _reset_countdown_token: int = 0
 @onready var exit_button = $MenuScroll/MenuVBox/Panel8/ExitButton
 @onready var exit_button_label = $MenuScroll/MenuVBox/Panel8/ExitButton/Label
 @onready var reset_confirm = $ConfirmationDialog
+@onready var buy_confirm = $ConfirmationDialog2
 
 @export var theme_shop_ui: Control
 @export var biome_shop_ui: Control
@@ -142,6 +152,16 @@ func _ready() -> void:
 			exit_button.pressed.connect(_on_exit_button_pressed)
 
 	_update_audio_buttons_visual_state()
+	if is_instance_valid(buy_game_button):
+		if not buy_game_button.pressed.is_connected(_on_buy_game_button_pressed):
+			buy_game_button.pressed.connect(_on_buy_game_button_pressed)
+
+	var iap := get_node_or_null("/root/InAppManager")
+	if is_instance_valid(iap) and iap.has_signal("ad_free_purchased"):
+		if not iap.ad_free_purchased.is_connected(_on_ad_free_purchased_from_iap):
+			iap.ad_free_purchased.connect(_on_ad_free_purchased_from_iap)
+
+	_update_buy_game_label_state()
 
 
 func refresh_all_items() -> void:
@@ -228,6 +248,7 @@ func toggle_shop() -> void:
 func open() -> void:
 	if is_instance_valid(reset_label):
 		reset_label.text = _get_reset_warning_text()
+	_update_buy_game_label_state()
 	if not GameManager.is_bgm_muted and menu_music and not menu_music.playing:
 		menu_music.play()
 	refresh_all_items()
@@ -235,8 +256,6 @@ func open() -> void:
 	get_tree().paused = true
 	opened.emit()
 
-func _get_reset_warning_text() -> String:
-	return tr(RESET_WARNING_KEY)
 
 func close() -> void:
 	if menu_music and menu_music.playing:
@@ -340,6 +359,8 @@ func _on_difficulty_button_pressed() -> void:
 		elif target_shop.has_method("toggle_shop"):
 			target_shop.toggle_shop()
 
+
+# --- FUNÇÕES DO BOTÃO DE IDIOMA ---
 func _on_language_button_pressed() -> void:
 	menu_button_sound.play()
 	if menu_music and menu_music.playing:
@@ -369,6 +390,117 @@ func _on_language_button_pressed() -> void:
 		elif target_shop.has_method("toggle_shop"):
 			target_shop.toggle_shop()
 
+
+# --- FUNÇÕES DO BOTÃO COMPRAR MOEDA ---
+func _on_buy_coin_button_pressed() -> void:
+	pass
+
+
+
+# --- FUNÇÕES DO BOTÃO BUY GAME ---
+func _on_buy_game_button_pressed() -> void:
+	menu_button_sound.play()
+	
+	if is_instance_valid(buy_confirm):
+		_buy_countdown_token += 1
+		var current_token := _buy_countdown_token
+		
+		buy_confirm.cancel_button_text = tr("CD_CANCEL")
+		
+		var ok_btn: Button = buy_confirm.get_ok_button()
+		if is_instance_valid(ok_btn):
+			ok_btn.disabled = true
+			ok_btn.text = "10"
+		else:
+			buy_confirm.ok_button_text = "10"
+		
+		if not buy_confirm.confirmed.is_connected(_on_buy_confirmed):
+			buy_confirm.confirmed.connect(_on_buy_confirmed)
+		if not buy_confirm.canceled.is_connected(_on_buy_canceled):
+			buy_confirm.canceled.connect(_on_buy_canceled)
+			
+		buy_confirm.popup_centered()
+		
+		# Contagem regressiva de 10 até 1 (1.0s cada) com o botão OK desabilitado
+		for count in ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]:
+			if current_token != _buy_countdown_token or not is_instance_valid(buy_confirm) or not buy_confirm.visible:
+				return
+			if is_instance_valid(ok_btn):
+				ok_btn.disabled = true
+				ok_btn.text = count
+			await get_tree().create_timer(1.0, true).timeout
+		
+		# Finaliza a contagem e libera o botão Confirm
+		if current_token != _buy_countdown_token or not is_instance_valid(buy_confirm) or not buy_confirm.visible:
+			return
+		if is_instance_valid(ok_btn):
+			ok_btn.text = tr("CD_OK")
+			ok_btn.disabled = false
+		else:
+			buy_confirm.ok_button_text = tr("CD_OK")
+	else:
+		_on_buy_confirmed()
+
+func _on_buy_confirmed() -> void:
+	_buy_countdown_token += 1
+	_disconnect_buy_dialog_signals()
+
+	if _is_game_ad_free_owned():
+		_update_buy_game_label_state()
+		return
+
+	if is_instance_valid(buy_game_label):
+		buy_game_label.text = tr(BUY_OPERATION_KEY)
+
+	var iap := get_node_or_null("/root/InAppManager")
+	if is_instance_valid(iap) and iap.has_method("buy_ad_free"):
+		iap.buy_ad_free()
+	else:
+		# Fallback caso InAppManager não esteja carregado
+		if is_instance_valid(buy_game_label):
+			buy_game_label.text = _get_buy_warning_text()
+
+func _on_buy_canceled() -> void:
+	_buy_countdown_token += 1
+	var ok_btn: Button = buy_confirm.get_ok_button() if is_instance_valid(buy_confirm) else null
+	if is_instance_valid(ok_btn):
+		ok_btn.disabled = false
+	_disconnect_buy_dialog_signals()
+	_update_buy_game_label_state()
+
+func _disconnect_buy_dialog_signals() -> void:
+	if is_instance_valid(buy_confirm):
+		if buy_confirm.confirmed.is_connected(_on_buy_confirmed):
+			buy_confirm.confirmed.disconnect(_on_buy_confirmed)
+		if buy_confirm.canceled.is_connected(_on_buy_canceled):
+			buy_confirm.canceled.disconnect(_on_buy_canceled)
+
+func _get_buy_warning_text() -> String:
+	return tr(BUY_WARNING_KEY)
+
+func _is_game_ad_free_owned() -> bool:
+	var owned := false
+	if GameManager and GameManager.is_premium:
+		owned = true
+	var iap := get_node_or_null("/root/InAppManager")
+	if is_instance_valid(iap) and iap.is_ad_free_purchased:
+		owned = true
+	return owned
+
+func _update_buy_game_label_state() -> void:
+	if not is_instance_valid(buy_game_label):
+		return
+	if _is_game_ad_free_owned():
+		buy_game_label.text = tr(BUY_SUCCESS_KEY)
+	else:
+		buy_game_label.text = tr(BUY_WARNING_KEY)
+
+func _on_ad_free_purchased_from_iap() -> void:
+	_buy_countdown_token += 1
+	_update_buy_game_label_state()
+
+
+# --- FUNÇÕES DO BOTÃO RESET ---
 func _on_reset_button_pressed() -> void:
 	menu_button_sound.play()
 	
@@ -381,9 +513,9 @@ func _on_reset_button_pressed() -> void:
 		var ok_btn: Button = reset_confirm.get_ok_button()
 		if is_instance_valid(ok_btn):
 			ok_btn.disabled = true
-			ok_btn.text = "5"
+			ok_btn.text = "10"
 		else:
-			reset_confirm.ok_button_text = "5"
+			reset_confirm.ok_button_text = "10"
 		
 		if not reset_confirm.confirmed.is_connected(_on_reset_confirmed):
 			reset_confirm.confirmed.connect(_on_reset_confirmed)
@@ -392,14 +524,14 @@ func _on_reset_button_pressed() -> void:
 			
 		reset_confirm.popup_centered()
 		
-		# Contagem regressiva de 5 até 1 (0.5s cada) com o botão OK desabilitado
-		for count in ["5", "4", "3", "2", "1"]:
+		# Contagem regressiva de 10 até 1 (1.0s cada) com o botão OK desabilitado
+		for count in ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]:
 			if current_token != _reset_countdown_token or not is_instance_valid(reset_confirm) or not reset_confirm.visible:
 				return
 			if is_instance_valid(ok_btn):
 				ok_btn.disabled = true
 				ok_btn.text = count
-			await get_tree().create_timer(0.5, true).timeout
+			await get_tree().create_timer(1.0, true).timeout
 		
 		# Finaliza a contagem e libera o botão Confirm
 		if current_token != _reset_countdown_token or not is_instance_valid(reset_confirm) or not reset_confirm.visible:
@@ -449,6 +581,11 @@ func _disconnect_reset_dialog_signals() -> void:
 		if reset_confirm.canceled.is_connected(_on_reset_canceled):
 			reset_confirm.canceled.disconnect(_on_reset_canceled)
 
+func _get_reset_warning_text() -> String:
+	return tr(RESET_WARNING_KEY)
+
+
+# --- FUNÇÕES DO BOTÃO DIRECT TO ---
 func _on_buy_button_pressed() -> void:
 	menu_button_sound.play()
 	

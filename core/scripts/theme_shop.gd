@@ -19,63 +19,63 @@ var items_catalog: Array[Dictionary] = [
 	{
 		"id": "120mm",
 		"title_key": "THEME_SHOP_TITLE_120MM",
-		"price": 80000,   # Preço de exemplo para compra na lojinha
+		"price": 100000,   # Preço de exemplo para compra na lojinha
 		"texture_path": "res://core/assets/HUD/texture_path/1_120mm_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/1_120mm_type/"
 	},
 	{
 		"id": "piercing",
 		"title_key": "THEME_SHOP_TITLE_PIERCING",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/2_piercing_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/2_piercing_type/"
 	},
 	{
 		"id": "mini_plasma",
 		"title_key": "THEME_SHOP_TITLE_MINI_PLASMA",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/3_mini_plasma_720x256_v2.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/3_mini_plasma_type/"
 	},
 	{
 		"id": "flame",
 		"title_key": "THEME_SHOP_TITLE_FLAME_THROWER",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/4_flame_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/4_flame_type/"
 	},
 	{
 		"id": "high_voltage",
 		"title_key": "THEME_SHOP_TITLE_HIGH_VOLTAGE",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/5_high_voltage_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/5_high_voltage_type/"
 	},
 	{
 		"id": "fire_fighter",
 		"title_key": "THEME_SHOP_TITLE_FIRE_FIGHTER",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/6_fire_fighter_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/6_fire_fighter/"
 	},
 	{
 		"id": "laser_beam",
 		"title_key": "THEME_SHOP_TITLE_LASER_BEAM",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/7_laser_beam_720x256.jpg",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/7_laser_beam/"
 	},
 	{
 		"id": "ice_cube",
 		"title_key": "THEME_SHOP_TITLE_ICE_CUBE",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/8_ice_cube_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/8_ice_cube/"
 	},
 	{
 		"id": "dart",
 		"title_key": "THEME_SHOP_TITLE_DART",
-		"price": 80000,
+		"price": 100000,
 		"texture_path": "res://core/assets/HUD/texture_path/9_dart_720x256.png",
 		"projectile_dir": "res://core/assets/sprites/set_objects/specific_projectiles/9_dart/"
 	}

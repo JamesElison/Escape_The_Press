@@ -40,7 +40,7 @@ func setup_state(current_level: int) -> void:
 
 	# Define qual animação o AnimatedSprite2D deve rodar nas casas de bônus (10, 20, 30, 40)
 	if is_instance_valid(stop_energy_stop):
-		if stop_number in [10, 20, 30, 40]:
+		if stop_number in [10, 15, 25, 30, 35, 40]:
 			if stop_energy_stop.sprite_frames and stop_energy_stop.sprite_frames.has_animation("bonus"):
 				stop_energy_stop.play("bonus")
 		else:

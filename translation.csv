@@ -28,7 +28,7 @@ MENU_BIOMES_SHOP;Biomes Shop;Biomas;生物群系;Biomas
 BIOME_BUTTON_EXPLORING;Exploring;Desbravando;探索中;Explorando
 BIOME_PRICE_AVALIABLE;Avaliable;Disponível;已解锁;Disponible
 BIOME_BUTTON_JOIN;Join;Ingressar;进入;Ingresar
-BIOME_PRICE_UNAVALIABLE;Unavailable;Indisponível;不可用;No disponible
+BIOME_PRICE_UNAVALIABLE;You haven't reached that point yet;Você ainda não chegou lá;你还没到那儿;Todavía no has llegado allí
 BIOME_BUTTON_BLOCKED;Blocked;Bloqueado;已锁定;Bloqueado
 MENU_DIFFICULTY_BUTTON;Difficulty;Dificuldade;难度;Dificultad
 EASY;Easy;Fácil;简单;Fácil
@@ -67,3 +67,11 @@ COMING_SOON;New biomes coming soon;Novos biomas em breve;即将推出新生物�
 CD_SPECIAL_TEXT_2;You’ve reached a special stop. ENJOY! Watch a short video and play this round using a launcher of your choice!!!;Você chegou a uma parada especial. APROVEITE! Assista a um vídeo curto e jogue essa rodada com um lançador de sua preferência!!!;您已到达一个特殊站点。享受！观看短片并使用您选择的启动器玩这一轮！！！;Has llegado a una parada especial. ¡DISFRÚTALA! ¡Mira un video corto y juega esta ronda con un lanzador de tu preferencia!
 BONUS;Play for 1 round!;Jogue por 1 rodada!;玩一轮！;¡Juega durante 1 ronda!
 ENJOY;To enjoy!;Aproveitar!;尽情享用！;¡A disfrutar!
+BUY_COIN_BUTTON_LABEL;Coins;Moedas;硬币;Monedas
+BUY_COIN_LABEL;Buy extra coins here;Compre moedas extras aqui;在这里购买额外金币;Compra monedas adicionales aquí
+BUY_GAME_BUTTON_LABEL;Buy;Comprar;买;Comprar
+BUY_GAME_LABEL;Remove the mandatory ads;Tire os anúncios obrigatórios;移除强制性广告。;Elimina los anuncios obligatorios
+CD_TEXT_2;"By tapping ""Confirm"", you will be directed to the Play Store to purchase the version without mandatory ads. Optional (rewarded) ads will remain available in case you want to earn extra coins or try out launchers for one round. Tap ""Confirm"" only if you understand and agree to this.";"Ao tocar em ""Confirmar"", você será direcionado à Play Store para adquirir a versão sem anúncios obrigatórios. Os anúncios opcionais (com recompensa) continuarão disponíveis caso queira ganhar moedas extras ou testar lançadores por uma rodada. Toque em ""Confirmar"" apenas se estiver ciente e de acordo.";点击“确认”后，您将被引导至 Play 商店购买无强制广告版本。可选的激励广告仍将保留，以便您在需要时赚取额外金币或试用发射器一回合。仅在您充分知晓并同意此条款时再点击“确认”。;"Al tocar ""Confirmar"", serás redirigido a la Play Store para adquirir la versión sin anuncios obligatorios. Los anuncios opcionales (con recompensa) seguirán disponibles por si deseas ganar monedas extra o probar lanzadores durante una ronda. Toca ""Confirmar"" solo si estás al tanto y de acuerdo con esto."
+BUY_GAME_LABEL_OPERATION;Purchase in progress;Compra em andamento;收购进行中;Compra en curso
+BUY_GAME_LABEL_ACQUIRED;Running paid version;Execultando versão paga;运行付费版本;Ejecutando versión de pago
+MONEY;US$;R$;¥;$

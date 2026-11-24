@@ -226,8 +226,8 @@ func arrived_at_stop(_stop_area: Area2D) -> void:
 	map_player_stoped = true
 	
 	# --- ANÚNCIOS POR MARCO DE CASA (MAPA) ---
-	# (1) Interstitial nas casas 5, 20 e 45
-	if current_level in [5, 20, 45]:
+	# (1) Interstitial nas casas 6, 12, 18, 24, 32, 38, 44
+	if current_level in [6, 12, 18, 24, 32, 38, 44]:
 		AdManager.show_interstitial()
 		
 	# (2) Rewarded nas casas 10, 30 e 40

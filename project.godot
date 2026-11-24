@@ -21,9 +21,9 @@ buses/default_bus_layout="uid://ci75srqjrb00"
 
 [autoload]
 
+InAppManager="*uid://bwfyuqggfpljq"
 EventBus="*uid://bkvgbda4meyi7"
 GameManager="*uid://b0fbqwgf6kpvk"
-InAppManager="*uid://bwfyuqggfpljq"
 AudioManager="*uid://cnvlwa2gg6qiq"
 AdManager="*uid://sjjhhrychlqb"
 DemoManager="*uid://cfgjn2o57n8dn"
@@ -38,7 +38,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/admob/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotGooglePlayBilling/plugin.cfg", "res://addons/admob/plugin.cfg")
 
 [input]
 

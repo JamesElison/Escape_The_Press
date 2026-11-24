@@ -437,6 +437,9 @@ func load_game_data() -> void:
 				
 				coins = save_dict.get("coins", 0)
 				is_premium = save_dict.get("is_premium", false)
+				var iap := get_node_or_null("/root/InAppManager")
+				if is_instance_valid(iap) and iap.is_ad_free_purchased:
+					is_premium = true
 				losses_since_last_ad = save_dict.get("losses_since_last_ad", 0)
 				
 				var raw_launchers = save_dict.get("unlocked_launchers", ["marble"])
@@ -531,6 +534,10 @@ func reset_all_save_data() -> void:
 	apply_language_settings()
 	EventBus.coins_updated.emit(coins)
 	EventBus.launcher_changed.emit(equipped_launcher)
+	var iap := get_node_or_null("/root/InAppManager")
+	if is_instance_valid(iap) and iap.is_ad_free_purchased:
+		is_premium = true
+		save_game_data()
 
 func play_sfx_persistent(stream: AudioStream) -> void:
 	if not stream or is_sfx_muted:
