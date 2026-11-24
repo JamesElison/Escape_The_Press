@@ -544,4 +544,17 @@ dialog_text = "CD_SPECIAL_TEXT"
 dialog_autowrap = true
 cancel_button_text = "CD_NOT_NOW"
 
+[node name="ConfirmationDialog2" type="ConfirmationDialog" parent="MapHUD" unique_id=1960774534]
+transparent_bg = true
+oversampling_override = 1.0
+title = "CD_SPECIAL_TITLE"
+position = Vector2i(104, 108)
+size = Vector2i(571, 256)
+transparent = true
+theme = SubResource("Theme_0i2xg")
+ok_button_text = "CD_WATCH_AD"
+dialog_text = "CD_SPECIAL_TEXT_2"
+dialog_autowrap = true
+cancel_button_text = "CD_NOT_NOW"
+
 [connection signal="pressed" from="MapHUD/PlayGameButton" to="." method="_on_play_game_button_pressed"]

@@ -46,6 +46,7 @@ var equipped_launcher: String = "marble"
 var temporary_launcher: String = ""  # Se preenchido, usa este lançador temporariamente[cite: 16]
 var temporary_launcher_levels_remaining: int = 0  # Rodadas restantes para o teste[cite: 16]
 var used_temporary_launchers: Array[String] = []  # Histórico de temporários já sorteados no ciclo[cite: 16]
+var is_choosing_temporary_launcher: bool = false
 
 # Armazena as configurações de áudio do jogador
 var is_bgm_muted: bool = false

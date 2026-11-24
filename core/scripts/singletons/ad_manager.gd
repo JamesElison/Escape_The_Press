@@ -1,5 +1,11 @@
 extends Node
 
+signal rewarded_earned(purpose: String)
+signal rewarded_dismissed(purpose: String)
+
+var _rewarded_purpose: String = "coins"
+var _earned_in_current_rewarded: bool = false
+
 var interstitial_ad: InterstitialAd
 var rewarded_ad: RewardedAd
 
@@ -40,8 +46,17 @@ func _setup_callbacks() -> void:
 		
 		rewarded_ad.full_screen_content_callback = FullScreenContentCallback.new()
 		rewarded_ad.full_screen_content_callback.on_ad_dismissed_full_screen_content = func() -> void:
+			var finished_purpose := _rewarded_purpose
+			var earned := _earned_in_current_rewarded
 			rewarded_ad = null
+			_earned_in_current_rewarded = false
+			_rewarded_purpose = "coins"
 			_load_rewarded()
+			rewarded_dismissed.emit(finished_purpose)
+			if finished_purpose == "launcher_choice":
+				rewarded_earned.emit(finished_purpose)
+			elif earned and finished_purpose != "coins":
+				rewarded_earned.emit(finished_purpose)
 
 	rewarded_load_callback.on_ad_failed_to_load = func(error: LoadAdError) -> void:
 		print("Falha ao carregar Rewarded: ", error.message)
@@ -49,7 +64,9 @@ func _setup_callbacks() -> void:
 	# Listener de Recompensa do Rewarded (sem tipagem estrita para evitar erro de escopo)
 	rewarded_listener.on_user_earned_reward = func(reward) -> void:
 		print("Recompensa garantida pelo AdMob!")
-		GameManager.grant_ad_reward()
+		_earned_in_current_rewarded = true
+		if _rewarded_purpose == "coins":
+			GameManager.grant_ad_reward()
 
 # --- INTERSTITIAL (Derrotas e Vitórias) ---
 func _load_interstitial() -> void:
@@ -78,9 +95,15 @@ func _load_rewarded() -> void:
 		
 	RewardedAdLoader.new().load(unit_id, AdRequest.new(), rewarded_load_callback)
 
-func show_rewarded() -> void:
+func show_rewarded(purpose: String = "coins") -> void:
+	_rewarded_purpose = purpose
+	_earned_in_current_rewarded = false
 	if rewarded_ad:
 		rewarded_ad.show(rewarded_listener)
 	else:
 		print("Rewarded Ad ainda não carregou.")
+		var fallback_purpose := _rewarded_purpose
+		_rewarded_purpose = "coins"
 		_load_rewarded()
+		if fallback_purpose == "launcher_choice":
+			rewarded_earned.emit(fallback_purpose)

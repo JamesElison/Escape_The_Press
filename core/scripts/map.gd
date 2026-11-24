@@ -23,6 +23,7 @@ extends Control
 @onready var hud_fade_anim = $MapHUD/HUDFadeAnim
 @onready var message_label = $MapHUD/MessageLabel
 @onready var confirmation_dialog = $MapHUD/ConfirmationDialog
+@onready var confirmation_dialog_2 = $MapHUD/ConfirmationDialog2
 
 # Variáveis de SnowFX:
 @onready var fog_overlay = $FXCanvas/FogOverlay
@@ -223,22 +224,26 @@ func arrived_at_stop(_stop_area: Area2D) -> void:
 	map_player_stoped = true
 	
 	# --- ANÚNCIOS POR MARCO DE CASA (MAPA) ---
-	# (1) Interstitial nas casas 5, 10, 20, 25, 35 e 40
-	if current_level in [5, 10, 20, 25, 35, 40]:
+	# (1) Interstitial nas casas 5, 20 e 45
+	if current_level in [5, 20, 45]:
 		AdManager.show_interstitial()
 		
-	# (2) Rewarded nas casas 15, 30 e 45
-	elif current_level in [15, 30, 45]:
+	# (2) Rewarded nas casas 10, 30 e 40
+	elif current_level in [10, 30, 40]:
 		_show_rewarded_ad_prompt()
-		
-	# --- VERIFICAÇÃO DE LANÇADOR TEMPORÁRIO (Casas 10, 20, 30 e 40) ---
-	if current_level in [10, 20, 30, 40]:
+	
+	# (3) Rewarded nas casas 15, 25 e 35
+	elif current_level in [15, 25, 35]:
+		_show_rewarded_ad_prompt_2()
+	
+	# --- VERIFICAÇÃO DE LANÇADOR TEMPORÁRIO (Casas 5, 20 e 45) ---
+	if current_level in [5, 20, 45]:
 		_trigger_temporary_launcher_bonus()
 
 func in_transit(_stop_area: Area2D) -> void:
 	map_player_stoped = false
 
-# --- POPUP PARA ASSISTIR ANÚNCIO DE RECOMPENSA ---
+# --- POPUP PARA ASSISTIR ANÚNCIO DE RECOMPENSA (GANHE 2000 MOEDAS) ---
 func _show_rewarded_ad_prompt() -> void:
 	confirmation_dialog.show()
 	
@@ -247,6 +252,18 @@ func _show_rewarded_ad_prompt() -> void:
 		
 	if not confirmation_dialog.canceled.is_connected(_on_confirmation_dialog_canceled):
 		confirmation_dialog.canceled.connect(_on_confirmation_dialog_canceled)
+
+
+# --- POPUP PARA ASSISTIR ANÚNCIO DE RECOMPENSA (ESCOLHA O LAUNCHER POR UMA RODADA)---
+func _show_rewarded_ad_prompt_2() -> void:
+	confirmation_dialog_2.show()
+	
+	if not confirmation_dialog_2.confirmed.is_connected(_on_confirmation_dialog_2_confirmed):
+		confirmation_dialog_2.confirmed.connect(_on_confirmation_dialog_2_confirmed)
+		
+	if not confirmation_dialog_2.canceled.is_connected(_on_confirmation_dialog_2_canceled):
+		confirmation_dialog_2.canceled.connect(_on_confirmation_dialog_2_canceled)
+
 
 func _on_confirmation_dialog_confirmed() -> void:
 	GameManager.save_game_data()
@@ -262,6 +279,41 @@ func _disconnect_confirmation_signals() -> void:
 		confirmation_dialog.confirmed.disconnect(_on_confirmation_dialog_confirmed)
 	if confirmation_dialog.canceled.is_connected(_on_confirmation_dialog_canceled):
 		confirmation_dialog.canceled.disconnect(_on_confirmation_dialog_canceled)
+
+func _on_confirmation_dialog_2_confirmed() -> void:
+	GameManager.save_game_data()
+	_disconnect_confirmation_2_signals()
+	
+	if AdManager.has_signal("rewarded_earned") and not AdManager.rewarded_earned.is_connected(_on_launcher_rewarded_earned):
+		AdManager.rewarded_earned.connect(_on_launcher_rewarded_earned, CONNECT_ONE_SHOT)
+		
+	AdManager.show_rewarded("launcher_choice")
+
+func _on_confirmation_dialog_2_canceled() -> void:
+	GameManager.save_game_data()
+	_disconnect_confirmation_2_signals()
+
+func _disconnect_confirmation_2_signals() -> void:
+	if confirmation_dialog_2.confirmed.is_connected(_on_confirmation_dialog_2_confirmed):
+		confirmation_dialog_2.confirmed.disconnect(_on_confirmation_dialog_2_confirmed)
+	if confirmation_dialog_2.canceled.is_connected(_on_confirmation_dialog_2_canceled):
+		confirmation_dialog_2.canceled.disconnect(_on_confirmation_dialog_2_canceled)
+
+func _on_launcher_rewarded_earned(purpose: String) -> void:
+	if purpose != "launcher_choice":
+		return
+		
+	GameManager.is_choosing_temporary_launcher = true
+	
+	var shop_node: Node = get_node_or_null("MapHUD/ThemeShop")
+	if not is_instance_valid(shop_node):
+		shop_node = find_child("ThemeShop", true, false)
+		if shop_node.has_method("open"):
+			shop_node.open()
+		else:
+			shop_node.show()
+
+
 
 # --- SORTEIO E AVISO DE LANÇADOR TEMPORÁRIO (CASAS 10, 20, 30, 40) ---
 func _trigger_temporary_launcher_bonus() -> void:

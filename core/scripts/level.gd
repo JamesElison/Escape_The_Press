@@ -123,7 +123,7 @@ func _ready() -> void:
 		EventBus.launcher_changed.connect(_on_launcher_changed)
 	
 	# Espera 5 segundos e muda gamemanager.ongoin para true
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(10.0).timeout
 	GameManager.ongoing = true
 	print("O ongonig está: ", GameManager.ongoing)
 

@@ -28,6 +28,12 @@ func setup(data: Dictionary) -> void:
 func update_state() -> void:
 	var item_id = current_item_data.get("id", "")
 	var price = current_item_data.get("price", 0)
+
+	if GameManager.is_choosing_temporary_launcher:
+		price_label.text = tr("BONUS")
+		action_button_label.text = tr("ENJOY")
+		action_button.disabled = false
+		return
 	
 	var is_unlocked = item_id in GameManager.unlocked_launchers
 	var is_equipped = (GameManager.equipped_launcher == item_id)
@@ -41,7 +47,6 @@ func update_state() -> void:
 		action_button_label.text = tr("IS_UNLOCKED_LABEL")
 		action_button.disabled = false
 	else:
-		# Exibe o preço formatado com ponto separador de milhar
 		if typeof(price) == TYPE_INT or typeof(price) == TYPE_FLOAT:
 			price_label.text = _format_number(int(price)) + tr("LOCKED_PRICE")
 		else:
@@ -52,8 +57,14 @@ func update_state() -> void:
 
 func _on_action_button_pressed() -> void:
 	var item_id = current_item_data.get("id", "")
+
+	if GameManager.is_choosing_temporary_launcher:
+		if item_accepted_sound:
+			item_accepted_sound.play()
+		equip_requested.emit(current_item_data)
+		return
 	
-	if item_id in GameManager.unlocked_launchers:
+	elif item_id in GameManager.unlocked_launchers:
 		if item_accepted_sound:
 			item_accepted_sound.play()
 		equip_requested.emit(current_item_data)
