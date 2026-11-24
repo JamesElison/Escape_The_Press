@@ -1,5 +1,7 @@
 extends Control
 
+const THEME_SHOP_SCENE := preload("res://core/scenes/set_elements/theme_shop.tscn")
+
 @onready var map_bgm = $MapBGM
 @onready var bonus_sfx = $BonusSFX
 @onready var bonus_bgm = $BonusBGM
@@ -308,11 +310,20 @@ func _on_launcher_rewarded_earned(purpose: String) -> void:
 	var shop_node: Node = get_node_or_null("MapHUD/ThemeShop")
 	if not is_instance_valid(shop_node):
 		shop_node = find_child("ThemeShop", true, false)
+		
+	if not is_instance_valid(shop_node) and THEME_SHOP_SCENE:
+		shop_node = THEME_SHOP_SCENE.instantiate()
+		var parent_target: Node = get_node_or_null("MapHUD")
+		if not is_instance_valid(parent_target):
+			parent_target = self
+		parent_target.add_child(shop_node)
+		
+	if is_instance_valid(shop_node):
 		if shop_node.has_method("open"):
 			shop_node.open()
 		else:
 			shop_node.show()
-
+			get_tree().paused = true
 
 
 # --- SORTEIO E AVISO DE LANÇADOR TEMPORÁRIO (CASAS 10, 20, 30, 40) ---
