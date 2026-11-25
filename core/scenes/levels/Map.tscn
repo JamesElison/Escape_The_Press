@@ -276,6 +276,7 @@ offset_bottom = 183.0
 visible = false
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_w4o7b")
+autoplay = "default"
 frame_progress = 0.49506903
 
 [node name="PortalArea" type="Area2D" parent="ScrollContainer/MapBackground/PortalSprite" unique_id=911751676]

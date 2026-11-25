@@ -40,6 +40,7 @@ var _buy_countdown_token: int = 0
 @onready var language_button_label = $MenuScroll/MenuVBox/Panel4b/LanguageButton/Label
 @onready var buy_coin_button = $MenuScroll/MenuVBox/Panel4c/BuyCoinButton
 @onready var buy_coin_button_label = $MenuScroll/MenuVBox/Panel4c/BuyCoinLabel
+@onready var panel_4_d = $MenuScroll/MenuVBox/Panel4d
 @onready var buy_game_button = $MenuScroll/MenuVBox/Panel4d/BuyGameButton
 @onready var buy_game_button_label = $MenuScroll/MenuVBox/Panel4d/BuyGameLabel
 @onready var buy_game_label = $MenuScroll/MenuVBox/Panel4d/BuyGameLabel
@@ -162,6 +163,7 @@ func _ready() -> void:
 			iap.ad_free_purchased.connect(_on_ad_free_purchased_from_iap)
 
 	_update_buy_game_label_state()
+	button_disabled()
 
 
 func refresh_all_items() -> void:
@@ -398,6 +400,10 @@ func _on_buy_coin_button_pressed() -> void:
 
 
 # --- FUNÇÕES DO BOTÃO BUY GAME ---
+func button_disabled() -> void:
+	if GameManager.is_premium == true:
+		panel_4_d.hide()
+
 func _on_buy_game_button_pressed() -> void:
 	menu_button_sound.play()
 	

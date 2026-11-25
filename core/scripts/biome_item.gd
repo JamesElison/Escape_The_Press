@@ -27,13 +27,13 @@ func setup(data: Dictionary) -> void:
 func update_state() -> void:
 	var item_id: String = str(current_item_data.get("id", ""))
 	var is_current_biome: bool = (GameManager.current_biome == item_id)
-	var is_conquered: bool = GameManager.is_biome_completed(item_id)
+	var is_available: bool = GameManager.is_biome_unlocked_or_reached(item_id)
 	
 	if is_current_biome:
 		price_label.text = ""
 		action_button_label.text = tr("BIOME_BUTTON_EXPLORING")
 		action_button.disabled = true
-	elif is_conquered:
+	elif is_available:
 		price_label.text = tr("BIOME_PRICE_AVALIABLE")
 		action_button_label.text = tr("BIOME_BUTTON_JOIN")
 		action_button.disabled = false
