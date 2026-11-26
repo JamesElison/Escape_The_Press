@@ -3868,6 +3868,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PanelSuperUser" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=667412036]
+visible = false
 layout_mode = 2
 mouse_filter = 1
 
@@ -3878,6 +3879,7 @@ theme_override_fonts/font = SubResource("FontFile_lbc3m")
 theme_override_font_sizes/font_size = 32
 
 [node name="Panel7" type="PanelContainer" parent="MenuScroll/MenuVBox" unique_id=435036250]
+visible = false
 custom_minimum_size = Vector2(0, 196)
 layout_mode = 2
 mouse_filter = 1

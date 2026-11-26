@@ -7,10 +7,10 @@ const JSON_URL: String = "https://raw.githubusercontent.com/JamesElison/Escape_T
 const PLAY_STORE_URL: String = "https://play.google.com/store/apps/details?id=com.JEP.escape_the_press"
 
 # Controle interno numérico (comparação real de atualização)
-const CURRENT_VERSION_CODE: int = 16
+const CURRENT_VERSION_CODE: int = 17
 
 # Nome público da versão atual instalada no jogo
-const CURRENT_VERSION_NAME: String = "0.10.11"
+const CURRENT_VERSION_NAME: String = "0.10.13"
 
 @onready var http_request: HTTPRequest = HTTPRequest.new()
 var _current_notes: String = ""
